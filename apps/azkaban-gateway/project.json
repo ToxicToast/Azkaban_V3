@@ -1,0 +1,24 @@
+{
+  "name": "azkaban-gateway",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/azkaban-gateway/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "azkaban-gateway:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "azkaban-gateway:build:development"
+        },
+        "production": {
+          "buildTarget": "azkaban-gateway:build:production"
+        }
+      }
+    }
+  }
+}
