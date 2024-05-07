@@ -1,11 +1,13 @@
 {
-  "name": "@azkaban-v3/source",
+  "name": "@azkaban/source",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
+    "@toxictoast/azkaban-base-types": "^0.0.1",
     "@nx/js": "19.0.0",
     "@nx/workspace": "19.0.0",
     "nx": "19.0.0"
