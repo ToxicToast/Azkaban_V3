@@ -5,11 +5,12 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@apialerts/js": "^1.1.1"
   },
   "devDependencies": {
-    "@toxictoast/azkaban-base-types": "^0.0.1",
     "@nx/js": "19.0.0",
     "@nx/workspace": "19.0.0",
+    "@toxictoast/azkaban-base-types": "^0.0.1",
     "nx": "19.0.0"
   }
 }
