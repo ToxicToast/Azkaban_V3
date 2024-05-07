@@ -9,5 +9,35 @@
       "default"
     ],
     "sharedGlobals": []
+  },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
+  },
+  "generators": {
+    "@nx/node": {
+      "application": {
+        "projectNameAndRootFormat": "derived"
+      },
+      "library": {
+        "projectNameAndRootFormat": "derived"
+      }
+    },
+    "@nx/nest": {
+      "application": {
+        "projectNameAndRootFormat": "derived"
+      },
+      "library": {
+        "projectNameAndRootFormat": "derived"
+      }
+    },
+    "@nx/react": {
+      "application": {
+        "projectNameAndRootFormat": "derived"
+      },
+      "library": {
+        "projectNameAndRootFormat": "derived"
+      }
+    }
   }
 }

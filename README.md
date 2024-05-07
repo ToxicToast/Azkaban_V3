@@ -6,7 +6,7 @@
 
 [![Node Version](https://img.shields.io/static/v1?label=Node&message=v21.2.0&color=purple&style=for-the-badge)](https://nodejs.org)
 [![npm Version](https://img.shields.io/static/v1?label=npm&message=9.8.1&color=purple&style=for-the-badge)](https://nodejs.org)
-[![Typescript Version](https://img.shields.io/static/v1?label=Typescript&message=5.2.2&color=purple&style=for-the-badge)](https://typescriptlang.org)
+[![Typescript Version](https://img.shields.io/static/v1?label=Typescript&message=5.4.5&color=purple&style=for-the-badge)](https://typescriptlang.org)
 [![NX Version](https://img.shields.io/static/v1?label=NX&message=19.0.0&color=purple&style=for-the-badge)](https://nx.dev)
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/version/ToxicToast/Azkaban_V3?style=for-the-badge&label=VERSION&color=purple)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/ToxicToast/Azkaban_V3?style=for-the-badge&label=COMMITS&color=purple)
@@ -23,7 +23,7 @@ Azkaban is a complete Rewrite of my Microservices at Home.
 
 ## Planned Services
 
-- Home Inventory System
+- API Gateway
 
 ## Deployed Services
 > None
@@ -42,3 +42,7 @@ Azkaban is a complete Rewrite of my Microservices at Home.
 ## Gateway
 > **Info:**
 > The Gateway is the entry point for all requests to the services. It is responsible for routing requests to the correct service and publishes the correct Topic to the Message Broker.
+
+## Webhooks
+
+- [API Alerts](https://apialerts.com/)
