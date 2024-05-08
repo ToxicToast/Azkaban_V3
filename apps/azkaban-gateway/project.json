@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/azkaban-gateway/src",
   "projectType": "application",
-  "tags": [],
+  "tags": ["scope:application"],
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
