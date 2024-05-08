@@ -26,8 +26,6 @@
     "@swc-node/register": "1.9.0",
     "@swc/core": "1.4.13",
     "@swc/helpers": "~0.5.2",
-    "@toxictoast/azkaban-base-helpers": "^0.0.2",
-    "@toxictoast/azkaban-base-types": "^0.0.1",
     "@types/compression": "^1.7.5",
     "@types/jest": "^29.4.0",
     "@types/node": "~18.16.9",
@@ -52,6 +50,7 @@
     "@nestjs/swagger": "^7.3.1",
     "@nestjs/terminus": "^10.2.3",
     "@nestjs/throttler": "^5.1.2",
+    "@nestjs/typeorm": "^10.0.2",
     "@willsoto/nestjs-prometheus": "^6.0.0",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.4",
@@ -60,7 +59,11 @@
     "helmet": "^7.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "typeorm": "^0.3.20",
+    "@toxictoast/azkaban-base-helpers": "^0.0.2",
+    "@toxictoast/azkaban-base-types": "^0.0.1",
+    "@toxictoast/azkaban-base-domain": "^0.0.1"
+
   }
 }
-
