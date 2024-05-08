@@ -18,5 +18,6 @@ COPY dist/apps/azkaban-gateway .
 RUN chown -R azkaban-gateway:azkaban-gateway .
 
 RUN npm i --omit=dev --omit=optional
+RUN npm i --save @toxictoast/azkaban-base-types
 
 CMD [ "node", "main.js" ]
