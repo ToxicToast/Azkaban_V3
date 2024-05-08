@@ -62,10 +62,10 @@ jobs:
           echo "${{ steps.taggerDryRun.outputs.new_tag }}"
 
       - name: 🏗 Build Docker Images
-        run: npm run docker:all -- --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+        run: npm run nx run-many --target=docker-build --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
       - name: 🏗 Push Docker Images
-        run: npm run docker:push -- --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+        run: npm run nx run-many --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
       - name: API Alerts Notify
         uses: apialerts/notify-action@v1
