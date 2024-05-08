@@ -29,7 +29,7 @@
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f apps/gateway-service/Dockerfile . -t azkaban2015/gateway:{args.VERSION}"
+      "command": "docker build -f apps/azkaban-gateway/Dockerfile . -t azkaban2015/gateway:{args.VERSION}"
     },
     "docker-push": {
       "command": "docker push azkaban2015/gateway:{args.VERSION}"

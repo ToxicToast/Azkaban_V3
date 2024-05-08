@@ -50,7 +50,7 @@ function configureCors(app: INestApplication): void {
 }
 
 async function startApp(app: INestApplication): Promise<void> {
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT ?? 3000;
   await app.listen(port);
   Logger.log(`🚀 Listening on Port: ${port}`);
 }
