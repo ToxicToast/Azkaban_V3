@@ -5,11 +5,11 @@ ENV PORT=3000
 
 WORKDIR /app
 
-RUN addgroup --system azkaban-gateway && \
-          adduser --system -G azkaban-gateway azkaban-gateway
+RUN addgroup --system azkaban-webhooks && \
+          adduser --system -G azkaban-webhooks azkaban-webhooks
 
-COPY dist/apps/azkaban-gateway .
-RUN chown -R azkaban-gateway:azkaban-gateway .
+COPY dist/apps/azkaban-webhooks .
+RUN chown -R azkaban-webhooks:azkaban-webhooks .
 
 RUN npm i --omit=dev --omit=optional
 RUN npm i --save @toxictoast/azkaban-base-types
