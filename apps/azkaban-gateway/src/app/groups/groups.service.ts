@@ -1,20 +1,36 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Optional } from '@toxictoast/azkaban-base-types';
+import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
+import { ClientRMQ } from '@nestjs/microservices';
+import { GroupsTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
 export class GroupsService {
-  private readonly logger: Logger = new Logger(GroupsService.name);
+  constructor(
+    private readonly circuitbreaker: CircuitBreakerService,
+    @Inject('AZKABAN_SERVICE') private readonly client: ClientRMQ
+  ) {}
 
   async getGroups(limit: number, offset: number): Promise<void> {
-    this.logger.debug({ limit, offset });
+    return this.circuitbreaker.execute(GroupsTopics.LIST, async () => {
+      return await this.client
+        .send(GroupsTopics.LIST, { limit, offset })
+        .toPromise();
+    });
   }
 
   async getGroupById(id: string): Promise<void> {
-    this.logger.debug({ id });
+    return this.circuitbreaker.execute(GroupsTopics.ID, async () => {
+      return await this.client.send(GroupsTopics.ID, { id }).toPromise();
+    });
   }
 
   async createGroup(title: string, active?: Optional<boolean>): Promise<void> {
-    this.logger.debug({ title, active });
+    return this.circuitbreaker.execute(GroupsTopics.CREATE, async () => {
+      return await this.client
+        .send(GroupsTopics.CREATE, { title, active })
+        .toPromise();
+    });
   }
 
   async updateGroup(
@@ -22,14 +38,22 @@ export class GroupsService {
     title?: Optional<string>,
     active?: Optional<boolean>
   ): Promise<void> {
-    this.logger.debug({ id, title, active });
+    return this.circuitbreaker.execute(GroupsTopics.UPDATE, async () => {
+      return await this.client
+        .send(GroupsTopics.UPDATE, { id, title, active })
+        .toPromise();
+    });
   }
 
   async deleteGroup(id: string): Promise<void> {
-    this.logger.debug({ id });
+    return this.circuitbreaker.execute(GroupsTopics.DELETE, async () => {
+      return await this.client.send(GroupsTopics.DELETE, { id }).toPromise();
+    });
   }
 
   async restoreGroup(id: string): Promise<void> {
-    this.logger.debug({ id });
+    return this.circuitbreaker.execute(GroupsTopics.RESTORE, async () => {
+      return await this.client.send(GroupsTopics.RESTORE, { id }).toPromise();
+    });
   }
 }

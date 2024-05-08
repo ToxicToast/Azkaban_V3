@@ -17,10 +17,10 @@ export class VersionController {
     //
     return {
       ...gateway,
-      ...webhooks,
-      ...auth,
-      ...groups,
-      ...users,
+      webhooks,
+      auth,
+      groups,
+      users,
     };
   }
 }

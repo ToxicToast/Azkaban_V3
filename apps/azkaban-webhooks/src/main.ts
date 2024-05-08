@@ -2,6 +2,7 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
+import { azkaban, consumerProvider } from '@toxictoast/azkaban-broker-rabbitmq';
 
 async function createApp(): Promise<INestApplication> {
   return await NestFactory.create(AppModule, {
@@ -12,20 +13,17 @@ async function createApp(): Promise<INestApplication> {
 }
 
 async function createMicroservice(app: INestApplication): Promise<void> {
-  const queue = 'azkaban_webhook_queue';
-  const connectionString = `amqp://${process.env.BROKER_USERNAME}:${process.env.BROKER_PASSWORD}@${process.env.BROKER_HOST}:${process.env.BROKER_PORT}`;
   const noAck = process.env.BROKER_ACK === 'yes' ? true : false;
   //
   app.connectMicroservice({
-    transport: Transport.RMQ,
-    options: {
-      queue: queue,
-      queueOptions: {
-        durable: true,
-      },
-      urls: [connectionString],
+    ...consumerProvider({
+      queueName: azkaban,
       noAck: noAck,
-    },
+      brokerUsername: process.env.BROKER_USERNAME,
+      brokerPassword: process.env.BROKER_PASSWORD,
+      brokerHost: process.env.BROKER_HOST,
+      brokerPort: parseInt(process.env.BROKER_PORT),
+    }),
   });
 }
 
@@ -37,6 +35,7 @@ function configureApp(app: INestApplication): void {
 
 async function startApp(app: INestApplication): Promise<void> {
   const port = process.env.PORT ?? 3000;
+  await app.startAllMicroservices();
   await app.listen(port);
   Logger.log(`🚀 Listening on Port: ${port}`);
 }

@@ -7,6 +7,8 @@ import { RouterModule } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { GroupsModule } from './groups/groups.module';
 import { VersionModule } from './version/version.module';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { azkaban, clientProvider } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Module({
   imports: [
@@ -17,6 +19,22 @@ import { VersionModule } from './version/version.module';
         limit: 10,
       },
     ]),
+    ClientsModule.register({
+      isGlobal: true,
+      clients: [
+        {
+          name: 'AZKABAN_SERVICE',
+          ...clientProvider({
+            queueName: azkaban,
+            noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+            brokerUsername: process.env.BROKER_USERNAME,
+            brokerPassword: process.env.BROKER_PASSWORD,
+            brokerHost: process.env.BROKER_HOST,
+            brokerPort: parseInt(process.env.BROKER_PORT),
+          }),
+        },
+      ],
+    }),
     //
     HealthModule,
     MetricsModule,
