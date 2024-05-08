@@ -13,9 +13,11 @@ export class VersionController {
     const auth = await this.service.getAuthVersion();
     const groups = await this.service.getGroupsVersion();
     const users = await this.service.getUsersVersion();
+    const webhooks = await this.service.getWebhooksVersion();
     //
     return {
       ...gateway,
+      ...webhooks,
       ...auth,
       ...groups,
       ...users,

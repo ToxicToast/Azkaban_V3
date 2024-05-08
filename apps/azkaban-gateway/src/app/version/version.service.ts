@@ -27,4 +27,10 @@ export class VersionService {
       users: 'not available',
     };
   }
+
+  async getWebhooksVersion() {
+    return {
+      webhooks: 'not available',
+    };
+  }
 }
