@@ -7,9 +7,8 @@ import { RouterModule } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { GroupsModule } from './groups/groups.module';
 import { VersionModule } from './version/version.module';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientsModule } from '@nestjs/microservices';
 import { azkaban, clientProvider } from '@toxictoast/azkaban-broker-rabbitmq';
-import { NotifyModule } from './notify/notify.module';
 
 @Module({
   imports: [
@@ -43,7 +42,6 @@ import { NotifyModule } from './notify/notify.module';
     UsersModule,
     GroupsModule,
     VersionModule,
-    NotifyModule,
     //
     RouterModule.register([
       {
@@ -69,10 +67,6 @@ import { NotifyModule } from './notify/notify.module';
       {
         path: 'version',
         module: VersionModule,
-      },
-      {
-        path: 'notify',
-        module: NotifyModule,
       },
     ]),
   ],

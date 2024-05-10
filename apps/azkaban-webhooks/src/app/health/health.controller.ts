@@ -36,7 +36,6 @@ export class HealthController {
             queue: azkaban,
           },
         }),
-      () => this.database.pingCheck('postgres'),
     ]);
   }
 }
