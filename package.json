@@ -8,7 +8,10 @@
     "update:all": "npx npm-check-updates -u",
     "upgrade:workspace": "nx migrate latest",
     "upgrade:migrations": "nx migrate --run-migrations",
-    "report": "nx report"
+    "report": "nx report",
+    "serve:gateway": "nx serve azkaban-gateway --skip-nx-cache",
+    "serve:webhooks": "nx serve azkaban-webhooks --skip-nx-cache",
+    "serve:webhooks:magpie": "nx serve apialerts-service --skip-nx-cache"
   },
   "private": true,
   "devDependencies": {

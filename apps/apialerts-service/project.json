@@ -1,0 +1,38 @@
+{
+  "name": "apialerts-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/apialerts-service/src",
+  "projectType": "application",
+  "tags": ["scope:application"],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/apialerts-service",
+        "main": "apps/apialerts-service/src/main.ts",
+        "tsConfig": "apps/apialerts-service/tsconfig.app.json",
+        "assets": ["apps/apialerts-service/src/assets"],
+        "webpackConfig": "apps/apialerts-service/webpack.config.js",
+        "generatePackageJson": true
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "apialerts-service:build"
+      }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/apialerts-service/Dockerfile . -t azkaban2015/webhooks:{args.VERSION}"
+    },
+    "docker-push": {
+      "command": "docker push azkaban2015/webhooks:{args.VERSION}"
+    }
+  }
+}
