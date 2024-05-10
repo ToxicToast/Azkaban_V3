@@ -1,15 +1,10 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 import { azkaban, consumerProvider } from '@toxictoast/azkaban-broker-rabbitmq';
 
 async function createApp(): Promise<INestApplication> {
-  return await NestFactory.create(AppModule, {
-    cors: true,
-    snapshot: true,
-    rawBody: true,
-  });
+  return await NestFactory.create(AppModule);
 }
 
 async function createMicroservice(app: INestApplication): Promise<void> {
