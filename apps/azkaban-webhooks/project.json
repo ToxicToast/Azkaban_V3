@@ -27,6 +27,13 @@
         "buildTarget": "azkaban-webhooks:build"
       }
     },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/azkaban-webhooks/jest.config.ts"
+      }
+    },
     "docker-build": {
       "dependsOn": ["build"],
       "command": "docker build -f apps/azkaban-webhooks/Dockerfile . -t azkaban2015/webhooks:{args.VERSION}"

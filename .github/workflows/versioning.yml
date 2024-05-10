@@ -40,7 +40,7 @@ jobs:
         run: npm run nx affected:lint --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
 
       - name: 🚀 Test Apps
-        run: npm run nx affected:test --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
+        run: npm run nx affected:test --passWithNoTests --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
 
       - name: 🚀 e2e Apps
         run: npm run nx affected:e2e --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3

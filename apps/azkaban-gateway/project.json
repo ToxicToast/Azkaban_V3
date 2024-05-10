@@ -27,6 +27,13 @@
         "buildTarget": "azkaban-gateway:build"
       }
     },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/azkaban-gateway/jest.config.ts"
+      }
+    },
     "docker-build": {
       "dependsOn": ["build"],
       "command": "docker build -f apps/azkaban-gateway/Dockerfile . -t azkaban2015/gateway:{args.VERSION}"

@@ -27,6 +27,13 @@
         "buildTarget": "apialerts-service:build"
       }
     },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/apialerts-service/jest.config.ts"
+      }
+    },
     "docker-build": {
       "dependsOn": ["build"],
       "command": "docker build -f apps/apialerts-service/Dockerfile . -t azkaban2015/webhooks:{args.VERSION}"
