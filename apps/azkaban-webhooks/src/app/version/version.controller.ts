@@ -1,5 +1,4 @@
-import { Controller, UseGuards } from '@nestjs/common';
-import { ThrottlerGuard } from '@nestjs/throttler';
+import { Controller } from '@nestjs/common';
 import { VersionService } from './version.service';
 import { MessagePattern } from '@nestjs/microservices';
 
