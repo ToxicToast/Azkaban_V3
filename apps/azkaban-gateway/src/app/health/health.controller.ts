@@ -6,6 +6,7 @@ import {
   MicroserviceHealthIndicator,
 } from '@nestjs/terminus';
 import { Transport } from '@nestjs/microservices';
+import { azkaban } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller()
 export class HealthController {
@@ -30,6 +31,7 @@ export class HealthController {
           transport: Transport.RMQ,
           options: {
             urls: [this.brokerConnectionString],
+            queue: azkaban,
           },
         }),
     ]);
