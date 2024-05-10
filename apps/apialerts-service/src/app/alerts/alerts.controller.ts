@@ -7,7 +7,7 @@ import { AuthAlertsService } from './auth-alerts.service';
 export class AlertsController {
   constructor(private readonly authAlerts: AuthAlertsService) {}
 
-  @EventPattern(NotifyTopics.NOTIFY)
+  @EventPattern(NotifyTopics.APIALERTS)
   async notifyApiAlerts(alert: {
     event: string;
     data: unknown;
