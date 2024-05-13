@@ -7,18 +7,45 @@ import { AuthAlertsService } from './auth-alerts.service';
 export class AlertsController {
   constructor(private readonly authAlerts: AuthAlertsService) {}
 
+  private onUserCreated(event: string, data: unknown): void {
+    if (event === 'user-created') {
+      Logger.debug({ event, data });
+      this.authAlerts.onUserCreated(data);
+    }
+  }
+
+  private onUserDeactivated(event: string, data: unknown): void {
+    if (event === 'user-deactivated') {
+      Logger.debug({ event, data });
+      this.authAlerts.onUserDeactivated(data);
+    }
+  }
+
+  private onUserDeleted(event: string, data: unknown): void {
+    if (event === 'user-deleted') {
+      Logger.debug({ event, data });
+      this.authAlerts.onUserDeleted(data);
+    }
+  }
+
   @EventPattern(NotifyTopics.APIALERTS)
   async notifyApiAlerts(alert: {
     event: string;
     data: unknown;
   }): Promise<void> {
     const { event, data } = alert;
+    this.onUserCreated(event, data);
+    this.onUserDeactivated(event, data);
+    this.onUserDeleted(event, data);
     switch (event) {
       default:
         Logger.debug({ event, data });
         break;
-      case 'user-created':
-        this.authAlerts.onUserCreated(data);
+      case 'user-restored':
+        this.authAlerts.onUserRestored(data);
+        break;
+      case 'user-login':
+        this.authAlerts.onUserLogin(data);
         break;
     }
   }
