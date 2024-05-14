@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
-import { ClientRMQ } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import {
   AuthTopics,
   GroupsTopics,
@@ -12,7 +12,10 @@ import {
 export class VersionService {
   constructor(
     private readonly circuitbreaker: CircuitBreakerService,
-    @Inject('AZKABAN_SERVICE') private readonly client: ClientRMQ,
+    @Inject('AUTH_SERVICE') private readonly authClient: ClientProxy,
+    @Inject('GROUP_SERVICE') private readonly groupClient: ClientProxy,
+    @Inject('USER_SERVICE') private readonly userClient: ClientProxy,
+    @Inject('WEBHOOKS_SERVICE') private readonly hooksClient: ClientProxy,
     @Inject('APP_VERSION') private readonly appVersion: string
   ) {}
 
@@ -26,7 +29,7 @@ export class VersionService {
     return this.circuitbreaker.execute(
       AuthTopics.VERSION,
       async () => {
-        return await this.client.send(AuthTopics.VERSION, {}).toPromise();
+        return await this.authClient.send(AuthTopics.VERSION, {}).toPromise();
       },
       true
     );
@@ -36,7 +39,9 @@ export class VersionService {
     return this.circuitbreaker.execute(
       GroupsTopics.VERSION,
       async () => {
-        return await this.client.send(GroupsTopics.VERSION, {}).toPromise();
+        return await this.groupClient
+          .send(GroupsTopics.VERSION, {})
+          .toPromise();
       },
       true
     );
@@ -46,7 +51,7 @@ export class VersionService {
     return this.circuitbreaker.execute(
       UserTopics.VERSION,
       async () => {
-        return await this.client.send(UserTopics.VERSION, {}).toPromise();
+        return await this.userClient.send(UserTopics.VERSION, {}).toPromise();
       },
       true
     );
@@ -56,7 +61,9 @@ export class VersionService {
     return this.circuitbreaker.execute(
       NotifyTopics.VERSION,
       async () => {
-        return await this.client.send(NotifyTopics.VERSION, {}).toPromise();
+        return await this.hooksClient
+          .send(NotifyTopics.VERSION, {})
+          .toPromise();
       },
       true
     );

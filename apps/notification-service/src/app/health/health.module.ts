@@ -20,7 +20,7 @@ import { HealthController } from './health.controller';
     },
     {
       provide: 'BROKER_CONNECTION_STRING',
-      useValue: `${process.env.BROKER_HOST}:${process.env.BROKER_PORT}`,
+      useValue: `amqp://${process.env.BROKER_USERNAME}:${process.env.BROKER_PASSWORD}@${process.env.BROKER_HOST}:${process.env.BROKER_PORT}`,
     },
   ],
 })

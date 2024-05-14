@@ -2,7 +2,10 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import {
+  azkaban,
+  azkaban_notify,
   azkaban_notify_apialerts,
+  azkaban_notify_notification,
   consumerProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -15,13 +18,13 @@ async function createMicroservice(app: INestApplication): Promise<void> {
   //
   app.connectMicroservice({
     ...consumerProvider({
-      queueName: azkaban_notify_apialerts,
+      queueName: azkaban_notify_notification,
       noAck: noAck,
       brokerUsername: process.env.BROKER_USERNAME,
       brokerPassword: process.env.BROKER_PASSWORD,
       brokerHost: process.env.BROKER_HOST,
       brokerPort: parseInt(process.env.BROKER_PORT),
-      consumerTag: 'apialerts',
+      consumerTag: 'notifications',
     }),
   });
 }
@@ -44,7 +47,7 @@ async function bootstrap() {
   configureApp(app);
   await createMicroservice(app);
   await startApp(app);
-  Logger.log(`🚀 Azkaban-Webhooks-API-Alerts is running`);
+  Logger.log(`🚀 Azkaban-Notification is running`);
   Logger.log(`🚀 Version: ${process.env.APP_VERSION}`);
 }
 bootstrap().catch((err) => Logger.error(err));

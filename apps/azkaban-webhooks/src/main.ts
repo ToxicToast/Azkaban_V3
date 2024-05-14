@@ -1,7 +1,11 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { azkaban, consumerProvider } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+  azkaban_notify,
+  azkaban_notify_apialerts,
+  consumerProvider,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 
 async function createApp(): Promise<INestApplication> {
   return await NestFactory.create(AppModule);
@@ -12,12 +16,13 @@ async function createMicroservice(app: INestApplication): Promise<void> {
   //
   app.connectMicroservice({
     ...consumerProvider({
-      queueName: azkaban,
+      queueName: azkaban_notify,
       noAck: noAck,
       brokerUsername: process.env.BROKER_USERNAME,
       brokerPassword: process.env.BROKER_PASSWORD,
       brokerHost: process.env.BROKER_HOST,
       brokerPort: parseInt(process.env.BROKER_PORT),
+      consumerTag: 'webhooks',
     }),
   });
 }

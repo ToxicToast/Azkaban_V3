@@ -1,17 +1,14 @@
 import { Module } from '@nestjs/common';
 import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
-import { VersionModule } from './version/version.module';
-import { WebhooksModule } from './webhooks/webhooks.module';
 import { RouterModule } from '@nestjs/core';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
-    //
     HealthModule,
     MetricsModule,
-    VersionModule,
-    WebhooksModule,
+    NotificationModule,
     RouterModule.register([
       {
         path: 'health',
@@ -22,12 +19,8 @@ import { RouterModule } from '@nestjs/core';
         module: MetricsModule,
       },
       {
-        path: 'version',
-        module: VersionModule,
-      },
-      {
-        path: 'hooks',
-        module: WebhooksModule,
+        path: 'notifications',
+        module: NotificationModule,
       },
     ]),
   ],

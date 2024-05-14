@@ -15,7 +15,7 @@ export class AlertsService {
     tags?: Optional<Array<string>>,
     link?: Optional<string>
   ): void {
-    Logger.debug({ message, tags, link });
+    Logger.debug({ message, tags, link }, AlertsService.name);
     this.client.send({
       message,
       tags,
