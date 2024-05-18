@@ -3,8 +3,15 @@ import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { VersionModule } from './version/version.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [HealthModule, MetricsModule, VersionModule, WebhooksModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    HealthModule,
+    MetricsModule,
+    VersionModule,
+    WebhooksModule,
+  ],
 })
 export class AppModule {}
