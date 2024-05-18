@@ -1,7 +1,9 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { VersionService } from './version.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('monitoring')
 @UseGuards(ThrottlerGuard)
 @Controller('version')
 export class VersionController {
@@ -19,6 +21,7 @@ export class VersionController {
         notifications: await this.service.getNotificationsVersion(),
         sse: await this.service.getSSEVersion(),
       },
+      user: await this.service.getUsersVersion(),
     };
   }
 }

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import { NotifyTopics, UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
 export class VersionService {
@@ -12,6 +12,9 @@ export class VersionService {
     @Inject('NOTIFICATIONS_SERVICE')
     private readonly notificationsClient: ClientProxy,
     @Inject('SSE_SERVICE') private readonly sseClient: ClientProxy,
+    //
+    @Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
+    //
     @Inject('APP_VERSION') private readonly appVersion: string
   ) {}
 
@@ -62,6 +65,16 @@ export class VersionService {
       NotifyTopics.VERSION,
       async () => {
         return await this.sseClient.send(NotifyTopics.VERSION, {}).toPromise();
+      },
+      true
+    );
+  }
+
+  async getUsersVersion() {
+    return this.circuitbreaker.execute(
+      UserTopics.VERSION,
+      async () => {
+        return await this.usersClient.send(UserTopics.VERSION, {}).toPromise();
       },
       true
     );

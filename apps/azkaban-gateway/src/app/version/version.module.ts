@@ -8,6 +8,7 @@ import {
   azkaban_notify_apialerts,
   azkaban_notify_notification,
   azkaban_notify_sse,
+  azkaban_user,
   clientProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ConfigService } from '@nestjs/config';
@@ -16,6 +17,7 @@ import { ConfigService } from '@nestjs/config';
   imports: [
     CircuitBreakerModule,
     ClientsModule.register([
+      // NOTIFY
       {
         name: 'WEBHOOKS_SERVICE',
         ...clientProvider({
@@ -53,6 +55,18 @@ import { ConfigService } from '@nestjs/config';
         name: 'SSE_SERVICE',
         ...clientProvider({
           queueName: azkaban_notify_sse,
+          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+          brokerUsername: process.env.BROKER_USERNAME,
+          brokerPassword: process.env.BROKER_PASSWORD,
+          brokerHost: process.env.BROKER_HOST,
+          brokerPort: parseInt(process.env.BROKER_PORT),
+        }),
+      },
+      // USER
+      {
+        name: 'USERS_SERVICE',
+        ...clientProvider({
+          queueName: azkaban_user,
           noAck: process.env.BROKER_ACK === 'yes' ? true : false,
           brokerUsername: process.env.BROKER_USERNAME,
           brokerPassword: process.env.BROKER_PASSWORD,
