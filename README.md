@@ -19,13 +19,14 @@
 
 ## Introduction
 
-Azkaban is a complete Rewrite of my Microservices at Home. 
+Azkaban is a complete Rewrite of my Microservices at Home.
 
 ## Planned Services
 
 - API Gateway
 
 ## Deployed Services
+
 > None
 
 ## Infrastructure
@@ -40,6 +41,7 @@ Azkaban is a complete Rewrite of my Microservices at Home.
 - Grafana (Metrics)
 
 ## Gateway
+
 > **Info:**
 > The Gateway is the entry point for all requests to the services. It is responsible for routing requests to the correct service and publishes the correct Topic to the Message Broker.
 

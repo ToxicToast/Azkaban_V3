@@ -1,7 +1,7 @@
 name: Notify on Workflow Failure
 on:
   workflow_run:
-    workflows: ["Feature", "Versioning", "Release"]
+    workflows: ['Feature', 'Versioning', 'Release']
     types:
       - completed
 

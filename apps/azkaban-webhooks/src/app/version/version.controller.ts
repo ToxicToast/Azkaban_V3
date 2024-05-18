@@ -5,10 +5,10 @@ import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller()
 export class VersionController {
-    constructor(private readonly service: VersionService) {}
+  constructor(private readonly service: VersionService) {}
 
-    @MessagePattern(NotifyTopics.VERSION)
-    async getVersion() {
-        return this.service.getVersion();
-    }
+  @MessagePattern(NotifyTopics.VERSION)
+  async getVersion() {
+    return this.service.getVersion();
+  }
 }

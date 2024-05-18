@@ -4,25 +4,25 @@ import { UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
 export class UsersService {
-    constructor(private readonly circuitbreaker: CircuitBreakerService) {}
+  constructor(private readonly circuitbreaker: CircuitBreakerService) {}
 
-    async getUsers(limit: number, offset: number): Promise<void> {
-        return this.circuitbreaker.execute(UserTopics.LIST, async () => {
-            /*
+  async getUsers(limit: number, offset: number): Promise<void> {
+    return this.circuitbreaker.execute(UserTopics.LIST, async () => {
+      /*
       return await this.client
         .send(UserTopics.LIST, { limit, offset })
         .toPromise();
        */
-            return false;
-        });
-    }
+      return false;
+    });
+  }
 
-    async getUserById(id: string): Promise<void> {
-        return this.circuitbreaker.execute(UserTopics.ID, async () => {
-            /*
+  async getUserById(id: string): Promise<void> {
+    return this.circuitbreaker.execute(UserTopics.ID, async () => {
+      /*
       return await this.client.send(UserTopics.LIST, { id }).toPromise();
        */
-            return false;
-        });
-    }
+      return false;
+    });
+  }
 }

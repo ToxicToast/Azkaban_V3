@@ -5,24 +5,24 @@ import { RouterModule } from '@nestjs/core';
 import { AlertsModule } from './alerts/alerts.module';
 
 @Module({
-    imports: [
-        HealthModule,
-        MetricsModule,
-        AlertsModule,
-        RouterModule.register([
-            {
-                path: 'health',
-                module: HealthModule,
-            },
-            {
-                path: 'metrics',
-                module: MetricsModule,
-            },
-            {
-                path: 'alerts',
-                module: AlertsModule,
-            },
-        ]),
-    ],
+  imports: [
+    HealthModule,
+    MetricsModule,
+    AlertsModule,
+    RouterModule.register([
+      {
+        path: 'health',
+        module: HealthModule,
+      },
+      {
+        path: 'metrics',
+        module: MetricsModule,
+      },
+      {
+        path: 'alerts',
+        module: AlertsModule,
+      },
+    ]),
+  ],
 })
 export class AppModule {}

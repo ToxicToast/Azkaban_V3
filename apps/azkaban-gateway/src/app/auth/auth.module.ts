@@ -4,8 +4,8 @@ import { AuthController } from './auth.controller';
 import { CircuitBreakerModule } from '../circuitbreaker/circuitbreaker.module';
 
 @Module({
-    imports: [CircuitBreakerModule],
-    controllers: [AuthController],
-    providers: [AuthService],
+  imports: [CircuitBreakerModule],
+  controllers: [AuthController],
+  providers: [AuthService],
 })
 export class AuthModule {}

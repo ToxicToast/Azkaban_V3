@@ -4,8 +4,8 @@ import { UsersController } from './users.controller';
 import { CircuitBreakerModule } from '../circuitbreaker/circuitbreaker.module';
 
 @Module({
-    imports: [CircuitBreakerModule],
-    controllers: [UsersController],
-    providers: [UsersService],
+  imports: [CircuitBreakerModule],
+  controllers: [UsersController],
+  providers: [UsersService],
 })
 export class UsersModule {}
