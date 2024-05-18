@@ -39,7 +39,6 @@
       "command": "docker build -f apps/sse-service/Dockerfile . -t azkaban2015/sse:{args.VERSION}"
     },
     "docker-push": {
-      "dependsOn": ["docker-build"],
       "command": "docker push azkaban2015/sse:{args.VERSION}"
     }
   }
