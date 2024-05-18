@@ -12,7 +12,8 @@
     "serve:gateway": "nx serve azkaban-gateway --skip-nx-cache",
     "serve:webhooks": "nx serve azkaban-webhooks --skip-nx-cache",
     "serve:webhooks:magpie": "nx serve apialerts-service --skip-nx-cache",
-    "serve:webhooks:notification": "nx serve notification-service --skip-nx-cache"
+    "serve:webhooks:notification": "nx serve notification-service --skip-nx-cache",
+    "serve:webhooks:sse": "nx serve sse-service --skip-nx-cache"
   },
   "private": true,
   "devDependencies": {
