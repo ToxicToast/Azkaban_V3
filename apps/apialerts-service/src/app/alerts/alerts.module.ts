@@ -5,14 +5,14 @@ import { AuthAlertsService } from './auth-alerts.service';
 import { AuthController } from './auth-controller';
 
 @Module({
-  controllers: [AlertsController, AuthController],
-  providers: [
-    {
-      provide: 'MAGPIE_KEY',
-      useValue: process.env.MAGPIE_KEY,
-    },
-    AlertsService,
-    AuthAlertsService,
-  ],
+    controllers: [AlertsController, AuthController],
+    providers: [
+        {
+            provide: 'MAGPIE_KEY',
+            useValue: process.env.MAGPIE_KEY,
+        },
+        AlertsService,
+        AuthAlertsService,
+    ],
 })
 export class AlertsModule {}
