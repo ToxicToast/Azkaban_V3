@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
-@Controller()
+@Controller('sse')
 export class SseController {
   private readonly events$ = new Subject<MessageEvent>();
 

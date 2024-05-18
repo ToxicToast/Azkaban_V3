@@ -1,29 +1,10 @@
 import { Module } from '@nestjs/common';
 import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
-import { RouterModule } from '@nestjs/core';
 import { SseModule } from './sse/sse.module';
+import { VersionModule } from './version/version.module';
 
 @Module({
-  imports: [
-    HealthModule,
-    MetricsModule,
-    SseModule,
-    //
-    RouterModule.register([
-      {
-        path: 'health',
-        module: HealthModule,
-      },
-      {
-        path: 'metrics',
-        module: MetricsModule,
-      },
-      {
-        path: 'sse',
-        module: SseModule,
-      },
-    ]),
-  ],
+  imports: [HealthModule, MetricsModule, SseModule, VersionModule],
 })
 export class AppModule {}

@@ -2,7 +2,7 @@ import { Controller, Logger } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
-@Controller()
+@Controller('alerts/alerts')
 export class AlertsController {
   @EventPattern(NotifyTopics.APIALERTS)
   async notifyApiAlerts(alert: {

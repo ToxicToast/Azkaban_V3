@@ -3,7 +3,7 @@ import { EventPattern, Payload } from '@nestjs/microservices';
 import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { NotificationService } from './notification.service';
 
-@Controller()
+@Controller('notifications')
 export class NotificationController {
   constructor(private readonly service: NotificationService) {}
 

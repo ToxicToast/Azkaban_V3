@@ -8,7 +8,7 @@ import {
 import { Transport } from '@nestjs/microservices';
 import { azkaban } from '@toxictoast/azkaban-broker-rabbitmq';
 
-@Controller()
+@Controller('health')
 export class HealthController {
   constructor(
     @Inject('MEMORY_HEAP_TRESHOLD') private readonly heapTreshold: number,
