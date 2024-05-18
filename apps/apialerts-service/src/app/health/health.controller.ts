@@ -6,6 +6,7 @@ import {
   MicroserviceHealthIndicator,
 } from '@nestjs/terminus';
 import { Transport } from '@nestjs/microservices';
+import { azkaban } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller()
 export class HealthController {
@@ -26,10 +27,11 @@ export class HealthController {
       () => this.memory.checkHeap('memory_heap', this.heapTreshold),
       () => this.memory.checkRSS('memory_rss', this.rssTreshold),
       () =>
-        this.microservices.pingCheck('kafka', {
-          transport: Transport.KAFKA,
+        this.microservices.pingCheck('rabbitmq', {
+          transport: Transport.RMQ,
           options: {
             urls: [this.brokerConnectionString],
+            queue: azkaban,
           },
         }),
     ]);
