@@ -1,17 +1,20 @@
-FROM docker.io/node:lts-alpine
-
-ENV HOST=0.0.0.0
-ENV PORT=3000
-
+# Stufe 1: Build-Image
+FROM docker.io/node:22-alpine as build
 WORKDIR /app
-
-RUN addgroup --system azkaban-webhooks && \
-          adduser --system -G azkaban-webhooks azkaban-webhooks
-
 COPY dist/apps/azkaban-webhooks .
-RUN chown -R azkaban-webhooks:azkaban-webhooks .
+COPY package*.json ./
+RUN npm install --omit=dev
 
-RUN npm i --omit=dev --omit=optional
-RUN npm i --save @toxictoast/azkaban-base-types
+# Stufe 2: Produktions-Image
 
+ENV APP_VERSION = local
+
+FROM docker.io/node:22-alpine
+WORKDIR /app
+COPY --from=build /app /app
+
+# Expose Port
+EXPOSE 3000
+
+# Entry Point
 CMD [ "node", "main.js" ]

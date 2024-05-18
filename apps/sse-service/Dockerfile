@@ -1,17 +1,21 @@
-FROM docker.io/node:lts-alpine
-
-ENV HOST=0.0.0.0
-ENV PORT=3000
-
+# Stufe 1: Build-Image
+FROM docker.io/node:22-alpine as build
 WORKDIR /app
-
-RUN addgroup --system sse-service && \
-          adduser --system -G sse-service sse-service
-
 COPY dist/apps/sse-service .
-RUN chown -R sse-service:sse-service .
+COPY package*.json ./
+RUN npm install --omit=dev
 
-RUN npm i --omit=dev --omit=optional
-RUN npm i --save @toxictoast/azkaban-base-types
+# Stufe 2: Produktions-Image
 
+ENV APP_VERSION = local
+
+FROM docker.io/node:22-alpine
+WORKDIR /app
+COPY --from=build /app /app
+
+# Expose Port
+EXPOSE 3000
+
+# Entry Point
 CMD [ "node", "main.js" ]
+
