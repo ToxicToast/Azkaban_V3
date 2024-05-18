@@ -4,6 +4,7 @@ import { MetricsModule } from './metrics/metrics.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { VersionModule } from './version/version.module';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ConfigModule } from '@nestjs/config';
     HealthModule,
     MetricsModule,
     VersionModule,
+    UserModule,
   ],
 })
 export class AppModule {}
