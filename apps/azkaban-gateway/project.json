@@ -3,21 +3,28 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/azkaban-gateway/src",
   "projectType": "application",
-  "tags": [],
+  "tags": ["scope:application"],
   "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/azkaban-gateway",
+        "main": "apps/azkaban-gateway/src/main.ts",
+        "tsConfig": "apps/azkaban-gateway/tsconfig.app.json",
+        "assets": ["apps/azkaban-gateway/src/assets"],
+        "webpackConfig": "apps/azkaban-gateway/webpack.config.js",
+        "generatePackageJson": true
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "azkaban-gateway:build"
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "azkaban-gateway:build:development"
-        },
-        "production": {
-          "buildTarget": "azkaban-gateway:build:production"
-        }
       }
     },
     "test": {
@@ -32,6 +39,7 @@
       "command": "docker build -f apps/azkaban-gateway/Dockerfile . -t azkaban2015/gateway:{args.VERSION}"
     },
     "docker-push": {
+      "dependsOn": ["docker-build"],
       "command": "docker push azkaban2015/gateway:{args.VERSION}"
     }
   }
