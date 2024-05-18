@@ -10,6 +10,7 @@ import {
   azkaban_notify_sse,
   clientProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -66,7 +67,10 @@ import {
     VersionService,
     {
       provide: 'APP_VERSION',
-      useValue: process.env.APP_VERSION,
+      useFactory: (config: ConfigService) => {
+        return config.get('APP_VERSION', 'local');
+      },
+      inject: [ConfigService],
     },
   ],
 })
