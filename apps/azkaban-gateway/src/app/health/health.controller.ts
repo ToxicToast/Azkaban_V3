@@ -7,7 +7,9 @@ import {
 } from '@nestjs/terminus';
 import { Transport } from '@nestjs/microservices';
 import { azkaban } from '@toxictoast/azkaban-broker-rabbitmq';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('monitoring')
 @Controller('health')
 export class HealthController {
   constructor(
