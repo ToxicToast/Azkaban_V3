@@ -39,7 +39,6 @@
       "command": "docker build -f apps/azkaban-gateway/Dockerfile . -t azkaban2015/gateway:{args.VERSION}"
     },
     "docker-push": {
-      "dependsOn": ["docker-build"],
       "command": "docker push azkaban2015/gateway:{args.VERSION}"
     }
   }
