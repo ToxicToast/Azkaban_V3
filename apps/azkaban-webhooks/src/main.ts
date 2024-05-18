@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import {
   azkaban_notify,
-  azkaban_notify_apialerts,
   consumerProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 

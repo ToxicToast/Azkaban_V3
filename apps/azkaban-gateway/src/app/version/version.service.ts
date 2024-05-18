@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
 import { ClientProxy } from '@nestjs/microservices';
 import {

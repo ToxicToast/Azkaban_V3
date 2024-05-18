@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { WebhooksController } from './webhooks.controller';
 import { ClientsModule } from '@nestjs/microservices';
 import {
-  azkaban,
   azkaban_notify_apialerts,
   azkaban_notify_notification,
   azkaban_notify_sse,

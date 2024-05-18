@@ -1,4 +1,4 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { EventPattern, Payload } from '@nestjs/microservices';
 import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { NotificationService } from './notification.service';

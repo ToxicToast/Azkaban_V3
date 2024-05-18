@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
