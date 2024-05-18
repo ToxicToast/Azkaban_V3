@@ -12,7 +12,7 @@ export class NotificationController {
     @Payload('service') service: string,
     @Payload('event') event: string,
     @Payload('data') data: unknown
-  ): Promise<void> {
+  ) {
     return await this.service.createNotification(service, event, data);
   }
 }
