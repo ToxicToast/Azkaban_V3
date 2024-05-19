@@ -54,13 +54,13 @@ export class NotificationFactory
   }
 
   createDomain(data: NotificationData): NotificationAggregate {
+    const { service, event, payload } = data;
     const notificationId = new NotificationId();
-
     return new NotificationAggregate(
       notificationId.value,
-      data.service,
-      data.event,
-      data.payload,
+      service,
+      event,
+      payload,
       new Date(),
       null,
       null
