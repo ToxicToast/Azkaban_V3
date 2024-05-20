@@ -1,4 +1,14 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { ThrottlerGuard } from '@nestjs/throttler';
@@ -21,9 +31,42 @@ export class UserController {
     return await this.service.getUsers(limitNumber, offsetNumber);
   }
 
-  @Get(':id')
-  async getUser(@Param('id') id: string) {
-    return { id };
-    // return await this.service.getUserById(id);
+  @Get('id/:id')
+  async getUserById(@Param('id') id: string) {
+    return await this.service.getUserById(id);
+  }
+
+  @Get('email/:email')
+  async getUserByEmail(@Param('email') email: string) {
+    return await this.service.getUserByEmail(email);
+  }
+
+  @Post()
+  async createUser(
+    @Body('email') email: string,
+    @Body('username') username: string,
+    @Body('password') password: string
+  ) {
+    return await this.service.createUser(email, username, password);
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Param('id') id: string,
+    @Body('email') email?: Optional<string>,
+    @Body('username') username?: Optional<string>,
+    @Body('password') password?: Optional<string>
+  ) {
+    return await this.service.updateUser(id, email, username, password);
+  }
+
+  @Delete(':id')
+  async deleteUser(@Param('id') id: string) {
+    return await this.service.deleteUser(id);
+  }
+
+  @Put('restore/:id')
+  async restoreUser(@Param('id') id: string) {
+    return await this.service.restoreUser(id);
   }
 }

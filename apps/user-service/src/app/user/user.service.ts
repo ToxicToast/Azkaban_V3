@@ -4,19 +4,19 @@ import { Optional } from '@toxictoast/azkaban-base-types';
 @Injectable()
 export class UserService {
   async getUsers(limit: number, offset: number) {
-    return { limit, offset };
+    return { request: this.getUsers.name, limit, offset };
   }
 
   async getUserById(id: string) {
-    return { id };
+    return { request: this.getUserById.name, id };
   }
 
   async getUserByEmail(email: string) {
-    return { email };
+    return { request: this.getUserByEmail.name, email };
   }
 
   async createUser(email: string, username: string, password: string) {
-    return { email, username, password };
+    return { request: this.createUser.name, email, username, password };
   }
 
   async updateUser(
@@ -25,18 +25,18 @@ export class UserService {
     username?: Optional<string>,
     password?: Optional<string>
   ) {
-    return { id, email, username, password };
+    return { request: this.updateUser.name, id, email, username, password };
   }
 
   async deleteUser(id: string) {
-    return { id };
+    return { request: this.deleteUser.name, id };
   }
 
   async restoreUser(id: string) {
-    return { id };
+    return { request: this.restoreUser.name, id };
   }
 
   async loginUser(username: string, password: string) {
-    return { username, password };
+    return { request: this.loginUser.name, username, password };
   }
 }
