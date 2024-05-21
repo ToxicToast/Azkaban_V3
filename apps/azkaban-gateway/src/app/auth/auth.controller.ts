@@ -1,5 +1,11 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 
@@ -23,7 +29,11 @@ export class AuthController {
     @Body('username') username: string,
     @Body('password') password: string
   ) {
-    return await this.service.login(username, password);
+    try {
+      return await this.service.login(username, password);
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   @Post('forgot-password')

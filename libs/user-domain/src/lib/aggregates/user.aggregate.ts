@@ -9,7 +9,7 @@ export class UserAggregate implements Domain<UserAnemic> {
     private password: string,
     private email: string,
     private active: boolean,
-    private banned: boolean,
+    private banned_at: Nullable<Date>,
     private readonly created_at: Date,
     private updated_at: Nullable<Date>,
     private deleted_at: Nullable<Date>
@@ -20,7 +20,7 @@ export class UserAggregate implements Domain<UserAnemic> {
   }
 
   isBanned(): boolean {
-    return this.banned;
+    return !!this.banned_at;
   }
 
   isUpdated(): boolean {
@@ -46,7 +46,7 @@ export class UserAggregate implements Domain<UserAnemic> {
       email: this.email,
       password: this.password,
       active: this.active,
-      banned: this.banned,
+      banned_at: this.banned_at,
       created_at: this.created_at,
       updated_at: this.updated_at,
       deleted_at: this.deleted_at,
@@ -81,8 +81,8 @@ export class UserAggregate implements Domain<UserAnemic> {
     this.active = active;
   }
 
-  changeBan(ban: boolean): void {
+  changeBan(ban: Nullable<Date>): void {
     this.updated_at = new Date();
-    this.banned = ban;
+    this.banned_at = ban;
   }
 }

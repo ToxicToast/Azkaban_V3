@@ -3,7 +3,7 @@ import { UserData } from '../data';
 import { UserFactory } from '../factories';
 import { UserRepository } from '../repositories';
 import { Result } from '@toxictoast/azkaban-base-domain';
-import { Optional } from '@toxictoast/azkaban-base-types';
+import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 
 export class UserService {
   private readonly factory: UserFactory = new UserFactory();
@@ -28,6 +28,30 @@ export class UserService {
       return Result.ok<Array<UserAnemic>>(result);
     } catch (error) {
       return Result.fail<Array<UserAnemic>>(error);
+    }
+  }
+
+  async getUserByUsernameAndPassword(
+    username: string,
+    password: string
+  ): Promise<Result<UserAnemic>> {
+    try {
+      const result = await this.repository.findByUsernameAndPassword(
+        username,
+        password
+      );
+      if (result !== null) {
+        if (!result.isActive) {
+          return Result.fail<UserAnemic>('User is not active');
+        }
+        if (result.isBanned) {
+          return Result.fail<UserAnemic>('User is banned');
+        }
+        return Result.ok<UserAnemic>(result);
+      }
+      return Result.fail<UserAnemic>('User not found');
+    } catch (error) {
+      return Result.fail<UserAnemic>(error);
     }
   }
 
@@ -160,7 +184,10 @@ export class UserService {
     }
   }
 
-  async changeBan(id: string, ban: boolean): Promise<Result<UserAnemic>> {
+  async changeBan(
+    id: string,
+    ban: Nullable<Date>
+  ): Promise<Result<UserAnemic>> {
     try {
       const user = await this.getUserById(id);
       if (user.isSuccess) {

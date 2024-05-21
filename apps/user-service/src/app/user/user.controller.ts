@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { UserService } from './user.service';
@@ -13,17 +13,29 @@ export class UserController {
     @Payload('limit') limit: number,
     @Payload('offset') offset: number
   ) {
-    return await this.service.getUsers(limit, offset);
+    try {
+      return await this.service.getUsers(limit, offset);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @MessagePattern(UserTopics.ID)
   async getUserById(@Payload('id') id: string) {
-    return await this.service.getUserById(id);
+    try {
+      return await this.service.getUserById(id);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @MessagePattern(UserTopics.EMAIL)
   async getUserByEmail(@Payload('email') email: string) {
-    return await this.service.getUserByEmail(email);
+    try {
+      return await this.service.getUserByEmail(email);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @MessagePattern(UserTopics.CREATE)
@@ -32,7 +44,11 @@ export class UserController {
     @Payload('username') username: string,
     @Payload('password') password: string
   ) {
-    return await this.service.createUser(email, username, password);
+    try {
+      return await this.service.createUser(email, username, password);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @MessagePattern(UserTopics.UPDATE)
@@ -42,24 +58,40 @@ export class UserController {
     @Payload('username') username?: Optional<string>,
     @Payload('password') password?: Optional<string>
   ) {
-    return await this.service.updateUser(id, email, username, password);
+    try {
+      return await this.service.updateUser(id, email, username, password);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @MessagePattern(UserTopics.DELETE)
   async deleteUser(@Payload('id') id: string) {
-    return await this.service.deleteUser(id);
+    try {
+      return await this.service.deleteUser(id);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @MessagePattern(UserTopics.RESTORE)
   async restoreUser(@Payload('id') id: string) {
-    return await this.service.restoreUser(id);
+    try {
+      return await this.service.restoreUser(id);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @MessagePattern(UserTopics.LOGIN)
   async loginUser(
-    @Payload('username') username: Optional<string>,
-    @Payload('password') password: Optional<string>
+    @Payload('username') username: string,
+    @Payload('password') password: string
   ) {
-    return await this.service.loginUser(username, password);
+    try {
+      return await this.service.loginUser(username, password);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 }

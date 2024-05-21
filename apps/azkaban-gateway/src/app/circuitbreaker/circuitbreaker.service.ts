@@ -1,5 +1,9 @@
 import CircuitBreaker from 'opossum';
-import { Injectable, ServiceUnavailableException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 
 @Injectable()
 export class CircuitBreakerService {
@@ -14,12 +18,20 @@ export class CircuitBreakerService {
       resetTimeout: 5000,
       name,
     });
-    circuitbreaker.fallback(() => {
+    /*circuitbreaker.fallback(() => {
       if (shouldNotThrow === true) {
         return 'Service Unavailable';
       }
       throw new ServiceUnavailableException(`${name} is not available`);
-    });
-    return (await circuitbreaker.fire()) as T;
+    });*/
+    const fired = await circuitbreaker.fire();
+    if (fired instanceof Error) {
+      if (shouldNotThrow === true) {
+        return 'Service Unavailable' as unknown as T;
+      }
+      throw new HttpException(fired.message, 500);
+    }
+    return fired as unknown as T;
+    // return (await circuitbreaker.fire()) as T;
   }
 }

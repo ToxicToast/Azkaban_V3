@@ -1,4 +1,5 @@
 import { Anemic } from '@toxictoast/azkaban-base-domain';
+import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export interface UserAnemic extends Anemic {
   readonly username: string;
@@ -6,6 +7,6 @@ export interface UserAnemic extends Anemic {
   readonly password: string;
   readonly active: boolean;
   readonly isActive: boolean;
-  readonly banned: boolean;
+  readonly banned_at: Nullable<Date>;
   readonly isBanned: boolean;
 }
