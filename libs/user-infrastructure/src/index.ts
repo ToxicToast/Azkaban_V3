@@ -1,1 +1,1 @@
-export * from './lib/user-infrastructure';
+export * from './lib';
