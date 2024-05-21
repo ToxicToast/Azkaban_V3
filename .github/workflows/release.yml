@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Major version for each merge
         id: taggerDryRun
@@ -28,9 +30,10 @@ jobs:
         run: |
           echo "${{ steps.taggerDryRun.outputs.new_tag }}"
 
-      - name: 🪐 API Alerts Notify
-        uses: ./.github/workflows/magpie/action.yml
+      - name: API Alerts Notify
+        uses: apialerts/notify-action@v1
         with:
+          api_key: ${{ secrets.API_ALERTS_KEY }}
           message: '🚢 Feature - New Version Released (${{ steps.taggerDryRun.outputs.new_tag }})'
           tags: 'Azkaban,Release'
-          api_key: ${{ secrets.API_ALERTS_KEY }}
+          link: 'https://api.toxictoast.de/swagger'
