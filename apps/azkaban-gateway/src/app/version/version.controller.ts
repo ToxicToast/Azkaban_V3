@@ -22,6 +22,7 @@ export class VersionController {
         sse: await this.service.getSSEVersion(),
       },
       user: await this.service.getUsersVersion(),
+      auth: await this.service.getAuthVersion(),
     };
   }
 }

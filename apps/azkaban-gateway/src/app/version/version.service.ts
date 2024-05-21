@@ -1,7 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { NotifyTopics, UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+  AuthTopics,
+  NotifyTopics,
+  UserTopics,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
 export class VersionService {
@@ -14,6 +18,7 @@ export class VersionService {
     @Inject('SSE_SERVICE') private readonly sseClient: ClientProxy,
     //
     @Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
+    @Inject('AUTH_SERVICE') private readonly authClient: ClientProxy,
     //
     @Inject('APP_VERSION') private readonly appVersion: string
   ) {}
@@ -75,6 +80,16 @@ export class VersionService {
       UserTopics.VERSION,
       async () => {
         return await this.usersClient.send(UserTopics.VERSION, {}).toPromise();
+      },
+      true
+    );
+  }
+
+  async getAuthVersion() {
+    return this.circuitbreaker.execute(
+      AuthTopics.VERSION,
+      async () => {
+        return await this.authClient.send(AuthTopics.VERSION, {}).toPromise();
       },
       true
     );

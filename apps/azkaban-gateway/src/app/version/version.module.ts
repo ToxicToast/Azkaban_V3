@@ -4,6 +4,7 @@ import { VersionService } from './version.service';
 import { CircuitBreakerModule } from '../circuitbreaker/circuitbreaker.module';
 import { ClientsModule } from '@nestjs/microservices';
 import {
+  azkaban_auth,
   azkaban_notify,
   azkaban_notify_apialerts,
   azkaban_notify_notification,
@@ -67,6 +68,18 @@ import { ConfigService } from '@nestjs/config';
         name: 'USERS_SERVICE',
         ...clientProvider({
           queueName: azkaban_user,
+          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+          brokerUsername: process.env.BROKER_USERNAME,
+          brokerPassword: process.env.BROKER_PASSWORD,
+          brokerHost: process.env.BROKER_HOST,
+          brokerPort: parseInt(process.env.BROKER_PORT),
+        }),
+      },
+      // Auth
+      {
+        name: 'AUTH_SERVICE',
+        ...clientProvider({
+          queueName: azkaban_auth,
           noAck: process.env.BROKER_ACK === 'yes' ? true : false,
           brokerUsername: process.env.BROKER_USERNAME,
           brokerPassword: process.env.BROKER_PASSWORD,
