@@ -35,7 +35,7 @@ jobs:
         run: npm install
 
       - name: 🚀 Affected Apps and Libs
-        uses: ./.github/workflows/affected-workflow.yml
+        uses: ./.github/workflows/affected/action.yml
         with:
           NX_BASE: ${{ env.NX_BRANCH }}
           NX_HEAD: ${{ env.NX_HEAD }}
@@ -60,7 +60,7 @@ jobs:
         run: npm run nx run-many -- --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
       - name: 🪐 API Alerts Notify
-        uses: ./.github/workflows/magpie-workflow.yml
+        uses: ./.github/workflows/magpie/action.yml
         with:
           message: '🚢 Feature - New Minor Version Released (${{ steps.taggerDryRun.outputs.new_tag }})'
           tags: 'Azkaban,Minor'
