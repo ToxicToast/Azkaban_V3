@@ -36,17 +36,11 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🚀 Lint Apps
-        run: npm run nx affected:lint --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
-
-      - name: 🚀 Test Apps
-        run: npm run nx affected:test --passWithNoTests --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
-
-      - name: 🚀 e2e Apps
-        run: npm run nx affected:e2e --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
-
-      - name: 🚀 Build Apps
-        run: npm run nx affected:build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
+      - name: 🚀 Affected Apps and Libs
+        uses: ./.github/workflows/affected-workflow.yml
+        with:
+          NX_BASE: ${{ env.NX_BRANCH }}
+          NX_HEAD: ${{ env.NX_HEAD }}
 
       - name: 🪐 Minor version for each merge
         id: taggerDryRun
