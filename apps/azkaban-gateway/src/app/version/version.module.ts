@@ -4,54 +4,69 @@ import { VersionService } from './version.service';
 import { CircuitBreakerModule } from '../circuitbreaker/circuitbreaker.module';
 import { ClientsModule } from '@nestjs/microservices';
 import {
-  azkaban_auth,
-  azkaban_group,
   azkaban_notify,
+  azkaban_notify_apialerts,
+  azkaban_notify_notification,
+  azkaban_notify_sse,
   azkaban_user,
   clientProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     CircuitBreakerModule,
     ClientsModule.register([
-      {
-        name: 'AUTH_SERVICE',
-        ...clientProvider({
-          queueName: azkaban_auth,
-          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-          brokerUsername: process.env.BROKER_USERNAME,
-          brokerPassword: process.env.BROKER_PASSWORD,
-          brokerHost: process.env.BROKER_HOST,
-          brokerPort: parseInt(process.env.BROKER_PORT),
-        }),
-      },
-      {
-        name: 'GROUP_SERVICE',
-        ...clientProvider({
-          queueName: azkaban_group,
-          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-          brokerUsername: process.env.BROKER_USERNAME,
-          brokerPassword: process.env.BROKER_PASSWORD,
-          brokerHost: process.env.BROKER_HOST,
-          brokerPort: parseInt(process.env.BROKER_PORT),
-        }),
-      },
-      {
-        name: 'USER_SERVICE',
-        ...clientProvider({
-          queueName: azkaban_user,
-          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-          brokerUsername: process.env.BROKER_USERNAME,
-          brokerPassword: process.env.BROKER_PASSWORD,
-          brokerHost: process.env.BROKER_HOST,
-          brokerPort: parseInt(process.env.BROKER_PORT),
-        }),
-      },
+      // NOTIFY
       {
         name: 'WEBHOOKS_SERVICE',
         ...clientProvider({
           queueName: azkaban_notify,
+          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+          brokerUsername: process.env.BROKER_USERNAME,
+          brokerPassword: process.env.BROKER_PASSWORD,
+          brokerHost: process.env.BROKER_HOST,
+          brokerPort: parseInt(process.env.BROKER_PORT),
+        }),
+      },
+      {
+        name: 'APIALERTS_SERVICE',
+        ...clientProvider({
+          queueName: azkaban_notify_apialerts,
+          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+          brokerUsername: process.env.BROKER_USERNAME,
+          brokerPassword: process.env.BROKER_PASSWORD,
+          brokerHost: process.env.BROKER_HOST,
+          brokerPort: parseInt(process.env.BROKER_PORT),
+        }),
+      },
+      {
+        name: 'NOTIFICATIONS_SERVICE',
+        ...clientProvider({
+          queueName: azkaban_notify_notification,
+          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+          brokerUsername: process.env.BROKER_USERNAME,
+          brokerPassword: process.env.BROKER_PASSWORD,
+          brokerHost: process.env.BROKER_HOST,
+          brokerPort: parseInt(process.env.BROKER_PORT),
+        }),
+      },
+      {
+        name: 'SSE_SERVICE',
+        ...clientProvider({
+          queueName: azkaban_notify_sse,
+          noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+          brokerUsername: process.env.BROKER_USERNAME,
+          brokerPassword: process.env.BROKER_PASSWORD,
+          brokerHost: process.env.BROKER_HOST,
+          brokerPort: parseInt(process.env.BROKER_PORT),
+        }),
+      },
+      // USER
+      {
+        name: 'USERS_SERVICE',
+        ...clientProvider({
+          queueName: azkaban_user,
           noAck: process.env.BROKER_ACK === 'yes' ? true : false,
           brokerUsername: process.env.BROKER_USERNAME,
           brokerPassword: process.env.BROKER_PASSWORD,
@@ -66,7 +81,10 @@ import {
     VersionService,
     {
       provide: 'APP_VERSION',
-      useValue: process.env.APP_VERSION,
+      useFactory: (config: ConfigService) => {
+        return config.get('APP_VERSION', 'local');
+      },
+      inject: [ConfigService],
     },
   ],
 })

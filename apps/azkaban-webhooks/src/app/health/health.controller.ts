@@ -7,8 +7,9 @@ import {
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 import { Transport } from '@nestjs/microservices';
+import { azkaban } from '@toxictoast/azkaban-broker-rabbitmq';
 
-@Controller()
+@Controller('health')
 export class HealthController {
   constructor(
     @Inject('MEMORY_HEAP_TRESHOLD') private readonly heapTreshold: number,
@@ -28,10 +29,11 @@ export class HealthController {
       () => this.memory.checkHeap('memory_heap', this.heapTreshold),
       () => this.memory.checkRSS('memory_rss', this.rssTreshold),
       () =>
-        this.microservices.pingCheck('kafka', {
-          transport: Transport.KAFKA,
+        this.microservices.pingCheck('rabbitmq', {
+          transport: Transport.RMQ,
           options: {
             urls: [this.brokerConnectionString],
+            queue: azkaban,
           },
         }),
     ]);

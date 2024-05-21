@@ -1,6 +1,6 @@
 {
   "name": "@azkaban/source",
-  "version": "0.3.0",
+  "version": "0.3.7",
   "license": "MIT",
   "scripts": {
     "nx": "nx",
@@ -14,18 +14,21 @@
     "serve:webhooks:magpie": "nx serve apialerts-service --skip-nx-cache",
     "serve:webhooks:notification": "nx serve notification-service --skip-nx-cache",
     "serve:webhooks:sse": "nx serve sse-service --skip-nx-cache",
+    "serve:user": "nx serve user-service --skip-nx-cache",
 
     "docker:gateway": "nx docker-build azkaban-gateway --skip-nx-cache --VERSION=local",
     "docker:webhooks": "nx docker-build azkaban-webhooks --skip-nx-cache --VERSION=local",
     "docker:webhooks:magpie": "nx docker-build apialerts-service --skip-nx-cache --VERSION=local",
     "docker:webhooks:notification": "nx docker-build notification-service --skip-nx-cache --VERSION=local",
     "docker:webhooks:sse": "nx docker-build sse-service --skip-nx-cache --VERSION=local",
+    "docker:user": "nx docker-build user-service --skip-nx-cache --VERSION=local",
 
     "docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
     "docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
     "docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
     "docker:push:webhooks:notification": "nx docker-push notification-service --skip-nx-cache --VERSION=local",
-    "docker:push:webhooks:sse": "nx docker-push sse-service --skip-nx-cache --VERSION=local"
+    "docker:push:webhooks:sse": "nx docker-push sse-service --skip-nx-cache --VERSION=local",
+    "docker:push:user": "nx docker-push user-service --skip-nx-cache --VERSION=local"
   },
   "private": true,
   "devDependencies": {

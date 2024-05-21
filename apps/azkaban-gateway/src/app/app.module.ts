@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
-import { RouterModule } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { VersionModule } from './version/version.module';
+import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     ThrottlerModule.forRoot([
       {
         name: 'azkaban',
@@ -18,21 +20,7 @@ import { VersionModule } from './version/version.module';
     HealthModule,
     MetricsModule,
     VersionModule,
-    //
-    RouterModule.register([
-      {
-        path: 'health',
-        module: HealthModule,
-      },
-      {
-        path: 'metrics',
-        module: MetricsModule,
-      },
-      {
-        path: 'version',
-        module: VersionModule,
-      },
-    ]),
+    UserModule,
   ],
 })
 export class AppModule {}

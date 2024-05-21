@@ -3,33 +3,15 @@ import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { VersionModule } from './version/version.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
-import { RouterModule } from '@nestjs/core';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    //
+    ConfigModule.forRoot({ isGlobal: true }),
     HealthModule,
     MetricsModule,
     VersionModule,
     WebhooksModule,
-    RouterModule.register([
-      {
-        path: 'health',
-        module: HealthModule,
-      },
-      {
-        path: 'metrics',
-        module: MetricsModule,
-      },
-      {
-        path: 'version',
-        module: VersionModule,
-      },
-      {
-        path: 'hooks',
-        module: WebhooksModule,
-      },
-    ]),
   ],
 })
 export class AppModule {}

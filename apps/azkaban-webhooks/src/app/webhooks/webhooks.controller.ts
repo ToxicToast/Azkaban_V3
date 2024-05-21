@@ -2,7 +2,7 @@ import { Controller, Inject } from '@nestjs/common';
 import { ClientProxy, EventPattern, Payload } from '@nestjs/microservices';
 import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
-@Controller()
+@Controller('webhooks')
 export class WebhooksController {
   constructor(
     @Inject('APIALERTS_SERVICE') private readonly apialerts: ClientProxy,

@@ -3,7 +3,6 @@ import { NotificationAnemic } from '../anemics';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export class NotificationAggregate implements Domain<NotificationAnemic> {
-  // TODO: Use ValueObjects for the following properties
   constructor(
     private readonly id: string,
     private readonly service: string,

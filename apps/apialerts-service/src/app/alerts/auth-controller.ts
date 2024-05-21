@@ -3,7 +3,7 @@ import { AuthAlertsService } from './auth-alerts.service';
 import { EventPattern } from '@nestjs/microservices';
 import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
-@Controller()
+@Controller('alerts/auth')
 export class AuthController {
   constructor(private readonly authAlerts: AuthAlertsService) {}
 
