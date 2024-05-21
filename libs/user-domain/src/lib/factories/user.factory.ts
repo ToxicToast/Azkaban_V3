@@ -14,6 +14,7 @@ export class UserFactory
       email,
       password,
       active,
+      banned,
       created_at,
       updated_at,
       deleted_at,
@@ -27,6 +28,7 @@ export class UserFactory
       password,
       email,
       active,
+      banned,
       created_at,
       updated_at,
       deleted_at
@@ -40,12 +42,14 @@ export class UserFactory
       password,
       email,
       active,
+      banned,
       created_at,
       updated_at,
       deleted_at,
       isActive,
       isUpdated,
       isDeleted,
+      isBanned,
     } = data.toAnemic();
 
     const userId = new UserId(id);
@@ -56,12 +60,14 @@ export class UserFactory
       email,
       password,
       active,
+      banned,
       created_at,
       updated_at,
       deleted_at,
       isActive,
       isUpdated,
       isDeleted,
+      isBanned,
     };
   }
 
@@ -74,6 +80,7 @@ export class UserFactory
       password,
       email,
       active ?? false,
+      false,
       new Date(),
       null,
       null
