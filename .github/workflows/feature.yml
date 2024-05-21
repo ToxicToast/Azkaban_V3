@@ -36,8 +36,8 @@ jobs:
       - name: 🚀 Affected Apps and Libs
         uses: ./.github/workflows/affected-workflow.yml
         with:
-            NX_BASE: ${{ env.NX_BRANCH }}
-            NX_HEAD: ${{ env.NX_HEAD }}
+          NX_BASE: ${{ env.NX_BRANCH }}
+          NX_HEAD: ${{ env.NX_HEAD }}
 
       - name: 🪐 Patch version for each merge
         id: taggerDryRun
@@ -52,10 +52,9 @@ jobs:
         run: |
           echo "${{ steps.taggerDryRun.outputs.new_tag }}"
 
-      - name: API Alerts Notify
-        uses: apialerts/notify-action@v1
+      - name: 🪐 API Alerts Notify
+        uses: ./.github/workflows/magpie-workflow.yml
         with:
-          api_key: ${{ secrets.API_ALERTS_KEY }}
           message: '🚢 Feature - New Patch Released (${{ steps.taggerDryRun.outputs.new_tag }})'
           tags: 'Azkaban,Feature'
-          link: 'https://api.toxictoast.de/swagger'
+          api_key: ${{ secrets.API_ALERTS_KEY }}

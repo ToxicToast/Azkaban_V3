@@ -30,10 +30,9 @@ jobs:
         run: |
           echo "${{ steps.taggerDryRun.outputs.new_tag }}"
 
-      - name: API Alerts Notify
-        uses: apialerts/notify-action@v1
+      - name: 🪐 API Alerts Notify
+        uses: ./.github/workflows/magpie-workflow.yml
         with:
-          api_key: ${{ secrets.API_ALERTS_KEY }}
           message: '🚢 Feature - New Version Released (${{ steps.taggerDryRun.outputs.new_tag }})'
           tags: 'Azkaban,Release'
-          link: 'https://api.toxictoast.de/swagger'
+          api_key: ${{ secrets.API_ALERTS_KEY }}

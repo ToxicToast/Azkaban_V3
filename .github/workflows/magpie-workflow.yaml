@@ -1,0 +1,26 @@
+name: Magpie Alerts
+
+on:
+  workflow_call:
+    inputs:
+      message:
+        required: true
+        type: string
+      tags:
+        required: true
+        type: string
+      api_key:
+        required: true
+        type: string
+
+jobs:
+  affected:
+    runs-on: ubuntu-latest
+    steps:
+      - name: API Alerts Notify
+        uses: apialerts/notify-action@v1
+        with:
+          api_key: ${{ inputs.api_key }}
+          message: ${{ inputs.message }}
+          tags: ${{ inputs.tags }}
+          link: 'https://api.toxictoast.de/swagger'
