@@ -14,6 +14,15 @@ jobs:
   affected:
     runs-on: ubuntu-latest
     steps:
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
       - name: 🚀 Lint Apps
         run: npm run nx affected:lint --base=${{ inputs.NX_BASE }} --head=${{ inputs.NX_HEAD  }}  --parallel --maxParallel=3
 
