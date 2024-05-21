@@ -15,14 +15,12 @@
     "serve:webhooks:notification": "nx serve notification-service --skip-nx-cache",
     "serve:webhooks:sse": "nx serve sse-service --skip-nx-cache",
     "serve:user": "nx serve user-service --skip-nx-cache",
-
     "docker:gateway": "nx docker-build azkaban-gateway --skip-nx-cache --VERSION=local",
     "docker:webhooks": "nx docker-build azkaban-webhooks --skip-nx-cache --VERSION=local",
     "docker:webhooks:magpie": "nx docker-build apialerts-service --skip-nx-cache --VERSION=local",
     "docker:webhooks:notification": "nx docker-build notification-service --skip-nx-cache --VERSION=local",
     "docker:webhooks:sse": "nx docker-build sse-service --skip-nx-cache --VERSION=local",
     "docker:user": "nx docker-build user-service --skip-nx-cache --VERSION=local",
-
     "docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
     "docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
     "docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
@@ -84,6 +82,7 @@
     "axios": "^1.6.0",
     "compression": "^1.7.4",
     "helmet": "^7.1.0",
+    "mysql2": "^3.9.7",
     "opossum": "^8.1.4",
     "pg": "^8.11.5",
     "reflect-metadata": "^0.1.13",
