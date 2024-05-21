@@ -19,7 +19,8 @@
       "@azkaban/notification-infrastructure": [
         "libs/notification-infrastructure/src/index.ts"
       ],
-      "@azkaban/user-domain": ["libs/user-domain/src/index.ts"]
+      "@azkaban/user-domain": ["libs/user-domain/src/index.ts"],
+      "@azkaban/user-infrastructure": ["libs/user-infrastructure/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
