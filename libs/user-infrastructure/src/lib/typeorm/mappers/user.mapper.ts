@@ -1,7 +1,7 @@
 import { Mapper } from '@toxictoast/azkaban-base-domain';
-import { UserDAO } from '@azkaban/user-infrastructure';
 import { UserEntity } from '../entities';
 import { UserFactory } from '@azkaban/user-domain';
+import { UserDAO } from '../../dao';
 
 export class UserMapper implements Mapper<UserDAO, UserEntity> {
   private readonly domainFactory: UserFactory = new UserFactory();
