@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Logger, NotFoundException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
@@ -11,7 +11,7 @@ export class AuthController {
   async register(
     @Payload('username') username: string,
     @Payload('email') email: string,
-    @Payload('password') password: string
+    @Payload('password') password: string,
   ) {
     try {
       return await this.service.register(username, email, password);
@@ -23,7 +23,7 @@ export class AuthController {
   @MessagePattern(AuthTopics.LOGIN)
   async login(
     @Payload('username') username: string,
-    @Payload('password') password: string
+    @Payload('password') password: string,
   ) {
     try {
       return await this.service.login(username, password);
@@ -35,7 +35,27 @@ export class AuthController {
   @MessagePattern(AuthTopics.FORGOT_PASSWORD)
   async forgotPassword(@Payload('email') email: string) {
     try {
-      return await this.service.forgotPassword(email);
+      const user = await this.service.findUserByEmail(email);
+      if (user !== null) {
+        await this.service.sendEmail(email);
+      }
+      return null;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  }
+
+  @MessagePattern(AuthTopics.ACTIVATE_USER)
+  async activateUser(
+    @Payload('email') email: string,
+    @Payload('token') token: string,
+  ) {
+    try {
+      const user = await this.service.findUserByEmail(email);
+      if (user !== null) {
+        await this.service.sendEmail(email);
+      }
+      Logger.debug({ email, token }, this.activateUser.name);
     } catch (error) {
       throw new RpcException(error);
     }

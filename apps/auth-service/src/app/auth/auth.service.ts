@@ -10,7 +10,7 @@ import {
 export class AuthService {
   constructor(
     @Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
-    @Inject('NOTIFY_SERVICE') private readonly notifyClient: ClientProxy
+    @Inject('NOTIFY_SERVICE') private readonly notifyClient: ClientProxy,
   ) {}
 
   async register(username: string, email: string, password: string) {
@@ -40,12 +40,27 @@ export class AuthService {
       });
   }
 
-  async forgotPassword(email: string): Promise<void> {
-    Logger.debug({ email }, AuthService.name);
+  async findUserByEmail(email: string): Promise<void> {
+    return await this.usersClient.send(UserTopics.EMAIL, { email }).toPromise();
+  }
+
+  async findUserByEmailAndToken(email: string, token: string): Promise<void> {
+    return await this.usersClient
+      .send(UserTopics.EMAILTOKEN, { email, token })
+      .toPromise();
+  }
+
+  async sendEmail(email: string): Promise<void> {
+    return await this.usersClient.emit(UserTopics.EMAIL, { email }).toPromise();
+  }
+
+  async activateUser(id: string): Promise<void> {
+    return await this.usersClient
+      .send(UserTopics.UPDATE, { email, token })
+      .toPromise();
   }
 
   private async onNewRegister(id: string, username: string): Promise<void> {
-    Logger.debug({ id, username }, this.onNewRegister.name);
     await this.notifyClient
       .emit(NotifyTopics.NOTIFY, {
         service: 'auth-service',
@@ -59,7 +74,6 @@ export class AuthService {
   }
 
   private async onNewLogin(username: string): Promise<void> {
-    Logger.debug({ username }, this.onNewLogin.name);
     await this.notifyClient
       .emit(NotifyTopics.NOTIFY, {
         service: 'auth-service',
