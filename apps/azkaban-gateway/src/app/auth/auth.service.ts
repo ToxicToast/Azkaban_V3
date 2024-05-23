@@ -7,7 +7,7 @@ import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 export class AuthService {
   constructor(
     private readonly circuitbreaker: CircuitBreakerService,
-    @Inject('AUTH_SERVICE') private readonly client: ClientProxy
+    @Inject('AUTH_SERVICE') private readonly client: ClientProxy,
   ) {}
 
   async register(email: string, username: string, password: string) {
@@ -31,6 +31,20 @@ export class AuthService {
       return await this.client
         .send(AuthTopics.FORGOT_PASSWORD, { email })
         .toPromise();
+    });
+  }
+
+  async activateUser(email: string, token: string) {
+    return this.circuitbreaker.execute(AuthTopics.ACTIVATE_USER, async () => {
+      return await this.client
+        .send(AuthTopics.ACTIVATE_USER, { email, token })
+        .toPromise();
+    });
+  }
+
+  async banUser(id: string) {
+    return this.circuitbreaker.execute(AuthTopics.FORGOT_PASSWORD, async () => {
+      return await this.client.send(AuthTopics.BAN_USER, { id }).toPromise();
     });
   }
 }

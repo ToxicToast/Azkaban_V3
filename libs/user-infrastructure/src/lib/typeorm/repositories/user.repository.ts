@@ -43,6 +43,17 @@ export class UserRepository implements DomainRepository {
     return null;
   }
 
+  async findByUsername(username: string): Promise<UserAnemic> {
+    const entity = await this.repository.findOne({
+      withDeleted: true,
+      where: { username },
+    });
+    if (entity) {
+      return this.mapper.toDomain(entity);
+    }
+    return null;
+  }
+
   async delete(id: string): Promise<UserAnemic> {
     await this.repository.softDelete(id);
     return await this.findById(id);

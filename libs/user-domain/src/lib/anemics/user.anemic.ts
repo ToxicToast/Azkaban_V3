@@ -5,8 +5,9 @@ export interface UserAnemic extends Anemic {
   readonly username: string;
   readonly email: string;
   readonly password: string;
-  readonly active: boolean;
   readonly isActive: boolean;
   readonly banned_at: Nullable<Date>;
   readonly isBanned: boolean;
+  readonly activated_at: Nullable<Date>;
+  readonly activation_token: Nullable<string>;
 }

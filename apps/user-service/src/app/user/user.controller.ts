@@ -11,7 +11,7 @@ export class UserController {
   @MessagePattern(UserTopics.LIST)
   async getUserList(
     @Payload('limit') limit: number,
-    @Payload('offset') offset: number
+    @Payload('offset') offset: number,
   ) {
     try {
       return await this.service.getUsers(limit, offset);
@@ -42,7 +42,7 @@ export class UserController {
   async createUser(
     @Payload('email') email: string,
     @Payload('username') username: string,
-    @Payload('password') password: string
+    @Payload('password') password: string,
   ) {
     try {
       return await this.service.createUser(email, username, password);
@@ -56,7 +56,7 @@ export class UserController {
     @Payload('id') id: string,
     @Payload('email') email?: Optional<string>,
     @Payload('username') username?: Optional<string>,
-    @Payload('password') password?: Optional<string>
+    @Payload('password') password?: Optional<string>,
   ) {
     try {
       return await this.service.updateUser(id, email, username, password);
@@ -86,7 +86,19 @@ export class UserController {
   @MessagePattern(UserTopics.LOGIN)
   async loginUser(
     @Payload('username') username: string,
-    @Payload('password') password: string
+    @Payload('password') password: string,
+  ) {
+    try {
+      return await this.service.loginUser(username, password);
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  }
+
+  @MessagePattern(UserTopics.ACTIVATE)
+  async loginUser(
+    @Payload('username') username: string,
+    @Payload('password') password: string,
   ) {
     try {
       return await this.service.loginUser(username, password);

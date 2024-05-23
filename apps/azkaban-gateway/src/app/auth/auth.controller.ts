@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   HttpException,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -19,15 +20,19 @@ export class AuthController {
   async register(
     @Body('email') email: string,
     @Body('username') username: string,
-    @Body('password') password: string
+    @Body('password') password: string,
   ) {
-    return await this.service.register(email, username, password);
+    try {
+      return await this.service.register(email, username, password);
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   @Post('login')
   async login(
     @Body('username') username: string,
-    @Body('password') password: string
+    @Body('password') password: string,
   ) {
     try {
       return await this.service.login(username, password);
@@ -38,6 +43,31 @@ export class AuthController {
 
   @Post('forgot-password')
   async forgotPassword(@Body('email') email: string) {
-    return await this.service.forgotPassword(email);
+    try {
+      return await this.service.forgotPassword(email);
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  @Post('activate-user')
+  async activateUser(
+    @Body('email') email: string,
+    @Body('token') token: string,
+  ) {
+    try {
+      return await this.service.activateUser(email, token);
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  @Post('ban-user/:id')
+  async banUser(@Param('id') id: string) {
+    try {
+      return await this.service.banUser(id);
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
   }
 }

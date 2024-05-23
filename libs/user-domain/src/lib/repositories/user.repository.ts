@@ -4,6 +4,7 @@ import { Repository } from '@toxictoast/azkaban-base-domain';
 
 interface UserAdditions {
   findByEmail(email: string): Promise<UserAnemic>;
+  findByUsername(username: string): Promise<UserAnemic>;
   findByUsernameAndPassword(
     username: string,
     password: string

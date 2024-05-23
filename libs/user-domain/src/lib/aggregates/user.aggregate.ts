@@ -8,7 +8,8 @@ export class UserAggregate implements Domain<UserAnemic> {
     private username: string,
     private password: string,
     private email: string,
-    private active: boolean,
+    private activation_token: Nullable<string>,
+    private activated_at: Nullable<Date>,
     private banned_at: Nullable<Date>,
     private readonly created_at: Date,
     private updated_at: Nullable<Date>,
@@ -16,7 +17,7 @@ export class UserAggregate implements Domain<UserAnemic> {
   ) {}
 
   isActive(): boolean {
-    return this.active;
+    return !!this.activated_at;
   }
 
   isBanned(): boolean {
@@ -43,9 +44,10 @@ export class UserAggregate implements Domain<UserAnemic> {
     return {
       id: this.id,
       username: this.username,
-      email: this.email,
       password: this.password,
-      active: this.active,
+      email: this.email,
+      activation_token: this.activation_token,
+      activated_at: this.activated_at,
       banned_at: this.banned_at,
       created_at: this.created_at,
       updated_at: this.updated_at,
@@ -76,13 +78,18 @@ export class UserAggregate implements Domain<UserAnemic> {
     this.password = password;
   }
 
-  changeStatus(active: boolean): void {
+  changeStatus(activated_at: Nullable<Date>): void {
     this.updated_at = new Date();
-    this.active = active;
+    this.activated_at = activated_at;
   }
 
   changeBan(ban: Nullable<Date>): void {
     this.updated_at = new Date();
     this.banned_at = ban;
+  }
+
+  changeActivationToken(activation_token: Nullable<string>): void {
+    this.updated_at = new Date();
+    this.activation_token = activation_token;
   }
 }

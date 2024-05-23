@@ -12,7 +12,8 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       username,
       email,
       password,
-      active,
+      activation_token,
+      activated_at,
       banned_at,
       created_at,
       updated_at,
@@ -23,7 +24,8 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
     entity.username = username;
     entity.email = email;
     entity.password = password;
-    entity.active = active;
+    entity.activation_token = activation_token;
+    entity.activated_at = activated_at;
     entity.banned_at = banned_at;
     entity.created_at = created_at;
     entity.updated_at = updated_at;
@@ -37,7 +39,8 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       username,
       email,
       password,
-      active,
+      activation_token,
+      activated_at,
       banned_at,
       created_at,
       updated_at,
@@ -48,13 +51,14 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       username,
       email,
       password,
-      active,
+      activation_token,
+      activated_at,
       banned_at,
       created_at,
       updated_at,
       deleted_at,
       isBanned: !!banned_at,
-      isActive: active,
+      isActive: !!activated_at,
       isUpdated: !!updated_at,
       isDeleted: !!deleted_at,
     });

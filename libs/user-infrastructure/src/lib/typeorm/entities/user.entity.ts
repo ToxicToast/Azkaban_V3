@@ -21,8 +21,11 @@ export class UserEntity {
   @Column({ unique: false, nullable: false, type: 'varchar' })
   password: string;
 
-  @Column({ unique: false, nullable: false, default: false, type: 'boolean' })
-  active: boolean;
+  @Column({ unique: false, nullable: true, default: null, type: 'varchar' })
+  activation_token: string | null;
+
+  @Column({ unique: false, nullable: true, default: null, type: 'timestamp' })
+  activated_at: Date | null;
 
   @Column({ unique: false, nullable: true, default: null, type: 'timestamp' })
   banned_at: Date | null;

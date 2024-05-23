@@ -5,7 +5,8 @@ export interface UserDAO {
   username: string;
   email: string;
   password: string;
-  active: boolean;
+  activation_token: Nullable<string>;
+  activated_at: Nullable<Date>;
   banned_at: Nullable<Date>;
   created_at: Date;
   updated_at: Nullable<Date>;
