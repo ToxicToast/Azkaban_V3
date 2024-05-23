@@ -13,7 +13,7 @@ export class UserAggregate implements Domain<UserAnemic> {
     private banned_at: Nullable<Date>,
     private readonly created_at: Date,
     private updated_at: Nullable<Date>,
-    private deleted_at: Nullable<Date>
+    private deleted_at: Nullable<Date>,
   ) {}
 
   isActive(): boolean {

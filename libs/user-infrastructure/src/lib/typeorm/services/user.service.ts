@@ -15,7 +15,7 @@ export class UserService {
 
   async getUserList(
     limit?: Optional<number>,
-    offset?: Optional<number>
+    offset?: Optional<number>,
   ): Promise<Array<UserDAO>> {
     const result = await this.domainService.getUsers(limit, offset);
     if (result.isSuccess) {
@@ -58,7 +58,7 @@ export class UserService {
   async createUser(data: CreateUserDTO): Promise<UserDAO> {
     const checkEmail = await this.domainService.getUserByEmail(data.email);
     const checkUsername = await this.domainService.getUserByUsername(
-      data.username
+      data.username,
     );
     if (checkEmail.isSuccess) {
       throw new BadRequestException(AuthErrorCodes.EMAIL_FOUND);
@@ -158,11 +158,11 @@ export class UserService {
 
   async findUserByUsernameAndPassword(
     username: string,
-    password: string
+    password: string,
   ): Promise<UserDAO> {
     const result = await this.domainService.getUserByUsernameAndPassword(
       username,
-      password
+      password,
     );
     if (result.isSuccess) {
       return result.value;

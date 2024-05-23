@@ -70,7 +70,7 @@ export class UserRepository implements DomainRepository {
 
   async findByUsernameAndPassword(
     username: string,
-    password: string
+    password: string,
   ): Promise<UserAnemic> {
     const entity = await this.repository.findOne({
       withDeleted: true,

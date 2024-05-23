@@ -10,7 +10,7 @@ export class CircuitBreakerService {
   async execute<T>(
     name: string,
     callFunction: any,
-    shouldNotThrow?: boolean
+    shouldNotThrow?: boolean,
   ): Promise<T> {
     const circuitbreaker = new CircuitBreaker(callFunction, {
       timeout: 3000,

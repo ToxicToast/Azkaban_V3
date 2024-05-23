@@ -20,7 +20,7 @@ export class VersionService {
     @Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
     @Inject('AUTH_SERVICE') private readonly authClient: ClientProxy,
     //
-    @Inject('APP_VERSION') private readonly appVersion: string
+    @Inject('APP_VERSION') private readonly appVersion: string,
   ) {}
 
   getGatewayVersion() {
@@ -37,7 +37,7 @@ export class VersionService {
           .send(NotifyTopics.VERSION, {})
           .toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -49,7 +49,7 @@ export class VersionService {
           .send(NotifyTopics.VERSION, {})
           .toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -61,7 +61,7 @@ export class VersionService {
           .send(NotifyTopics.VERSION, {})
           .toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -71,7 +71,7 @@ export class VersionService {
       async () => {
         return await this.sseClient.send(NotifyTopics.VERSION, {}).toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -81,7 +81,7 @@ export class VersionService {
       async () => {
         return await this.usersClient.send(UserTopics.VERSION, {}).toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -91,7 +91,7 @@ export class VersionService {
       async () => {
         return await this.authClient.send(AuthTopics.VERSION, {}).toPromise();
       },
-      true
+      true,
     );
   }
 }

@@ -24,7 +24,7 @@ export class UserController {
   @Get()
   async getUsers(
     @Query('limit') limit?: Optional<number>,
-    @Query('offset') offset?: Optional<number>
+    @Query('offset') offset?: Optional<number>,
   ) {
     const limitNumber = limit ?? 50;
     const offsetNumber = offset ?? 0;
@@ -45,7 +45,7 @@ export class UserController {
   async createUser(
     @Body('email') email: string,
     @Body('username') username: string,
-    @Body('password') password: string
+    @Body('password') password: string,
   ) {
     return await this.service.createUser(email, username, password);
   }
@@ -55,7 +55,7 @@ export class UserController {
     @Param('id') id: string,
     @Body('email') email?: Optional<string>,
     @Body('username') username?: Optional<string>,
-    @Body('password') password?: Optional<string>
+    @Body('password') password?: Optional<string>,
   ) {
     return await this.service.updateUser(id, email, username, password);
   }

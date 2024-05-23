@@ -29,7 +29,7 @@ export const datasourceProvider = [
           password,
           database,
         },
-        entities
+        entities,
       );
     },
     inject: [ConfigService],

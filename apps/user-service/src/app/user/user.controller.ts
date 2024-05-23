@@ -94,16 +94,4 @@ export class UserController {
       throw new RpcException(error);
     }
   }
-
-  @MessagePattern(UserTopics.ACTIVATE)
-  async loginUser(
-    @Payload('username') username: string,
-    @Payload('password') password: string,
-  ) {
-    try {
-      return await this.service.loginUser(username, password);
-    } catch (error) {
-      throw new RpcException(error);
-    }
-  }
 }

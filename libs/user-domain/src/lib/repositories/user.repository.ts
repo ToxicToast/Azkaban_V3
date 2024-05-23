@@ -7,7 +7,7 @@ interface UserAdditions {
   findByUsername(username: string): Promise<UserAnemic>;
   findByUsernameAndPassword(
     username: string,
-    password: string
+    password: string,
   ): Promise<UserAnemic>;
 }
 

@@ -15,7 +15,7 @@ export class UserService {
 
   constructor(
     @Inject('USER_REPOSITORY')
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
   ) {
     this.infrastructureRepository = new UserRepository(this.userRepository);
     this.infrastructureService = new BaseService(this.infrastructureRepository);
@@ -45,7 +45,7 @@ export class UserService {
     id: string,
     email?: Optional<string>,
     username?: Optional<string>,
-    password?: Optional<string>
+    password?: Optional<string>,
   ) {
     if (email) {
       await this.infrastructureService.updateEmail(id, email);
@@ -70,7 +70,7 @@ export class UserService {
   async loginUser(username: string, password: string) {
     return await this.infrastructureService.findUserByUsernameAndPassword(
       username,
-      password
+      password,
     );
   }
 }

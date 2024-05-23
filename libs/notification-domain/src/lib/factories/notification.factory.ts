@@ -21,7 +21,7 @@ export class NotificationFactory
       payload,
       created_at,
       updated_at,
-      deleted_at
+      deleted_at,
     );
   }
 
@@ -63,7 +63,7 @@ export class NotificationFactory
       payload,
       new Date(),
       null,
-      null
+      null,
     );
   }
 }

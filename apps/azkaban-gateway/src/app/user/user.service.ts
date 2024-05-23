@@ -8,7 +8,7 @@ import { Optional } from '@toxictoast/azkaban-base-types';
 export class UserService {
   constructor(
     private readonly circuitbreaker: CircuitBreakerService,
-    @Inject('USERS_SERVICE') private readonly client: ClientProxy
+    @Inject('USERS_SERVICE') private readonly client: ClientProxy,
   ) {}
 
   async getUsers(limit: number, offset: number) {
@@ -43,7 +43,7 @@ export class UserService {
     id: string,
     email?: Optional<string>,
     username?: Optional<string>,
-    password?: Optional<string>
+    password?: Optional<string>,
   ) {
     return this.circuitbreaker.execute(UserTopics.UPDATE, async () => {
       return await this.client

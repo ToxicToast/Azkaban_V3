@@ -14,7 +14,7 @@ export class NotificationRepository implements DomainRepository {
 
   async findList(
     limit?: number,
-    offset?: number
+    offset?: number,
   ): Promise<NotificationAnemic[]> {
     const entities = await this.repository.find({
       take: limit,

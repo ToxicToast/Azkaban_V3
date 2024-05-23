@@ -12,7 +12,7 @@ export class NotificationService {
   constructor(private readonly repository: NotificationRepository) {}
 
   private async save(
-    anemic: NotificationAnemic
+    anemic: NotificationAnemic,
   ): Promise<Result<NotificationAnemic>> {
     try {
       const result = await this.repository.save(anemic);
@@ -24,7 +24,7 @@ export class NotificationService {
 
   async getNotifications(
     limit?: Optional<number>,
-    offset?: Optional<number>
+    offset?: Optional<number>,
   ): Promise<Result<Array<NotificationAnemic>>> {
     try {
       const result = await this.repository.findList(limit, offset);
@@ -41,7 +41,7 @@ export class NotificationService {
         return Result.ok<Nullable<NotificationAnemic>>(result);
       }
       return Result.fail<Nullable<NotificationAnemic>>(
-        NotificationErrorCodes.NOT_FOUND
+        NotificationErrorCodes.NOT_FOUND,
       );
     } catch (error) {
       return Result.fail<Nullable<NotificationAnemic>>(error);
@@ -49,7 +49,7 @@ export class NotificationService {
   }
 
   async getNotificationByService(
-    service: string
+    service: string,
   ): Promise<Result<Array<NotificationAnemic>>> {
     try {
       const result = await this.repository.findByService(service);
@@ -57,7 +57,7 @@ export class NotificationService {
         return Result.ok<Array<NotificationAnemic>>(result);
       }
       return Result.fail<Array<NotificationAnemic>>(
-        NotificationErrorCodes.NOT_FOUND
+        NotificationErrorCodes.NOT_FOUND,
       );
     } catch (error) {
       return Result.fail<Array<NotificationAnemic>>(error);
@@ -65,7 +65,7 @@ export class NotificationService {
   }
 
   async getNotificationByEvent(
-    event: string
+    event: string,
   ): Promise<Result<Array<NotificationAnemic>>> {
     try {
       const result = await this.repository.findByEvent(event);
@@ -73,7 +73,7 @@ export class NotificationService {
         return Result.ok<Array<NotificationAnemic>>(result);
       }
       return Result.fail<Array<NotificationAnemic>>(
-        NotificationErrorCodes.NOT_FOUND
+        NotificationErrorCodes.NOT_FOUND,
       );
     } catch (error) {
       return Result.fail<Array<NotificationAnemic>>(error);
@@ -81,7 +81,7 @@ export class NotificationService {
   }
 
   async createNotification(
-    data: NotificationData
+    data: NotificationData,
   ): Promise<Result<NotificationAnemic>> {
     try {
       const aggregate = this.factory.createDomain(data);

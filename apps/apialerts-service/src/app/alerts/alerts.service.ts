@@ -13,7 +13,7 @@ export class AlertsService {
   public sendAlert(
     message: string,
     tags?: Optional<Array<string>>,
-    link?: Optional<string>
+    link?: Optional<string>,
   ): void {
     Logger.debug({ message, tags, link }, AlertsService.name);
     this.client.send({

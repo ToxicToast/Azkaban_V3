@@ -14,7 +14,7 @@ export class NotificationService {
 
   async getNotificationList(
     limit?: Optional<number>,
-    offset?: Optional<number>
+    offset?: Optional<number>,
   ): Promise<Array<NotificationDAO>> {
     const result = await this.domainService.getNotifications(limit, offset);
     if (result.isSuccess) {
@@ -35,7 +35,7 @@ export class NotificationService {
   }
 
   async getNotificationByService(
-    service: string
+    service: string,
   ): Promise<Array<NotificationDAO>> {
     const result = await this.domainService.getNotificationByService(service);
     if (result.isSuccess) {
@@ -57,7 +57,7 @@ export class NotificationService {
   }
 
   async createNotification(
-    data: CreateNotificationDTO
+    data: CreateNotificationDTO,
   ): Promise<NotificationDAO> {
     const result = await this.domainService.createNotification(data);
     if (result.isSuccess) {
