@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
   AuthTopics,
@@ -46,7 +46,7 @@ export class AuthService {
 
   async findUserByEmailAndToken(email: string, token: string): Promise<void> {
     return await this.usersClient
-      .send(UserTopics.EMAILTOKEN, { email, token })
+      .send(UserTopics.EMAIL, { email, token })
       .toPromise();
   }
 
@@ -55,9 +55,7 @@ export class AuthService {
   }
 
   async activateUser(id: string): Promise<void> {
-    return await this.usersClient
-      .send(UserTopics.UPDATE, { email, token })
-      .toPromise();
+    return await this.usersClient.send(UserTopics.UPDATE, { id }).toPromise();
   }
 
   private async onNewRegister(id: string, username: string): Promise<void> {
