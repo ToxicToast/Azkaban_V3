@@ -4,6 +4,7 @@ import { CreateUserDTO } from '../../dto';
 import { UserDAO } from '../../dao';
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { AuthErrorCodes } from '@toxictoast/azkaban-base-helpers';
 
 export class UserService {
   private readonly domainService: DomainService;
@@ -44,7 +45,28 @@ export class UserService {
     }
   }
 
+  async getUserByUsername(username: string): Promise<UserDAO> {
+    const result = await this.domainService.getUserByUsername(username);
+    if (result.isSuccess) {
+      return result.value;
+    } else {
+      const errorMessage = result.errorValue;
+      throw new NotFoundException(errorMessage);
+    }
+  }
+
   async createUser(data: CreateUserDTO): Promise<UserDAO> {
+    const checkEmail = await this.domainService.getUserByEmail(data.email);
+    const checkUsername = await this.domainService.getUserByUsername(
+      data.username
+    );
+    if (checkEmail.isSuccess) {
+      throw new BadRequestException(AuthErrorCodes.EMAIL_FOUND);
+    }
+    if (checkUsername.isSuccess) {
+      throw new BadRequestException(AuthErrorCodes.USERNAME_FOUND);
+    }
+    //
     const result = await this.domainService.createUser(data);
     if (result.isSuccess) {
       return result.value;
@@ -105,7 +127,7 @@ export class UserService {
   }
 
   async activateUser(id: string): Promise<UserDAO> {
-    const result = await this.domainService.changeStatus(id, true);
+    const result = await this.domainService.changeStatus(id, new Date());
     if (result.isSuccess) {
       return result.value;
     } else {
@@ -115,7 +137,17 @@ export class UserService {
   }
 
   async deactivateUser(id: string): Promise<UserDAO> {
-    const result = await this.domainService.changeStatus(id, false);
+    const result = await this.domainService.changeStatus(id, null);
+    if (result.isSuccess) {
+      return result.value;
+    } else {
+      const errorMessage = result.errorValue;
+      throw new NotFoundException(errorMessage);
+    }
+  }
+
+  async banUser(id: string): Promise<UserDAO> {
+    const result = await this.domainService.changeBan(id, new Date());
     if (result.isSuccess) {
       return result.value;
     } else {
@@ -136,7 +168,6 @@ export class UserService {
       return result.value;
     } else {
       const errorMessage = result.errorValue;
-      console.error(errorMessage);
       throw new BadRequestException(errorMessage, {});
     }
   }

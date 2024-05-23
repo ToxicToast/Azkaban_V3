@@ -4,6 +4,7 @@ import { UserFactory } from '../factories';
 import { UserRepository } from '../repositories';
 import { Result } from '@toxictoast/azkaban-base-domain';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
+import { UserErrorCodes } from '@toxictoast/azkaban-base-helpers';
 
 export class UserService {
   private readonly factory: UserFactory = new UserFactory();
@@ -21,7 +22,7 @@ export class UserService {
 
   async getUsers(
     limit?: Optional<number>,
-    offset?: Optional<number>
+    offset?: Optional<number>,
   ): Promise<Result<Array<UserAnemic>>> {
     try {
       const result = await this.repository.findList(limit, offset);
@@ -33,23 +34,23 @@ export class UserService {
 
   async getUserByUsernameAndPassword(
     username: string,
-    password: string
+    password: string,
   ): Promise<Result<UserAnemic>> {
     try {
       const result = await this.repository.findByUsernameAndPassword(
         username,
-        password
+        password,
       );
       if (result !== null) {
         if (!result.isActive) {
-          return Result.fail<UserAnemic>('User is not active');
+          return Result.fail<UserAnemic>(UserErrorCodes.NOT_ACTIVE);
         }
         if (result.isBanned) {
-          return Result.fail<UserAnemic>('User is banned');
+          return Result.fail<UserAnemic>(UserErrorCodes.IS_BANNED);
         }
         return Result.ok<UserAnemic>(result);
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_ACTIVE);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -61,7 +62,7 @@ export class UserService {
       if (result !== null) {
         return Result.ok<UserAnemic>(result);
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_ACTIVE);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -73,7 +74,19 @@ export class UserService {
       if (result !== null) {
         return Result.ok<UserAnemic>(result);
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
+    } catch (error) {
+      return Result.fail<UserAnemic>(error);
+    }
+  }
+
+  async getUserByUsername(username: string): Promise<Result<UserAnemic>> {
+    try {
+      const result = await this.repository.findByUsername(username);
+      if (result !== null) {
+        return Result.ok<UserAnemic>(result);
+      }
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -97,7 +110,7 @@ export class UserService {
         aggregate.delete();
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -112,7 +125,7 @@ export class UserService {
         aggregate.restore();
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -120,7 +133,7 @@ export class UserService {
 
   async updateUsername(
     id: string,
-    username: string
+    username: string,
   ): Promise<Result<UserAnemic>> {
     try {
       const user = await this.getUserById(id);
@@ -130,7 +143,7 @@ export class UserService {
         aggregate.changeUsername(username);
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -145,7 +158,7 @@ export class UserService {
         aggregate.changeEmail(email);
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -153,7 +166,7 @@ export class UserService {
 
   async updatePassword(
     id: string,
-    password: string
+    password: string,
   ): Promise<Result<UserAnemic>> {
     try {
       const user = await this.getUserById(id);
@@ -163,13 +176,16 @@ export class UserService {
         aggregate.changePassword(password);
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
   }
 
-  async changeStatus(id: string, status: boolean): Promise<Result<UserAnemic>> {
+  async changeStatus(
+    id: string,
+    status: Nullable<Date>,
+  ): Promise<Result<UserAnemic>> {
     try {
       const user = await this.getUserById(id);
       if (user.isSuccess) {
@@ -178,7 +194,7 @@ export class UserService {
         aggregate.changeStatus(status);
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -186,7 +202,7 @@ export class UserService {
 
   async changeBan(
     id: string,
-    ban: Nullable<Date>
+    ban: Nullable<Date>,
   ): Promise<Result<UserAnemic>> {
     try {
       const user = await this.getUserById(id);
@@ -196,7 +212,7 @@ export class UserService {
         aggregate.changeBan(ban);
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<UserAnemic>('User not found');
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }

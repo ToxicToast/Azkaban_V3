@@ -4,6 +4,7 @@ import { NotificationFactory } from '../factories';
 import { NotificationData } from '../data';
 import { Result } from '@toxictoast/azkaban-base-domain';
 import { NotificationRepository } from '../repositories';
+import { NotificationErrorCodes } from '@toxictoast/azkaban-base-helpers';
 
 export class NotificationService {
   private readonly factory: NotificationFactory = new NotificationFactory();
@@ -40,7 +41,7 @@ export class NotificationService {
         return Result.ok<Nullable<NotificationAnemic>>(result);
       }
       return Result.fail<Nullable<NotificationAnemic>>(
-        'Notification not found'
+        NotificationErrorCodes.NOT_FOUND
       );
     } catch (error) {
       return Result.fail<Nullable<NotificationAnemic>>(error);
@@ -55,7 +56,9 @@ export class NotificationService {
       if (result.length > 0) {
         return Result.ok<Array<NotificationAnemic>>(result);
       }
-      return Result.fail<Array<NotificationAnemic>>('Notification not found');
+      return Result.fail<Array<NotificationAnemic>>(
+        NotificationErrorCodes.NOT_FOUND
+      );
     } catch (error) {
       return Result.fail<Array<NotificationAnemic>>(error);
     }
@@ -69,7 +72,9 @@ export class NotificationService {
       if (result.length > 0) {
         return Result.ok<Array<NotificationAnemic>>(result);
       }
-      return Result.fail<Array<NotificationAnemic>>('Notification not found');
+      return Result.fail<Array<NotificationAnemic>>(
+        NotificationErrorCodes.NOT_FOUND
+      );
     } catch (error) {
       return Result.fail<Array<NotificationAnemic>>(error);
     }
@@ -95,7 +100,7 @@ export class NotificationService {
         aggregate.delete();
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<NotificationAnemic>('Notification not found');
+      return Result.fail<NotificationAnemic>(NotificationErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<NotificationAnemic>(error);
     }
@@ -110,7 +115,7 @@ export class NotificationService {
         aggregate.restore();
         return await this.save(aggregate.toAnemic());
       }
-      return Result.fail<NotificationAnemic>('Notification not found');
+      return Result.fail<NotificationAnemic>(NotificationErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<NotificationAnemic>(error);
     }
