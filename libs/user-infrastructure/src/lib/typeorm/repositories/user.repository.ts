@@ -32,28 +32,6 @@ export class UserRepository implements DomainRepository {
     return null;
   }
 
-  async findByEmail(email: string): Promise<UserAnemic> {
-    const entity = await this.repository.findOne({
-      withDeleted: true,
-      where: { email },
-    });
-    if (entity) {
-      return this.mapper.toDomain(entity);
-    }
-    return null;
-  }
-
-  async findByUsername(username: string): Promise<UserAnemic> {
-    const entity = await this.repository.findOne({
-      withDeleted: true,
-      where: { username },
-    });
-    if (entity) {
-      return this.mapper.toDomain(entity);
-    }
-    return null;
-  }
-
   async delete(id: string): Promise<UserAnemic> {
     await this.repository.softDelete(id);
     return await this.findById(id);
@@ -64,20 +42,6 @@ export class UserRepository implements DomainRepository {
     const saved = await this.repository.save(entity);
     if (saved) {
       return this.mapper.toDomain(saved);
-    }
-    return null;
-  }
-
-  async findByUsernameAndPassword(
-    username: string,
-    password: string,
-  ): Promise<UserAnemic> {
-    const entity = await this.repository.findOne({
-      withDeleted: true,
-      where: { username, password },
-    });
-    if (entity) {
-      return this.mapper.toDomain(entity);
     }
     return null;
   }

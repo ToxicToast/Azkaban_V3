@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Optional } from '@toxictoast/azkaban-base-types';
+import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import {
   UserDAO,
   UserEntity,
@@ -29,10 +29,6 @@ export class UserService {
     return await this.infrastructureService.getUserById(id);
   }
 
-  async getUserByEmail(email: string): Promise<UserDAO> {
-    return await this.infrastructureService.getUserByEmail(email);
-  }
-
   async createUser(email: string, username: string, password: string) {
     return await this.infrastructureService.createUser({
       email,
@@ -46,6 +42,9 @@ export class UserService {
     email?: Optional<string>,
     username?: Optional<string>,
     password?: Optional<string>,
+    activation_token?: Optional<string>,
+    activated_at?: Optional<Nullable<Date>>,
+    banned_at?: Optional<Nullable<Date>>,
   ) {
     if (email) {
       await this.infrastructureService.updateEmail(id, email);
@@ -56,6 +55,18 @@ export class UserService {
     if (password) {
       await this.infrastructureService.updatePassword(id, password);
     }
+    if (activation_token) {
+      await this.infrastructureService.updateActivationToken(
+        id,
+        activation_token,
+      );
+    }
+    if (activated_at !== undefined) {
+      await this.infrastructureService.updateActivatedAt(id, activated_at);
+    }
+    if (banned_at !== undefined) {
+      await this.infrastructureService.updateBannedAt(id, banned_at);
+    }
     return await this.infrastructureService.getUserById(id);
   }
 
@@ -65,12 +76,5 @@ export class UserService {
 
   async restoreUser(id: string) {
     return await this.infrastructureService.restoreUser(id);
-  }
-
-  async loginUser(username: string, password: string) {
-    return await this.infrastructureService.findUserByUsernameAndPassword(
-      username,
-      password,
-    );
   }
 }

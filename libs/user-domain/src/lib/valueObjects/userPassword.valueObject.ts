@@ -16,7 +16,7 @@ export class UserPassword implements ValueObject<string> {
     );
   }
 
-  equals(valueObject: ValueObject<string>): boolean {
+  equals(valueObject: UserPassword): boolean {
     return this._value === valueObject._value;
   }
 

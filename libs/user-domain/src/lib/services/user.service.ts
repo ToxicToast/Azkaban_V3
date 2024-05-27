@@ -32,30 +32,6 @@ export class UserService {
     }
   }
 
-  async getUserByUsernameAndPassword(
-    username: string,
-    password: string,
-  ): Promise<Result<UserAnemic>> {
-    try {
-      const result = await this.repository.findByUsernameAndPassword(
-        username,
-        password,
-      );
-      if (result !== null) {
-        if (!result.isActive) {
-          return Result.fail<UserAnemic>(UserErrorCodes.NOT_ACTIVE);
-        }
-        if (result.isBanned) {
-          return Result.fail<UserAnemic>(UserErrorCodes.IS_BANNED);
-        }
-        return Result.ok<UserAnemic>(result);
-      }
-      return Result.fail<UserAnemic>(UserErrorCodes.NOT_ACTIVE);
-    } catch (error) {
-      return Result.fail<UserAnemic>(error);
-    }
-  }
-
   async getUserById(id: string): Promise<Result<UserAnemic>> {
     try {
       const result = await this.repository.findById(id);
@@ -63,30 +39,6 @@ export class UserService {
         return Result.ok<UserAnemic>(result);
       }
       return Result.fail<UserAnemic>(UserErrorCodes.NOT_ACTIVE);
-    } catch (error) {
-      return Result.fail<UserAnemic>(error);
-    }
-  }
-
-  async getUserByEmail(email: string): Promise<Result<UserAnemic>> {
-    try {
-      const result = await this.repository.findByEmail(email);
-      if (result !== null) {
-        return Result.ok<UserAnemic>(result);
-      }
-      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
-    } catch (error) {
-      return Result.fail<UserAnemic>(error);
-    }
-  }
-
-  async getUserByUsername(username: string): Promise<Result<UserAnemic>> {
-    try {
-      const result = await this.repository.findByUsername(username);
-      if (result !== null) {
-        return Result.ok<UserAnemic>(result);
-      }
-      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
@@ -182,16 +134,16 @@ export class UserService {
     }
   }
 
-  async changeStatus(
+  async updateActivationToken(
     id: string,
-    status: Nullable<Date>,
+    activation_token: Nullable<string>,
   ): Promise<Result<UserAnemic>> {
     try {
       const user = await this.getUserById(id);
       if (user.isSuccess) {
         const userValue = user.value;
         const aggregate = this.factory.reconstitute(userValue);
-        aggregate.changeStatus(status);
+        aggregate.changeActivationToken(activation_token);
         return await this.save(aggregate.toAnemic());
       }
       return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
@@ -200,16 +152,34 @@ export class UserService {
     }
   }
 
-  async changeBan(
+  async updateActivatedAt(
     id: string,
-    ban: Nullable<Date>,
+    activated_at: Nullable<Date>,
   ): Promise<Result<UserAnemic>> {
     try {
       const user = await this.getUserById(id);
       if (user.isSuccess) {
         const userValue = user.value;
         const aggregate = this.factory.reconstitute(userValue);
-        aggregate.changeBan(ban);
+        aggregate.changeActivatedAt(activated_at);
+        return await this.save(aggregate.toAnemic());
+      }
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
+    } catch (error) {
+      return Result.fail<UserAnemic>(error);
+    }
+  }
+
+  async updateBannedAt(
+    id: string,
+    banned_at: Nullable<Date>,
+  ): Promise<Result<UserAnemic>> {
+    try {
+      const user = await this.getUserById(id);
+      if (user.isSuccess) {
+        const userValue = user.value;
+        const aggregate = this.factory.reconstitute(userValue);
+        aggregate.changeBannedAt(banned_at);
         return await this.save(aggregate.toAnemic());
       }
       return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);

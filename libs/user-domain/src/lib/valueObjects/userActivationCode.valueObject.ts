@@ -12,7 +12,7 @@ export class UserActivationCode implements ValueObject<string> {
         : StringGeneratorHelper.create(12).value;
   }
 
-  equals(valueObject: ValueObject<string>): boolean {
+  equals(valueObject: UserActivationCode): boolean {
     return this._value === valueObject._value;
   }
 

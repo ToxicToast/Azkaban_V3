@@ -1,6 +1,7 @@
 import { Domain } from '@toxictoast/azkaban-base-domain';
 import { UserAnemic } from '../anemics';
 import { Nullable } from '@toxictoast/azkaban-base-types';
+import { UserActivationCode, UserPassword } from '../valueObjects';
 
 export class UserAggregate implements Domain<UserAnemic> {
   constructor(
@@ -74,22 +75,30 @@ export class UserAggregate implements Domain<UserAnemic> {
   }
 
   changePassword(password: string): void {
-    this.updated_at = new Date();
-    this.password = password;
+    const passwordVO = new UserPassword(this.password);
+    const newPasswordVO = new UserPassword(password);
+    if (!passwordVO.equals(newPasswordVO)) {
+      this.updated_at = new Date();
+      this.password = newPasswordVO.value;
+    }
   }
 
-  changeStatus(activated_at: Nullable<Date>): void {
+  changeActivationToken(activation_token: Nullable<string>): void {
+    const activationTokenVO = new UserActivationCode(this.activation_token);
+    const newActivationTokenVO = new UserActivationCode(activation_token);
+    if (!activationTokenVO.equals(newActivationTokenVO)) {
+      this.updated_at = new Date();
+      this.activation_token = newActivationTokenVO.value;
+    }
+  }
+
+  changeActivatedAt(activated_at: Nullable<Date>): void {
     this.updated_at = new Date();
     this.activated_at = activated_at;
   }
 
-  changeBan(ban: Nullable<Date>): void {
+  changeBannedAt(banned_at: Nullable<Date>): void {
     this.updated_at = new Date();
-    this.banned_at = ban;
-  }
-
-  changeActivationToken(activation_token: Nullable<string>): void {
-    this.updated_at = new Date();
-    this.activation_token = activation_token;
+    this.banned_at = banned_at;
   }
 }
