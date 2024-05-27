@@ -4,7 +4,6 @@ import {
   Controller,
   Delete,
   HttpException,
-  Logger,
   Post,
   Put,
   Req,
@@ -12,9 +11,8 @@ import {
 } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
-import { CommandBus, EventBus } from '@nestjs/cqrs';
+import { CommandBus } from '@nestjs/cqrs';
 import { LoginCommand, RegisterCommand } from './commands';
-import { LoggedEvent, RegisteredEvent } from './events';
 import { AuthDAO } from '@azkaban/auth-infrastructure';
 import { AuthGuard } from '../../guards/auth.guard';
 

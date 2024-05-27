@@ -5,7 +5,6 @@ import { AppModule } from './app/app.module';
 import compression from 'compression';
 import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { GenerateSaltHelper } from '@toxictoast/azkaban-base-helpers';
 
 async function createApp(): Promise<INestApplication> {
   return await NestFactory.create(AppModule, {
