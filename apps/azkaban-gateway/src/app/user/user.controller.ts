@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { Optional } from '@toxictoast/azkaban-base-types';
+import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -36,11 +36,6 @@ export class UserController {
     return await this.service.getUserById(id);
   }
 
-  @Get('email/:email')
-  async getUserByEmail(@Param('email') email: string) {
-    return await this.service.getUserByEmail(email);
-  }
-
   @Post()
   async createUser(
     @Body('email') email: string,
@@ -56,8 +51,19 @@ export class UserController {
     @Body('email') email?: Optional<string>,
     @Body('username') username?: Optional<string>,
     @Body('password') password?: Optional<string>,
+    @Body('activation_token') activation_token?: Optional<string>,
+    @Body('activated_at') activated_at?: Optional<Nullable<Date>>,
+    @Body('banned_at') banned_at?: Optional<Nullable<Date>>,
   ) {
-    return await this.service.updateUser(id, email, username, password);
+    return await this.service.updateUser(
+      id,
+      email,
+      username,
+      password,
+      activation_token,
+      activated_at,
+      banned_at,
+    );
   }
 
   @Delete(':id')

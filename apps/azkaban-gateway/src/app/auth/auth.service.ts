@@ -1,7 +1,8 @@
-import { HttpException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import { AuthDAO } from '@azkaban/auth-infrastructure';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,11 @@ export class AuthService {
     @Inject('AUTH_SERVICE') private readonly client: ClientProxy,
   ) {}
 
-  async register(email: string, username: string, password: string) {
+  async register(
+    email: string,
+    username: string,
+    password: string,
+  ): Promise<AuthDAO> {
     return this.circuitbreaker.execute(AuthTopics.REGISTER, async () => {
       return await this.client
         .send(AuthTopics.REGISTER, { email, username, password })
@@ -18,7 +23,7 @@ export class AuthService {
     });
   }
 
-  async login(username: string, password: string) {
+  async login(username: string, password: string): Promise<AuthDAO> {
     return this.circuitbreaker.execute(AuthTopics.LOGIN, async () => {
       return await this.client
         .send(AuthTopics.LOGIN, { username, password })
@@ -26,7 +31,7 @@ export class AuthService {
     });
   }
 
-  async forgotPassword(email: string) {
+  async forgotPassword(email: string): Promise<void> {
     return this.circuitbreaker.execute(AuthTopics.FORGOT_PASSWORD, async () => {
       return await this.client
         .send(AuthTopics.FORGOT_PASSWORD, { email })
@@ -34,17 +39,23 @@ export class AuthService {
     });
   }
 
-  async activateUser(email: string, token: string) {
-    return this.circuitbreaker.execute(AuthTopics.ACTIVATE_USER, async () => {
+  async activateAccount(email: string, token: string): Promise<void> {
+    return this.circuitbreaker.execute(AuthTopics.ACTIVATE, async () => {
       return await this.client
-        .send(AuthTopics.ACTIVATE_USER, { email, token })
+        .send(AuthTopics.ACTIVATE, { email, token })
         .toPromise();
     });
   }
 
-  async banUser(id: string) {
-    return this.circuitbreaker.execute(AuthTopics.FORGOT_PASSWORD, async () => {
-      return await this.client.send(AuthTopics.BAN_USER, { id }).toPromise();
+  async deactivateAccount(id: string): Promise<void> {
+    return this.circuitbreaker.execute(AuthTopics.DEACTIVATE, async () => {
+      return await this.client.send(AuthTopics.DEACTIVATE, { id }).toPromise();
+    });
+  }
+
+  async deleteAccount(id: string): Promise<void> {
+    return this.circuitbreaker.execute(AuthTopics.DELETE, async () => {
+      return await this.client.send(AuthTopics.DELETE, { id }).toPromise();
     });
   }
 }

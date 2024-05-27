@@ -1,4 +1,4 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { AuthAlertsService } from './auth-alerts.service';
 import { EventPattern } from '@nestjs/microservices';
 import { AuthTopics, NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
@@ -11,7 +11,6 @@ export class AuthController {
   onUserCreated(alert: { event: string; data: unknown }): void {
     const { event, data } = alert;
     if (event === AuthTopics.REGISTER) {
-      Logger.debug({ event, data }, AuthController.name);
       this.authAlerts.onUserCreated(data);
     }
     return null;
@@ -21,7 +20,6 @@ export class AuthController {
   onUserLogin(alert: { event: string; data: unknown }): void {
     const { event, data } = alert;
     if (event === AuthTopics.LOGIN) {
-      Logger.debug({ event, data }, AuthController.name);
       this.authAlerts.onUserLogin(data);
     }
     return null;

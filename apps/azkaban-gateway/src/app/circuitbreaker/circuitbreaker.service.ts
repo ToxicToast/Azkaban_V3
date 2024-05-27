@@ -13,10 +13,11 @@ export class CircuitBreakerService {
     shouldNotThrow?: boolean,
   ): Promise<T> {
     const circuitbreaker = new CircuitBreaker(callFunction, {
-      timeout: 3000,
-      errorThresholdPercentage: 50,
-      resetTimeout: 5000,
+      timeout: 5000,
       name,
+      allowWarmUp: true,
+      cache: true,
+      cacheTTL: 1000 * 60 * 5,
     });
     /*circuitbreaker.fallback(() => {
       if (shouldNotThrow === true) {
