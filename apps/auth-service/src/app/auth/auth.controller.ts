@@ -1,4 +1,4 @@
-import { Controller, Logger, NotFoundException } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
@@ -14,7 +14,7 @@ export class AuthController {
     @Payload('password') password: string,
   ) {
     try {
-      return await this.service.register(username, email, password);
+      return await this.service.createAuth(email, username, password);
     } catch (error) {
       throw new RpcException(error);
     }
@@ -34,30 +34,28 @@ export class AuthController {
 
   @MessagePattern(AuthTopics.FORGOT_PASSWORD)
   async forgotPassword(@Payload('email') email: string) {
+    Logger.debug({ email });
+  }
+
+  @MessagePattern(AuthTopics.ACTIVATE)
+  async activateAccount(
+    @Payload('email') email: string,
+    @Payload('token') token: string,
+  ) {
     try {
-      const user = await this.service.findUserByEmail(email);
-      if (user !== null) {
-        await this.service.sendEmail(email);
-      }
-      return null;
+      return await this.service.activateAccount(email, token);
     } catch (error) {
       throw new RpcException(error);
     }
   }
 
-  @MessagePattern(AuthTopics.ACTIVATE_USER)
-  async activateUser(
-    @Payload('email') email: string,
-    @Payload('token') token: string,
-  ) {
-    try {
-      const user = await this.service.findUserByEmail(email);
-      if (user !== null) {
-        await this.service.sendEmail(email);
-      }
-      Logger.debug({ email, token }, this.activateUser.name);
-    } catch (error) {
-      throw new RpcException(error);
-    }
+  @MessagePattern(AuthTopics.DEACTIVATE)
+  async deactivateAccount(@Payload('id') id: string) {
+    Logger.debug({ id });
+  }
+
+  @MessagePattern(AuthTopics.DELETE)
+  async deleteAccount(@Payload('id') id: string) {
+    Logger.debug({ id });
   }
 }
