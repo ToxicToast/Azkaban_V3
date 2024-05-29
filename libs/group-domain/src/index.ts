@@ -1,1 +1,1 @@
-export * from './lib/group-domain';
+export * from './lib';
