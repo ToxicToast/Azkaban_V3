@@ -15,9 +15,6 @@ export class UserGroupEntity {
   @Column({ unique: true, nullable: false, type: 'varchar' })
   group_id: string;
 
-  /*@Column({ unique: true, nullable: false, type: 'varchar' })
-  user_id: string;*/
-
   @OneToOne(() => UserEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
