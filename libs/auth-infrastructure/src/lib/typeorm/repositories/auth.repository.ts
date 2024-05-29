@@ -3,7 +3,6 @@ import { Repository } from 'typeorm';
 import { AuthMapper } from '../mappers';
 import { AuthEntity } from '../entities';
 import { AuthDAO } from '../../dao';
-import { Logger } from '@nestjs/common';
 
 export class AuthRepository implements DomainRepository {
   private readonly mapper: AuthMapper = new AuthMapper();
