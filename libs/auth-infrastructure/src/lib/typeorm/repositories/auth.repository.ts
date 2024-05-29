@@ -1,19 +1,21 @@
 import { AuthRepository as DomainRepository } from '@azkaban/auth-domain';
 import { Repository } from 'typeorm';
 import { AuthMapper } from '../mappers';
-import { AuthEntity } from '../entities';
 import { AuthDAO } from '../../dao';
+import { UserEntity } from '@azkaban/user-infrastructure';
 
 export class AuthRepository implements DomainRepository {
   private readonly mapper: AuthMapper = new AuthMapper();
 
-  constructor(private readonly repository: Repository<AuthEntity>) {}
+  constructor(private readonly repository: Repository<UserEntity>) {}
 
   async findByEmail(email: string): Promise<AuthDAO> {
     const entity = await this.repository.findOne({
       withDeleted: true,
       where: { email },
+      relations: ['groups'],
     });
+
     if (entity) {
       return this.mapper.toDomain(entity);
     }
@@ -24,7 +26,9 @@ export class AuthRepository implements DomainRepository {
     const entity = await this.repository.findOne({
       withDeleted: true,
       where: { username },
+      relations: ['groups'],
     });
+
     if (entity) {
       return this.mapper.toDomain(entity);
     }

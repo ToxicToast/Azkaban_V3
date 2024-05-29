@@ -1,10 +1,12 @@
 import { Mapper } from '@toxictoast/azkaban-base-domain';
-import { UserEntity } from '../entities';
-import { UserFactory } from '@azkaban/user-domain';
+import { UserEntity, UserGroupEntity } from '../entities';
+import { UserFactory, UserGroupFactory } from '@azkaban/user-domain';
 import { UserDAO } from '../../dao';
 
 export class UserMapper implements Mapper<UserDAO, UserEntity> {
   private readonly domainFactory: UserFactory = new UserFactory();
+  private readonly domainGroupFactory: UserGroupFactory =
+    new UserGroupFactory();
 
   toEntity(domain: UserDAO): UserEntity {
     const {
@@ -18,6 +20,7 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       created_at,
       updated_at,
       deleted_at,
+      groups,
     } = domain;
     const entity = new UserEntity();
     entity.id = id;
@@ -30,6 +33,13 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
     entity.created_at = created_at;
     entity.updated_at = updated_at;
     entity.deleted_at = deleted_at;
+    entity.groups = groups.map((group) => {
+      const groupEntity = new UserGroupEntity();
+      groupEntity.id = group.id;
+      groupEntity.group_id = group.group_id;
+      groupEntity.user = entity;
+      return groupEntity;
+    });
     return entity;
   }
 
@@ -45,7 +55,17 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       created_at,
       updated_at,
       deleted_at,
+      groups,
     } = data;
+
+    const groupsAnemicArray = groups.map((group) => {
+      const aggregate = this.domainGroupFactory.reconstitute({
+        id: group.id,
+        group_id: group.group_id,
+      });
+      return this.domainGroupFactory.constitute(aggregate);
+    });
+
     const aggregate = this.domainFactory.reconstitute({
       id,
       username,
@@ -61,6 +81,7 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       isActive: !!activated_at,
       isUpdated: !!updated_at,
       isDeleted: !!deleted_at,
+      groups: groupsAnemicArray,
     });
     return this.domainFactory.constitute(aggregate);
   }

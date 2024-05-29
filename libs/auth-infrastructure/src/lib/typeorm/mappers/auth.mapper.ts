@@ -1,12 +1,12 @@
 import { Mapper } from '@toxictoast/azkaban-base-domain';
-import { AuthEntity } from '../entities';
 import { AuthFactory } from '@azkaban/auth-domain';
 import { AuthDAO } from '../../dao';
+import { UserEntity } from '@azkaban/user-infrastructure';
 
-export class AuthMapper implements Mapper<AuthDAO, AuthEntity> {
+export class AuthMapper implements Mapper<AuthDAO, UserEntity> {
   private readonly domainFactory: AuthFactory = new AuthFactory();
 
-  toEntity(domain: AuthDAO): AuthEntity {
+  toEntity(domain: AuthDAO): UserEntity {
     const {
       id,
       username,
@@ -16,7 +16,7 @@ export class AuthMapper implements Mapper<AuthDAO, AuthEntity> {
       activated_at,
       banned_at,
     } = domain;
-    const entity = new AuthEntity();
+    const entity = new UserEntity();
     entity.id = id;
     entity.username = username;
     entity.email = email;
@@ -27,7 +27,7 @@ export class AuthMapper implements Mapper<AuthDAO, AuthEntity> {
     return entity;
   }
 
-  toDomain(data: AuthEntity): AuthDAO {
+  toDomain(data: UserEntity): AuthDAO {
     const {
       id,
       username,
@@ -36,6 +36,7 @@ export class AuthMapper implements Mapper<AuthDAO, AuthEntity> {
       activation_token,
       activated_at,
       banned_at,
+      groups,
     } = data;
     const aggregate = this.domainFactory.reconstitute({
       id,
@@ -47,6 +48,7 @@ export class AuthMapper implements Mapper<AuthDAO, AuthEntity> {
       banned_at,
       isBanned: !!banned_at,
       isActive: !!activated_at,
+      groups: groups.map((group) => group.group_id),
     });
     return this.domainFactory.constitute(aggregate);
   }

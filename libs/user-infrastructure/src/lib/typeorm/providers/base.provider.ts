@@ -1,6 +1,6 @@
 import { buildDataSource } from '@toxictoast/azkaban-base-helpers';
 import { ConfigService } from '@nestjs/config';
-import { UserEntity } from '../entities';
+import { UserEntity, UserGroupEntity } from '../entities';
 import { EntitySchema, MixedList } from 'typeorm';
 
 export const datasourceProvider = [
@@ -15,7 +15,7 @@ export const datasourceProvider = [
       const password = configService.get<string>('DATABASE_PASSWORD');
       const database = configService.get<string>('DATABASE_TABLE');
       //
-      const entities = [UserEntity] as unknown as MixedList<
+      const entities = [UserEntity, UserGroupEntity] as unknown as MixedList<
         string | EntitySchema
       >;
       //

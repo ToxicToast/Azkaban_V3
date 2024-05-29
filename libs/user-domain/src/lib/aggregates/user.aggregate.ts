@@ -1,5 +1,5 @@
 import { Domain } from '@toxictoast/azkaban-base-domain';
-import { UserAnemic } from '../anemics';
+import { UserAnemic, UserGroupAnemic } from '../anemics';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 import { UserActivationCode, UserPassword } from '../valueObjects';
 
@@ -15,6 +15,7 @@ export class UserAggregate implements Domain<UserAnemic> {
     private readonly created_at: Date,
     private updated_at: Nullable<Date>,
     private deleted_at: Nullable<Date>,
+    private groups: Array<UserGroupAnemic>,
   ) {}
 
   isActive(): boolean {
@@ -57,6 +58,7 @@ export class UserAggregate implements Domain<UserAnemic> {
       isBanned: this.isBanned(),
       isUpdated: this.isUpdated(),
       isDeleted: this.isDeleted(),
+      groups: this.groups,
     };
   }
 

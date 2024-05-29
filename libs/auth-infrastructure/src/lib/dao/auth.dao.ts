@@ -10,4 +10,5 @@ export interface AuthDAO {
   banned_at: Nullable<Date>;
   isActive: boolean;
   isBanned: boolean;
+  groups: Array<string>;
 }

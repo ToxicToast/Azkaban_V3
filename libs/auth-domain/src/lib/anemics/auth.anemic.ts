@@ -10,4 +10,5 @@ export interface AuthAnemic {
   readonly isBanned: boolean;
   readonly activated_at: Nullable<Date>;
   readonly activation_token: Nullable<string>;
+  readonly groups: Array<string>;
 }

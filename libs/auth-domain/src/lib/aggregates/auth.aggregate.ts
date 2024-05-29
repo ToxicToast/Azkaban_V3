@@ -11,6 +11,7 @@ export class AuthAggregate implements Domain<AuthAnemic> {
     private activation_token: Nullable<string>,
     private activated_at: Nullable<Date>,
     private banned_at: Nullable<Date>,
+    private groups: Array<string>,
   ) {}
 
   isUpdated(): boolean {
@@ -45,6 +46,7 @@ export class AuthAggregate implements Domain<AuthAnemic> {
       banned_at: this.banned_at,
       isActive: this.isActive(),
       isBanned: this.isBanned(),
+      groups: this.groups,
     };
   }
 

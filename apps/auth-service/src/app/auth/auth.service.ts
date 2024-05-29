@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
-  AuthEntity,
   AuthRepository,
   AuthService as BaseService,
 } from '@azkaban/auth-infrastructure';
 import { Repository } from 'typeorm';
+import { UserEntity } from '@azkaban/user-infrastructure';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(
     @Inject('AUTH_REPOSITORY')
-    private readonly authRepository: Repository<AuthEntity>,
+    private readonly authRepository: Repository<UserEntity>,
     @Inject('PASSWORD_SALT') private readonly passwordSalt: string,
   ) {
     this.infrastructureRepository = new AuthRepository(this.authRepository);
@@ -36,6 +36,7 @@ export class AuthService {
           id: res.id,
           username: res.username,
           email: res.email,
+          groups: res.groups,
         };
       });
   }

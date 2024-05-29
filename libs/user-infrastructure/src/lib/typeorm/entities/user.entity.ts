@@ -3,9 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserGroupEntity } from './user_group.entity';
 
 @Entity({ name: 'azkaban_users' })
 export class UserEntity {
@@ -38,4 +41,8 @@ export class UserEntity {
 
   @DeleteDateColumn({ nullable: true, default: null, type: 'timestamp' })
   deleted_at: Date | null;
+
+  @OneToMany(() => UserGroupEntity, (group) => group.user, { eager: true })
+  @JoinColumn()
+  groups: UserGroupEntity[];
 }

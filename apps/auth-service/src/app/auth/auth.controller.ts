@@ -1,4 +1,4 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Controller, Get, HttpException, Logger } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
@@ -6,6 +6,15 @@ import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly service: AuthService) {}
+
+  @Get()
+  async getUserList() {
+    try {
+      return await this.service.login('ToxicToast', 'Owen231215#');
+    } catch (error) {
+      throw new HttpException(error, 500);
+    }
+  }
 
   @MessagePattern(AuthTopics.REGISTER)
   async register(

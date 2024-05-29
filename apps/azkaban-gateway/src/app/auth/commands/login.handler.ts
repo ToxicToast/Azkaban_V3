@@ -24,6 +24,7 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
         username: user.username,
         sub: user.id,
         email: user.email,
+        groups: user.groups,
       };
       //
       return {

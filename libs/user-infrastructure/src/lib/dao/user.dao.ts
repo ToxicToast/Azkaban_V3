@@ -1,4 +1,5 @@
 import { Nullable } from '@toxictoast/azkaban-base-types';
+import { UserGroupsDAO } from './usergroups.dao';
 
 export interface UserDAO {
   id: string;
@@ -15,4 +16,5 @@ export interface UserDAO {
   isBanned: boolean;
   isUpdated: boolean;
   isDeleted: boolean;
+  groups: Array<UserGroupsDAO>;
 }

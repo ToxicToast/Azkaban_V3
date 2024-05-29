@@ -19,6 +19,7 @@ export class UserFactory
       created_at,
       updated_at,
       deleted_at,
+      groups,
     } = data;
 
     const userId = new UserId(id);
@@ -35,6 +36,7 @@ export class UserFactory
       created_at,
       updated_at,
       deleted_at,
+      groups,
     );
   }
 
@@ -54,6 +56,7 @@ export class UserFactory
       isUpdated,
       isDeleted,
       isBanned,
+      groups,
     } = data.toAnemic();
 
     const userId = new UserId(id);
@@ -74,6 +77,7 @@ export class UserFactory
       isUpdated,
       isDeleted,
       isBanned,
+      groups,
     };
   }
 
@@ -93,6 +97,7 @@ export class UserFactory
       new Date(),
       null,
       null,
+      [],
     );
   }
 }

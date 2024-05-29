@@ -16,6 +16,7 @@ export class AuthFactory
       activation_token,
       activated_at,
       banned_at,
+      groups,
     } = data;
 
     const userId = new AuthId(id);
@@ -29,6 +30,7 @@ export class AuthFactory
       userActivationCode.value,
       activated_at,
       banned_at,
+      groups,
     );
   }
 
@@ -43,6 +45,7 @@ export class AuthFactory
       banned_at,
       isActive,
       isBanned,
+      groups,
     } = data.toAnemic();
 
     const userId = new AuthId(id);
@@ -58,6 +61,7 @@ export class AuthFactory
       banned_at,
       isActive,
       isBanned,
+      groups,
     };
   }
 
@@ -74,6 +78,7 @@ export class AuthFactory
       activationToken.value,
       null,
       null,
+      [],
     );
   }
 }
