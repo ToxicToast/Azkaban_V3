@@ -3,23 +3,39 @@ import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 
 @Injectable()
 export class CircuitBreakerService {
+  init(name: string, callFunction: any) {
+    return new CircuitBreaker(callFunction, {
+      timeout: 4000,
+      name,
+      allowWarmUp: true,
+      cache: true,
+      cacheTTL: 1000 * 60 * 5,
+      resetTimeout: 100,
+      rollingPercentilesEnabled: true,
+      capacity: 3,
+    });
+  }
+
+  setFallback(circuit: CircuitBreaker): CircuitBreaker {
+    circuit.fallback(() => {
+      throw new ServiceUnavailableException('Service Unavailable');
+    });
+    return circuit;
+  }
+
   async execute<T>(
     name: string,
     callFunction: any,
-    shouldNotThrow?: boolean
+    shouldNotThrow?: boolean,
   ): Promise<T> {
-    const circuitbreaker = new CircuitBreaker(callFunction, {
-      timeout: 3000,
-      errorThresholdPercentage: 50,
-      resetTimeout: 5000,
-      name,
-    });
-    circuitbreaker.fallback(() => {
+    const circuit = this.init(name, callFunction);
+    const fired = await circuit.fire();
+    if (fired instanceof Error) {
       if (shouldNotThrow === true) {
-        return 'Service Unavailable';
+        return 'Service Unavailable' as unknown as T;
       }
-      throw new ServiceUnavailableException(`${name} is not available`);
-    });
-    return (await circuitbreaker.fire()) as T;
+      throw new ServiceUnavailableException(fired.message);
+    }
+    return fired as unknown as T;
   }
 }

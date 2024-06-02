@@ -16,12 +16,14 @@ export class VersionController {
     return {
       ...gateway,
       notify: {
+        notifications: await this.service.getNotificationsVersion(),
         webhooks: await this.service.getWebhooksVersion(),
         alerts: await this.service.getApiAlertsVersion(),
-        notifications: await this.service.getNotificationsVersion(),
         sse: await this.service.getSSEVersion(),
       },
-      user: await this.service.getUsersVersion(),
+      auth: await this.service.getAuthVersion(),
+      users: await this.service.getUsersVersion(),
+      groups: await this.service.getGroupsVersion(),
     };
   }
 }

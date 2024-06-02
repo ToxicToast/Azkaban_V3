@@ -19,7 +19,7 @@ export class HealthController {
     private readonly brokerConnectionString: string,
     private readonly service: HealthCheckService,
     private readonly memory: MemoryHealthIndicator,
-    private readonly microservices: MicroserviceHealthIndicator
+    private readonly microservices: MicroserviceHealthIndicator,
   ) {}
 
   @Get()

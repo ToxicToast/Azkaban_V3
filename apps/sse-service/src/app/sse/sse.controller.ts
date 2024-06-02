@@ -18,7 +18,7 @@ export class SseController {
   @MessagePattern(NotifyTopics.SSE)
   onNotification(
     @Payload('event') event: string,
-    @Payload('data') data: unknown
+    @Payload('data') data: unknown,
   ): void {
     const messageEvent = this.transformToMessageEvent(event, data);
     this.events$.next(messageEvent);

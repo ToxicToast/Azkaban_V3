@@ -8,7 +8,7 @@ export class WebhooksController {
     @Inject('APIALERTS_SERVICE') private readonly apialerts: ClientProxy,
     @Inject('SSE_SERVICE') private readonly sse: ClientProxy,
     @Inject('NOTIFICATION_SERVICE')
-    private readonly notification: ClientProxy
+    private readonly notification: ClientProxy,
   ) {}
 
   private async notifyApiAlerts(event: string, data: unknown) {
@@ -31,7 +31,7 @@ export class WebhooksController {
   async notifyAlerts(
     @Payload('service') service: string,
     @Payload('event') event: string,
-    @Payload('data') data: unknown
+    @Payload('data') data: unknown,
   ): Promise<void> {
     await this.notifyDatabase(service, event, data);
     await this.notifyApiAlerts(event, data);

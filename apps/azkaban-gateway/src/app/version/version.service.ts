@@ -1,7 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { NotifyTopics, UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+  AuthTopics,
+  GroupsTopics,
+  NotifyTopics,
+  UserTopics,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
 export class VersionService {
@@ -14,8 +19,10 @@ export class VersionService {
     @Inject('SSE_SERVICE') private readonly sseClient: ClientProxy,
     //
     @Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
+    @Inject('AUTH_SERVICE') private readonly authClient: ClientProxy,
+    @Inject('GROUP_SERVICE') private readonly groupClient: ClientProxy,
     //
-    @Inject('APP_VERSION') private readonly appVersion: string
+    @Inject('APP_VERSION') private readonly appVersion: string,
   ) {}
 
   getGatewayVersion() {
@@ -32,7 +39,7 @@ export class VersionService {
           .send(NotifyTopics.VERSION, {})
           .toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -44,7 +51,7 @@ export class VersionService {
           .send(NotifyTopics.VERSION, {})
           .toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -56,7 +63,7 @@ export class VersionService {
           .send(NotifyTopics.VERSION, {})
           .toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -66,7 +73,7 @@ export class VersionService {
       async () => {
         return await this.sseClient.send(NotifyTopics.VERSION, {}).toPromise();
       },
-      true
+      true,
     );
   }
 
@@ -76,7 +83,29 @@ export class VersionService {
       async () => {
         return await this.usersClient.send(UserTopics.VERSION, {}).toPromise();
       },
-      true
+      true,
+    );
+  }
+
+  async getAuthVersion() {
+    return this.circuitbreaker.execute(
+      AuthTopics.VERSION,
+      async () => {
+        return await this.authClient.send(AuthTopics.VERSION, {}).toPromise();
+      },
+      true,
+    );
+  }
+
+  async getGroupsVersion() {
+    return this.circuitbreaker.execute(
+      GroupsTopics.VERSION,
+      async () => {
+        return await this.groupClient
+          .send(GroupsTopics.VERSION, {})
+          .toPromise();
+      },
+      true,
     );
   }
 }

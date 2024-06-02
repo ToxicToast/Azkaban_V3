@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ApiAlertsHelper } from '@toxictoast/azkaban-base-helpers';
 import { Optional } from '@toxictoast/azkaban-base-types';
 
@@ -13,9 +13,8 @@ export class AlertsService {
   public sendAlert(
     message: string,
     tags?: Optional<Array<string>>,
-    link?: Optional<string>
+    link?: Optional<string>,
   ): void {
-    Logger.debug({ message, tags, link }, AlertsService.name);
     this.client.send({
       message,
       tags,

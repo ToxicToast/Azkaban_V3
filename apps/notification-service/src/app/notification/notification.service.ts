@@ -14,10 +14,10 @@ export class NotificationService {
 
   constructor(
     @Inject('NOTIFICATION_REPOSITORY')
-    private readonly notificationRepository: Repository<NotificationEntity>
+    private readonly notificationRepository: Repository<NotificationEntity>,
   ) {
     this.infrastructureRepository = new NotificationRepository(
-      this.notificationRepository
+      this.notificationRepository,
     );
     this.infrastructureService = new BaseService(this.infrastructureRepository);
   }
@@ -25,7 +25,7 @@ export class NotificationService {
   async createNotification(
     service: string,
     event: string,
-    payload: unknown
+    payload: unknown,
   ): Promise<NotificationDAO> {
     return await this.infrastructureService.createNotification({
       service,

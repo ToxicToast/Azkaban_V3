@@ -11,7 +11,7 @@ export class NotificationController {
   async notification(
     @Payload('service') service: string,
     @Payload('event') event: string,
-    @Payload('data') data: unknown
+    @Payload('data') data: unknown,
   ) {
     return await this.service.createNotification(service, event, data);
   }

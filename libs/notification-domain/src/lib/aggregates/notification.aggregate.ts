@@ -10,7 +10,7 @@ export class NotificationAggregate implements Domain<NotificationAnemic> {
     private readonly payload: unknown,
     private readonly created_at: Date,
     private updated_at: Nullable<Date>,
-    private deleted_at: Nullable<Date>
+    private deleted_at: Nullable<Date>,
   ) {}
 
   isUpdated(): boolean {

@@ -2,13 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
 import { UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ClientProxy } from '@nestjs/microservices';
-import { Optional } from '@toxictoast/azkaban-base-types';
+import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly circuitbreaker: CircuitBreakerService,
-    @Inject('USERS_SERVICE') private readonly client: ClientProxy
+    @Inject('USERS_SERVICE') private readonly client: ClientProxy,
   ) {}
 
   async getUsers(limit: number, offset: number) {
@@ -25,12 +25,6 @@ export class UserService {
     });
   }
 
-  async getUserByEmail(email: string) {
-    return this.circuitbreaker.execute(UserTopics.EMAIL, async () => {
-      return await this.client.send(UserTopics.EMAIL, { email }).toPromise();
-    });
-  }
-
   async createUser(email: string, username: string, password: string) {
     return this.circuitbreaker.execute(UserTopics.CREATE, async () => {
       return await this.client
@@ -43,11 +37,22 @@ export class UserService {
     id: string,
     email?: Optional<string>,
     username?: Optional<string>,
-    password?: Optional<string>
+    password?: Optional<string>,
+    activation_token?: Optional<string>,
+    activated_at?: Optional<Nullable<Date>>,
+    banned_at?: Optional<Nullable<Date>>,
   ) {
     return this.circuitbreaker.execute(UserTopics.UPDATE, async () => {
       return await this.client
-        .send(UserTopics.UPDATE, { id, email, username, password })
+        .send(UserTopics.UPDATE, {
+          id,
+          email,
+          username,
+          password,
+          activation_token,
+          activated_at,
+          banned_at,
+        })
         .toPromise();
     });
   }

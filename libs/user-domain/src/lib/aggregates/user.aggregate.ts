@@ -1,6 +1,7 @@
 import { Domain } from '@toxictoast/azkaban-base-domain';
-import { UserAnemic } from '../anemics';
+import { UserAnemic, UserGroupAnemic } from '../anemics';
 import { Nullable } from '@toxictoast/azkaban-base-types';
+import { UserActivationCode, UserPassword } from '../valueObjects';
 
 export class UserAggregate implements Domain<UserAnemic> {
   constructor(
@@ -8,19 +9,21 @@ export class UserAggregate implements Domain<UserAnemic> {
     private username: string,
     private password: string,
     private email: string,
-    private active: boolean,
-    private banned: boolean,
+    private activation_token: Nullable<string>,
+    private activated_at: Nullable<Date>,
+    private banned_at: Nullable<Date>,
     private readonly created_at: Date,
     private updated_at: Nullable<Date>,
-    private deleted_at: Nullable<Date>
+    private deleted_at: Nullable<Date>,
+    private groups: Array<UserGroupAnemic>,
   ) {}
 
   isActive(): boolean {
-    return this.active;
+    return !!this.activated_at;
   }
 
   isBanned(): boolean {
-    return this.banned;
+    return !!this.banned_at;
   }
 
   isUpdated(): boolean {
@@ -43,10 +46,11 @@ export class UserAggregate implements Domain<UserAnemic> {
     return {
       id: this.id,
       username: this.username,
-      email: this.email,
       password: this.password,
-      active: this.active,
-      banned: this.banned,
+      email: this.email,
+      activation_token: this.activation_token,
+      activated_at: this.activated_at,
+      banned_at: this.banned_at,
       created_at: this.created_at,
       updated_at: this.updated_at,
       deleted_at: this.deleted_at,
@@ -54,6 +58,7 @@ export class UserAggregate implements Domain<UserAnemic> {
       isBanned: this.isBanned(),
       isUpdated: this.isUpdated(),
       isDeleted: this.isDeleted(),
+      groups: this.groups,
     };
   }
 
@@ -72,17 +77,30 @@ export class UserAggregate implements Domain<UserAnemic> {
   }
 
   changePassword(password: string): void {
-    this.updated_at = new Date();
-    this.password = password;
+    const passwordVO = new UserPassword(this.password);
+    const newPasswordVO = new UserPassword(password);
+    if (!passwordVO.equals(newPasswordVO)) {
+      this.updated_at = new Date();
+      this.password = newPasswordVO.value;
+    }
   }
 
-  changeStatus(active: boolean): void {
-    this.updated_at = new Date();
-    this.active = active;
+  changeActivationToken(activation_token: Nullable<string>): void {
+    const activationTokenVO = new UserActivationCode(this.activation_token);
+    const newActivationTokenVO = new UserActivationCode(activation_token);
+    if (!activationTokenVO.equals(newActivationTokenVO)) {
+      this.updated_at = new Date();
+      this.activation_token = newActivationTokenVO.value;
+    }
   }
 
-  changeBan(ban: boolean): void {
+  changeActivatedAt(activated_at: Nullable<Date>): void {
     this.updated_at = new Date();
-    this.banned = ban;
+    this.activated_at = activated_at;
+  }
+
+  changeBannedAt(banned_at: Nullable<Date>): void {
+    this.updated_at = new Date();
+    this.banned_at = banned_at;
   }
 }

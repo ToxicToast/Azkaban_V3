@@ -106,7 +106,7 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": []
+      "exclude": ["apps/group-service-e2e/**/*"]
     }
   ],
   "nxCloudAccessToken": "MjMwNjZiZGEtOGNlNS00ZWM4LTkzN2YtNmE3ZmMyMTc2MTY2fHJlYWQtd3JpdGU="

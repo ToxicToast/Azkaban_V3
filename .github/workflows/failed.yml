@@ -3,7 +3,7 @@ on:
   workflow_run:
     workflows: ['Feature', 'Versioning', 'Release']
     types:
-      - completed
+      - failure
 
 jobs:
   notify:

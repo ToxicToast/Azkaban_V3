@@ -9,7 +9,7 @@ export class UserId implements ValueObject<string> {
     this._value = value ?? UuidHelper.create().value;
   }
 
-  equals(valueObject: ValueObject<string>): boolean {
+  equals(valueObject: UserId): boolean {
     return this._value === valueObject._value;
   }
 
