@@ -3,13 +3,24 @@ import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { VersionModule } from './version/version.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { GroupsModule } from './groups/groups.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule.registerAsync({
+      useFactory: (config: ConfigService) => {
+        return {
+          global: true,
+          secret: config.get('JWT_SECRET', 'secret'),
+          signOptions: { expiresIn: '1h' },
+        };
+      },
+      inject: [ConfigService],
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     ThrottlerModule.forRoot([
       {

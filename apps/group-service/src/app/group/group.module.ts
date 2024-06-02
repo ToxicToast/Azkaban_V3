@@ -3,9 +3,11 @@ import {
   datasourceProvider,
   groupProvider,
 } from '@azkaban/group-infrastructure';
+import { GroupService } from './group.service';
+import { GroupController } from './group.controller';
 
 @Module({
-  controllers: [],
-  providers: [...datasourceProvider, ...groupProvider],
+  controllers: [GroupController],
+  providers: [...datasourceProvider, ...groupProvider, GroupService],
 })
 export class GroupModule {}

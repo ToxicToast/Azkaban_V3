@@ -21,7 +21,7 @@ const eventHandlers = [RegisteredHandler, LoggedHandler];
 
 @Module({
   imports: [
-    JwtModule.registerAsync({
+    /*JwtModule.registerAsync({
       useFactory: (config: ConfigService) => {
         return {
           secret: config.get('JWT_SECRET', 'secret'),
@@ -29,7 +29,8 @@ const eventHandlers = [RegisteredHandler, LoggedHandler];
         };
       },
       inject: [ConfigService],
-    }),
+    }),*/
+    JwtModule,
     CqrsModule,
     CircuitBreakerModule,
     ClientsModule.register([

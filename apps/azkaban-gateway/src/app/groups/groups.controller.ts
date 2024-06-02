@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   Param,
   Post,
   Put,
@@ -13,12 +14,17 @@ import {
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { GroupsService } from './groups.service';
 import { Optional } from '@toxictoast/azkaban-base-types';
+import { CommandBus } from '@nestjs/cqrs';
+import { CreateCommand, UpdateCommand } from './commands';
 
 @ApiTags('group')
 @UseGuards(ThrottlerGuard)
 @Controller('group')
 export class GroupsController {
-  constructor(private readonly service: GroupsService) {}
+  constructor(
+    private readonly service: GroupsService,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   @Get()
   async getGroups(
@@ -37,7 +43,14 @@ export class GroupsController {
 
   @Post()
   async createGroup(@Body('title') title: string) {
-    return await this.service.createGroup(title);
+    try {
+      return await this.commandBus.execute(new CreateCommand(title));
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 
   @Put(':id')
@@ -47,7 +60,16 @@ export class GroupsController {
     @Body('slug') slug?: Optional<string>,
     @Body('active') active?: Optional<boolean>,
   ) {
-    return await this.service.updateGroup(id, title, slug, active);
+    try {
+      return await this.commandBus.execute(
+        new UpdateCommand(id, title, slug, active),
+      );
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 
   @Delete(':id')

@@ -29,7 +29,11 @@ export class UserService {
     return await this.infrastructureService.getUserById(id);
   }
 
-  async createUser(email: string, username: string, password: string) {
+  async createUser(
+    email: string,
+    username: string,
+    password: string,
+  ): Promise<UserDAO> {
     return await this.infrastructureService.createUser({
       email,
       username,
@@ -45,7 +49,7 @@ export class UserService {
     activation_token?: Optional<string>,
     activated_at?: Optional<Nullable<Date>>,
     banned_at?: Optional<Nullable<Date>>,
-  ) {
+  ): Promise<UserDAO> {
     if (email) {
       await this.infrastructureService.updateEmail(id, email);
     }
@@ -70,11 +74,11 @@ export class UserService {
     return await this.infrastructureService.getUserById(id);
   }
 
-  async deleteUser(id: string) {
+  async deleteUser(id: string): Promise<UserDAO> {
     return await this.infrastructureService.deleteUser(id);
   }
 
-  async restoreUser(id: string) {
+  async restoreUser(id: string): Promise<UserDAO> {
     return await this.infrastructureService.restoreUser(id);
   }
 }

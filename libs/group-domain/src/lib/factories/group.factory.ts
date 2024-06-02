@@ -2,6 +2,7 @@ import { Factory } from '@toxictoast/azkaban-base-domain';
 import { GroupAnemic } from '../anemics';
 import { GroupAggregate } from '../aggregates';
 import { GroupData } from '../data';
+import { GroupId, GroupSlug } from '../valueObjects';
 
 export class GroupFactory
   implements Factory<GroupAnemic, GroupAggregate, GroupData>
@@ -50,10 +51,12 @@ export class GroupFactory
 
   createDomain(data: GroupData): GroupAggregate {
     const { title } = data;
+    const groupId = new GroupId();
+    const groupSlug = new GroupSlug(undefined, title);
     return new GroupAggregate(
-      null,
+      groupId.value,
       title,
-      null,
+      groupSlug.value,
       false,
       new Date(),
       new Date(),
