@@ -1,1 +1,1 @@
-export * from './lib/group-infrastructure';
+export * from './lib';
