@@ -16,6 +16,7 @@
     "serve:webhooks:sse": "nx serve sse-service --skip-nx-cache",
     "serve:user": "nx serve user-service --skip-nx-cache",
     "serve:auth": "nx serve auth-service --skip-nx-cache",
+    "serve:groups": "nx serve groups-service --skip-nx-cache",
     "docker:gateway": "nx docker-build azkaban-gateway --skip-nx-cache --VERSION=local",
     "docker:webhooks": "nx docker-build azkaban-webhooks --skip-nx-cache --VERSION=local",
     "docker:webhooks:magpie": "nx docker-build apialerts-service --skip-nx-cache --VERSION=local",
@@ -23,13 +24,15 @@
     "docker:webhooks:sse": "nx docker-build sse-service --skip-nx-cache --VERSION=local",
     "docker:user": "nx docker-build user-service --skip-nx-cache --VERSION=local",
     "docker:auth": "nx docker-build auth-service --skip-nx-cache --VERSION=local",
+    "docker:groups": "nx docker-build groups-service --skip-nx-cache --VERSION=local",
     "docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
     "docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
     "docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
     "docker:push:webhooks:notification": "nx docker-push notification-service --skip-nx-cache --VERSION=local",
     "docker:push:webhooks:sse": "nx docker-push sse-service --skip-nx-cache --VERSION=local",
     "docker:push:user": "nx docker-push user-service --skip-nx-cache --VERSION=local",
-    "docker:push:auth": "nx docker-push auth-service --skip-nx-cache --VERSION=local"
+    "docker:push:auth": "nx docker-push auth-service --skip-nx-cache --VERSION=local",
+    "docker:push:groups": "nx docker-push groups-service --skip-nx-cache --VERSION=local"
   },
   "private": true,
   "devDependencies": {

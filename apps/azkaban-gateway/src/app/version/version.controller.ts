@@ -21,8 +21,9 @@ export class VersionController {
         notifications: await this.service.getNotificationsVersion(),
         sse: await this.service.getSSEVersion(),
       },
-      user: await this.service.getUsersVersion(),
       auth: await this.service.getAuthVersion(),
+      users: await this.service.getUsersVersion(),
+      groups: await this.service.getGroupsVersion(),
     };
   }
 }

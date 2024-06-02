@@ -6,6 +6,7 @@ import { VersionModule } from './version/version.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
     VersionModule,
     UserModule,
     AuthModule,
+    GroupsModule,
   ],
 })
 export class AppModule {}
