@@ -18,6 +18,9 @@
       "@azkaban/auth-domain": ["libs/auth-domain/src/index.ts"],
       "@azkaban/auth-infrastructure": ["libs/auth-infrastructure/src/index.ts"],
       "@azkaban/group-domain": ["libs/group-domain/src/index.ts"],
+      "@azkaban/group-infrastructure": [
+        "libs/group-infrastructure/src/index.ts"
+      ],
       "@azkaban/notification-domain": ["libs/notification-domain/src/index.ts"],
       "@azkaban/notification-infrastructure": [
         "libs/notification-infrastructure/src/index.ts"
