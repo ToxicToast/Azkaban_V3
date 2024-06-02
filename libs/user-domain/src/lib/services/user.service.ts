@@ -38,7 +38,7 @@ export class UserService {
       if (result !== null) {
         return Result.ok<UserAnemic>(result);
       }
-      return Result.fail<UserAnemic>(UserErrorCodes.NOT_ACTIVE);
+      return Result.fail<UserAnemic>(UserErrorCodes.NOT_FOUND);
     } catch (error) {
       return Result.fail<UserAnemic>(error);
     }
