@@ -9,7 +9,6 @@ export interface GroupDAO {
   updated_at: Nullable<Date>;
   deleted_at: Nullable<Date>;
   isActive: boolean;
-  isBanned: boolean;
   isUpdated: boolean;
   isDeleted: boolean;
 }

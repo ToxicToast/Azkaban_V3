@@ -1,32 +1,29 @@
 import {
-  UserRepository as DomainRepository,
-  UserAnemic,
-} from '@azkaban/user-domain';
+  GroupRepository as DomainRepository,
+  GroupAnemic,
+} from '@azkaban/group-domain';
+import { GroupMapper } from '../mappers';
 import { Repository } from 'typeorm';
-import { UserMapper } from '../mappers';
-import { UserEntity } from '../entities';
-import { UserDAO } from '../../dao';
+import { GroupEntity } from '../entities';
 
-export class UserRepository implements DomainRepository {
-  private readonly mapper: UserMapper = new UserMapper();
+export class GroupRepository implements DomainRepository {
+  private readonly mapper: GroupMapper = new GroupMapper();
 
-  constructor(private readonly repository: Repository<UserEntity>) {}
+  constructor(private readonly repository: Repository<GroupEntity>) {}
 
-  async findList(limit?: number, offset?: number): Promise<UserAnemic[]> {
+  async findList(limit?: number, offset?: number): Promise<GroupAnemic[]> {
     const entities = await this.repository.find({
       take: limit,
       skip: offset,
       withDeleted: true,
-      relations: ['groups'],
     });
     return entities.map((entity) => this.mapper.toDomain(entity));
   }
 
-  async findById(id: string): Promise<UserAnemic> {
+  async findById(id: string): Promise<GroupAnemic> {
     const entity = await this.repository.findOne({
       withDeleted: true,
       where: { id },
-      relations: ['groups'],
     });
     if (entity) {
       return this.mapper.toDomain(entity);
@@ -34,12 +31,12 @@ export class UserRepository implements DomainRepository {
     return null;
   }
 
-  async delete(id: string): Promise<UserAnemic> {
+  async delete(id: string): Promise<GroupAnemic> {
     await this.repository.softDelete(id);
     return await this.findById(id);
   }
 
-  async save(data: UserDAO): Promise<UserDAO> {
+  async save(data: GroupAnemic): Promise<GroupAnemic> {
     const entity = this.mapper.toEntity(data);
     const saved = await this.repository.save(entity);
     if (saved) {
