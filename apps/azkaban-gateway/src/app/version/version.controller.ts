@@ -16,9 +16,9 @@ export class VersionController {
     return {
       ...gateway,
       notify: {
+        notifications: await this.service.getNotificationsVersion(),
         webhooks: await this.service.getWebhooksVersion(),
         alerts: await this.service.getApiAlertsVersion(),
-        notifications: await this.service.getNotificationsVersion(),
         sse: await this.service.getSSEVersion(),
       },
       auth: await this.service.getAuthVersion(),
