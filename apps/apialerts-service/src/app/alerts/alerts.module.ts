@@ -5,9 +5,10 @@ import { AuthAlertsService } from './auth-alerts.service';
 import { AuthController } from './auth-controller';
 import { ConfigService } from '@nestjs/config';
 import { GroupAlertsService } from './group-alerts.service';
+import { GroupController } from './group-controller';
 
 @Module({
-  controllers: [AlertsController, AuthController],
+  controllers: [AlertsController, AuthController, GroupController],
   providers: [
     {
       provide: 'MAGPIE_KEY',

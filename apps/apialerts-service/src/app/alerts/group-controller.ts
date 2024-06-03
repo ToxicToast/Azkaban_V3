@@ -1,5 +1,4 @@
 import { Controller } from '@nestjs/common';
-import { AuthAlertsService } from './auth-alerts.service';
 import { EventPattern } from '@nestjs/microservices';
 import {
   GroupsTopics,
