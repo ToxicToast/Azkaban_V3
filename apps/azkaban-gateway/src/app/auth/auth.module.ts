@@ -24,6 +24,7 @@ import { JwtModule } from '@nestjs/jwt';
           brokerPassword: process.env.BROKER_PASSWORD,
           brokerHost: process.env.BROKER_HOST,
           brokerPort: parseInt(process.env.BROKER_PORT),
+          consumerTag: 'gateway-auth',
         }),
       },
       {
@@ -35,6 +36,7 @@ import { JwtModule } from '@nestjs/jwt';
           brokerPassword: process.env.BROKER_PASSWORD,
           brokerHost: process.env.BROKER_HOST,
           brokerPort: parseInt(process.env.BROKER_PORT),
+          consumerTag: 'gateway-auth-notify',
         }),
       },
     ]),

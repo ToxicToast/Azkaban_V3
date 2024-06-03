@@ -36,6 +36,7 @@ export class HealthController {
             options: {
               urls: [this.brokerConnectionString],
               queue: azkaban,
+              consumerTag: 'gateway-health',
             },
           }),
       ]);

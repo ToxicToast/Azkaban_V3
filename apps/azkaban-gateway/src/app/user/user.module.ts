@@ -19,6 +19,7 @@ import { UserService } from './user.service';
           brokerPassword: process.env.BROKER_PASSWORD,
           brokerHost: process.env.BROKER_HOST,
           brokerPort: parseInt(process.env.BROKER_PORT),
+          consumerTag: 'gateway-user',
         }),
       },
     ]),

@@ -20,6 +20,7 @@ import {
           brokerPassword: process.env.BROKER_PASSWORD,
           brokerHost: process.env.BROKER_HOST,
           brokerPort: parseInt(process.env.BROKER_PORT),
+          consumerTag: 'webhooks-apialerts',
         }),
       },
       {
@@ -31,6 +32,7 @@ import {
           brokerPassword: process.env.BROKER_PASSWORD,
           brokerHost: process.env.BROKER_HOST,
           brokerPort: parseInt(process.env.BROKER_PORT),
+          consumerTag: 'webhooks-sse',
         }),
       },
       {
@@ -42,6 +44,7 @@ import {
           brokerPassword: process.env.BROKER_PASSWORD,
           brokerHost: process.env.BROKER_HOST,
           brokerPort: parseInt(process.env.BROKER_PORT),
+          consumerTag: 'webhooks-notifications',
         }),
       },
     ]),
