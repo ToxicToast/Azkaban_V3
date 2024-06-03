@@ -4,10 +4,9 @@ import {
   HealthCheckService,
   MemoryHealthIndicator,
   MicroserviceHealthIndicator,
-  TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 import { Transport } from '@nestjs/microservices';
-import { azkaban } from '@toxictoast/azkaban-broker-rabbitmq';
+import { azkaban_notify } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller('health')
 export class HealthController {
@@ -19,7 +18,6 @@ export class HealthController {
     private readonly service: HealthCheckService,
     private readonly memory: MemoryHealthIndicator,
     private readonly microservices: MicroserviceHealthIndicator,
-    private readonly database: TypeOrmHealthIndicator,
   ) {}
 
   @Get()
@@ -33,7 +31,7 @@ export class HealthController {
           transport: Transport.RMQ,
           options: {
             urls: [this.brokerConnectionString],
-            queue: azkaban,
+            queue: azkaban_notify,
           },
         }),
     ]);

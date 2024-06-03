@@ -4,6 +4,7 @@ import { AlertsService } from './alerts.service';
 import { AuthAlertsService } from './auth-alerts.service';
 import { AuthController } from './auth-controller';
 import { ConfigService } from '@nestjs/config';
+import { GroupAlertsService } from './group-alerts.service';
 
 @Module({
   controllers: [AlertsController, AuthController],
@@ -17,6 +18,7 @@ import { ConfigService } from '@nestjs/config';
     },
     AlertsService,
     AuthAlertsService,
+    GroupAlertsService,
   ],
 })
 export class AlertsModule {}
