@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CircuitBreakerService } from '../circuitbreaker/circuitbreaker.service';
 import { ClientProxy } from '@nestjs/microservices';
 import {
   AuthTopics,
@@ -11,7 +10,6 @@ import {
 @Injectable()
 export class VersionService {
   constructor(
-    private readonly circuitbreaker: CircuitBreakerService,
     @Inject('WEBHOOKS_SERVICE') private readonly hooksClient: ClientProxy,
     @Inject('APIALERTS_SERVICE') private readonly apialertsClient: ClientProxy,
     @Inject('NOTIFICATIONS_SERVICE')
@@ -32,80 +30,34 @@ export class VersionService {
   }
 
   async getWebhooksVersion() {
-    return this.circuitbreaker.execute(
-      NotifyTopics.VERSION,
-      async () => {
-        return await this.hooksClient
-          .send(NotifyTopics.VERSION, {})
-          .toPromise();
-      },
-      true,
-    );
+    return await this.hooksClient.send(NotifyTopics.VERSION, {}).toPromise();
   }
 
   async getApiAlertsVersion() {
-    return this.circuitbreaker.execute(
-      NotifyTopics.VERSION,
-      async () => {
-        return await this.apialertsClient
-          .send(NotifyTopics.VERSION, {})
-          .toPromise();
-      },
-      true,
-    );
+    return await this.apialertsClient
+      .send(NotifyTopics.VERSION, {})
+      .toPromise();
   }
 
   async getNotificationsVersion() {
-    return this.circuitbreaker.execute(
-      NotifyTopics.VERSION,
-      async () => {
-        return await this.notificationsClient
-          .send(NotifyTopics.VERSION, {})
-          .toPromise();
-      },
-      true,
-    );
+    return await this.notificationsClient
+      .send(NotifyTopics.VERSION, {})
+      .toPromise();
   }
 
   async getSSEVersion() {
-    return this.circuitbreaker.execute(
-      NotifyTopics.VERSION,
-      async () => {
-        return await this.sseClient.send(NotifyTopics.VERSION, {}).toPromise();
-      },
-      true,
-    );
+    return await this.sseClient.send(NotifyTopics.VERSION, {}).toPromise();
   }
 
   async getUsersVersion() {
-    return this.circuitbreaker.execute(
-      UserTopics.VERSION,
-      async () => {
-        return await this.usersClient.send(UserTopics.VERSION, {}).toPromise();
-      },
-      true,
-    );
+    return await this.usersClient.send(UserTopics.VERSION, {}).toPromise();
   }
 
   async getAuthVersion() {
-    return this.circuitbreaker.execute(
-      AuthTopics.VERSION,
-      async () => {
-        return await this.authClient.send(AuthTopics.VERSION, {}).toPromise();
-      },
-      true,
-    );
+    return await this.authClient.send(AuthTopics.VERSION, {}).toPromise();
   }
 
   async getGroupsVersion() {
-    return this.circuitbreaker.execute(
-      GroupsTopics.VERSION,
-      async () => {
-        return await this.groupClient
-          .send(GroupsTopics.VERSION, {})
-          .toPromise();
-      },
-      true,
-    );
+    return await this.groupClient.send(GroupsTopics.VERSION, {}).toPromise();
   }
 }
