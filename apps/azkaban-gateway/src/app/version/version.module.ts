@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { VersionController } from './version.controller';
 import { VersionService } from './version.service';
-import { CircuitBreakerModule } from '../circuitbreaker/circuitbreaker.module';
 import { ClientsModule } from '@nestjs/microservices';
 import {
   azkaban_auth,
@@ -17,7 +16,6 @@ import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    CircuitBreakerModule,
     ClientsModule.register([
       // NOTIFY
       {

@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { CircuitBreakerModule } from '../circuitbreaker/circuitbreaker.module';
 import { ClientsModule } from '@nestjs/microservices';
 import {
   azkaban_auth,
@@ -14,25 +13,14 @@ import { LoginHandler, RegisterHandler } from './commands';
 import { LoggedHandler, RegisteredHandler } from './events';
 import { AuthGuard } from '../../guards/auth.guard';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
 
 const commandHandlers = [RegisterHandler, LoginHandler];
 const eventHandlers = [RegisteredHandler, LoggedHandler];
 
 @Module({
   imports: [
-    /*JwtModule.registerAsync({
-      useFactory: (config: ConfigService) => {
-        return {
-          secret: config.get('JWT_SECRET', 'secret'),
-          signOptions: { expiresIn: '1h' },
-        };
-      },
-      inject: [ConfigService],
-    }),*/
     JwtModule,
     CqrsModule,
-    CircuitBreakerModule,
     ClientsModule.register([
       {
         name: 'AUTH_SERVICE',

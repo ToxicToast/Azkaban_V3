@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { CircuitBreakerModule } from '../circuitbreaker/circuitbreaker.module';
 import { UserController } from './user.controller';
 import { ClientsModule } from '@nestjs/microservices';
 import {
@@ -10,7 +9,6 @@ import { UserService } from './user.service';
 
 @Module({
   imports: [
-    CircuitBreakerModule,
     ClientsModule.register([
       {
         name: 'USERS_SERVICE',

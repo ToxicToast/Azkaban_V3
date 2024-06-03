@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { CircuitBreakerModule } from '../circuitbreaker/circuitbreaker.module';
 import { ClientsModule } from '@nestjs/microservices';
 import {
   azkaban_group,
@@ -13,7 +12,7 @@ import { NotifyService } from './notify.service';
 import { AuthGuard } from '../../guards/auth.guard';
 import { CreateHandler, UpdateHandler } from './commands';
 import { CreatedHandler } from './events';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 
 const commandHandlers = [CreateHandler, UpdateHandler];
 const eventHandlers = [CreatedHandler];
@@ -22,7 +21,6 @@ const eventHandlers = [CreatedHandler];
   imports: [
     JwtModule,
     CqrsModule,
-    CircuitBreakerModule,
     ClientsModule.register([
       {
         name: 'GROUP_SERVICE',
