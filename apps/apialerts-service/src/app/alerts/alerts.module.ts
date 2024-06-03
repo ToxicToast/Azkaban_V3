@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AlertsController } from './alerts.controller';
 import { AlertsService } from './alerts.service';
 import { AuthAlertsService } from './auth-alerts.service';
 import { AuthController } from './auth-controller';
@@ -8,7 +7,7 @@ import { GroupAlertsService } from './group-alerts.service';
 import { GroupController } from './group-controller';
 
 @Module({
-  controllers: [AlertsController, AuthController, GroupController],
+  controllers: [AuthController, GroupController],
   providers: [
     {
       provide: 'MAGPIE_KEY',
