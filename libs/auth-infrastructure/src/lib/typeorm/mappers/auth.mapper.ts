@@ -48,7 +48,7 @@ export class AuthMapper implements Mapper<AuthDAO, UserEntity> {
       banned_at,
       isBanned: !!banned_at,
       isActive: !!activated_at,
-      groups: groups?.map((group) => group.group_id) ?? [],
+      groups: groups?.map((group) => group.group.title) ?? [],
     });
     return this.domainFactory.constitute(aggregate);
   }

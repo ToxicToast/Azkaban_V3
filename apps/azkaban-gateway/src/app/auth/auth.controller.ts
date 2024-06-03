@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
-import { CommandBus } from '@nestjs/cqrs';
 import { AuthDAO, TokenDAO } from '@azkaban/auth-infrastructure';
 import { AuthGuard } from '../../guards/auth.guard';
 

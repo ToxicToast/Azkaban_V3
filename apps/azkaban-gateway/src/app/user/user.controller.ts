@@ -15,9 +15,10 @@ import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '../../guards/auth.guard';
 
 @ApiTags('users')
-@UseGuards(ThrottlerGuard)
+@UseGuards(ThrottlerGuard, AuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly service: UserService) {}

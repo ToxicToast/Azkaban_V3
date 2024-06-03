@@ -8,23 +8,25 @@ export class UserGroupFactory
   implements Factory<UserGroupAnemic, UserGroupAggregate, UserGroupData>
 {
   reconstitute(data: UserGroupAnemic): UserGroupAggregate {
-    const { id, group_id } = data;
+    const { id, group_id, user_id, title } = data;
 
-    return new UserGroupAggregate(id, group_id);
+    return new UserGroupAggregate(id, group_id, user_id, title);
   }
 
   constitute(data: UserGroupAggregate): UserGroupAnemic {
-    const { id, group_id } = data.toAnemic();
+    const { id, group_id, user_id, title } = data.toAnemic();
 
     return {
       id,
       group_id,
+      user_id,
+      title,
     };
   }
 
   createDomain(data: UserGroupData): UserGroupAggregate {
-    const { group_id } = data;
+    const { group_id, user_id, title } = data;
     const Id = new UserId();
-    return new UserGroupAggregate(Id.value, group_id);
+    return new UserGroupAggregate(Id.value, group_id, user_id, title);
   }
 }

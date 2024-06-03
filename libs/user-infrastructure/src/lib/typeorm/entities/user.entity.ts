@@ -42,7 +42,7 @@ export class UserEntity {
   @DeleteDateColumn({ nullable: true, default: null, type: 'timestamp' })
   deleted_at: Date | null;
 
-  @OneToMany(() => UserGroupEntity, (group) => group.user, { eager: true })
+  @OneToMany(() => UserGroupEntity, (group) => group.user)
   @JoinColumn()
   groups: UserGroupEntity[];
 }

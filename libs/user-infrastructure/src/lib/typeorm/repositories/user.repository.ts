@@ -17,7 +17,7 @@ export class UserRepository implements DomainRepository {
       take: limit,
       skip: offset,
       withDeleted: true,
-      relations: ['groups'],
+      relations: ['groups', 'groups.group'],
     });
     return entities.map((entity) => this.mapper.toDomain(entity));
   }
@@ -26,7 +26,7 @@ export class UserRepository implements DomainRepository {
     const entity = await this.repository.findOne({
       withDeleted: true,
       where: { id },
-      relations: ['groups'],
+      relations: ['groups', 'groups.group'],
     });
     if (entity) {
       return this.mapper.toDomain(entity);

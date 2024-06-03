@@ -10,10 +10,7 @@ export class UserPassword implements ValueObject<string> {
 
   constructor(value?: Optional<string>) {
     const generatedString = StringGeneratorHelper.create(16).value;
-    this._value = HashPasswordHelper(
-      process.env.PASSWORD_SALT,
-      value ?? generatedString,
-    );
+    this._value = HashPasswordHelper(value ?? generatedString);
   }
 
   equals(valueObject: UserPassword): boolean {

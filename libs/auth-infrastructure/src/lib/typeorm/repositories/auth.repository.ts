@@ -13,7 +13,7 @@ export class AuthRepository implements DomainRepository {
     const entity = await this.repository.findOne({
       withDeleted: true,
       where: { email },
-      relations: ['groups'],
+      relations: ['groups', 'groups.group'],
     });
 
     if (entity) {
@@ -26,7 +26,7 @@ export class AuthRepository implements DomainRepository {
     const entity = await this.repository.findOne({
       withDeleted: true,
       where: { username },
-      relations: ['groups'],
+      relations: ['groups', 'groups.group'],
     });
 
     if (entity) {

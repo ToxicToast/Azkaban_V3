@@ -2,6 +2,7 @@ import { Mapper } from '@toxictoast/azkaban-base-domain';
 import { UserEntity, UserGroupEntity } from '../entities';
 import { UserFactory, UserGroupFactory } from '@azkaban/user-domain';
 import { UserDAO } from '../../dao';
+import { GroupEntity } from '@azkaban/group-infrastructure';
 
 export class UserMapper implements Mapper<UserDAO, UserEntity> {
   private readonly domainFactory: UserFactory = new UserFactory();
@@ -35,11 +36,15 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
     entity.deleted_at = deleted_at;
     entity.groups =
       groups?.map((group) => {
-        const groupEntity = new UserGroupEntity();
-        groupEntity.id = group.id;
-        groupEntity.group_id = group.group_id;
-        groupEntity.user = entity;
-        return groupEntity;
+        const groupEntity = new GroupEntity();
+        groupEntity.id = group.group_id;
+        groupEntity.title = group.title;
+        //
+        const userGroupEntity = new UserGroupEntity();
+        userGroupEntity.id = group.id;
+        userGroupEntity.user = entity;
+        userGroupEntity.group = groupEntity;
+        return userGroupEntity;
       }) ?? [];
     return entity;
   }
@@ -63,7 +68,9 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       groups?.map((group) => {
         const aggregate = this.domainGroupFactory.reconstitute({
           id: group.id,
-          group_id: group.group_id,
+          group_id: group?.group?.id ?? '',
+          user_id: id,
+          title: group?.group?.title ?? '',
         });
         return this.domainGroupFactory.constitute(aggregate);
       }) ?? [];
@@ -85,6 +92,7 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       isDeleted: !!deleted_at,
       groups: groupsAnemicArray,
     });
+
     return this.domainFactory.constitute(aggregate);
   }
 }

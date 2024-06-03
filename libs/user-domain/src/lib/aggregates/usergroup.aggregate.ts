@@ -5,12 +5,16 @@ export class UserGroupAggregate implements Domain<UserGroupAnemic> {
   constructor(
     private readonly id: string,
     private readonly group_id: string,
+    private readonly user_id: string,
+    private readonly title: string,
   ) {}
 
   toAnemic(): UserGroupAnemic {
     return {
       id: this.id,
       group_id: this.group_id,
+      user_id: this.user_id,
+      title: this.title,
     };
   }
 

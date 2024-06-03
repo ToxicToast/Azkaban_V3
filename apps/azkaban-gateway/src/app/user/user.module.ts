@@ -6,9 +6,11 @@ import {
   clientProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { UserService } from './user.service';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule,
     ClientsModule.register([
       {
         name: 'USERS_SERVICE',

@@ -14,9 +14,10 @@ import {
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { GroupsService } from './groups.service';
 import { Optional } from '@toxictoast/azkaban-base-types';
+import { AuthGuard } from '../../guards/auth.guard';
 
 @ApiTags('group')
-@UseGuards(ThrottlerGuard)
+@UseGuards(ThrottlerGuard, AuthGuard)
 @Controller('group')
 export class GroupsController {
   constructor(private readonly service: GroupsService) {}

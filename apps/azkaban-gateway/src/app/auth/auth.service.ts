@@ -2,16 +2,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { AuthDAO, TokenDAO } from '@azkaban/auth-infrastructure';
-import { JwtService } from '@nestjs/jwt';
-import { NotifyService } from './notify.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @Inject('AUTH_SERVICE') private readonly client: ClientProxy,
-    private readonly jwtService: JwtService,
-    private readonly notifSerivce: NotifyService,
-  ) {}
+  constructor(@Inject('AUTH_SERVICE') private readonly client: ClientProxy) {}
 
   async register(
     email: string,
@@ -20,31 +14,13 @@ export class AuthService {
   ): Promise<AuthDAO> {
     return await this.client
       .send(AuthTopics.REGISTER, { email, username, password })
-      .toPromise()
-      .then((user) => {
-        this.notifSerivce.onRegister(user.id, user.username, user.email);
-        return user;
-      });
+      .toPromise();
   }
 
   async login(username: string, password: string): Promise<TokenDAO> {
     return await this.client
       .send(AuthTopics.LOGIN, { username, password })
-      .toPromise()
-      .then((user) => {
-        this.notifSerivce.onLogin(user.username);
-        const payload = {
-          id: user.id,
-          username: user.username,
-          sub: user.id,
-          email: user.email,
-          groups: user.groups,
-        };
-        return {
-          token: this.jwtService.sign(payload),
-          user,
-        };
-      });
+      .toPromise();
   }
 
   async activateAccount(email: string, token: string): Promise<void> {
