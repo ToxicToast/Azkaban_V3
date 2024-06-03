@@ -7,15 +7,6 @@ import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 export class AuthController {
   constructor(private readonly service: AuthService) {}
 
-  @Get()
-  async getUserList() {
-    try {
-      return await this.service.login('ToxicToast', 'Owen231215#');
-    } catch (error) {
-      throw new HttpException(error, 500);
-    }
-  }
-
   @MessagePattern(AuthTopics.REGISTER)
   async register(
     @Payload('username') username: string,

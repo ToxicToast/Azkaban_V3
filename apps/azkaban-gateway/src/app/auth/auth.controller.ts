@@ -12,7 +12,7 @@ import {
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { CommandBus } from '@nestjs/cqrs';
-import { TokenDAO } from '@azkaban/auth-infrastructure';
+import { AuthDAO, TokenDAO } from '@azkaban/auth-infrastructure';
 import { AuthGuard } from '../../guards/auth.guard';
 
 @ApiTags('auth')
@@ -26,7 +26,7 @@ export class AuthController {
     @Body('email') email: string,
     @Body('username') username: string,
     @Body('password') password: string,
-  ): Promise<TokenDAO> {
+  ): Promise<AuthDAO> {
     try {
       return await this.service.register(email, username, password);
     } catch (error) {

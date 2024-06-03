@@ -11,16 +11,6 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    JwtModule.registerAsync({
-      useFactory: (config: ConfigService) => {
-        return {
-          global: true,
-          secret: config.get('JWT_SECRET', 'secret'),
-          signOptions: { expiresIn: '1h' },
-        };
-      },
-      inject: [ConfigService],
-    }),
     ConfigModule.forRoot({ isGlobal: true }),
     ThrottlerModule.forRoot([
       {

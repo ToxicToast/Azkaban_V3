@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { AuthTopics } from '@toxictoast/azkaban-broker-rabbitmq';
-import { TokenDAO } from '@azkaban/auth-infrastructure';
+import { AuthDAO, TokenDAO } from '@azkaban/auth-infrastructure';
 import { JwtService } from '@nestjs/jwt';
 import { NotifyService } from './notify.service';
 
@@ -17,23 +17,13 @@ export class AuthService {
     email: string,
     username: string,
     password: string,
-  ): Promise<TokenDAO> {
+  ): Promise<AuthDAO> {
     return await this.client
       .send(AuthTopics.REGISTER, { email, username, password })
       .toPromise()
       .then((user) => {
         this.notifSerivce.onRegister(user.id, user.username, user.email);
-        const payload = {
-          id: user.id,
-          username: user.username,
-          sub: user.id,
-          email: user.email,
-          groups: user.groups,
-        };
-        return {
-          token: this.jwtService.sign(payload),
-          user,
-        };
+        return user;
       });
   }
 

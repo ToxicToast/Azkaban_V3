@@ -33,13 +33,14 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
     entity.created_at = created_at;
     entity.updated_at = updated_at;
     entity.deleted_at = deleted_at;
-    entity.groups = groups.map((group) => {
-      const groupEntity = new UserGroupEntity();
-      groupEntity.id = group.id;
-      groupEntity.group_id = group.group_id;
-      groupEntity.user = entity;
-      return groupEntity;
-    });
+    entity.groups =
+      groups?.map((group) => {
+        const groupEntity = new UserGroupEntity();
+        groupEntity.id = group.id;
+        groupEntity.group_id = group.group_id;
+        groupEntity.user = entity;
+        return groupEntity;
+      }) ?? [];
     return entity;
   }
 
@@ -58,13 +59,14 @@ export class UserMapper implements Mapper<UserDAO, UserEntity> {
       groups,
     } = data;
 
-    const groupsAnemicArray = groups.map((group) => {
-      const aggregate = this.domainGroupFactory.reconstitute({
-        id: group.id,
-        group_id: group.group_id,
-      });
-      return this.domainGroupFactory.constitute(aggregate);
-    });
+    const groupsAnemicArray =
+      groups?.map((group) => {
+        const aggregate = this.domainGroupFactory.reconstitute({
+          id: group.id,
+          group_id: group.group_id,
+        });
+        return this.domainGroupFactory.constitute(aggregate);
+      }) ?? [];
 
     const aggregate = this.domainFactory.reconstitute({
       id,
