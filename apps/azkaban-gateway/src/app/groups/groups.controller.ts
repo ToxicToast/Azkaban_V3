@@ -14,14 +14,16 @@ import {
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { GroupsService } from './groups.service';
 import { Optional } from '@toxictoast/azkaban-base-types';
-import { AuthGuard } from '../../guards/auth.guard';
+import { AuthGuard, GroupsGuard } from '../../guards';
+import { Groups } from '../../decorators';
 
 @ApiTags('group')
-@UseGuards(ThrottlerGuard, AuthGuard)
+@UseGuards(ThrottlerGuard, AuthGuard, GroupsGuard)
 @Controller('group')
 export class GroupsController {
   constructor(private readonly service: GroupsService) {}
 
+  @Groups('Admin')
   @Get()
   async getGroups(
     @Query('limit') limit?: Optional<number>,
@@ -39,6 +41,7 @@ export class GroupsController {
     }
   }
 
+  @Groups('Admin')
   @Get('id/:id')
   async getGroupById(@Param('id') id: string) {
     try {
@@ -51,6 +54,7 @@ export class GroupsController {
     }
   }
 
+  @Groups('Admin')
   @Post()
   async createGroup(@Body('title') title: string) {
     try {
@@ -63,6 +67,7 @@ export class GroupsController {
     }
   }
 
+  @Groups('Admin')
   @Put(':id')
   async updateGroup(
     @Param('id') id: string,
@@ -80,6 +85,7 @@ export class GroupsController {
     }
   }
 
+  @Groups('Admin')
   @Delete(':id')
   async deleteGroup(@Param('id') id: string) {
     try {
@@ -92,6 +98,7 @@ export class GroupsController {
     }
   }
 
+  @Groups('Admin')
   @Put('restore/:id')
   async restoreGroup(@Param('id') id: string) {
     try {

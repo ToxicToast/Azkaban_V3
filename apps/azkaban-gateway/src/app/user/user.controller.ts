@@ -15,14 +15,16 @@ import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '../../guards/auth.guard';
+import { AuthGuard, GroupsGuard } from '../../guards';
+import { Groups } from '../../decorators';
 
 @ApiTags('users')
-@UseGuards(ThrottlerGuard, AuthGuard)
+@UseGuards(ThrottlerGuard, AuthGuard, GroupsGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
+  @Groups('Admin')
   @Get()
   async getUsers(
     @Query('limit') limit?: Optional<number>,
@@ -40,6 +42,7 @@ export class UserController {
     }
   }
 
+  @Groups('Admin')
   @Get('id/:id')
   async getUserById(@Param('id') id: string) {
     try {
@@ -52,6 +55,7 @@ export class UserController {
     }
   }
 
+  @Groups('Admin')
   @Post()
   async createUser(
     @Body('email') email: string,
@@ -68,6 +72,7 @@ export class UserController {
     }
   }
 
+  @Groups('Admin')
   @Put(':id')
   async updateUser(
     @Param('id') id: string,
@@ -96,6 +101,7 @@ export class UserController {
     }
   }
 
+  @Groups('Admin')
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     try {
@@ -108,6 +114,7 @@ export class UserController {
     }
   }
 
+  @Groups('Admin')
   @Put('restore/:id')
   async restoreUser(@Param('id') id: string) {
     try {
