@@ -8,19 +8,12 @@ import {
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { AuthService } from './auth.service';
 import { NotifyService } from './notify.service';
-import { CqrsModule } from '@nestjs/cqrs';
-import { LoginHandler, RegisterHandler } from './commands';
-import { LoggedHandler, RegisteredHandler } from './events';
 import { AuthGuard } from '../../guards/auth.guard';
 import { JwtModule } from '@nestjs/jwt';
-
-const commandHandlers = [RegisterHandler, LoginHandler];
-const eventHandlers = [RegisteredHandler, LoggedHandler];
 
 @Module({
   imports: [
     JwtModule,
-    CqrsModule,
     ClientsModule.register([
       {
         name: 'AUTH_SERVICE',
@@ -47,12 +40,6 @@ const eventHandlers = [RegisteredHandler, LoggedHandler];
     ]),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthGuard,
-    AuthService,
-    NotifyService,
-    ...commandHandlers,
-    ...eventHandlers,
-  ],
+  providers: [AuthGuard, AuthService, NotifyService],
 })
 export class AuthModule {}

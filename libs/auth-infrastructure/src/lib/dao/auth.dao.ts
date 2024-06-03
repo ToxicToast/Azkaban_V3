@@ -12,3 +12,8 @@ export interface AuthDAO {
   isBanned: boolean;
   groups: Array<string>;
 }
+
+export interface TokenDAO {
+  token: string;
+  user: AuthDAO;
+}

@@ -1,4 +1,4 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get, HttpException, Inject } from '@nestjs/common';
 import {
   HealthCheck,
   HealthCheckService,
@@ -25,18 +25,25 @@ export class HealthController {
   @Get()
   @HealthCheck()
   check() {
-    return this.service.check([
-      () => this.memory.checkHeap('memory_heap', this.heapTreshold),
-      () => this.memory.checkRSS('memory_rss', this.rssTreshold),
-      () =>
-        this.microservices.pingCheck('rabbitmq', {
-          transport: Transport.RMQ,
-          timeout: 5000,
-          options: {
-            urls: [this.brokerConnectionString],
-            queue: azkaban,
-          },
-        }),
-    ]);
+    try {
+      return this.service.check([
+        () => this.memory.checkHeap('memory_heap', this.heapTreshold),
+        () => this.memory.checkRSS('memory_rss', this.rssTreshold),
+        () =>
+          this.microservices.pingCheck('rabbitmq', {
+            transport: Transport.RMQ,
+            timeout: 5000,
+            options: {
+              urls: [this.brokerConnectionString],
+              queue: azkaban,
+            },
+          }),
+      ]);
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 }

@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   Param,
   Post,
   Put,
@@ -26,14 +27,28 @@ export class UserController {
     @Query('limit') limit?: Optional<number>,
     @Query('offset') offset?: Optional<number>,
   ) {
-    const limitNumber = limit ?? 50;
-    const offsetNumber = offset ?? 0;
-    return await this.service.getUsers(limitNumber, offsetNumber);
+    try {
+      const limitNumber = limit ?? 50;
+      const offsetNumber = offset ?? 0;
+      return await this.service.getUsers(limitNumber, offsetNumber);
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 
   @Get('id/:id')
   async getUserById(@Param('id') id: string) {
-    return await this.service.getUserById(id);
+    try {
+      return await this.service.getUserById(id);
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 
   @Post()
@@ -42,7 +57,14 @@ export class UserController {
     @Body('username') username: string,
     @Body('password') password: string,
   ) {
-    return await this.service.createUser(email, username, password);
+    try {
+      return await this.service.createUser(email, username, password);
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 
   @Put(':id')
@@ -55,24 +77,45 @@ export class UserController {
     @Body('activated_at') activated_at?: Optional<Nullable<Date>>,
     @Body('banned_at') banned_at?: Optional<Nullable<Date>>,
   ) {
-    return await this.service.updateUser(
-      id,
-      email,
-      username,
-      password,
-      activation_token,
-      activated_at,
-      banned_at,
-    );
+    try {
+      return await this.service.updateUser(
+        id,
+        email,
+        username,
+        password,
+        activation_token,
+        activated_at,
+        banned_at,
+      );
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
-    return await this.service.deleteUser(id);
+    try {
+      return await this.service.deleteUser(id);
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 
   @Put('restore/:id')
   async restoreUser(@Param('id') id: string) {
-    return await this.service.restoreUser(id);
+    try {
+      return await this.service.restoreUser(id);
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
   }
 }

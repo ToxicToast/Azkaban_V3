@@ -12,29 +12,23 @@ import {
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { CommandBus } from '@nestjs/cqrs';
-import { LoginCommand, RegisterCommand } from './commands';
-import { AuthDAO } from '@azkaban/auth-infrastructure';
+import { TokenDAO } from '@azkaban/auth-infrastructure';
 import { AuthGuard } from '../../guards/auth.guard';
 
 @ApiTags('auth')
 @UseGuards(ThrottlerGuard)
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly service: AuthService,
-    private readonly commandBus: CommandBus,
-  ) {}
+  constructor(private readonly service: AuthService) {}
 
   @Post('register')
   async register(
     @Body('email') email: string,
     @Body('username') username: string,
     @Body('password') password: string,
-  ): Promise<AuthDAO> {
+  ): Promise<TokenDAO> {
     try {
-      return await this.commandBus.execute(
-        new RegisterCommand(email, username, password),
-      );
+      return await this.service.register(email, username, password);
     } catch (error) {
       throw new HttpException(
         error.message ?? 'Unknown Error',
@@ -47,11 +41,9 @@ export class AuthController {
   async login(
     @Body('username') username: string,
     @Body('password') password: string,
-  ) {
+  ): Promise<TokenDAO> {
     try {
-      return await this.commandBus.execute(
-        new LoginCommand(username, password),
-      );
+      return await this.service.login(username, password);
     } catch (error) {
       throw new HttpException(
         error.message ?? 'Unknown Error',

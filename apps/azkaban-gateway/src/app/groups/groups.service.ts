@@ -3,10 +3,14 @@ import { ClientProxy } from '@nestjs/microservices';
 import { GroupsTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { GroupDAO } from '@azkaban/group-infrastructure';
+import { NotifyService } from './notify.service';
 
 @Injectable()
 export class GroupsService {
-  constructor(@Inject('GROUP_SERVICE') private readonly client: ClientProxy) {}
+  constructor(
+    @Inject('GROUP_SERVICE') private readonly client: ClientProxy,
+    private readonly notifSerivce: NotifyService,
+  ) {}
 
   async getGroups(limit: number, offset: number): Promise<Array<GroupDAO>> {
     return await this.client
@@ -19,7 +23,13 @@ export class GroupsService {
   }
 
   async createGroup(title: string): Promise<GroupDAO> {
-    return await this.client.send(GroupsTopics.CREATE, { title }).toPromise();
+    return await this.client
+      .send(GroupsTopics.CREATE, { title })
+      .toPromise()
+      .then((group) => {
+        this.notifSerivce.onCreate(group.id, group.title);
+        return group;
+      });
   }
 
   async updateGroup(

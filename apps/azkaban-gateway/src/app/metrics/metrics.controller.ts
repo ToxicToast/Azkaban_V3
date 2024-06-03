@@ -1,5 +1,5 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, HttpException, Res } from '@nestjs/common';
 import { PrometheusController } from '@willsoto/nestjs-prometheus';
 
 @ApiTags('monitoring')
@@ -7,8 +7,15 @@ import { PrometheusController } from '@willsoto/nestjs-prometheus';
 export class MetricsController extends PrometheusController {
   @Get()
   index(@Res({ passthrough: true }) response: Response) {
-    if (response !== undefined) {
-      return super.index(response);
+    try {
+      if (response !== undefined) {
+        return super.index(response);
+      }
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
     }
   }
 }
