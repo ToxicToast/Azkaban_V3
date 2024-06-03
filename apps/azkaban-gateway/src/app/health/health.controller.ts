@@ -31,6 +31,7 @@ export class HealthController {
       () =>
         this.microservices.pingCheck('rabbitmq', {
           transport: Transport.RMQ,
+          timeout: 5000,
           options: {
             urls: [this.brokerConnectionString],
             queue: azkaban,
