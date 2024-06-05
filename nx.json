@@ -84,6 +84,12 @@
       "library": {
         "projectNameAndRootFormat": "derived"
       }
+    },
+    "@nx/next": {
+      "application": {
+        "style": "tailwind",
+        "linter": "eslint"
+      }
     }
   },
   "plugins": [
@@ -107,6 +113,15 @@
         "targetName": "test"
       },
       "exclude": ["apps/group-service-e2e/**/*", "apps/admin-ui-e2e/**/*"]
+    },
+    {
+      "plugin": "@nx/next/plugin",
+      "options": {
+        "startTargetName": "start",
+        "buildTargetName": "build",
+        "devTargetName": "dev",
+        "serveStaticTargetName": "serve-static"
+      }
     }
   ],
   "nxCloudAccessToken": "MjMwNjZiZGEtOGNlNS00ZWM4LTkzN2YtNmE3ZmMyMTc2MTY2fHJlYWQtd3JpdGU="
