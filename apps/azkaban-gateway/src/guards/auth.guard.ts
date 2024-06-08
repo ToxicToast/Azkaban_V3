@@ -6,15 +6,21 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Optional } from '@toxictoast/azkaban-base-types';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
-  private extractTokenFromHeader(request): Optional<string> {
-    const authorization = request.headers?.['authorization'] ?? '';
+  private extractTokenFromHeader(request: Request): Optional<string> {
+    const authorization = request.headers.authorization ?? '';
     const [type, token] = authorization.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
+  }
+
+  private extractTokenFromCookie(request: Request): Optional<string> {
+    const token = request.cookies['__azkaban'];
+    return token ?? undefined;
   }
 
   private checkExpireTime(expireTime: number): void {
@@ -26,7 +32,9 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
+    const cookieToken = this.extractTokenFromCookie(request);
+    const headerToken = this.extractTokenFromHeader(request);
+    const token = cookieToken ?? headerToken ?? null;
     if (!token) {
       throw new UnauthorizedException();
     }

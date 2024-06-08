@@ -51,6 +51,9 @@ export class AuthService {
           username: res.username,
           email: res.email,
           groups: res.groups,
+          isActive: res.isActive,
+          isBanned: res.isBanned,
+          activation_token: res.activation_token,
         };
       })
       .then(async (res) => {

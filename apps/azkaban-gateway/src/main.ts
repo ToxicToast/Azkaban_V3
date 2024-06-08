@@ -1,6 +1,7 @@
 import { INestApplication, Logger, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
+import cookieParser from 'cookie-parser';
 
 import compression from 'compression';
 import helmet from 'helmet';
@@ -26,6 +27,7 @@ function configureApp(app: INestApplication): void {
 function addModules(app: INestApplication): void {
   app.use(compression({}));
   app.use(helmet());
+  app.use(cookieParser());
 }
 
 function configureSwagger(app: INestApplication): void {

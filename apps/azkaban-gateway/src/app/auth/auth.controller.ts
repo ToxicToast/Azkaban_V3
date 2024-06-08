@@ -7,12 +7,14 @@ import {
   Post,
   Put,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { AuthDAO, TokenDAO } from '@azkaban/auth-infrastructure';
 import { AuthGuard } from '../../guards/auth.guard';
+import { Response } from 'express';
 
 @ApiTags('auth')
 @UseGuards(ThrottlerGuard)
@@ -43,6 +45,24 @@ export class AuthController {
   ): Promise<TokenDAO> {
     try {
       return await this.service.login(username, password);
+    } catch (error) {
+      throw new HttpException(
+        error.message ?? 'Unknown Error',
+        error.status ?? 500,
+      );
+    }
+  }
+
+  @Post('login/cookie')
+  async loginWithCookie(
+    @Body('username') username: string,
+    @Body('password') password: string,
+    @Res({ passthrough: true }) response,
+  ): Promise<TokenDAO> {
+    try {
+      const auth = await this.service.login(username, password);
+      this.setCookie(response, auth.token);
+      return auth;
     } catch (error) {
       throw new HttpException(
         error.message ?? 'Unknown Error',
@@ -90,5 +110,16 @@ export class AuthController {
         error.status ?? 500,
       );
     }
+  }
+
+  private setCookie(response: Response, token: string): void {
+    const expireDate = new Date();
+    expireDate.setHours(expireDate.getHours() + 1);
+    response.cookie('__azkaban', token, {
+      httpOnly: true,
+      maxAge: expireDate.getTime(),
+      sameSite: 'strict',
+      secure: true,
+    });
   }
 }
