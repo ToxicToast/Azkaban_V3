@@ -10,17 +10,17 @@ import UiReducer from './ui/ui.slice';
 import { authApi } from './auth/auth.api';
 
 export const store = configureStore({
-  reducer: {
-    config: ConfigReducer,
-    auth: AuthReducer,
-    user: UserReducer,
-    ui: UiReducer,
-    [authApi.reducerPath]: authApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
-  devTools: true,
-  enhancers: (getDefaultEnhancers) => getDefaultEnhancers(),
+    reducer: {
+        config: ConfigReducer,
+        auth: AuthReducer,
+        user: UserReducer,
+        ui: UiReducer,
+        [authApi.reducerPath]: authApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(authApi.middleware),
+    devTools: true,
+    enhancers: (getDefaultEnhancers) => getDefaultEnhancers(),
 });
 setupListeners(store.dispatch);
 

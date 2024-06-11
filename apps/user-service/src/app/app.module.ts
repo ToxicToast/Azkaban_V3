@@ -6,12 +6,12 @@ import { VersionModule } from './version/version.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    HealthModule,
-    MetricsModule,
-    VersionModule,
-    UserModule,
-  ],
+    imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        HealthModule,
+        MetricsModule,
+        VersionModule,
+        UserModule,
+    ],
 })
 export class AppModule {}

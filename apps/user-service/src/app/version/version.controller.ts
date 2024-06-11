@@ -5,10 +5,10 @@ import { UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller('version')
 export class VersionController {
-  constructor(private readonly service: VersionService) {}
+    constructor(private readonly service: VersionService) {}
 
-  @MessagePattern(UserTopics.VERSION)
-  async getVersion() {
-    return this.service.getVersion();
-  }
+    @MessagePattern(UserTopics.VERSION)
+    async getVersion() {
+        return this.service.getVersion();
+    }
 }

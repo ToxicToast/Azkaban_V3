@@ -1,3 +1,3 @@
 export interface CreateGroupDTO {
-  title: string;
+    title: string;
 }

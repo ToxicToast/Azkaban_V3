@@ -1,11 +1,14 @@
 /* eslint-disable */
 export default {
-  displayName: 'user-domain',
-  preset: '../../jest.preset.js',
-  testEnvironment: 'node',
-  transform: {
-    '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
-  },
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/libs/user-domain',
+    displayName: 'user-domain',
+    preset: '../../jest.preset.js',
+    testEnvironment: 'node',
+    transform: {
+        '^.+\\.[tj]s$': [
+            'ts-jest',
+            { tsconfig: '<rootDir>/tsconfig.spec.json' },
+        ],
+    },
+    moduleFileExtensions: ['ts', 'js', 'html'],
+    coverageDirectory: '../../coverage/libs/user-domain',
 };

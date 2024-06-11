@@ -6,14 +6,14 @@ import { userLoginFullfilled } from './auth.extraReducer';
 import { setUserAction } from './auth.reducer';
 
 export const authSlice = createSlice({
-  name: 'auth',
-  initialState: authState,
-  reducers: {
-    setUser: setUserAction,
-  },
-  extraReducers: (builder: ActionReducerMapBuilder<AuthModel>) => {
-    userLoginFullfilled(builder);
-  },
+    name: 'auth',
+    initialState: authState,
+    reducers: {
+        setUser: setUserAction,
+    },
+    extraReducers: (builder: ActionReducerMapBuilder<AuthModel>) => {
+        userLoginFullfilled(builder);
+    },
 });
 
 export const { setUser } = authSlice.actions;

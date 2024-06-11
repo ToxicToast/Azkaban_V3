@@ -1,18 +1,18 @@
 {
-  "name": "auth-infrastructure",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/auth-infrastructure/src",
-  "projectType": "library",
-  "tags": ["scope:infrastructure"],
-  "// targets": "to see all targets run: nx show project auth-infrastructure --web",
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/auth-infrastructure/jest.config.ts",
-        "passWithNoTests": true
-      }
+    "name": "auth-infrastructure",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/auth-infrastructure/src",
+    "projectType": "library",
+    "tags": ["scope:infrastructure"],
+    "// targets": "to see all targets run: nx show project auth-infrastructure --web",
+    "targets": {
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "libs/auth-infrastructure/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
     }
-  }
 }

@@ -1,18 +1,18 @@
 {
-  "name": "group-domain",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/group-domain/src",
-  "projectType": "library",
-  "tags": ["scope:domain"],
-  "// targets": "to see all targets run: nx show project group-domain --web",
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/group-domain/jest.config.ts",
-        "passWithNoTests": true
-      }
+    "name": "group-domain",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/group-domain/src",
+    "projectType": "library",
+    "tags": ["scope:domain"],
+    "// targets": "to see all targets run: nx show project group-domain --web",
+    "targets": {
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "libs/group-domain/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
     }
-  }
 }

@@ -15,18 +15,25 @@ const sessionUser = sessionUserTmp ? JSON.parse(sessionUserTmp) : null;
 const sessionExp = sessionExpTmp ? Number(sessionExpTmp) : 0;
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
+    document.getElementById('root') as HTMLElement,
 );
 root.render(
-  <StrictMode>
-    <Provider store={store}>
-      <SessionProvider token={sessionToken} user={sessionUser} exp={sessionExp}>
-        <ThemeProvider defaultTheme="light" storageKey="azkaban-ui-theme">
-          <Suspense fallback={<div>Loading...</div>}>
-            <App />
-          </Suspense>
-        </ThemeProvider>
-      </SessionProvider>
-    </Provider>
-  </StrictMode>,
+    <StrictMode>
+        <Provider store={store}>
+            <SessionProvider
+                token={sessionToken}
+                user={sessionUser}
+                exp={sessionExp}
+            >
+                <ThemeProvider
+                    defaultTheme="light"
+                    storageKey="azkaban-ui-theme"
+                >
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <App />
+                    </Suspense>
+                </ThemeProvider>
+            </SessionProvider>
+        </Provider>
+    </StrictMode>,
 );

@@ -6,12 +6,12 @@ import { ConfigModule } from '@nestjs/config';
 import { VersionModule } from './version/version.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    HealthModule,
-    MetricsModule,
-    NotificationModule,
-    VersionModule,
-  ],
+    imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        HealthModule,
+        MetricsModule,
+        NotificationModule,
+        VersionModule,
+    ],
 })
 export class AppModule {}

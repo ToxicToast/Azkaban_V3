@@ -7,18 +7,18 @@ import { GroupAlertsService } from './group-alerts.service';
 import { GroupController } from './group-controller';
 
 @Module({
-  controllers: [AuthController, GroupController],
-  providers: [
-    {
-      provide: 'MAGPIE_KEY',
-      useFactory: (config: ConfigService) => {
-        return config.get('MAGPIE_KEY', '-');
-      },
-      inject: [ConfigService],
-    },
-    AlertsService,
-    AuthAlertsService,
-    GroupAlertsService,
-  ],
+    controllers: [AuthController, GroupController],
+    providers: [
+        {
+            provide: 'MAGPIE_KEY',
+            useFactory: (config: ConfigService) => {
+                return config.get('MAGPIE_KEY', '-');
+            },
+            inject: [ConfigService],
+        },
+        AlertsService,
+        AuthAlertsService,
+        GroupAlertsService,
+    ],
 })
 export class AlertsModule {}

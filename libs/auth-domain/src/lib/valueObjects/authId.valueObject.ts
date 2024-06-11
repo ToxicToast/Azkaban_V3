@@ -3,17 +3,17 @@ import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { UuidHelper } from '@toxictoast/azkaban-base-helpers';
 
 export class AuthId implements ValueObject<string> {
-  readonly _value: Nullable<string>;
+    readonly _value: Nullable<string>;
 
-  constructor(value?: Optional<string>) {
-    this._value = value ?? UuidHelper.create().value;
-  }
+    constructor(value?: Optional<string>) {
+        this._value = value ?? UuidHelper.create().value;
+    }
 
-  equals(valueObject: AuthId): boolean {
-    return this._value === valueObject._value;
-  }
+    equals(valueObject: AuthId): boolean {
+        return this._value === valueObject._value;
+    }
 
-  get value(): string {
-    return this._value;
-  }
+    get value(): string {
+        return this._value;
+    }
 }

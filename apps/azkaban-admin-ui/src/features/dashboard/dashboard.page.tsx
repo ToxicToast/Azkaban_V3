@@ -1,5 +1,5 @@
 function DashboardPage() {
-  return <>DASHBOARD!</>;
+    return <>DASHBOARD!</>;
 }
 
 export default DashboardPage;

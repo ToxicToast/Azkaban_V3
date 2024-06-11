@@ -1,7 +1,6 @@
-import {PropsWithChildren} from "react";
+import { PropsWithChildren } from 'react';
 
 export function HeaderRightSide(props: PropsWithChildren) {
-
     const { children } = props;
 
     const searchModalOpen = false;
@@ -35,5 +34,4 @@ export function HeaderRightSide(props: PropsWithChildren) {
             {children}
         </div>
     );
-
 }

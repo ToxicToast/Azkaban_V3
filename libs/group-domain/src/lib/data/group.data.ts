@@ -1,3 +1,3 @@
 export interface GroupData {
-  readonly title: string;
+    readonly title: string;
 }

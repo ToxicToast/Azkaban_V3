@@ -1,5 +1,5 @@
 export interface CreateAuthDTO {
-  email: string;
-  username: string;
-  password: string;
+    email: string;
+    username: string;
+    password: string;
 }

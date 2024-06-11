@@ -1,6 +1,6 @@
 export interface UserGroupsDAO {
-  id: string;
-  group_id: string;
-  user_id: string;
-  title: string;
+    id: string;
+    group_id: string;
+    user_id: string;
+    title: string;
 }
