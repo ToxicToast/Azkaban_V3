@@ -15,7 +15,6 @@ import {
 import { Auth } from '@toxictoast/azkaban-sdk';
 import { setUser } from './auth.slice';
 import { useDispatch } from 'react-redux';
-import { Chainable } from '@toxictoast/azkaban-base-types';
 
 export function useAuthState() {
     const dispatch = useDispatch<AppDispatch>();

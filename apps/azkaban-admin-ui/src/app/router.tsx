@@ -1,6 +1,5 @@
 import { lazy } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
-import LoginPage from '../features/auth/login/login.page';
 import { Redirect } from '../components/widgets/redirect.widget';
 
 // Layouts

@@ -89,7 +89,7 @@ function AuthLayout() {
                             src="/assets/auth-image.jpg"
                             width="760"
                             height="1024"
-                            alt="Authentication image"
+                            alt="Authentication"
                         />
                         <img
                             className="absolute top-1/4 left-0 -translate-x-1/2 ml-8 hidden lg:block"
