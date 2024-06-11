@@ -57,9 +57,13 @@ export class AuthService {
         };
       })
       .then(async (res) => {
+        const token = await this.jwtService.signAsync(res);
+        const decoded = await this.jwtService.decode(token);
+
         return {
           user: res,
-          token: await this.jwtService.signAsync(res),
+          token,
+          exp: decoded.exp,
         };
       });
   }
