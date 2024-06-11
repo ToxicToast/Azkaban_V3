@@ -3,7 +3,17 @@
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/azkaban-admin-ui/src",
     "projectType": "application",
-    "tags": [],
+    "tags": ["scope:ui"],
     "// targets": "to see all targets run: nx show project azkaban-admin-ui --web",
-    "targets": {}
+    "targets": {
+
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/azkaban-admin-ui/jest.config.ts"
+            }
+        },
+
+    }
 }

@@ -38,6 +38,13 @@
                                     "scope:domain",
                                     "scope:shared"
                                 ]
+                            },
+                            {
+                                "sourceTag": "scope:ui",
+                                "onlyDependOnLibsWithTags": [
+                                    "scope:ui",
+                                    "scope:shared"
+                                ]
                             }
                         ]
                     }
