@@ -1,14 +1,18 @@
 import { lazy } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
-import { Redirect } from '../components/widgets/redirect.widget';
+import { Redirect } from '../features/shared';
 
 // Layouts
-const LazyAuthLayout = lazy(() => import('../components/layout/auth.layout'));
+const LazyAuthLayout = lazy(
+    () => import('../features/shared/components/layout/auth.layout'),
+);
 const LazyDashboardLayout = lazy(
-    () => import('../components/layout/dashboard.layout'),
+    () => import('../features/shared/components/layout/dashboard.layout'),
 );
 // Pages
-const LazyLoginPage = lazy(() => import('../features/auth/login/login.page'));
+const LazyLoginPage = lazy(
+    () => import('../features/auth/login/pages/login.page'),
+);
 const LazyDashboardPage = lazy(
     () => import('../features/dashboard/dashboard.page'),
 );

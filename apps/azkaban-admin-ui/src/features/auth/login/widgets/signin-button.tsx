@@ -1,6 +1,5 @@
-import { Button } from '../../../../components/ui/button';
-import { Show } from '../../../../components/widgets/show.widget';
 import { ReloadIcon } from '@radix-ui/react-icons';
+import { Button, Show } from '../../../shared';
 
 interface Props {
     onClick: () => void;

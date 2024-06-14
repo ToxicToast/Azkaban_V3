@@ -1,5 +1,4 @@
-import { AuthLoginHeader } from './components/header.component';
-import { AuthLoginForm } from './components/form.component';
+import { AuthLoginHeader, AuthLoginForm } from '../components';
 
 function LoginPage() {
     return (

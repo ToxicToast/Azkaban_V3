@@ -1,9 +1,8 @@
 import { useCallback, useState } from 'react';
-import { Label } from '../../../../components/ui/label';
-import { Input } from '../../../../components/ui/input';
-import { useAuthState } from '../../../../store/auth/auth.hook';
-import { useUiState } from '../../../../store/ui/ui.hook';
-import { SignInButton } from '../widgets/signin-button';
+import { SignInButton } from '../widgets';
+import { useAuthState } from '../../../shared/store/auth/auth.hook';
+import { useUiState } from '../../../shared/store/ui/ui.hook';
+import { Input, Label } from '../../../shared';
 
 export function AuthLoginForm() {
     const { loginUser } = useAuthState();
@@ -25,32 +24,35 @@ export function AuthLoginForm() {
     }, []);
 
     return (
-        <>
-            <form action="#" className="mt-6 grid grid-cols-6 gap-4">
-                <div className="col-span-6">
-                    <Label htmlFor="username">Username</Label>
-                    <Input
-                        id="username"
-                        name="username"
-                        value={username}
-                        onChange={(event) => changeUsername(event.target.value)}
-                        required={true}
-                    />
-                </div>
-                <div className="col-span-6">
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={password}
-                        onChange={(event) => changePassword(event.target.value)}
-                        required={true}
-                    />
-                </div>
-            </form>
+        <form action="#" className="mt-6 grid grid-cols-6 gap-4">
+            <div className="col-span-12">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                    id="username"
+                    name="username"
+                    value={username}
+                    onChange={(event) => changeUsername(event.target.value)}
+                    required={true}
+                />
+            </div>
+            <div className="col-span-12">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={(event) => changePassword(event.target.value)}
+                    required={true}
+                />
+            </div>
 
-            <SignInButton onClick={onSubmit} disabled={signInButtonDisabled} />
-        </>
+            <div className="col-span-12">
+                <SignInButton
+                    onClick={onSubmit}
+                    disabled={signInButtonDisabled}
+                />
+            </div>
+        </form>
     );
 }

@@ -1,6 +1,6 @@
-import { useAuthState } from '../store/auth/auth.hook';
 import { Routes } from './router';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useAuthState } from '../features/shared/store/auth/auth.hook';
 
 export function App() {
     const { isAuthenticated } = useAuthState();

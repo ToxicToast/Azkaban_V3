@@ -1,7 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { Header } from './dashboard/header';
+import { useToasts } from '../../hooks';
 
 function DashboardLayout() {
+    const { toasts, removeToast } = useToasts();
+
     return (
         <div className="min-h-screen bg-background">
             <div className="flex h-screen overflow-hidden">
@@ -11,7 +14,7 @@ function DashboardLayout() {
                     <main>
                         <Outlet />
                     </main>
-                    TOASTER
+                    {JSON.stringify(toasts, null, 4)}
                 </div>
             </div>
         </div>

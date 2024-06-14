@@ -4,9 +4,8 @@ import * as ReactDOM from 'react-dom/client';
 import App from './app/app';
 import './styles.css';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
-import { SessionProvider } from './context/session-provider';
-import { ThemeProvider } from './context/theme-provider';
+import { store } from './features/shared/store/store';
+import { SessionProvider, ThemeProvider } from './features/shared';
 
 const sessionToken = sessionStorage.getItem('token') ?? null;
 const sessionUserTmp = sessionStorage.getItem('user') ?? null;
