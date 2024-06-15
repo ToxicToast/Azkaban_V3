@@ -4,6 +4,7 @@ import { useToasts } from '../../hooks';
 import { ToasterWidget } from '../../widgets/toaster.widget';
 import { useState } from 'react';
 import { useAuthState } from '../../store/auth/auth.hook';
+import { Sidebar } from './dashboard/sidebar';
 
 function DashboardLayout() {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -13,7 +14,10 @@ function DashboardLayout() {
     return (
         <div className="min-h-screen bg-background">
             <div className="flex h-screen overflow-hidden">
-                SIDEBAR
+                <Sidebar
+                    sidebarOpen={sidebarOpen}
+                    closeSidebar={() => setSidebarOpen(false)}
+                />
                 <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
                     <Header
                         sidebarOpen={sidebarOpen}
