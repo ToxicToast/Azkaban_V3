@@ -33,6 +33,7 @@ export function AuthLoginForm() {
                     value={username}
                     onChange={(event) => changeUsername(event.target.value)}
                     required={true}
+                    disabled={signInButtonDisabled}
                 />
             </div>
             <div className="col-span-12">
@@ -44,6 +45,7 @@ export function AuthLoginForm() {
                     value={password}
                     onChange={(event) => changePassword(event.target.value)}
                     required={true}
+                    disabled={signInButtonDisabled}
                 />
             </div>
 
