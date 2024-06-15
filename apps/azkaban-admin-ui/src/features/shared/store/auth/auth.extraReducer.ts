@@ -6,6 +6,9 @@ import {
 import { AuthModel } from './auth.model';
 import { authApi } from './auth.api';
 import { Auth } from '@toxictoast/azkaban-sdk';
+import { RejectedAction } from '@reduxjs/toolkit/dist/query/core/buildThunks';
+import { toastService } from '../../service';
+import { HttpError } from '../../types';
 
 export const userLoginFullfilled = (
     builder: ActionReducerMapBuilder<AuthModel>,
@@ -30,6 +33,25 @@ export const userLoginFullfilled = (
             sessionStorage.setItem('user', JSON.stringify(user));
             sessionStorage.setItem('exp', exp.toString());
             //
+            toastService.sendToast({
+                text: `Successfully logged in as ${user.username}`,
+                type: 'success',
+            });
+        },
+    );
+};
+
+export const userLoginRejected = (
+    builder: ActionReducerMapBuilder<AuthModel>,
+) => {
+    builder.addMatcher(
+        authApi.endpoints?.loginUser.matchRejected,
+        (state: Draft<AuthModel>, action: RejectedAction<any, any>) => {
+            const { payload } = action as { payload: HttpError };
+            toastService.sendToast({
+                text: payload.data.message,
+                type: 'danger',
+            });
         },
     );
 };

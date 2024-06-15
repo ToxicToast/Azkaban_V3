@@ -5,7 +5,7 @@ class ToastService {
     private notificationSubject = new Subject<Toast>();
 
     public sendToast(notification: Omit<Toast, 'id'>) {
-        const id = `${Date.now()}-${Math.random()}`; // good enough as id for local notifications
+        const id = `${Date.now()}-${Math.random()}`;
         this.notificationSubject.next({ ...notification, id });
     }
 

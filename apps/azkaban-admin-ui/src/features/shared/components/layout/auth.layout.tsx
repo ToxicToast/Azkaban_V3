@@ -1,6 +1,10 @@
 import { Outlet } from 'react-router-dom';
+import { useToasts } from '../../hooks';
+import { ToasterWidget } from '../../widgets/toaster.widget';
 
 function AuthLayout() {
+    const { toasts } = useToasts();
+
     return (
         <div className="font-exo antialiased bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400">
             <main className="bg-slate-100 dark:bg-slate-900">
@@ -101,6 +105,7 @@ function AuthLayout() {
                     </div>
                 </div>
             </main>
+            <ToasterWidget toasts={toasts} />
         </div>
     );
 }

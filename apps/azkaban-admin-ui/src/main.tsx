@@ -6,6 +6,10 @@ import './styles.css';
 import { Provider } from 'react-redux';
 import { store } from './features/shared/store/store';
 import { SessionProvider, ThemeProvider } from './features/shared';
+import {
+    ToastProvider,
+    ToastViewport,
+} from './features/shared/components/ui/toast';
 
 const sessionToken = sessionStorage.getItem('token') ?? null;
 const sessionUserTmp = sessionStorage.getItem('user') ?? null;
@@ -28,9 +32,12 @@ root.render(
                     defaultTheme="light"
                     storageKey="azkaban-ui-theme"
                 >
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <App />
-                    </Suspense>
+                    <ToastProvider duration={3000}>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <App />
+                            <ToastViewport />
+                        </Suspense>
+                    </ToastProvider>
                 </ThemeProvider>
             </SessionProvider>
         </Provider>

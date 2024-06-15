@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit/react';
 import { authState } from './auth.state';
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 import { AuthModel } from './auth.model';
-import { userLoginFullfilled } from './auth.extraReducer';
+import { userLoginFullfilled, userLoginRejected } from './auth.extraReducer';
 import { setUserAction } from './auth.reducer';
 
 export const authSlice = createSlice({
@@ -13,6 +13,7 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder: ActionReducerMapBuilder<AuthModel>) => {
         userLoginFullfilled(builder);
+        userLoginRejected(builder);
     },
 });
 
