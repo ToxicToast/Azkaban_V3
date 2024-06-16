@@ -1,11 +1,11 @@
 interface Props {
     sidebarOpen: boolean;
-    closeSidebar: () => void;
+    toggleSidebar: () => void;
+    version: string;
 }
 
 export function Sidebar(props: Props) {
-    const { sidebarOpen, closeSidebar } = props;
-    const version = import.meta.env.VIZE_AZKABAN_VERSION;
+    const { sidebarOpen, toggleSidebar, version } = props;
 
     return (
         <div>
@@ -25,9 +25,9 @@ export function Sidebar(props: Props) {
                 <div className="flex justify-between mb-10 pr-3 sm:px-2">
                     <button
                         className="lg:hidden text-slate-500 hover:text-slate-400"
-                        onClick={() => closeSidebar()}
+                        onClick={() => toggleSidebar()}
                     >
-                        <span className="sr-only">Close sidebar</span>
+                        <span className="sr-only">Toggle sidebar</span>
                         <svg
                             className="w-6 h-6 fill-current"
                             viewBox="0 0 24 24"
