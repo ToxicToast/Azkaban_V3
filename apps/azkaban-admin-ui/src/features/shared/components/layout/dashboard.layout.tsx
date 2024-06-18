@@ -30,20 +30,7 @@ function DashboardLayout() {
                     version={version}
                 />
                 <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-                    <Header
-                        sidebarOpen={sidebarOpen}
-                        onSidebarChange={(value: boolean) =>
-                            setSidebarOpen(value)
-                        }
-                        username={username ?? ''}
-                        onSignout={() => {
-                            console.log('signout');
-                        }}
-                        notifications={[]}
-                        removeNotification={(id: string) => {
-                            console.log(id);
-                        }}
-                    />
+                    <Header username={username ?? ''} />
                     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
                         <Outlet />
                     </main>

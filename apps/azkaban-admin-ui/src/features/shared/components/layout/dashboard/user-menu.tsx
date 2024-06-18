@@ -5,11 +5,10 @@ import { UserMenuContent } from './usermenu/content';
 
 interface Props {
     username: string;
-    onSignOut: () => void;
 }
 
 export function UserMenu(props: Props) {
-    const { username, onSignOut } = props;
+    const { username } = props;
     const [usermenuOpen, setUsermenuOpen] = useState<boolean>(false);
 
     return (
@@ -22,7 +21,7 @@ export function UserMenu(props: Props) {
             </PopoverTrigger>
 
             <PopoverContent className="w-60">
-                <UserMenuContent username={username} onSignout={onSignOut} />
+                <UserMenuContent username={username} />
             </PopoverContent>
         </Popover>
     );
