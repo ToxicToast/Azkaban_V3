@@ -12,6 +12,13 @@
             "options": {
                 "jestConfig": "apps/azkaban-admin-ui/jest.config.ts"
             }
+        },
+        "docker-build": {
+            "dependsOn": ["build"],
+            "command": "docker build -f apps/azkaban-admin-ui/Dockerfile . -t azkaban2015/admin-ui:{args.VERSION}"
+        },
+        "docker-push": {
+            "command": "docker push azkaban2015/admin-ui:{args.VERSION}"
         }
     }
 }
