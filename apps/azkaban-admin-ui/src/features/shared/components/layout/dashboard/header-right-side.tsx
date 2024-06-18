@@ -1,9 +1,12 @@
 import { PropsWithChildren } from 'react';
 
-export function HeaderRightSide(props: PropsWithChildren) {
-    const { children } = props;
+interface Props {
+    searchModalOpen: boolean;
+    onSearchModalChange: () => void;
+}
 
-    const searchModalOpen = false;
+export function HeaderRightSide(props: PropsWithChildren<Props>) {
+    const { children, searchModalOpen, onSearchModalChange } = props;
 
     return (
         <div className="flex items-center space-x-3">
@@ -12,6 +15,7 @@ export function HeaderRightSide(props: PropsWithChildren) {
                     className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full ml-3 ${
                         searchModalOpen && 'bg-slate-200'
                     }`}
+                    onClick={() => onSearchModalChange()}
                 >
                     <span className="sr-only">Search</span>
                     <svg

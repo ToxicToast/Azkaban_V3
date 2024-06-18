@@ -3,6 +3,7 @@ import { HeaderRightSide } from './header-right-side';
 import { Notifications } from './notifications';
 import { Notification } from '../../../types';
 import { useState } from 'react';
+import { ThemeToggle } from './theme-toggle';
 
 interface Props {
     sidebarOpen: boolean;
@@ -32,7 +33,13 @@ export function Header(props: Props) {
             <div className="px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16 -mb-px">
                     <HeaderLeftSide />
-                    <HeaderRightSide>
+                    <HeaderRightSide
+                        searchModalOpen={searchModalOpen}
+                        onSearchModalChange={() =>
+                            setSearchModalOpen((prev) => !prev)
+                        }
+                    >
+                        {JSON.stringify(searchModalOpen)}
                         <Notifications
                             dropdownOpen={dropdownOpen}
                             setDropdownOpen={(value: boolean) =>
@@ -43,7 +50,7 @@ export function Header(props: Props) {
                                 removeNotification(id)
                             }
                         />
-                        ThemeToggle
+                        <ThemeToggle />
                         <hr className="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
                         UserMenu
                     </HeaderRightSide>
