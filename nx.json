@@ -122,7 +122,7 @@
             "options": {
                 "targetName": "test"
             },
-            "exclude": []
+            "exclude": ["apps/inventory-category-service-e2e/**/*"]
         },
         {
             "plugin": "@nx/vite/plugin",

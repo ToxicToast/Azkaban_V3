@@ -37,7 +37,7 @@ const authenticatedRoutes = [
     {
         element: <LazyDashboardLayout />,
         hasErrorBoundary: true,
-        errorElement: <div>error</div>,
+        errorElement: <div>Failed loading Layout</div>,
         children: [
             {
                 path: '*',
