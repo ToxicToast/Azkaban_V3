@@ -1,3 +1,5 @@
+import { SidebarHeader } from './sidebar/header';
+
 interface Props {
     sidebarOpen: boolean;
     toggleSidebar: () => void;
@@ -93,31 +95,16 @@ export function Sidebar(props: Props) {
 
                 <div className="space-y-8">
                     <div>
-                        <h3 className="pl-3 text-xs font-semibold uppercase text-slate-500">
-                            <span
-                                className="lg:sidebar-expanded:hidden hidden w-6 text-center lg:block 2xl:hidden"
-                                aria-hidden="true"
-                            >
-                                •••
-                            </span>
-                            <span className="lg:sidebar-expanded:block lg:hidden 2xl:block">
-                                Azkaban Admin
-                            </span>
-                        </h3>
-
+                        <SidebarHeader title="Azkaban" />
                         <ul className="mb-3 mt-3">LINKS</ul>
 
-                        <h3 className="pl-3 text-xs font-semibold uppercase text-slate-500">
-                            <span
-                                className="lg:sidebar-expanded:hidden hidden w-6 text-center lg:block 2xl:hidden"
-                                aria-hidden="true"
-                            >
-                                •••
-                            </span>
-                            <span className="lg:sidebar-expanded:block lg:hidden 2xl:block">
-                                Version: {version}
-                            </span>
-                        </h3>
+                        <SidebarHeader title="FoodFolio" />
+                        <ul className="mb-3 mt-3">LINKS</ul>
+
+                        <SidebarHeader title="Twitch" />
+                        <ul className="mb-3 mt-3">LINKS</ul>
+
+                        <SidebarHeader title={`Version: ${version}`} />
                     </div>
                 </div>
             </div>
