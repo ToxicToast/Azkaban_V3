@@ -22,6 +22,12 @@ const LazyDashboardPage = lazy(
 const LazyUserDashboardPage = lazy(
     () => import('../features/users/dashboard/pages/dashboard.page'),
 );
+const LazyGroupsDashboardPage = lazy(
+    () => import('../features/groups/dashboard/pages/dashboard.page'),
+);
+const LazyNotificationsDashboardPage = lazy(
+    () => import('../features/notifications/dashboard/pages/dashboard.page'),
+);
 
 interface Props {
     isAuthenticated: boolean;
@@ -49,6 +55,18 @@ const authenticatedRoutes = [
                 element: <LazyUserDashboardPage />,
                 hasErrorBoundary: true,
                 errorElement: <div>Failed loading Users</div>,
+            },
+            {
+                path: '/groups',
+                element: <LazyGroupsDashboardPage />,
+                hasErrorBoundary: true,
+                errorElement: <div>Failed loading Groups</div>,
+            },
+            {
+                path: '/notifications',
+                element: <LazyNotificationsDashboardPage />,
+                hasErrorBoundary: true,
+                errorElement: <div>Failed loading Notifications</div>,
             },
             {
                 path: '/auth/signout',
