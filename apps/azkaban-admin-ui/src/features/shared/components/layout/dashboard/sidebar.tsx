@@ -10,26 +10,26 @@ export function Sidebar(props: Props) {
     return (
         <div>
             <div
-                className={`fixed inset-0 dark:bg-slate-900 dark:bg-opacity-30 bg-slate-300 bg-opacity-60 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
+                className={`fixed inset-0 z-40 bg-slate-300 bg-opacity-60 transition-opacity duration-200 dark:bg-slate-900 dark:bg-opacity-30 lg:z-auto lg:hidden ${
                     sidebarOpen
                         ? 'opacity-100'
-                        : 'opacity-0 pointer-events-none'
+                        : 'pointer-events-none opacity-0'
                 }`}
             />
             <div
                 id="sidebar"
-                className={`border-r border-slate-200 dark:border-slate-700 flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 dark:bg-slate-800 bg-white p-4 transition-all duration-200 ease-in-out ${
+                className={`no-scrollbar lg:sidebar-expanded:!w-64 absolute left-0 top-0 z-40 flex h-screen w-64 shrink-0 flex-col overflow-y-scroll border-r border-slate-200 bg-white p-4 transition-all duration-200 ease-in-out dark:border-slate-700 dark:bg-slate-800 lg:static lg:left-auto lg:top-auto lg:w-20 lg:translate-x-0 lg:overflow-y-auto 2xl:!w-64 ${
                     sidebarOpen ? 'translate-x-0' : '-translate-x-64'
                 }`}
             >
-                <div className="flex justify-between mb-10 pr-3 sm:px-2">
+                <div className="mb-10 flex justify-between pr-3 sm:px-2">
                     <button
-                        className="lg:hidden text-slate-500 hover:text-slate-400"
+                        className="text-slate-500 hover:text-slate-400 lg:hidden"
                         onClick={() => toggleSidebar()}
                     >
                         <span className="sr-only">Toggle sidebar</span>
                         <svg
-                            className="w-6 h-6 fill-current"
+                            className="h-6 w-6 fill-current"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                         >
@@ -93,28 +93,28 @@ export function Sidebar(props: Props) {
 
                 <div className="space-y-8">
                     <div>
-                        <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
+                        <h3 className="pl-3 text-xs font-semibold uppercase text-slate-500">
                             <span
-                                className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6"
+                                className="lg:sidebar-expanded:hidden hidden w-6 text-center lg:block 2xl:hidden"
                                 aria-hidden="true"
                             >
                                 •••
                             </span>
-                            <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                            <span className="lg:sidebar-expanded:block lg:hidden 2xl:block">
                                 Azkaban Admin
                             </span>
                         </h3>
 
-                        <ul className="mt-3 mb-3">LINKS</ul>
+                        <ul className="mb-3 mt-3">LINKS</ul>
 
-                        <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
+                        <h3 className="pl-3 text-xs font-semibold uppercase text-slate-500">
                             <span
-                                className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6"
+                                className="lg:sidebar-expanded:hidden hidden w-6 text-center lg:block 2xl:hidden"
                                 aria-hidden="true"
                             >
                                 •••
                             </span>
-                            <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                            <span className="lg:sidebar-expanded:block lg:hidden 2xl:block">
                                 Version: {version}
                             </span>
                         </h3>

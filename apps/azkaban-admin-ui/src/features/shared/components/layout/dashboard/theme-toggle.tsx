@@ -21,7 +21,7 @@ export function ThemeToggle() {
                 onChange={() => switchTheme()}
             />
             <label
-                className="flex items-center justify-center cursor-pointer w-8 h-8 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full"
+                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80"
                 htmlFor="light-switch"
             >
                 <ThemeToggleIcon theme={theme} />

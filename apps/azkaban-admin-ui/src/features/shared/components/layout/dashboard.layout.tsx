@@ -29,7 +29,7 @@ function DashboardLayout() {
                     toggleSidebar={() => onToggleSidebar()}
                     version={version}
                 />
-                <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+                <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
                     <Header
                         sidebarOpen={sidebarOpen}
                         onSidebarChange={(value: boolean) =>

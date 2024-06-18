@@ -12,14 +12,14 @@ export function HeaderRightSide(props: PropsWithChildren<Props>) {
         <div className="flex items-center space-x-3">
             <div>
                 <button
-                    className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full ml-3 ${
+                    className={`ml-3 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 ${
                         searchModalOpen && 'bg-slate-200'
                     }`}
                     onClick={() => onSearchModalChange()}
                 >
                     <span className="sr-only">Search</span>
                     <svg
-                        className="w-4 h-4"
+                        className="h-4 w-4"
                         viewBox="0 0 16 16"
                         xmlns="http://www.w3.org/2000/svg"
                     >

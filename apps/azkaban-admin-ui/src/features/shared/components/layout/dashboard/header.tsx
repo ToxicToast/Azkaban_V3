@@ -29,9 +29,9 @@ export function Header(props: Props) {
     } = props;
 
     return (
-        <header className="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30">
+        <header className="sticky top-0 z-30 border-b border-slate-200 bg-white dark:border-slate-700 dark:bg-[#182235]">
             <div className="px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16 -mb-px">
+                <div className="-mb-px flex h-16 items-center justify-between">
                     <HeaderLeftSide />
                     <HeaderRightSide
                         searchModalOpen={searchModalOpen}
@@ -51,7 +51,7 @@ export function Header(props: Props) {
                             }
                         />
                         <ThemeToggle />
-                        <hr className="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
+                        <hr className="h-6 w-px border-none bg-slate-200 dark:bg-slate-700" />
                         UserMenu
                     </HeaderRightSide>
                 </div>

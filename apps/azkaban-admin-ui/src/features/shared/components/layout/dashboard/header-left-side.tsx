@@ -3,10 +3,10 @@ import { Button } from '../../ui/button';
 export function HeaderLeftSide() {
     return (
         <div className="flex">
-            <Button className="lg:hidden bg-indigo-500 hover:bg-indigo-600">
+            <Button className="bg-indigo-500 hover:bg-indigo-600 lg:hidden">
                 <span className="sr-only">Open sidebar</span>
                 <svg
-                    className="w-6 h-6 fill-current"
+                    className="h-6 w-6 fill-current"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                 >

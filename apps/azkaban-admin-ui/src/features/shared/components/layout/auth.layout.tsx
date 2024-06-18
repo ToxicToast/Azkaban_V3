@@ -6,13 +6,13 @@ function AuthLayout() {
     const { toasts } = useToasts();
 
     return (
-        <div className="font-exo antialiased bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400">
+        <div className="bg-slate-100 font-exo text-slate-600 antialiased dark:bg-slate-900 dark:text-slate-400">
             <main className="bg-slate-100 dark:bg-slate-900">
                 <div className="relative flex">
                     <div className="w-full md:w-1/2">
-                        <div className="min-h-screen h-full flex flex-col after:flex-1">
+                        <div className="flex h-full min-h-screen flex-col after:flex-1">
                             <div className="flex-1">
-                                <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+                                <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                                     <button className="block">
                                         <svg
                                             width="32"
@@ -78,25 +78,25 @@ function AuthLayout() {
                                 </div>
                             </div>
 
-                            <div className="w-full max-w-sm mx-auto px-4 py-8">
+                            <div className="mx-auto w-full max-w-sm px-4 py-8">
                                 <Outlet />
                             </div>
                         </div>
                     </div>
 
                     <div
-                        className="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2"
+                        className="absolute bottom-0 right-0 top-0 hidden md:block md:w-1/2"
                         aria-hidden="true"
                     >
                         <img
-                            className="object-cover object-center w-full h-full"
+                            className="h-full w-full object-cover object-center"
                             src="/assets/auth-image.jpg"
                             width="760"
                             height="1024"
                             alt="Authentication"
                         />
                         <img
-                            className="absolute top-1/4 left-0 -translate-x-1/2 ml-8 hidden lg:block"
+                            className="absolute left-0 top-1/4 ml-8 hidden -translate-x-1/2 lg:block"
                             src="/assets/auth-decoration.png"
                             width="218"
                             height="224"
