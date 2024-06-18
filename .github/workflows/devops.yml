@@ -11,7 +11,7 @@ jobs:
 
         steps:
             - name: Checkout the source repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
 
@@ -22,7 +22,7 @@ jobs:
                   echo "latest_tag=$latest_tag" >> $GITHUB_ENV
 
             - name: Checkout the target repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
               with:
                   repository: ToxicToast/AzkabanV2-Flux
                   token: ${{ secrets.GH_TOKEN }}
