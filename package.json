@@ -26,6 +26,7 @@
         "docker:user": "nx docker-build user-service --skip-nx-cache --VERSION=local",
         "docker:auth": "nx docker-build auth-service --skip-nx-cache --VERSION=local",
         "docker:group": "nx docker-build group-service --skip-nx-cache --VERSION=local",
+        "docker:admin": "nx docker-build azkaban-admin-ui --skip-nx-cache --VERSION=local",
         "docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
         "docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
         "docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
@@ -33,7 +34,8 @@
         "docker:push:webhooks:sse": "nx docker-push sse-service --skip-nx-cache --VERSION=local",
         "docker:push:user": "nx docker-push user-service --skip-nx-cache --VERSION=local",
         "docker:push:auth": "nx docker-push auth-service --skip-nx-cache --VERSION=local",
-        "docker:push:group": "nx docker-push group-service --skip-nx-cache --VERSION=local"
+        "docker:push:group": "nx docker-push group-service --skip-nx-cache --VERSION=local",
+        "docker:push:admin": "nx docker-push azkaban-admin-ui --skip-nx-cache --VERSION=local"
     },
     "private": true,
     "devDependencies": {
