@@ -13,6 +13,9 @@ const LazyDashboardLayout = lazy(
 const LazyLoginPage = lazy(
     () => import('../features/auth/login/pages/login.page'),
 );
+const LazySignoutPage = lazy(
+    () => import('../features/auth/signout/pages/signout.page'),
+);
 const LazyDashboardPage = lazy(
     () => import('../features/dashboard/dashboard.page'),
 );
@@ -35,6 +38,11 @@ const authenticatedRoutes = [
             {
                 path: '/dashboard',
                 element: <LazyDashboardPage />,
+                hasErrorBoundary: true,
+            },
+            {
+                path: '/auth/signout',
+                element: <LazySignoutPage />,
                 hasErrorBoundary: true,
             },
         ],
