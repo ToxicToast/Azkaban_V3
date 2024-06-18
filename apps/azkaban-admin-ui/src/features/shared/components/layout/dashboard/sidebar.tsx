@@ -1,4 +1,7 @@
 import { SidebarHeader } from './sidebar/header';
+import { SidebarLink } from './sidebar/link';
+import { Group, Notebook, User, Twitch } from 'lucide-react';
+import { CubeIcon } from '@radix-ui/react-icons';
 
 interface Props {
     sidebarOpen: boolean;
@@ -96,13 +99,93 @@ export function Sidebar(props: Props) {
                 <div className="space-y-8">
                     <div>
                         <SidebarHeader title="Azkaban" />
-                        <ul className="mb-3 mt-3">LINKS</ul>
+                        <ul className="mb-3 mt-3">
+                            <SidebarLink
+                                title="Users"
+                                path="/users"
+                                icon={User}
+                            />
+
+                            <SidebarLink
+                                title="Groups"
+                                path="/groups"
+                                icon={Group}
+                            />
+
+                            <SidebarLink
+                                title="Notifications"
+                                path="/notifications"
+                                icon={Notebook}
+                            />
+                        </ul>
 
                         <SidebarHeader title="FoodFolio" />
-                        <ul className="mb-3 mt-3">LINKS</ul>
+                        <ul className="mb-3 mt-3">
+                            <SidebarLink
+                                title="Categories"
+                                path="/inventory/category"
+                                icon={CubeIcon}
+                            />
+                            <SidebarLink
+                                title="Brands"
+                                path="/inventory/brands"
+                                icon={CubeIcon}
+                            />
+                            <SidebarLink
+                                title="Products"
+                                path="/inventory/products"
+                                icon={CubeIcon}
+                            />
+                            <SidebarLink
+                                title="Locations"
+                                path="/inventory/locations"
+                                icon={CubeIcon}
+                            />
+                            <SidebarLink
+                                title="Sizes"
+                                path="/inventory/sizes"
+                                icon={CubeIcon}
+                            />
+                            <SidebarLink
+                                title="Types"
+                                path="/inventory/types"
+                                icon={CubeIcon}
+                            />
+                            <SidebarLink
+                                title="Receipts"
+                                path="/inventory/receipts"
+                                icon={CubeIcon}
+                            />
+                            <SidebarLink
+                                title="Warehouses"
+                                path="/inventory/warehouses"
+                                icon={CubeIcon}
+                            />
+                        </ul>
 
                         <SidebarHeader title="Twitch" />
-                        <ul className="mb-3 mt-3">LINKS</ul>
+                        <ul className="mb-3 mt-3">
+                            <SidebarLink
+                                title="Viewers"
+                                path="/twitch/viewers"
+                                icon={Twitch}
+                            />
+                            <SidebarLink
+                                title="Streams"
+                                path="/twitch/streams"
+                                icon={Twitch}
+                            />
+                            <SidebarLink
+                                title="Messages"
+                                path="/twitch/messages"
+                                icon={Twitch}
+                            />
+                            <SidebarLink
+                                title="Ban List"
+                                path="/twitch/ban-list"
+                                icon={Twitch}
+                            />
+                        </ul>
 
                         <SidebarHeader title={`Version: ${version}`} />
                     </div>

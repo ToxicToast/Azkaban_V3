@@ -19,6 +19,9 @@ const LazySignoutPage = lazy(
 const LazyDashboardPage = lazy(
     () => import('../features/dashboard/dashboard.page'),
 );
+const LazyUserDashboardPage = lazy(
+    () => import('../features/users/dashboard/pages/dashboard.page'),
+);
 
 interface Props {
     isAuthenticated: boolean;
@@ -38,6 +41,11 @@ const authenticatedRoutes = [
             {
                 path: '/dashboard',
                 element: <LazyDashboardPage />,
+                hasErrorBoundary: true,
+            },
+            {
+                path: '/users',
+                element: <LazyUserDashboardPage />,
                 hasErrorBoundary: true,
             },
             {
