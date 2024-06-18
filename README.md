@@ -23,7 +23,7 @@ Azkaban is a complete Rewrite of my Microservices at Home.
 
 ## Planned Services
 
-- API Gateway
+-   API Gateway
 
 ## Deployed Services
 
@@ -31,14 +31,14 @@ Azkaban is a complete Rewrite of my Microservices at Home.
 
 ## Infrastructure
 
-- Docker (Containerization)
-- Kubernetes (Orchestration)
-- Traefik (Reverse Proxy)
-- RabbitMQ (Message Broker)
-- Postgres (Database)
-- Redis (Cache)
-- Prometheus (Monitoring)
-- Grafana (Metrics)
+-   Docker (Containerization)
+-   Kubernetes (Orchestration)
+-   Traefik (Reverse Proxy)
+-   RabbitMQ (Message Broker)
+-   Postgres (Database)
+-   Redis (Cache)
+-   Prometheus (Monitoring)
+-   Grafana (Metrics)
 
 ## Gateway
 
@@ -47,4 +47,4 @@ Azkaban is a complete Rewrite of my Microservices at Home.
 
 ## Webhooks
 
-- [API Alerts](https://apialerts.com/)
+-   [API Alerts](https://apialerts.com/)

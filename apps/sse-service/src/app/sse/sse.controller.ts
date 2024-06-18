@@ -5,27 +5,30 @@ import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller('sse')
 export class SseController {
-  private readonly events$ = new Subject<MessageEvent>();
+    private readonly events$ = new Subject<MessageEvent>();
 
-  private transformToMessageEvent(event: string, data: unknown): MessageEvent {
-    return new MessageEvent(event, {
-      data: {
-        data,
-      },
-    });
-  }
+    private transformToMessageEvent(
+        event: string,
+        data: unknown,
+    ): MessageEvent {
+        return new MessageEvent(event, {
+            data: {
+                data,
+            },
+        });
+    }
 
-  @MessagePattern(NotifyTopics.SSE)
-  onNotification(
-    @Payload('event') event: string,
-    @Payload('data') data: unknown,
-  ): void {
-    const messageEvent = this.transformToMessageEvent(event, data);
-    this.events$.next(messageEvent);
-  }
+    @MessagePattern(NotifyTopics.SSE)
+    onNotification(
+        @Payload('event') event: string,
+        @Payload('data') data: unknown,
+    ): void {
+        const messageEvent = this.transformToMessageEvent(event, data);
+        this.events$.next(messageEvent);
+    }
 
-  @Sse('/')
-  onEvents(): Observable<MessageEvent> {
-    return this.events$.asObservable();
-  }
+    @Sse('/')
+    onEvents(): Observable<MessageEvent> {
+        return this.events$.asObservable();
+    }
 }

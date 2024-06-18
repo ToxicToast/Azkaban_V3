@@ -1,19 +1,19 @@
 name: Notify on Workflow Failure
 on:
-  workflow_run:
-    workflows: ['Feature', 'Versioning', 'Release']
-    types:
-      - failure
+    workflow_run:
+        workflows: ['Feature', 'Versioning', 'Release']
+        types:
+            - failure
 
 jobs:
-  notify:
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    runs-on: ubuntu-latest
+    notify:
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: API Alerts Notify
-        uses: apialerts/notify-action@v1
-        with:
-          api_key: ${{ secrets.API_ALERTS_KEY }}
-          message: '❌ Feature - Workflow *${{ github.event.workflow_run.event }}* has failed in repository *${{ github.repository }}*.'
-          link: '${{ github.event.workflow_run.event }}'
+        steps:
+            - name: API Alerts Notify
+              uses: apialerts/notify-action@v1
+              with:
+                  api_key: ${{ secrets.API_ALERTS_KEY }}
+                  message: '❌ Feature - Workflow *${{ github.event.workflow_run.event }}* has failed in repository *${{ github.repository }}*.'
+                  link: '${{ github.event.workflow_run.event }}'

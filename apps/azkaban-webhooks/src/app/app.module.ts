@@ -6,12 +6,12 @@ import { WebhooksModule } from './webhooks/webhooks.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    HealthModule,
-    MetricsModule,
-    VersionModule,
-    WebhooksModule,
-  ],
+    imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        HealthModule,
+        MetricsModule,
+        VersionModule,
+        WebhooksModule,
+    ],
 })
 export class AppModule {}

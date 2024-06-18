@@ -5,14 +5,14 @@ import { NotificationService } from './notification.service';
 
 @Controller('notifications')
 export class NotificationController {
-  constructor(private readonly service: NotificationService) {}
+    constructor(private readonly service: NotificationService) {}
 
-  @EventPattern(NotifyTopics.DATABASE)
-  async notification(
-    @Payload('service') service: string,
-    @Payload('event') event: string,
-    @Payload('data') data: unknown,
-  ) {
-    return await this.service.createNotification(service, event, data);
-  }
+    @EventPattern(NotifyTopics.DATABASE)
+    async notification(
+        @Payload('service') service: string,
+        @Payload('event') event: string,
+        @Payload('data') data: unknown,
+    ) {
+        return await this.service.createNotification(service, event, data);
+    }
 }
