@@ -42,11 +42,13 @@ const authenticatedRoutes = [
                 path: '/dashboard',
                 element: <LazyDashboardPage />,
                 hasErrorBoundary: true,
+                errorElement: <div>Failed loading Dashboard</div>,
             },
             {
                 path: '/users',
                 element: <LazyUserDashboardPage />,
                 hasErrorBoundary: true,
+                errorElement: <div>Failed loading Users</div>,
             },
             {
                 path: '/auth/signout',

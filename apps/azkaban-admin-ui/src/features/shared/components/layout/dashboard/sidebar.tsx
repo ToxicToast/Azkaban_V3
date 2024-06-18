@@ -1,6 +1,6 @@
 import { SidebarHeader } from './sidebar/header';
 import { SidebarLink } from './sidebar/link';
-import { Group, Notebook, User, Twitch } from 'lucide-react';
+import { Group, Notebook, User, Cuboid } from 'lucide-react';
 import { CubeIcon } from '@radix-ui/react-icons';
 
 interface Props {
@@ -168,22 +168,22 @@ export function Sidebar(props: Props) {
                             <SidebarLink
                                 title="Viewers"
                                 path="/twitch/viewers"
-                                icon={Twitch}
+                                icon={Cuboid}
                             />
                             <SidebarLink
                                 title="Streams"
                                 path="/twitch/streams"
-                                icon={Twitch}
+                                icon={Cuboid}
                             />
                             <SidebarLink
                                 title="Messages"
                                 path="/twitch/messages"
-                                icon={Twitch}
+                                icon={Cuboid}
                             />
                             <SidebarLink
                                 title="Ban List"
                                 path="/twitch/ban-list"
-                                icon={Twitch}
+                                icon={Cuboid}
                             />
                         </ul>
 
