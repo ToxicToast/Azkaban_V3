@@ -1,17 +1,16 @@
 import { Notification } from '../../../types';
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
 import { NotificationTriggerPartial } from './notifications/notification-trigger';
+import { useState } from 'react';
 
 interface Props {
-    dropdownOpen: boolean;
-    setDropdownOpen: (value: boolean) => void;
     notifications: Array<Notification>;
     removeNotification: (id: string) => void;
 }
 
 export function Notifications(props: Props) {
-    const { dropdownOpen, setDropdownOpen, notifications, removeNotification } =
-        props;
+    const { notifications, removeNotification } = props;
+    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
     return (
         <Popover open={dropdownOpen} onOpenChange={setDropdownOpen}>

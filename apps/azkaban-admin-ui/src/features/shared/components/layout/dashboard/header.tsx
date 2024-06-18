@@ -2,8 +2,9 @@ import { HeaderLeftSide } from './header-left-side';
 import { HeaderRightSide } from './header-right-side';
 import { Notifications } from './notifications';
 import { Notification } from '../../../types';
-import { useState } from 'react';
 import { ThemeToggle } from './theme-toggle';
+import { UserMenu } from './user-menu';
+import { Search } from './search';
 
 interface Props {
     sidebarOpen: boolean;
@@ -15,10 +16,6 @@ interface Props {
 }
 
 export function Header(props: Props) {
-    const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
-    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-    const [usermenuOpen, setUsermenuOpen] = useState<boolean>(false);
-
     const {
         sidebarOpen,
         onSidebarChange,
@@ -33,18 +30,9 @@ export function Header(props: Props) {
             <div className="px-4 sm:px-6 lg:px-8">
                 <div className="-mb-px flex h-16 items-center justify-between">
                     <HeaderLeftSide />
-                    <HeaderRightSide
-                        searchModalOpen={searchModalOpen}
-                        onSearchModalChange={() =>
-                            setSearchModalOpen((prev) => !prev)
-                        }
-                    >
-                        {JSON.stringify(searchModalOpen)}
+                    <HeaderRightSide>
+                        <Search />
                         <Notifications
-                            dropdownOpen={dropdownOpen}
-                            setDropdownOpen={(value: boolean) =>
-                                setDropdownOpen(value)
-                            }
                             notifications={notifications ?? []}
                             removeNotification={(id: string) =>
                                 removeNotification(id)
@@ -52,7 +40,10 @@ export function Header(props: Props) {
                         />
                         <ThemeToggle />
                         <hr className="h-6 w-px border-none bg-slate-200 dark:bg-slate-700" />
-                        UserMenu
+                        <UserMenu
+                            username={username}
+                            onSignOut={() => onSignout()}
+                        />
                     </HeaderRightSide>
                 </div>
             </div>
