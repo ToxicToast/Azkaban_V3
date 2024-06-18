@@ -13,7 +13,7 @@ import {
     selectAuthUsername,
 } from './auth.selector';
 import { Auth } from '@toxictoast/azkaban-sdk';
-import { setUser } from './auth.slice';
+import { setUser, setLogout } from './auth.slice';
 import { useDispatch } from 'react-redux';
 
 export function useAuthState() {
@@ -44,6 +44,10 @@ export function useAuthState() {
         [dispatch],
     );
 
+    const logoutUser = useCallback(() => {
+        dispatch(setLogout());
+    }, [dispatch]);
+
     return {
         id,
         username,
@@ -56,6 +60,7 @@ export function useAuthState() {
         expireTime,
         //
         loginUser,
+        logoutUser,
         authenticateUser,
     };
 }

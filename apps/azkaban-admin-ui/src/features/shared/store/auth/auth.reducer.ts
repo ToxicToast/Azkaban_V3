@@ -16,3 +16,15 @@ export function setUserAction(state: AuthModel, action: PayloadAction<Auth>) {
     state.activation_token = user.activation_token;
     state.expireTime = exp;
 }
+
+export function setLogoutAction(state: AuthModel) {
+    state.id = null;
+    state.username = null;
+    state.groups = [];
+    state.token = null;
+    state.isActive = null;
+    state.isBanned = null;
+    state.activation_token = null;
+    state.isAuthenticated = false;
+    state.expireTime = null;
+}
