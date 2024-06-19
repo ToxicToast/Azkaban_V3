@@ -1,7 +1,7 @@
 import { SidebarHeader } from './sidebar/header';
 import { SidebarLink } from './sidebar/link';
 import { Group, Notebook, User, Cuboid } from 'lucide-react';
-import { CubeIcon } from '@radix-ui/react-icons';
+import { CubeIcon, DashboardIcon } from '@radix-ui/react-icons';
 
 interface Props {
     sidebarOpen: boolean;
@@ -100,6 +100,12 @@ export function Sidebar(props: Props) {
                     <div>
                         <SidebarHeader title="Azkaban" />
                         <ul className="mb-3 mt-3">
+                            <SidebarLink
+                                title="Dashboard"
+                                path="/dashboard"
+                                icon={DashboardIcon}
+                            />
+
                             <SidebarLink
                                 title="Users"
                                 path="/users"
