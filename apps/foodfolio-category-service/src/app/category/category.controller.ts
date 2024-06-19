@@ -21,7 +21,9 @@ export class CategoryController {
     }
 
     @MessagePattern(FoodfolioCategoryTopics.PARENT)
-    async getCategoryByParentId(@Payload('parent_id') parentId: string) {
+    async getCategoryByParentId(
+        @Payload('parent_id') parentId: Nullable<string>,
+    ) {
         try {
             return await this.service.getByParentId(parentId);
         } catch (error) {

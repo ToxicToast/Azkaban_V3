@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Optional } from '@toxictoast/azkaban-base-types';
+import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 
 @Injectable()
 export class CategoryService {
@@ -13,7 +13,7 @@ export class CategoryService {
         return {};
     }
 
-    async getByParentId(parent_id: string): Promise<Array<any>> {
+    async getByParentId(parent_id: Nullable<string>): Promise<Array<any>> {
         return [];
     }
 
