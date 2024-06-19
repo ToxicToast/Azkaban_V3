@@ -52,16 +52,16 @@ export class UserService {
         activated_at?: Optional<Nullable<Date>>,
         banned_at?: Optional<Nullable<Date>>,
     ): Promise<UserDAO> {
-        if (email) {
+        if (email !== undefined) {
             await this.infrastructureService.updateEmail(id, email);
         }
-        if (username) {
+        if (username !== undefined) {
             await this.infrastructureService.updateUsername(id, username);
         }
-        if (password) {
+        if (password !== undefined) {
             await this.infrastructureService.updatePassword(id, password);
         }
-        if (activation_token) {
+        if (activation_token !== undefined) {
             await this.infrastructureService.updateActivationToken(
                 id,
                 activation_token,

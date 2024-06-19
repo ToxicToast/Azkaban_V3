@@ -45,13 +45,13 @@ export class GroupService {
         slug?: Optional<string>,
         active?: Optional<boolean>,
     ): Promise<GroupDAO> {
-        if (title) {
+        if (title !== undefined) {
             await this.infrastructureService.updateTitle(id, title);
         }
-        if (slug) {
+        if (slug !== undefined) {
             await this.infrastructureService.updateSlug(id, slug);
         }
-        if (active) {
+        if (active !== undefined) {
             await this.infrastructureService.updateActive(id, active);
         }
         return await this.infrastructureService.getGroupById(id);
