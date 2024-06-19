@@ -1,7 +1,10 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { consumerProvider } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+    consumerProvider,
+    foodfolio_category,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 
 async function createApp(): Promise<INestApplication> {
     return await NestFactory.create(AppModule);
@@ -12,7 +15,7 @@ async function createMicroservice(app: INestApplication): Promise<void> {
     //
     app.connectMicroservice({
         ...consumerProvider({
-            queueName: 'inventory-category',
+            queueName: foodfolio_category,
             noAck: noAck,
             brokerUsername: process.env.BROKER_USERNAME,
             brokerPassword: process.env.BROKER_PASSWORD,
