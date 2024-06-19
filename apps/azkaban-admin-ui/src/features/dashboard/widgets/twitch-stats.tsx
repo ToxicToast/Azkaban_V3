@@ -1,7 +1,7 @@
 import { Stats } from '../components';
 import { Cuboid } from 'lucide-react';
 
-export function TwitchStatsWidget() {
+export function TwitchStats() {
     return (
         <>
             <Stats

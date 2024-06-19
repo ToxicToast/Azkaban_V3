@@ -1,15 +1,11 @@
-import {
-    AzkabanStatsWidget,
-    FoodfolioStatsWidget,
-    TwitchStatsWidget,
-} from './widgets';
+import { AzkabanStats, FoodfolioStats, TwitchStats } from './widgets';
 
 function DashboardPage() {
     return (
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-            <AzkabanStatsWidget />
-            <FoodfolioStatsWidget />
-            <TwitchStatsWidget />
+            <AzkabanStats />
+            <FoodfolioStats />
+            <TwitchStats />
         </div>
     );
 }
