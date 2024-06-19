@@ -1,7 +1,7 @@
 # Stufe 1: Build-Image
 FROM docker.io/node:22-alpine as build
 WORKDIR /app
-COPY dist/apps/inventory-category-service .
+COPY dist/apps/foodfolio-category-service .
 COPY package*.json ./
 RUN npm install --omit=dev
 

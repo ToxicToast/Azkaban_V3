@@ -1,7 +1,7 @@
 {
-    "name": "inventory-category-service",
+    "name": "foodfolio-category-service",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/inventory-category-service/src",
+    "sourceRoot": "apps/foodfolio-category-service/src",
     "projectType": "application",
     "tags": ["scope:application"],
     "targets": {
@@ -12,11 +12,11 @@
             "options": {
                 "target": "node",
                 "compiler": "tsc",
-                "outputPath": "dist/apps/inventory-category-service",
-                "main": "apps/inventory-category-service/src/main.ts",
-                "tsConfig": "apps/inventory-category-service/tsconfig.app.json",
-                "assets": ["apps/inventory-category-service/src/assets"],
-                "webpackConfig": "apps/inventory-category-service/webpack.config.js",
+                "outputPath": "dist/apps/foodfolio-category-service",
+                "main": "apps/foodfolio-category-service/src/main.ts",
+                "tsConfig": "apps/foodfolio-category-service/tsconfig.app.json",
+                "assets": ["apps/foodfolio-category-service/src/assets"],
+                "webpackConfig": "apps/foodfolio-category-service/webpack.config.js",
                 "generatePackageJson": true
             }
         },
@@ -24,14 +24,14 @@
             "executor": "@nx/js:node",
             "defaultConfiguration": "development",
             "options": {
-                "buildTarget": "inventory-category-service:build"
+                "buildTarget": "foodfolio-category-service:build"
             },
             "configurations": {
                 "development": {
-                    "buildTarget": "inventory-category-service:build:development"
+                    "buildTarget": "foodfolio-category-service:build:development"
                 },
                 "production": {
-                    "buildTarget": "inventory-category-service:build:production"
+                    "buildTarget": "foodfolio-category-service:build:production"
                 }
             }
         },
@@ -39,15 +39,15 @@
             "executor": "@nx/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
             "options": {
-                "jestConfig": "apps/inventory-category-service/jest.config.ts"
+                "jestConfig": "apps/foodfolio-category-service/jest.config.ts"
             }
         },
         "docker-build": {
             "dependsOn": ["build"],
-            "command": "docker build -f apps/inventory-category-service/Dockerfile . -t azkaban2015/inventory-category:{args.VERSION}"
+            "command": "docker build -f apps/foodfolio-category-service/Dockerfile . -t azkaban2015/foodfolio-category:{args.VERSION}"
         },
         "docker-push": {
-            "command": "docker push azkaban2015/inventory-category:{args.VERSION}"
+            "command": "docker push azkaban2015/foodfolio-category:{args.VERSION}"
         }
     }
 }

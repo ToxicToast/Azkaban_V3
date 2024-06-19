@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-    displayName: 'inventory-category-service',
+    displayName: 'foodfolio-category-service',
     preset: '../../jest.preset.js',
     testEnvironment: 'node',
     transform: {
@@ -10,5 +10,5 @@ export default {
         ],
     },
     moduleFileExtensions: ['ts', 'js', 'html'],
-    coverageDirectory: '../../coverage/apps/inventory-category-service',
+    coverageDirectory: '../../coverage/apps/foodfolio-category-service',
 };
