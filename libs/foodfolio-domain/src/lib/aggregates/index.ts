@@ -1,1 +1,1 @@
-export * from './category.aggregates';
+export * from './category.aggregate';
