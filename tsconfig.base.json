@@ -20,6 +20,9 @@
                 "libs/auth-infrastructure/src/index.ts"
             ],
             "@azkaban/foodfolio-domain": ["libs/foodfolio-domain/src/index.ts"],
+            "@azkaban/foodfolio-infrastructure": [
+                "libs/foodfolio-infrastructure/src/index.ts"
+            ],
             "@azkaban/group-domain": ["libs/group-domain/src/index.ts"],
             "@azkaban/group-infrastructure": [
                 "libs/group-infrastructure/src/index.ts"

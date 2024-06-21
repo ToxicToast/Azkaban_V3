@@ -44,5 +44,5 @@ export class UserEntity {
 
     @OneToMany(() => UserGroupEntity, (group) => group.user)
     @JoinColumn()
-    groups: UserGroupEntity[];
+    groups: Array<UserGroupEntity>;
 }

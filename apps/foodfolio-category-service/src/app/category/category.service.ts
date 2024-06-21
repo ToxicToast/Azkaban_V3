@@ -1,29 +1,54 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
+import {
+    CategoryDAO,
+    CategoryEntity,
+    CategoryRepository,
+    CategoryService as BaseService,
+} from '@azkaban/foodfolio-infrastructure';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CategoryService {
-    async getList(limit: number, offset: number): Promise<Array<any>> {
-        Logger.log({ limit, offset }, 'CategoryService.getList');
-        return [];
+    private readonly infrastructureRepository: CategoryRepository;
+    private readonly infrastructureService: BaseService;
+
+    constructor(
+        @Inject('CATEGORY_REPOSITORY')
+        private readonly categoryRepository: Repository<CategoryEntity>,
+    ) {
+        this.infrastructureRepository = new CategoryRepository(
+            this.categoryRepository,
+        );
+        this.infrastructureService = new BaseService(
+            this.infrastructureRepository,
+        );
     }
 
-    async getById(id: string): Promise<any> {
-        Logger.log({ id }, 'CategoryService.getById');
-        return {};
+    async getList(limit: number, offset: number): Promise<Array<CategoryDAO>> {
+        return await this.infrastructureService.getCategoryList(limit, offset);
     }
 
-    async getByParentId(parent_id: Nullable<string>): Promise<Array<any>> {
-        Logger.log({ parent_id }, 'CategoryService.getByParentId');
-        return [];
+    async getById(id: string): Promise<CategoryDAO> {
+        return await this.infrastructureService.getCategoryById(id);
+    }
+
+    async getByParentId(
+        parent_id: Nullable<string>,
+    ): Promise<Array<CategoryDAO>> {
+        return await this.infrastructureService.getCategoryByParentId(
+            parent_id,
+        );
     }
 
     async createCategory(
         title: string,
         parent_id?: Optional<string>,
-    ): Promise<any> {
-        Logger.log({ title, parent_id }, 'CategoryService.createCategory');
-        return {};
+    ): Promise<CategoryDAO> {
+        return await this.infrastructureService.createCategory({
+            title,
+            parent_id,
+        });
     }
 
     async updateCategory(
@@ -31,29 +56,27 @@ export class CategoryService {
         title?: Optional<string>,
         parent_id?: Optional<string>,
         activated_at?: Optional<Date>,
-    ): Promise<any> {
-        Logger.log(
-            { id, title, parent_id, activated_at },
-            'CategoryService.updateCategory',
-        );
+    ): Promise<CategoryDAO> {
         if (title !== undefined) {
-            //
+            await this.infrastructureService.updateTitle(id, title);
         }
         if (parent_id !== undefined) {
-            //
+            await this.infrastructureService.updateParentId(id, parent_id);
         }
         if (activated_at !== undefined) {
-            //
+            await this.infrastructureService.updateActivatedAt(
+                id,
+                activated_at,
+            );
         }
+        return await this.infrastructureService.getCategoryById(id);
     }
 
-    async deleteCategory(id: string): Promise<any> {
-        Logger.log({ id }, 'CategoryService.deleteCategory');
-        return {};
+    async deleteCategory(id: string): Promise<CategoryDAO> {
+        return await this.infrastructureService.deleteCategory(id);
     }
 
-    async restoreCategory(id: string): Promise<any> {
-        Logger.log({ id }, 'CategoryService.restoreCategory');
-        return {};
+    async restoreCategory(id: string): Promise<CategoryDAO> {
+        return await this.infrastructureService.restoreCategory(id);
     }
 }

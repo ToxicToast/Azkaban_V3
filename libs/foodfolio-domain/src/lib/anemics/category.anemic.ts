@@ -8,5 +8,4 @@ export interface CategoryAnemic extends Anemic {
     readonly isActive: boolean;
     readonly isParent: boolean;
     readonly isChild: boolean;
-    readonly children: Array<CategoryAnemic>;
 }

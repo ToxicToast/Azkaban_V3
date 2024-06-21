@@ -16,7 +16,6 @@ export class CategoryFactory
             created_at,
             updated_at,
             deleted_at,
-            children,
         } = data;
 
         const categoryId = new CategoryId(id);
@@ -30,7 +29,6 @@ export class CategoryFactory
             created_at,
             updated_at,
             deleted_at,
-            children,
         );
     }
 
@@ -43,7 +41,6 @@ export class CategoryFactory
             created_at,
             updated_at,
             deleted_at,
-            children,
             isActive,
             isParent,
             isChild,
@@ -62,7 +59,6 @@ export class CategoryFactory
             created_at,
             updated_at,
             deleted_at,
-            children,
             isActive,
             isParent,
             isChild,
@@ -83,7 +79,6 @@ export class CategoryFactory
             new Date(),
             null,
             null,
-            [],
         );
     }
 }

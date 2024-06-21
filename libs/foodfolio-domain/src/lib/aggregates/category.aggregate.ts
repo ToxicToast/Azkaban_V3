@@ -11,7 +11,6 @@ export class CategoryAggregate implements Domain<CategoryAnemic> {
         private readonly created_at: Date,
         private updated_at: Nullable<Date>,
         private deleted_at: Nullable<Date>,
-        private children: Array<CategoryAnemic>,
     ) {}
 
     isActive(): boolean {
@@ -54,7 +53,6 @@ export class CategoryAggregate implements Domain<CategoryAnemic> {
             isActive: this.isActive(),
             isParent: this.isParent(),
             isChild: this.isChild(),
-            children: this.children,
             isUpdated: this.isUpdated(),
             isDeleted: this.isDeleted(),
         };
