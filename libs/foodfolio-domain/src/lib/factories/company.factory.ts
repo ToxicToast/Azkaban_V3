@@ -2,7 +2,7 @@ import { Factory } from '@toxictoast/azkaban-base-domain';
 import { CompanyAnemic } from '../anemics';
 import { CompanyAggregate } from '../aggregates';
 import { CompanyData } from '../data';
-import { CompanyId } from '@azkaban/foodfolio-domain';
+import { CompanyId } from '../valueObjects';
 
 export class CompanyFactory
     implements Factory<CompanyAnemic, CompanyAggregate, CompanyData>
