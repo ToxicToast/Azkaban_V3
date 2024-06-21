@@ -1,6 +1,7 @@
 import { Mapper } from '@toxictoast/azkaban-base-domain';
-import { CategoryDAO, CategoryEntity } from '@azkaban/foodfolio-infrastructure';
 import { CategoryFactory } from '@azkaban/foodfolio-domain';
+import { CategoryDAO } from '../../dao';
+import { CategoryEntity } from '../entities';
 
 export class CategoryMapper implements Mapper<CategoryDAO, CategoryEntity> {
     private readonly domainFactory: CategoryFactory = new CategoryFactory();
