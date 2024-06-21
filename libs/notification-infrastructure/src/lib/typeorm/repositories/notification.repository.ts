@@ -24,7 +24,7 @@ export class NotificationRepository implements DomainRepository {
         return entities.map((entity) => this.mapper.toDomain(entity));
     }
 
-    async findByService(service: string): Promise<NotificationAnemic[]> {
+    async findByService(service: string): Promise<Array<NotificationAnemic>> {
         const entities = await this.repository.find({
             where: { service },
             withDeleted: true,
@@ -32,7 +32,7 @@ export class NotificationRepository implements DomainRepository {
         return entities.map((entity) => this.mapper.toDomain(entity));
     }
 
-    async findByEvent(event: string): Promise<NotificationAnemic[]> {
+    async findByEvent(event: string): Promise<Array<NotificationAnemic>> {
         const entities = await this.repository.find({
             where: { event },
             withDeleted: true,
