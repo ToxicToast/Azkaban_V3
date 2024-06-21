@@ -2,7 +2,7 @@ import { Factory } from '@toxictoast/azkaban-base-domain';
 import { CategoryAnemic } from '../anemics';
 import { CategoryAggregate } from '../aggregates';
 import { CategoryData } from '../data';
-import { CategoryId } from '../valueObjects';
+import { CategoryId, CategoryParentId } from '../valueObjects';
 
 export class CategoryFactory
     implements Factory<CategoryAnemic, CategoryAggregate, CategoryData>
@@ -19,7 +19,7 @@ export class CategoryFactory
         } = data;
 
         const categoryId = new CategoryId(id);
-        const parentId = new CategoryId(parent_id);
+        const parentId = new CategoryParentId(parent_id);
 
         return new CategoryAggregate(
             categoryId.value,
@@ -49,7 +49,7 @@ export class CategoryFactory
         } = data.toAnemic();
 
         const categoryId = new CategoryId(id);
-        const parentId = new CategoryId(parent_id);
+        const parentId = new CategoryParentId(parent_id);
 
         return {
             id: categoryId.value,
@@ -70,7 +70,7 @@ export class CategoryFactory
     createDomain(data: CategoryData): CategoryAggregate {
         const { title, parent_id } = data;
         const categoryId = new CategoryId();
-        const parentId = new CategoryId(parent_id);
+        const parentId = new CategoryParentId(parent_id);
         return new CategoryAggregate(
             categoryId.value,
             parentId.value,
