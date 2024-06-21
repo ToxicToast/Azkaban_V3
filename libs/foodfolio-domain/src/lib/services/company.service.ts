@@ -1,12 +1,13 @@
 import { CompanyFactory } from '../factories';
 import { CompanyRepository } from '../repositories';
 import { Result } from '@toxictoast/azkaban-base-domain';
-import { CompanyAnemic, CompanyData } from '@azkaban/foodfolio-domain';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import {
     FoodFolioCategoryErrorCodes,
     GenericErrorCodes,
 } from '@toxictoast/azkaban-base-helpers';
+import { CompanyAnemic } from '../anemics';
+import { CompanyData } from '../data';
 
 export class CompanyService {
     private readonly factory: CompanyFactory = new CompanyFactory();
