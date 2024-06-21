@@ -19,6 +19,7 @@
         "serve:group": "nx serve group-service --skip-nx-cache",
         "serve:admin": "nx serve azkaban-admin-ui --skip-nx-cache",
         "serve:foodfolio:category": "nx serve foodfolio-category-service --skip-nx-cache",
+        "serve:foodfolio:company": "nx serve foodfolio-company-service --skip-nx-cache",
         "docker:gateway": "nx docker-build azkaban-gateway --skip-nx-cache --VERSION=local",
         "docker:webhooks": "nx docker-build azkaban-webhooks --skip-nx-cache --VERSION=local",
         "docker:webhooks:magpie": "nx docker-build apialerts-service --skip-nx-cache --VERSION=local",
@@ -29,6 +30,7 @@
         "docker:group": "nx docker-build group-service --skip-nx-cache --VERSION=local",
         "docker:admin": "nx docker-build azkaban-admin-ui --skip-nx-cache --VERSION=local",
         "docker:foodfolio:category": "nx docker-build foodfolio-category-service --skip-nx-cache",
+        "docker:foodfolio:company": "nx docker-build foodfolio-company-service --skip-nx-cache",
         "docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
         "docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
         "docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
@@ -38,7 +40,8 @@
         "docker:push:auth": "nx docker-push auth-service --skip-nx-cache --VERSION=local",
         "docker:push:group": "nx docker-push group-service --skip-nx-cache --VERSION=local",
         "docker:push:admin": "nx docker-push azkaban-admin-ui --skip-nx-cache --VERSION=local",
-        "docker:push:foodfolio:category": "nx docker-push foodfolio-category-service --skip-nx-cache"
+        "docker:push:foodfolio:category": "nx docker-push foodfolio-category-service --skip-nx-cache",
+        "docker:push:foodfolio:company": "nx docker-push foodfolio-company-service --skip-nx-cache"
     },
     "private": true,
     "devDependencies": {

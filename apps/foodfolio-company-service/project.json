@@ -1,0 +1,53 @@
+{
+    "name": "foodfolio-company-service",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/foodfolio-company-service/src",
+    "projectType": "application",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@nx/webpack:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "dist/apps/foodfolio-company-service",
+                "main": "apps/foodfolio-company-service/src/main.ts",
+                "tsConfig": "apps/foodfolio-company-service/tsconfig.app.json",
+                "assets": ["apps/foodfolio-company-service/src/assets"],
+                "webpackConfig": "apps/foodfolio-company-service/webpack.config.js",
+                "generatePackageJson": true
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "foodfolio-company-service:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "foodfolio-company-service:build:development"
+                },
+                "production": {
+                    "buildTarget": "foodfolio-company-service:build:production"
+                }
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/foodfolio-company-service/jest.config.ts"
+            }
+        },
+        "docker-build": {
+            "dependsOn": ["build"],
+            "command": "docker build -f apps/foodfolio-company-service/Dockerfile . -t azkaban2015/foodfolio-company:{args.VERSION}"
+        },
+        "docker-push": {
+            "command": "docker push azkaban2015/foodfolio-company:{args.VERSION}"
+        }
+    }
+}
