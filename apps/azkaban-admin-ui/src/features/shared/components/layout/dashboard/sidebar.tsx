@@ -1,7 +1,7 @@
 import { SidebarHeader } from './sidebar/header';
 import { SidebarLink } from './sidebar/link';
 import { Group, Notebook, User, Cuboid } from 'lucide-react';
-import { CubeIcon } from '@radix-ui/react-icons';
+import { CubeIcon, DashboardIcon } from '@radix-ui/react-icons';
 
 interface Props {
     sidebarOpen: boolean;
@@ -101,6 +101,12 @@ export function Sidebar(props: Props) {
                         <SidebarHeader title="Azkaban" />
                         <ul className="mb-3 mt-3">
                             <SidebarLink
+                                title="Dashboard"
+                                path="/dashboard"
+                                icon={DashboardIcon}
+                            />
+
+                            <SidebarLink
                                 title="Users"
                                 path="/users"
                                 icon={User}
@@ -123,42 +129,42 @@ export function Sidebar(props: Props) {
                         <ul className="mb-3 mt-3">
                             <SidebarLink
                                 title="Categories"
-                                path="/inventory/category"
+                                path="/foodfolio/category"
                                 icon={CubeIcon}
                             />
                             <SidebarLink
                                 title="Brands"
-                                path="/inventory/brands"
+                                path="/foodfolio/brands"
                                 icon={CubeIcon}
                             />
                             <SidebarLink
                                 title="Products"
-                                path="/inventory/products"
+                                path="/foodfolio/products"
                                 icon={CubeIcon}
                             />
                             <SidebarLink
                                 title="Locations"
-                                path="/inventory/locations"
+                                path="/foodfolio/locations"
                                 icon={CubeIcon}
                             />
                             <SidebarLink
                                 title="Sizes"
-                                path="/inventory/sizes"
+                                path="/foodfolio/sizes"
                                 icon={CubeIcon}
                             />
                             <SidebarLink
                                 title="Types"
-                                path="/inventory/types"
+                                path="/foodfolio/types"
                                 icon={CubeIcon}
                             />
                             <SidebarLink
                                 title="Receipts"
-                                path="/inventory/receipts"
+                                path="/foodfolio/receipts"
                                 icon={CubeIcon}
                             />
                             <SidebarLink
                                 title="Warehouses"
-                                path="/inventory/warehouses"
+                                path="/foodfolio/warehouses"
                                 icon={CubeIcon}
                             />
                         </ul>

@@ -16,13 +16,17 @@ export function SidebarLink(props: Props) {
     return (
         <li
             className={`mb-0.5 rounded-sm px-3 py-2 last:mb-0 ${
-                location.pathname === path ? 'bg-slate-900' : ''
+                location.pathname === path
+                    ? 'bg-slate-300 dark:bg-slate-900'
+                    : ''
             }`}
         >
             <Link
                 to={path}
-                className={`block truncate text-slate-200 transition duration-150 hover:text-white ${
-                    location.pathname === path ? 'hover:text-slate-200' : ''
+                className={`block truncate transition duration-150 hover:text-white dark:text-slate-200 ${
+                    location.pathname === path
+                        ? 'hover:text-slate-200 dark:text-white dark:hover:text-white'
+                        : ''
                 }`}
             >
                 <div className="flex items-center">

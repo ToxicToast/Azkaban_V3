@@ -122,7 +122,7 @@
             "options": {
                 "targetName": "test"
             },
-            "exclude": []
+            "exclude": ["apps/foodfolio-category-service-e2e/**/*"]
         },
         {
             "plugin": "@nx/vite/plugin",

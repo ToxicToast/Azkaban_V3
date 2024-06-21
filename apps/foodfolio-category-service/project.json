@@ -1,0 +1,53 @@
+{
+    "name": "foodfolio-category-service",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/foodfolio-category-service/src",
+    "projectType": "application",
+    "tags": ["scope:application"],
+    "targets": {
+        "build": {
+            "executor": "@nx/webpack:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "dist/apps/foodfolio-category-service",
+                "main": "apps/foodfolio-category-service/src/main.ts",
+                "tsConfig": "apps/foodfolio-category-service/tsconfig.app.json",
+                "assets": ["apps/foodfolio-category-service/src/assets"],
+                "webpackConfig": "apps/foodfolio-category-service/webpack.config.js",
+                "generatePackageJson": true
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "foodfolio-category-service:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "foodfolio-category-service:build:development"
+                },
+                "production": {
+                    "buildTarget": "foodfolio-category-service:build:production"
+                }
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/foodfolio-category-service/jest.config.ts"
+            }
+        },
+        "docker-build": {
+            "dependsOn": ["build"],
+            "command": "docker build -f apps/foodfolio-category-service/Dockerfile . -t azkaban2015/foodfolio-category:{args.VERSION}"
+        },
+        "docker-push": {
+            "command": "docker push azkaban2015/foodfolio-category:{args.VERSION}"
+        }
+    }
+}

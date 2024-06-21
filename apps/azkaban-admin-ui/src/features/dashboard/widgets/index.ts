@@ -1,3 +1,3 @@
-export * from './azkaban-stats.widget';
-export * from './foodfolio-stats.widget';
-export * from './twitch-stats.widget';
+export * from './azkaban-stats';
+export * from './foodfolio-stats';
+export * from './twitch-stats';

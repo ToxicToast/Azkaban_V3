@@ -1,10 +1,6 @@
 import { ValueObject } from '@toxictoast/azkaban-base-domain';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
-import {
-    HashPasswordHelper,
-    SlugHelper,
-    StringGeneratorHelper,
-} from '@toxictoast/azkaban-base-helpers';
+import { SlugHelper } from '@toxictoast/azkaban-base-helpers';
 
 export class GroupSlug implements ValueObject<string> {
     readonly _value: Nullable<string>;

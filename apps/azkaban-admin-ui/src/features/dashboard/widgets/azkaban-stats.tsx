@@ -1,7 +1,7 @@
 import { Stats } from '../components';
 import { Group, Notebook, Users } from 'lucide-react';
 
-export function AzkabanStatsWidget() {
+export function AzkabanStats() {
     return (
         <>
             <Stats

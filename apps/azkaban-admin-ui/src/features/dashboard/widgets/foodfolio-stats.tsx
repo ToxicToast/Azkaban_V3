@@ -1,7 +1,7 @@
 import { Stats } from '../components';
 import { CubeIcon } from '@radix-ui/react-icons';
 
-export function FoodfolioStatsWidget() {
+export function FoodfolioStats() {
     return (
         <>
             <Stats
