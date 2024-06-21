@@ -34,7 +34,7 @@ export class CategoryController {
     @MessagePattern(FoodfolioCategoryTopics.ID)
     async getCategoryById(@Payload('id') id: string) {
         try {
-            return await this.getCategoryById(id);
+            return await this.service.getById(id);
         } catch (error) {
             throw new RpcException(error);
         }
