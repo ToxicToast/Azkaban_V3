@@ -42,6 +42,6 @@ import { NotifyService } from '../notify.service';
         ]),
     ],
     controllers: [CategoryController],
-    providers: [AuthGuard, CategoryService, NotifyService],
+    providers: [AuthGuard, NotifyService, CategoryService],
 })
 export class CategoryModule {}

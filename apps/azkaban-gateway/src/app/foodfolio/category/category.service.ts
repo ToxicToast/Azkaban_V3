@@ -8,7 +8,7 @@ import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 @Injectable()
 export class CategoryService {
     constructor(
-        @Inject('GROUP_SERVICE') private readonly client: ClientProxy,
+        @Inject('CATEGORY_SERVICE') private readonly client: ClientProxy,
         private readonly notifSerivce: NotifyService,
     ) {}
 
