@@ -46,7 +46,7 @@ export class CategoryController {
         @Payload('parent_id') parent_id?: Optional<string>,
     ) {
         try {
-            return await this.createCategory(title, parent_id);
+            return await this.service.createCategory(title, parent_id);
         } catch (error) {
             throw new RpcException(error);
         }
