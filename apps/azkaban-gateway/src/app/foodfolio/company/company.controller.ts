@@ -5,6 +5,7 @@ import {
     Delete,
     Get,
     HttpException,
+    Logger,
     Param,
     Post,
     Put,
@@ -35,6 +36,7 @@ export class CompanyController {
             const offsetNumber = offset ?? 0;
             return await this.service.getCompanies(limitNumber, offsetNumber);
         } catch (error) {
+            Logger.error(error);
             throw new HttpException(
                 error.message ?? 'Unknown Error',
                 error.status ?? 500,
