@@ -4,6 +4,7 @@ import { GroupAnemic } from '../anemics';
 import { Result } from '@toxictoast/azkaban-base-domain';
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { GroupData } from '../data';
+import { GroupErrorCodes } from '@toxictoast/azkaban-base-helpers';
 
 export class GroupService {
     private readonly factory: GroupFactory = new GroupFactory();
@@ -37,7 +38,7 @@ export class GroupService {
             if (result !== null) {
                 return Result.ok<GroupAnemic>(result);
             }
-            return Result.fail<GroupAnemic>('Group not found'); // TODO: Add error code
+            return Result.fail<GroupAnemic>(GroupErrorCodes.NOT_FOUND);
         } catch (error) {
             return Result.fail<GroupAnemic>(error);
         }
@@ -61,7 +62,7 @@ export class GroupService {
                 aggregate.delete();
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<GroupAnemic>('Group not found'); // TODO: Add error code
+            return Result.fail<GroupAnemic>(GroupErrorCodes.NOT_FOUND);
         } catch (error) {
             return Result.fail<GroupAnemic>(error);
         }
@@ -76,7 +77,7 @@ export class GroupService {
                 aggregate.restore();
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<GroupAnemic>('Group not found'); // TODO: Add error code
+            return Result.fail<GroupAnemic>(GroupErrorCodes.NOT_FOUND);
         } catch (error) {
             return Result.fail<GroupAnemic>(error);
         }
@@ -91,7 +92,7 @@ export class GroupService {
                 aggregate.updateTitle(title);
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<GroupAnemic>('Group not found'); // TODO: Add error code
+            return Result.fail<GroupAnemic>(GroupErrorCodes.NOT_FOUND);
         } catch (error) {
             return Result.fail<GroupAnemic>(error);
         }
@@ -106,7 +107,7 @@ export class GroupService {
                 aggregate.updateSlug(slug);
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<GroupAnemic>('Group not found'); // TODO: Add error code
+            return Result.fail<GroupAnemic>(GroupErrorCodes.NOT_FOUND);
         } catch (error) {
             return Result.fail<GroupAnemic>(error);
         }
@@ -124,7 +125,7 @@ export class GroupService {
                 aggregate.updateActive(active);
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<GroupAnemic>('Group not found'); // TODO: Add error code
+            return Result.fail<GroupAnemic>(GroupErrorCodes.NOT_FOUND);
         } catch (error) {
             return Result.fail<GroupAnemic>(error);
         }

@@ -70,7 +70,7 @@ export class AuthService {
                 return Result.fail<AuthAnemic>(UserErrorCodes.NOT_FOUND);
             }
             if (checkUsername.password !== password) {
-                return Result.fail<AuthAnemic>('Invalid password'); // TODO: Create Error Code
+                return Result.fail<AuthAnemic>(AuthErrorCodes.INVALID_PASSWORD);
             }
             if (checkUsername.isBanned) {
                 return Result.fail<AuthAnemic>(UserErrorCodes.IS_BANNED);
@@ -92,10 +92,12 @@ export class AuthService {
             const result = await this.repository.findByEmail(email);
             if (result !== null) {
                 if (result.isActive) {
-                    return Result.fail<AuthAnemic>('User is already active'); // TODO: Create Error Code
+                    return Result.fail<AuthAnemic>(AuthErrorCodes.IS_ACTIVE);
                 }
                 if (result.activation_token !== token) {
-                    return Result.fail<AuthAnemic>('Token does not match'); // TODO: Create Error Code
+                    return Result.fail<AuthAnemic>(
+                        AuthErrorCodes.TOKEN_UNMATCH,
+                    );
                 }
                 const aggregate = this.factory.reconstitute(result);
                 aggregate.updateActivation();
