@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
     FoodfolioCategoryTopics,
+    FoodfolioCompanyTopics,
     NotifyTopics,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -15,6 +16,18 @@ export class NotifyService {
         const notifyPayload = {
             service: 'foodfolio-category-service',
             event: FoodfolioCategoryTopics.CREATE,
+            data: {
+                id,
+                title,
+            },
+        };
+        await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+    }
+
+    async onCreateCompany(id: string, title: string): Promise<void> {
+        const notifyPayload = {
+            service: 'foodfolio-company-service',
+            event: FoodfolioCompanyTopics.CREATE,
             data: {
                 id,
                 title,
