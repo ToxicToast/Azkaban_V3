@@ -16,6 +16,7 @@ import { AuthGuard, GroupsGuard } from '../../../guards';
 import { Groups } from '../../../decorators';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { CategoryService } from './category.service';
+import { UserGroups } from '@toxictoast/azkaban-base-helpers';
 
 @ApiTags('foodfolio')
 @UseGuards(ThrottlerGuard, AuthGuard, GroupsGuard)
@@ -23,7 +24,7 @@ import { CategoryService } from './category.service';
 export class CategoryController {
     constructor(private readonly service: CategoryService) {}
 
-    @Groups('Admin')
+    @Groups(UserGroups.FOODFOLIO, UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Get()
     async getCategories(
         @Query('limit') limit?: Optional<number>,
@@ -41,7 +42,7 @@ export class CategoryController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.FOODFOLIO, UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Get('parent/:id')
     async getGroupByParentId(@Param('id') id: string) {
         try {
@@ -54,7 +55,7 @@ export class CategoryController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.FOODFOLIO, UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Get('id/:id')
     async getGroupById(@Param('id') id: string) {
         try {
@@ -67,7 +68,7 @@ export class CategoryController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Post()
     async createCategory(
         @Body('title') title: string,
@@ -83,7 +84,7 @@ export class CategoryController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Put(':id')
     async updateCategory(
         @Param('id') id: string,
@@ -106,7 +107,7 @@ export class CategoryController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Delete(':id')
     async deleteCategory(@Param('id') id: string) {
         try {
@@ -119,7 +120,7 @@ export class CategoryController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Put('restore/:id')
     async restoreGroup(@Param('id') id: string) {
         try {

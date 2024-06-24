@@ -2,7 +2,7 @@ import { AuthService as DomainService } from '@azkaban/auth-domain';
 import { AuthRepository } from '../repositories';
 import { CreateAuthDTO } from '../../dto';
 import { AuthDAO } from '../../dao';
-import { BadRequestException, Logger } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { HashPasswordHelper } from '@toxictoast/azkaban-base-helpers';
 
 export class AuthService {

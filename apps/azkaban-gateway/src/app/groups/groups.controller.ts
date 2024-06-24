@@ -16,6 +16,7 @@ import { GroupsService } from './groups.service';
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { AuthGuard, GroupsGuard } from '../../guards';
 import { Groups } from '../../decorators';
+import { UserGroups } from '@toxictoast/azkaban-base-helpers';
 
 @ApiTags('group')
 @UseGuards(ThrottlerGuard, AuthGuard, GroupsGuard)
@@ -23,7 +24,7 @@ import { Groups } from '../../decorators';
 export class GroupsController {
     constructor(private readonly service: GroupsService) {}
 
-    @Groups('Admin')
+    @Groups(UserGroups.ADMIN)
     @Get()
     async getGroups(
         @Query('limit') limit?: Optional<number>,
@@ -41,7 +42,7 @@ export class GroupsController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.ADMIN)
     @Get('id/:id')
     async getGroupById(@Param('id') id: string) {
         try {
@@ -54,7 +55,7 @@ export class GroupsController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.ADMIN)
     @Post()
     async createGroup(@Body('title') title: string) {
         try {
@@ -67,7 +68,7 @@ export class GroupsController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.ADMIN)
     @Put(':id')
     async updateGroup(
         @Param('id') id: string,
@@ -85,7 +86,7 @@ export class GroupsController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.ADMIN)
     @Delete(':id')
     async deleteGroup(@Param('id') id: string) {
         try {
@@ -98,7 +99,7 @@ export class GroupsController {
         }
     }
 
-    @Groups('Admin')
+    @Groups(UserGroups.ADMIN)
     @Put('restore/:id')
     async restoreGroup(@Param('id') id: string) {
         try {

@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import {
     CategoryDAO,

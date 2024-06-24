@@ -4,6 +4,7 @@ import { CategoryFactory } from '../factories';
 import { CategoryRepository } from '../repositories';
 import { Result } from '@toxictoast/azkaban-base-domain';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
+import { FoodFolioCategoryErrorCodes } from '@toxictoast/azkaban-base-helpers';
 
 export class CategoryService {
     private readonly factory: CategoryFactory = new CategoryFactory();
@@ -39,7 +40,9 @@ export class CategoryService {
             if (result !== null) {
                 return Result.ok<CategoryAnemic>(result);
             }
-            return Result.fail<CategoryAnemic>('Category not found'); // TODO: Add ErrorCode
+            return Result.fail<CategoryAnemic>(
+                FoodFolioCategoryErrorCodes.NOT_FOUND,
+            );
         } catch (error) {
             return Result.fail<CategoryAnemic>(error);
         }
@@ -53,7 +56,9 @@ export class CategoryService {
             if (result !== null) {
                 return Result.ok<Array<CategoryAnemic>>(result);
             }
-            return Result.fail<Array<CategoryAnemic>>('Category not found'); // TODO: Add ErrorCode
+            return Result.fail<Array<CategoryAnemic>>(
+                FoodFolioCategoryErrorCodes.NOT_FOUND,
+            );
         } catch (error) {
             return Result.fail<Array<CategoryAnemic>>(error);
         }
@@ -77,7 +82,9 @@ export class CategoryService {
                 aggregate.delete();
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<CategoryAnemic>('Category not found'); // TODO: Add ErrorCode
+            return Result.fail<CategoryAnemic>(
+                FoodFolioCategoryErrorCodes.NOT_FOUND,
+            );
         } catch (error) {
             return Result.fail<CategoryAnemic>(error);
         }
@@ -92,7 +99,9 @@ export class CategoryService {
                 aggregate.restore();
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<CategoryAnemic>('Category not found'); // TODO: Add ErrorCode
+            return Result.fail<CategoryAnemic>(
+                FoodFolioCategoryErrorCodes.NOT_FOUND,
+            );
         } catch (error) {
             return Result.fail<CategoryAnemic>(error);
         }
@@ -110,7 +119,9 @@ export class CategoryService {
                 aggregate.changeParentId(parent_id);
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<CategoryAnemic>('Category not found'); // TODO: Add ErrorCode
+            return Result.fail<CategoryAnemic>(
+                FoodFolioCategoryErrorCodes.NOT_FOUND,
+            );
         } catch (error) {
             return Result.fail<CategoryAnemic>(error);
         }
@@ -128,7 +139,9 @@ export class CategoryService {
                 aggregate.changeTitle(title);
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<CategoryAnemic>('Category not found'); // TODO: Add ErrorCode
+            return Result.fail<CategoryAnemic>(
+                FoodFolioCategoryErrorCodes.NOT_FOUND,
+            );
         } catch (error) {
             return Result.fail<CategoryAnemic>(error);
         }
@@ -146,7 +159,9 @@ export class CategoryService {
                 aggregate.changeActivatedAt(activated_at);
                 return await this.save(aggregate.toAnemic());
             }
-            return Result.fail<CategoryAnemic>('Category not found'); // TODO: Add ErrorCode
+            return Result.fail<CategoryAnemic>(
+                FoodFolioCategoryErrorCodes.NOT_FOUND,
+            );
         } catch (error) {
             return Result.fail<CategoryAnemic>(error);
         }

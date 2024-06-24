@@ -12,7 +12,10 @@ export class UserRepository implements DomainRepository {
 
     constructor(private readonly repository: Repository<UserEntity>) {}
 
-    async findList(limit?: number, offset?: number): Promise<UserAnemic[]> {
+    async findList(
+        limit?: number,
+        offset?: number,
+    ): Promise<Array<UserAnemic>> {
         const entities = await this.repository.find({
             take: limit,
             skip: offset,
