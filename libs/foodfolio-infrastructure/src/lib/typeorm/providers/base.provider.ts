@@ -1,6 +1,6 @@
 import { buildDataSource } from '@toxictoast/azkaban-base-helpers';
 import { ConfigService } from '@nestjs/config';
-import { CategoryEntity, CompanyEntity } from '../entities';
+import { CategoryEntity, CompanyEntity, LocationEntity } from '../entities';
 import { EntitySchema, MixedList } from 'typeorm';
 
 export const datasourceProvider = [
@@ -20,6 +20,7 @@ export const datasourceProvider = [
             const entities = [
                 CategoryEntity,
                 CompanyEntity,
+                LocationEntity,
             ] as unknown as MixedList<string | EntitySchema>;
             //
             return buildDataSource(
