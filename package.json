@@ -124,7 +124,7 @@
         "@reduxjs/toolkit": "^2.2.5",
         "@tailwindcss/forms": "^0.5.7",
         "@toxictoast/azkaban-base-domain": "^0.0.2",
-        "@toxictoast/azkaban-base-helpers": "^0.0.11",
+        "@toxictoast/azkaban-base-helpers": "^0.0.13",
         "@toxictoast/azkaban-base-types": "^0.0.1",
         "@toxictoast/azkaban-broker-rabbitmq": "^0.0.17",
         "@toxictoast/azkaban-sdk": "^0.0.10",
