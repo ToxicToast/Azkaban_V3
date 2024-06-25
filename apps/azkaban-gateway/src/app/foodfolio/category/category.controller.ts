@@ -44,7 +44,7 @@ export class CategoryController {
 
     @Groups(UserGroups.FOODFOLIO, UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Get('parent/:id')
-    async getGroupByParentId(@Param('id') id: string) {
+    async getCategoryByParentId(@Param('id') id: string) {
         try {
             return await this.service.getCategoryByParentId(id);
         } catch (error) {
@@ -57,7 +57,7 @@ export class CategoryController {
 
     @Groups(UserGroups.FOODFOLIO, UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Get('id/:id')
-    async getGroupById(@Param('id') id: string) {
+    async getCategoryById(@Param('id') id: string) {
         try {
             return await this.service.getCategoryById(id);
         } catch (error) {
@@ -122,7 +122,7 @@ export class CategoryController {
 
     @Groups(UserGroups.FOODFOLIO_ADMIN, UserGroups.ADMIN)
     @Put('restore/:id')
-    async restoreGroup(@Param('id') id: string) {
+    async restoreCategory(@Param('id') id: string) {
         try {
             return await this.service.restoreCategory(id);
         } catch (error) {

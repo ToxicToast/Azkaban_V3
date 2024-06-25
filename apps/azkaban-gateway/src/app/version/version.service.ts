@@ -2,6 +2,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
     AuthTopics,
+    FoodfolioCategoryTopics,
+    FoodfolioCompanyTopics,
+    FoodfolioLocationTopics,
     GroupsTopics,
     NotifyTopics,
     UserTopics,
@@ -20,6 +23,13 @@ export class VersionService {
         @Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
         @Inject('AUTH_SERVICE') private readonly authClient: ClientProxy,
         @Inject('GROUP_SERVICE') private readonly groupClient: ClientProxy,
+        //
+        @Inject('FOODFOLIO_CATEGORY_SERVICE')
+        private readonly foodfolioCategoryClient: ClientProxy,
+        @Inject('FOODFOLIO_COMPANY_SERVICE')
+        private readonly foodfolioCompanyClient: ClientProxy,
+        @Inject('FOODFOLIO_LOCATION_SERVICE')
+        private readonly foodfolioLocationClient: ClientProxy,
         //
         @Inject('APP_VERSION') private readonly appVersion: string,
     ) {}
@@ -63,6 +73,24 @@ export class VersionService {
     async getGroupsVersion() {
         return await this.groupClient
             .send(GroupsTopics.VERSION, {})
+            .toPromise();
+    }
+
+    async getFoodFolioCategoryVersion() {
+        return await this.foodfolioCategoryClient
+            .send(FoodfolioCategoryTopics.VERSION, {})
+            .toPromise();
+    }
+
+    async getFoodFolioCompanyVersion() {
+        return await this.foodfolioCompanyClient
+            .send(FoodfolioCompanyTopics.VERSION, {})
+            .toPromise();
+    }
+
+    async getFoodFolioLocationVersion() {
+        return await this.foodfolioLocationClient
+            .send(FoodfolioLocationTopics.VERSION, {})
             .toPromise();
     }
 }

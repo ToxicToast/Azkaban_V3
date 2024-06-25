@@ -6,7 +6,7 @@ import {
     MicroserviceHealthIndicator,
 } from '@nestjs/terminus';
 import { Transport } from '@nestjs/microservices';
-import { foodfolio_category } from '@toxictoast/azkaban-broker-rabbitmq';
+import { foodfolio_company } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller('health')
 export class HealthController {
@@ -31,7 +31,7 @@ export class HealthController {
                     transport: Transport.RMQ,
                     options: {
                         urls: [this.brokerConnectionString],
-                        queue: foodfolio_category,
+                        queue: foodfolio_company,
                     },
                 }),
         ]);
