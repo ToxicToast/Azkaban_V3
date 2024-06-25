@@ -106,6 +106,16 @@ export class LocationService {
         }
     }
 
+    async updateFreezer(id: string, freezer: boolean): Promise<LocationDAO> {
+        const result = await this.domainService.updateFreezer(id, freezer);
+        if (result.isSuccess) {
+            return result.value;
+        } else {
+            const errorMessage = result.errorValue;
+            throw new BadRequestException(errorMessage);
+        }
+    }
+
     async deleteLocation(id: string): Promise<LocationDAO> {
         const result = await this.domainService.deleteLocation(id);
         if (result.isSuccess) {

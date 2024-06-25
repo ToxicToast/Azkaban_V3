@@ -20,6 +20,7 @@
         "serve:admin": "nx serve azkaban-admin-ui --skip-nx-cache",
         "serve:foodfolio:category": "nx serve foodfolio-category-service --skip-nx-cache",
         "serve:foodfolio:company": "nx serve foodfolio-company-service --skip-nx-cache",
+        "serve:foodfolio:location": "nx serve foodfolio-location-service --skip-nx-cache",
         "docker:gateway": "nx docker-build azkaban-gateway --skip-nx-cache --VERSION=local",
         "docker:webhooks": "nx docker-build azkaban-webhooks --skip-nx-cache --VERSION=local",
         "docker:webhooks:magpie": "nx docker-build apialerts-service --skip-nx-cache --VERSION=local",
@@ -31,6 +32,7 @@
         "docker:admin": "nx docker-build azkaban-admin-ui --skip-nx-cache --VERSION=local",
         "docker:foodfolio:category": "nx docker-build foodfolio-category-service --skip-nx-cache",
         "docker:foodfolio:company": "nx docker-build foodfolio-company-service --skip-nx-cache",
+        "docker:foodfolio:location": "nx docker-build foodfolio-location-service --skip-nx-cache",
         "docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
         "docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
         "docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
@@ -41,7 +43,8 @@
         "docker:push:group": "nx docker-push group-service --skip-nx-cache --VERSION=local",
         "docker:push:admin": "nx docker-push azkaban-admin-ui --skip-nx-cache --VERSION=local",
         "docker:push:foodfolio:category": "nx docker-push foodfolio-category-service --skip-nx-cache",
-        "docker:push:foodfolio:company": "nx docker-push foodfolio-company-service --skip-nx-cache"
+        "docker:push:foodfolio:company": "nx docker-push foodfolio-company-service --skip-nx-cache",
+        "docker:push:foodfolio:location": "nx docker-push foodfolio-location-service --skip-nx-cache"
     },
     "private": true,
     "devDependencies": {
@@ -126,7 +129,7 @@
         "@toxictoast/azkaban-base-domain": "^0.0.2",
         "@toxictoast/azkaban-base-helpers": "^0.0.13",
         "@toxictoast/azkaban-base-types": "^0.0.1",
-        "@toxictoast/azkaban-broker-rabbitmq": "^0.0.17",
+        "@toxictoast/azkaban-broker-rabbitmq": "^0.0.18",
         "@toxictoast/azkaban-sdk": "^0.0.10",
         "@willsoto/nestjs-prometheus": "^6.0.1",
         "amqp-connection-manager": "^4.1.14",
