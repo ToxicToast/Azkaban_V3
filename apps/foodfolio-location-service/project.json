@@ -1,0 +1,24 @@
+{
+    "name": "foodfolio-location-service",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/foodfolio-location-service/src",
+    "projectType": "application",
+    "tags": [],
+    "targets": {
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "foodfolio-location-service:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "foodfolio-location-service:build:development"
+                },
+                "production": {
+                    "buildTarget": "foodfolio-location-service:build:production"
+                }
+            }
+        }
+    }
+}
