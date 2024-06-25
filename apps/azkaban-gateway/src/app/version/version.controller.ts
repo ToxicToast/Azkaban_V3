@@ -25,6 +25,11 @@ export class VersionController {
                 auth: await this.service.getAuthVersion(),
                 users: await this.service.getUsersVersion(),
                 groups: await this.service.getGroupsVersion(),
+                foodfolio: {
+                    category: await this.service.getFoodFolioCategoryVersion(),
+                    company: await this.service.getFoodFolioCompanyVersion(),
+                    location: await this.service.getFoodFolioLocationVersion(),
+                },
             };
         } catch (error) {
             throw new HttpException(

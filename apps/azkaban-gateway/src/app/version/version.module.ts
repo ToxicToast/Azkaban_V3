@@ -11,6 +11,9 @@ import {
     azkaban_notify_sse,
     azkaban_user,
     clientProvider,
+    foodfolio_category,
+    foodfolio_company,
+    foodfolio_location,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ConfigService } from '@nestjs/config';
 
@@ -91,6 +94,40 @@ import { ConfigService } from '@nestjs/config';
                 name: 'GROUP_SERVICE',
                 ...clientProvider({
                     queueName: azkaban_group,
+                    noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+                    brokerUsername: process.env.BROKER_USERNAME,
+                    brokerPassword: process.env.BROKER_PASSWORD,
+                    brokerHost: process.env.BROKER_HOST,
+                    brokerPort: parseInt(process.env.BROKER_PORT),
+                }),
+            },
+            // Foodfolio
+            {
+                name: 'FOODFOLIO_CATEGORY_SERVICE',
+                ...clientProvider({
+                    queueName: foodfolio_category,
+                    noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+                    brokerUsername: process.env.BROKER_USERNAME,
+                    brokerPassword: process.env.BROKER_PASSWORD,
+                    brokerHost: process.env.BROKER_HOST,
+                    brokerPort: parseInt(process.env.BROKER_PORT),
+                }),
+            },
+            {
+                name: 'FOODFOLIO_COMPANY_SERVICE',
+                ...clientProvider({
+                    queueName: foodfolio_company,
+                    noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+                    brokerUsername: process.env.BROKER_USERNAME,
+                    brokerPassword: process.env.BROKER_PASSWORD,
+                    brokerHost: process.env.BROKER_HOST,
+                    brokerPort: parseInt(process.env.BROKER_PORT),
+                }),
+            },
+            {
+                name: 'FOODFOLIO_LOCATION_SERVICE',
+                ...clientProvider({
+                    queueName: foodfolio_location,
                     noAck: process.env.BROKER_ACK === 'yes' ? true : false,
                     brokerUsername: process.env.BROKER_USERNAME,
                     brokerPassword: process.env.BROKER_PASSWORD,
