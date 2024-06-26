@@ -8,6 +8,7 @@ import UserReducer from './user/user.slice';
 import UiReducer from './ui/ui.slice';
 
 import { authApi } from './auth/auth.api';
+import { userApi } from './user/user.api';
 
 export const store = configureStore({
     reducer: {
@@ -16,9 +17,12 @@ export const store = configureStore({
         user: UserReducer,
         ui: UiReducer,
         [authApi.reducerPath]: authApi.reducer,
+        [userApi.reducerPath]: userApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(authApi.middleware),
+        getDefaultMiddleware()
+            .concat(authApi.middleware)
+            .concat(userApi.middleware),
     devTools: true,
     enhancers: (getDefaultEnhancers) => getDefaultEnhancers(),
 });
