@@ -3,7 +3,7 @@
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/foodfolio-size-service/src",
     "projectType": "application",
-    "tags": [],
+    "tags": ["scope:application"],
     "targets": {
         "build": {
             "executor": "@nx/webpack:webpack",
