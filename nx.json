@@ -125,7 +125,9 @@
             "exclude": [
                 "apps/foodfolio-category-service-e2e/**/*",
                 "apps/foodfolio-company-service-e2e/**/*",
-                "apps/foodfolio-location-service-e2e/**/*"
+                "apps/foodfolio-location-service-e2e/**/*",
+                "apps/foodfolio-size-service-e2e/**/*",
+                "apps/foodfolio-type-service-e2e/**/*"
             ]
         },
         {
