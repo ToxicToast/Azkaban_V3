@@ -4,24 +4,41 @@ import { NotifyService } from '../notify.service';
 import { TypeDAO } from '@azkaban/foodfolio-infrastructure';
 import { FoodfolioTypeTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class TypeService {
     constructor(
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
         @Inject('TYPE_SERVICE') private readonly client: ClientProxy,
         private readonly notifSerivce: NotifyService,
     ) {}
 
     async getTypes(limit: number, offset: number): Promise<Array<TypeDAO>> {
-        return await this.client
+        const cacheKey = `${FoodfolioTypeTopics.LIST}:${limit}:${offset}`;
+        const cachedData =
+            await this.cacheManager.get<Array<TypeDAO>>(cacheKey);
+        if (cachedData) {
+            return cachedData;
+        }
+        const data = await this.client
             .send(FoodfolioTypeTopics.LIST, { limit, offset })
             .toPromise();
+        await this.cacheManager.set(cacheKey, data);
+        return data;
     }
 
     async getTypeById(id: string): Promise<TypeDAO> {
-        return await this.client
+        const cacheKey = `${FoodfolioTypeTopics.ID}:${id}`;
+        const cachedData = await this.cacheManager.get<TypeDAO>(cacheKey);
+        if (cachedData) {
+            return cachedData;
+        }
+        const data = await this.client
             .send(FoodfolioTypeTopics.ID, { id })
             .toPromise();
+        await this.cacheManager.set(cacheKey, data);
+        return data;
     }
 
     async createType(title: string): Promise<TypeDAO> {

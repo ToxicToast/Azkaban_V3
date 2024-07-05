@@ -10,9 +10,11 @@ import {
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { AuthGuard } from '../../../guards';
 import { NotifyService } from '../notify.service';
+import { CachingModule } from '../../core/caching.module';
 
 @Module({
     imports: [
+        CachingModule,
         JwtModule,
         ClientsModule.register([
             {

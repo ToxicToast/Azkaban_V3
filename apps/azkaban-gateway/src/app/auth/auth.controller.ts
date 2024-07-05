@@ -13,7 +13,7 @@ import {
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { AuthDAO, TokenDAO } from '@azkaban/auth-infrastructure';
-import { AuthGuard } from '../../guards/auth.guard';
+import { AuthGuard } from '../../guards';
 import { Response } from 'express';
 
 @ApiTags('auth')

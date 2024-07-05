@@ -6,7 +6,7 @@ import {
     clientProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '../../guards/auth.guard';
+import { AuthGuard } from '../../guards';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({

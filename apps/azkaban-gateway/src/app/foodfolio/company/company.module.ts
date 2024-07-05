@@ -10,9 +10,11 @@ import { AuthGuard } from '../../../guards';
 import { NotifyService } from '../notify.service';
 import { CompanyService } from './company.service';
 import { CompanyController } from './company.controller';
+import { CachingModule } from '../../core/caching.module';
 
 @Module({
     imports: [
+        CachingModule,
         JwtModule,
         ClientsModule.register([
             {
