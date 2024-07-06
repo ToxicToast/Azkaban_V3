@@ -9,3 +9,5 @@ export * from './locationParentId.valueObject';
 export * from './sizeId.valueObject';
 
 export * from './typeId.valueObject';
+
+export * from './itemId.valueObject';
