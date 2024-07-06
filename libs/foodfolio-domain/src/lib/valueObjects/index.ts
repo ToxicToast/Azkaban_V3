@@ -11,3 +11,5 @@ export * from './sizeId.valueObject';
 export * from './typeId.valueObject';
 
 export * from './itemId.valueObject';
+
+export * from './warehouseId.valueObject';
