@@ -5,8 +5,12 @@ import { UuidHelper } from '@toxictoast/azkaban-base-helpers';
 export class ItemId implements ValueObject<string> {
     readonly _value: Nullable<string>;
 
-    constructor(value?: Optional<string>) {
-        this._value = value ?? UuidHelper.create().value;
+    constructor(
+        value?: Optional<string>,
+        isNullable: Optional<boolean> = false,
+    ) {
+        const createUuid = !isNullable ? UuidHelper.create().value : null;
+        this._value = value ?? createUuid;
     }
 
     equals(valueObject: ItemId): boolean {

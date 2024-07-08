@@ -31,12 +31,12 @@ export class ItemFactory
         } = data;
 
         const itemId = new ItemId(id);
-        const categoryId = new CategoryId(category_id);
-        const locationId = new LocationId(location_id);
-        const companyId = new CompanyId(company_id);
-        const sizeId = new SizeId(size_id);
-        const typeId = new TypeId(type_id);
-        const warehouseId = new WarehouseId(warehouse_id);
+        const categoryId = new CategoryId(category_id, true);
+        const locationId = new LocationId(location_id, true);
+        const companyId = new CompanyId(company_id, true);
+        const sizeId = new SizeId(size_id, true);
+        const typeId = new TypeId(type_id, true);
+        const warehouseId = new WarehouseId(warehouse_id, true);
 
         return new ItemAggregate(
             itemId.value,
@@ -86,12 +86,12 @@ export class ItemFactory
         } = data.toAnemic();
 
         const itemId = new ItemId(id);
-        const categoryId = new CategoryId(category_id);
-        const locationId = new LocationId(location_id);
-        const companyId = new CompanyId(company_id);
-        const sizeId = new SizeId(size_id);
-        const typeId = new TypeId(type_id);
-        const warehouseId = new WarehouseId(warehouse_id);
+        const categoryId = new CategoryId(category_id, true);
+        const locationId = new LocationId(location_id, true);
+        const companyId = new CompanyId(company_id, true);
+        const sizeId = new SizeId(size_id, true);
+        const typeId = new TypeId(type_id, true);
+        const warehouseId = new WarehouseId(warehouse_id, true);
 
         return {
             id: itemId.value,
@@ -136,12 +136,12 @@ export class ItemFactory
         } = data;
 
         const itemId = new ItemId();
-        const categoryId = new CategoryId(category_id);
-        const locationId = new LocationId(location_id);
-        const companyId = new CompanyId(company_id);
-        const sizeId = new SizeId(size_id);
-        const typeId = new TypeId(type_id);
-        const warehouseId = new WarehouseId(warehouse_id);
+        const categoryId = new CategoryId(category_id, true);
+        const locationId = new LocationId(location_id, true);
+        const companyId = new CompanyId(company_id, true);
+        const sizeId = new SizeId(size_id, true);
+        const typeId = new TypeId(type_id, true);
+        const warehouseId = new WarehouseId(warehouse_id, true);
 
         return new ItemAggregate(
             itemId.value,
