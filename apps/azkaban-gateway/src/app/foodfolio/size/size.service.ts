@@ -9,9 +9,9 @@ import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 @Injectable()
 export class SizeService {
     constructor(
-        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('SIZE_SERVICE') private readonly client: ClientProxy,
-        private readonly notifSerivce: NotifyService,
+        private readonly notifySerivce: NotifyService,
     ) {}
 
     async getSizes(limit: number, offset: number): Promise<Array<SizeDAO>> {
@@ -46,7 +46,7 @@ export class SizeService {
             .send(FoodfolioSizeTopics.CREATE, { title })
             .toPromise()
             .then((category) => {
-                this.notifSerivce.onCreateSize(category.id, category.title);
+                this.notifySerivce.onCreateSize(category.id, category.title);
                 return category;
             });
     }

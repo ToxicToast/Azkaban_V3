@@ -9,9 +9,9 @@ import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 @Injectable()
 export class GroupsService {
     constructor(
-        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('GROUP_SERVICE') private readonly client: ClientProxy,
-        private readonly notifSerivce: NotifyService,
+        private readonly notifySerivce: NotifyService,
     ) {}
 
     async getGroups(limit: number, offset: number): Promise<Array<GroupDAO>> {
@@ -46,7 +46,7 @@ export class GroupsService {
             .send(GroupsTopics.CREATE, { title })
             .toPromise()
             .then((group) => {
-                this.notifSerivce.onCreate(group.id, group.title);
+                this.notifySerivce.onCreate(group.id, group.title);
                 return group;
             });
     }

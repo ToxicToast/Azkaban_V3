@@ -8,7 +8,7 @@ import { UserDAO } from '@azkaban/user-infrastructure';
 @Injectable()
 export class UserService {
     constructor(
-        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('USERS_SERVICE') private readonly client: ClientProxy,
     ) {}
 

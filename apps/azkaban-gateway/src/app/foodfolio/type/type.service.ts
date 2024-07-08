@@ -9,9 +9,9 @@ import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 @Injectable()
 export class TypeService {
     constructor(
-        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('TYPE_SERVICE') private readonly client: ClientProxy,
-        private readonly notifSerivce: NotifyService,
+        private readonly notifySerivce: NotifyService,
     ) {}
 
     async getTypes(limit: number, offset: number): Promise<Array<TypeDAO>> {
@@ -46,7 +46,7 @@ export class TypeService {
             .send(FoodfolioTypeTopics.CREATE, { title })
             .toPromise()
             .then((category) => {
-                this.notifSerivce.onCreateType(category.id, category.title);
+                this.notifySerivce.onCreateType(category.id, category.title);
                 return category;
             });
     }

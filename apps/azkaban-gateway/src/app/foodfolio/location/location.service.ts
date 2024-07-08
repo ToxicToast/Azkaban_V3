@@ -9,9 +9,9 @@ import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 @Injectable()
 export class LocationService {
     constructor(
-        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('LOCATION_SERVICE') private readonly client: ClientProxy,
-        private readonly notifSerivce: NotifyService,
+        private readonly notifySerivce: NotifyService,
     ) {}
 
     async getLocations(
@@ -83,7 +83,7 @@ export class LocationService {
             .send(FoodfolioLocationTopics.CREATE, { title, parent_id, freezer })
             .toPromise()
             .then((value) => {
-                this.notifSerivce.onCreateLocation(value.id, value.title);
+                this.notifySerivce.onCreateLocation(value.id, value.title);
                 return value;
             });
     }

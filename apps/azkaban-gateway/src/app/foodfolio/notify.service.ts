@@ -4,6 +4,7 @@ import {
     FoodfolioCategoryTopics,
     FoodfolioCompanyTopics,
     FoodfolioLocationTopics,
+    FoodfolioProductTopics,
     FoodfolioSizeTopics,
     FoodfolioTypeTopics,
     NotifyTopics,
@@ -67,6 +68,18 @@ export class NotifyService {
         const notifyPayload = {
             service: 'foodfolio-type-service',
             event: FoodfolioTypeTopics.CREATE,
+            data: {
+                id,
+                title,
+            },
+        };
+        await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+    }
+
+    async onCreateItem(id: string, title: string): Promise<void> {
+        const notifyPayload = {
+            service: 'foodfolio-item-service',
+            event: FoodfolioProductTopics.CREATE,
             data: {
                 id,
                 title,

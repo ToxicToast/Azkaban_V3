@@ -9,9 +9,9 @@ import { CategoryDAO } from '@azkaban/foodfolio-infrastructure';
 @Injectable()
 export class CategoryService {
     constructor(
-        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('CATEGORY_SERVICE') private readonly client: ClientProxy,
-        private readonly notifSerivce: NotifyService,
+        private readonly notifySerivce: NotifyService,
     ) {}
 
     async getCategories(
@@ -68,7 +68,10 @@ export class CategoryService {
             .send(FoodfolioCategoryTopics.CREATE, { title, parent_id })
             .toPromise()
             .then((category) => {
-                this.notifSerivce.onCreateCategory(category.id, category.title);
+                this.notifySerivce.onCreateCategory(
+                    category.id,
+                    category.title,
+                );
                 return category;
             });
     }

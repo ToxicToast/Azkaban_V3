@@ -9,9 +9,9 @@ import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 @Injectable()
 export class CompanyService {
     constructor(
-        @Inject(CACHE_MANAGER) private cacheManager: Cache,
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('COMPANY_SERVICE') private readonly client: ClientProxy,
-        private readonly notifSerivce: NotifyService,
+        private readonly notifySerivce: NotifyService,
     ) {}
 
     async getCompanies(
@@ -49,7 +49,7 @@ export class CompanyService {
             .send(FoodfolioCompanyTopics.CREATE, { title })
             .toPromise()
             .then((company) => {
-                this.notifSerivce.onCreateCompany(company.id, company.title);
+                this.notifySerivce.onCreateCompany(company.id, company.title);
                 return company;
             });
     }

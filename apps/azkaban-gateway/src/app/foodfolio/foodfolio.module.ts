@@ -4,6 +4,7 @@ import { CompanyModule } from './company/company.module';
 import { LocationModule } from './location/location.module';
 import { SizeModule } from './size/size.module';
 import { TypeModule } from './type/type.module';
+import { ItemModule } from './item/item.module';
 
 @Module({
     imports: [
@@ -12,6 +13,7 @@ import { TypeModule } from './type/type.module';
         LocationModule,
         SizeModule,
         TypeModule,
+        ItemModule,
     ],
 })
 export class FoodfolioModule {}

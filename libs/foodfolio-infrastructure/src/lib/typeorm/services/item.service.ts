@@ -194,6 +194,93 @@ export class ItemService {
         }
     }
 
+    async updateCategoryId(
+        id: string,
+        category_id: Nullable<string>,
+    ): Promise<ItemDAO> {
+        const result = await this.domainService.updateCategoryId(
+            id,
+            category_id,
+        );
+        if (result.isSuccess) {
+            return result.value;
+        } else {
+            const errorMessage = result.errorValue;
+            throw new BadRequestException(errorMessage);
+        }
+    }
+
+    async updateLocationId(
+        id: string,
+        location_id: Nullable<string>,
+    ): Promise<ItemDAO> {
+        const result = await this.domainService.updateLocationId(
+            id,
+            location_id,
+        );
+        if (result.isSuccess) {
+            return result.value;
+        } else {
+            const errorMessage = result.errorValue;
+            throw new BadRequestException(errorMessage);
+        }
+    }
+
+    async updateCompanyId(
+        id: string,
+        company_id: Nullable<string>,
+    ): Promise<ItemDAO> {
+        const result = await this.domainService.updateCompanyId(id, company_id);
+        if (result.isSuccess) {
+            return result.value;
+        } else {
+            const errorMessage = result.errorValue;
+            throw new BadRequestException(errorMessage);
+        }
+    }
+
+    async updateSizeId(
+        id: string,
+        size_id: Nullable<string>,
+    ): Promise<ItemDAO> {
+        const result = await this.domainService.updateSizeId(id, size_id);
+        if (result.isSuccess) {
+            return result.value;
+        } else {
+            const errorMessage = result.errorValue;
+            throw new BadRequestException(errorMessage);
+        }
+    }
+
+    async updateTypeId(
+        id: string,
+        type_id: Nullable<string>,
+    ): Promise<ItemDAO> {
+        const result = await this.domainService.updateSizeId(id, type_id);
+        if (result.isSuccess) {
+            return result.value;
+        } else {
+            const errorMessage = result.errorValue;
+            throw new BadRequestException(errorMessage);
+        }
+    }
+
+    async updateWarehouseId(
+        id: string,
+        warehouse_id: Nullable<string>,
+    ): Promise<ItemDAO> {
+        const result = await this.domainService.updateWarehouseId(
+            id,
+            warehouse_id,
+        );
+        if (result.isSuccess) {
+            return result.value;
+        } else {
+            const errorMessage = result.errorValue;
+            throw new BadRequestException(errorMessage);
+        }
+    }
+
     async deleteItem(id: string): Promise<ItemDAO> {
         const result = await this.domainService.deleteItem(id);
         if (result.isSuccess) {
