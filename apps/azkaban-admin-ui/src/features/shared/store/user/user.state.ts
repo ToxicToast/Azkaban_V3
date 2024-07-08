@@ -1,4 +1,4 @@
-import { UserModel } from './user.model.ts';
+import { UserModel } from './user.model';
 
 export const userState: UserModel = {
     data: [],

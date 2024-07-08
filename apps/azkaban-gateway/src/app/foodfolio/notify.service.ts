@@ -4,6 +4,9 @@ import {
     FoodfolioCategoryTopics,
     FoodfolioCompanyTopics,
     FoodfolioLocationTopics,
+    FoodfolioProductTopics,
+    FoodfolioSizeTopics,
+    FoodfolioTypeTopics,
     NotifyTopics,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -41,6 +44,42 @@ export class NotifyService {
         const notifyPayload = {
             service: 'foodfolio-location-service',
             event: FoodfolioLocationTopics.CREATE,
+            data: {
+                id,
+                title,
+            },
+        };
+        await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+    }
+
+    async onCreateSize(id: string, title: string): Promise<void> {
+        const notifyPayload = {
+            service: 'foodfolio-size-service',
+            event: FoodfolioSizeTopics.CREATE,
+            data: {
+                id,
+                title,
+            },
+        };
+        await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+    }
+
+    async onCreateType(id: string, title: string): Promise<void> {
+        const notifyPayload = {
+            service: 'foodfolio-type-service',
+            event: FoodfolioTypeTopics.CREATE,
+            data: {
+                id,
+                title,
+            },
+        };
+        await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+    }
+
+    async onCreateItem(id: string, title: string): Promise<void> {
+        const notifyPayload = {
+            service: 'foodfolio-item-service',
+            event: FoodfolioProductTopics.CREATE,
             data: {
                 id,
                 title,

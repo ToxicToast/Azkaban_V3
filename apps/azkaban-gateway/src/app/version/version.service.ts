@@ -5,6 +5,8 @@ import {
     FoodfolioCategoryTopics,
     FoodfolioCompanyTopics,
     FoodfolioLocationTopics,
+    FoodfolioSizeTopics,
+    FoodfolioTypeTopics,
     GroupsTopics,
     NotifyTopics,
     UserTopics,
@@ -30,6 +32,10 @@ export class VersionService {
         private readonly foodfolioCompanyClient: ClientProxy,
         @Inject('FOODFOLIO_LOCATION_SERVICE')
         private readonly foodfolioLocationClient: ClientProxy,
+        @Inject('FOODFOLIO_SIZE_SERVICE')
+        private readonly foodfolioSizeClient: ClientProxy,
+        @Inject('FOODFOLIO_TYPE_SERVICE')
+        private readonly foodfolioTypeClient: ClientProxy,
         //
         @Inject('APP_VERSION') private readonly appVersion: string,
     ) {}
@@ -91,6 +97,18 @@ export class VersionService {
     async getFoodFolioLocationVersion() {
         return await this.foodfolioLocationClient
             .send(FoodfolioLocationTopics.VERSION, {})
+            .toPromise();
+    }
+
+    async getFoodFolioSizeVersion() {
+        return await this.foodfolioSizeClient
+            .send(FoodfolioSizeTopics.VERSION, {})
+            .toPromise();
+    }
+
+    async getFoodFolioTypeVersion() {
+        return await this.foodfolioTypeClient
+            .send(FoodfolioTypeTopics.VERSION, {})
             .toPromise();
     }
 }

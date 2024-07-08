@@ -8,11 +8,13 @@ import {
 import { GroupsService } from './groups.service';
 import { GroupsController } from './groups.controller';
 import { NotifyService } from './notify.service';
-import { AuthGuard } from '../../guards/auth.guard';
+import { AuthGuard } from '../../guards';
 import { JwtModule } from '@nestjs/jwt';
+import { CachingModule } from '../core/caching.module';
 
 @Module({
     imports: [
+        CachingModule,
         JwtModule,
         ClientsModule.register([
             {

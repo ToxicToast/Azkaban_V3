@@ -1,0 +1,53 @@
+{
+    "name": "foodfolio-size-service",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/foodfolio-size-service/src",
+    "projectType": "application",
+    "tags": ["scope:application"],
+    "targets": {
+        "build": {
+            "executor": "@nx/webpack:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "dist/apps/foodfolio-size-service",
+                "main": "apps/foodfolio-size-service/src/main.ts",
+                "tsConfig": "apps/foodfolio-size-service/tsconfig.app.json",
+                "assets": ["apps/foodfolio-size-service/src/assets"],
+                "webpackConfig": "apps/foodfolio-size-service/webpack.config.js",
+                "generatePackageJson": true
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "foodfolio-size-service:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "foodfolio-size-service:build:development"
+                },
+                "production": {
+                    "buildTarget": "foodfolio-size-service:build:production"
+                }
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/foodfolio-size-service/jest.config.ts"
+            }
+        },
+        "docker-build": {
+            "dependsOn": ["build"],
+            "command": "docker build -f apps/foodfolio-size-service/Dockerfile . -t azkaban2015/foodfolio-size:{args.VERSION}"
+        },
+        "docker-push": {
+            "command": "docker push azkaban2015/foodfolio-size:{args.VERSION}"
+        }
+    }
+}

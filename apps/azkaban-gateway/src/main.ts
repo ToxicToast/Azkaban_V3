@@ -58,14 +58,17 @@ async function startApp(app: INestApplication): Promise<void> {
 }
 
 async function bootstrap() {
+    const environment = process.env.NODE_ENV;
     const app = await createApp();
     configureApp(app);
     addModules(app);
-    configureSwagger(app);
+    if (environment === 'development') {
+        configureSwagger(app);
+    }
     configureCors(app);
     await startApp(app);
     Logger.log(`🚀 Azkaban-Gateway is running`);
     Logger.log(`🚀 Version: ${process.env.APP_VERSION}`);
-    Logger.log(`🚀 Environment: ${process.env.NODE_ENV}`);
+    Logger.log(`🚀 Environment: ${environment}`);
 }
 bootstrap().catch((err) => Logger.error(err));

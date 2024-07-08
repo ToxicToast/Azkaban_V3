@@ -7,9 +7,11 @@ import {
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { UserService } from './user.service';
 import { JwtModule } from '@nestjs/jwt';
+import { CachingModule } from '../core/caching.module';
 
 @Module({
     imports: [
+        CachingModule,
         JwtModule,
         ClientsModule.register([
             {

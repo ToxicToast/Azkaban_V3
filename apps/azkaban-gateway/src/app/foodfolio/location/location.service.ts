@@ -4,41 +4,74 @@ import { NotifyService } from '../notify.service';
 import { LocationDAO } from '@azkaban/foodfolio-infrastructure';
 import { FoodfolioLocationTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class LocationService {
     constructor(
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('LOCATION_SERVICE') private readonly client: ClientProxy,
-        private readonly notifSerivce: NotifyService,
+        private readonly notifySerivce: NotifyService,
     ) {}
 
     async getLocations(
         limit: number,
         offset: number,
     ): Promise<Array<LocationDAO>> {
-        return await this.client
+        const cacheKey = `${FoodfolioLocationTopics.LIST}:${limit}:${offset}`;
+        const cachedData =
+            await this.cacheManager.get<Array<LocationDAO>>(cacheKey);
+        if (cachedData) {
+            return cachedData;
+        }
+        const data = await this.client
             .send(FoodfolioLocationTopics.LIST, { limit, offset })
             .toPromise();
+        await this.cacheManager.set(cacheKey, data);
+        return data;
     }
 
     async getLocationByParentId(
         parent_id: Nullable<string>,
     ): Promise<Array<LocationDAO>> {
-        return await this.client
+        const cacheKey = `${FoodfolioLocationTopics.PARENT}:${parent_id}`;
+        const cachedData =
+            await this.cacheManager.get<Array<LocationDAO>>(cacheKey);
+        if (cachedData) {
+            return cachedData;
+        }
+        const data = await this.client
             .send(FoodfolioLocationTopics.PARENT, { parent_id })
             .toPromise();
+        await this.cacheManager.set(cacheKey, data);
+        return data;
     }
 
     async getLocationByFreezer(freezer: boolean): Promise<Array<LocationDAO>> {
-        return await this.client
+        const cacheKey = `${FoodfolioLocationTopics.FREEZER}:${freezer}`;
+        const cachedData =
+            await this.cacheManager.get<Array<LocationDAO>>(cacheKey);
+        if (cachedData) {
+            return cachedData;
+        }
+        const data = await this.client
             .send(FoodfolioLocationTopics.FREEZER, { freezer })
             .toPromise();
+        await this.cacheManager.set(cacheKey, data);
+        return data;
     }
 
     async getLocationById(id: string): Promise<LocationDAO> {
-        return await this.client
+        const cacheKey = `${FoodfolioLocationTopics.ID}:${id}`;
+        const cachedData = await this.cacheManager.get<LocationDAO>(cacheKey);
+        if (cachedData) {
+            return cachedData;
+        }
+        const data = await this.client
             .send(FoodfolioLocationTopics.ID, { id })
             .toPromise();
+        await this.cacheManager.set(cacheKey, data);
+        return data;
     }
 
     async createLocation(
@@ -50,7 +83,7 @@ export class LocationService {
             .send(FoodfolioLocationTopics.CREATE, { title, parent_id, freezer })
             .toPromise()
             .then((value) => {
-                this.notifSerivce.onCreateLocation(value.id, value.title);
+                this.notifySerivce.onCreateLocation(value.id, value.title);
                 return value;
             });
     }

@@ -4,22 +4,41 @@ import { GroupsTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { GroupDAO } from '@azkaban/group-infrastructure';
 import { NotifyService } from './notify.service';
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class GroupsService {
     constructor(
+        @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
         @Inject('GROUP_SERVICE') private readonly client: ClientProxy,
-        private readonly notifSerivce: NotifyService,
+        private readonly notifySerivce: NotifyService,
     ) {}
 
     async getGroups(limit: number, offset: number): Promise<Array<GroupDAO>> {
-        return await this.client
+        const cacheKey = `${GroupsTopics.LIST}:${limit}:${offset}`;
+        const cachedData =
+            await this.cacheManager.get<Array<GroupDAO>>(cacheKey);
+        if (cachedData) {
+            return cachedData;
+        }
+        const data = await this.client
             .send(GroupsTopics.LIST, { limit, offset })
             .toPromise();
+        await this.cacheManager.set(cacheKey, data);
+        return data;
     }
 
     async getGroupById(id: string): Promise<GroupDAO> {
-        return await this.client.send(GroupsTopics.ID, { id }).toPromise();
+        const cacheKey = `${GroupsTopics.ID}:${id}`;
+        const cachedData = await this.cacheManager.get<GroupDAO>(cacheKey);
+        if (cachedData) {
+            return cachedData;
+        }
+        const data = await this.client
+            .send(GroupsTopics.ID, { id })
+            .toPromise();
+        await this.cacheManager.set(cacheKey, data);
+        return data;
     }
 
     async createGroup(title: string): Promise<GroupDAO> {
@@ -27,7 +46,7 @@ export class GroupsService {
             .send(GroupsTopics.CREATE, { title })
             .toPromise()
             .then((group) => {
-                this.notifSerivce.onCreate(group.id, group.title);
+                this.notifySerivce.onCreate(group.id, group.title);
                 return group;
             });
     }
