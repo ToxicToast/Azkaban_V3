@@ -4,3 +4,4 @@ export * from './company.provider';
 export * from './location.provider';
 export * from './size.provider';
 export * from './type.provider';
+export * from './item.provider';
