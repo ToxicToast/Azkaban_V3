@@ -14,7 +14,7 @@ export class ItemController {
         @Payload('offset') offset: number,
     ) {
         try {
-            //
+            return await this.service.getList(limit, offset);
         } catch (error) {
             throw new RpcException(error);
         }
