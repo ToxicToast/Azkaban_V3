@@ -1,8 +1,8 @@
 import { Domain } from '@toxictoast/azkaban-base-domain';
-import { ItemDetailsAnemic } from '../anemics';
+import { ItemDetailAnemic } from '../anemics';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 
-export class ItemDetailsAggregate implements Domain<ItemDetailsAnemic> {
+export class ItemDetailAggregate implements Domain<ItemDetailAnemic> {
     constructor(
         private readonly id: string,
         private item_id: string,
@@ -48,7 +48,7 @@ export class ItemDetailsAggregate implements Domain<ItemDetailsAnemic> {
         this.deleted_at = null;
     }
 
-    toAnemic(): ItemDetailsAnemic {
+    toAnemic(): ItemDetailAnemic {
         return {
             id: this.id,
             item_id: this.item_id,

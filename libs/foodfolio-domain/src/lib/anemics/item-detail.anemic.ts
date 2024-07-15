@@ -1,7 +1,7 @@
 import { Anemic } from '@toxictoast/azkaban-base-domain';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 
-export interface ItemDetailsAnemic extends Anemic {
+export interface ItemDetailAnemic extends Anemic {
     readonly item_id: string;
     readonly purchase_date: Date;
     readonly expiration_date: Nullable<Date>;
