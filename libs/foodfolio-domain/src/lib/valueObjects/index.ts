@@ -13,3 +13,5 @@ export * from './typeId.valueObject';
 export * from './itemId.valueObject';
 
 export * from './warehouseId.valueObject';
+
+export * from './itemDetailId.valueObject';
