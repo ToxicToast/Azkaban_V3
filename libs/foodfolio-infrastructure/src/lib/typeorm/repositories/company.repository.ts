@@ -21,7 +21,7 @@ export class CompanyRepository implements DomainRepository {
             skip: offset,
             withDeleted: true,
             order: {
-                created_at: 'DESC',
+                created_at: 'ASC',
             },
         });
         return entities.map((entity) => this.mapper.toDomain(entity));

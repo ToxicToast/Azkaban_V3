@@ -22,7 +22,7 @@ export class UserRepository implements DomainRepository {
             withDeleted: true,
             relations: ['groups', 'groups.group'],
             order: {
-                created_at: 'DESC',
+                created_at: 'ASC',
             },
         });
         return entities.map((entity) => this.mapper.toDomain(entity));
