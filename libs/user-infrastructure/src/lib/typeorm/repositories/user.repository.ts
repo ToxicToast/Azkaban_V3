@@ -21,6 +21,9 @@ export class UserRepository implements DomainRepository {
             skip: offset,
             withDeleted: true,
             relations: ['groups', 'groups.group'],
+            order: {
+                created_at: 'ASC',
+            },
         });
         return entities.map((entity) => this.mapper.toDomain(entity));
     }

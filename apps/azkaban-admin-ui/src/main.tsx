@@ -29,7 +29,7 @@ root.render(
                 exp={sessionExp}
             >
                 <ThemeProvider
-                    defaultTheme="light"
+                    defaultTheme="system"
                     storageKey="azkaban-ui-theme"
                 >
                     <ToastProvider duration={3000}>

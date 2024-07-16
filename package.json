@@ -1,6 +1,6 @@
 {
     "name": "@azkaban/source",
-    "version": "0.9.18",
+    "version": "0.10.1",
     "license": "MIT",
     "scripts": {
         "nx": "nx",
@@ -23,6 +23,7 @@
         "serve:foodfolio:location": "nx serve foodfolio-location-service --skip-nx-cache",
         "serve:foodfolio:size": "nx serve foodfolio-size-service --skip-nx-cache",
         "serve:foodfolio:type": "nx serve foodfolio-type-service --skip-nx-cache",
+        "serve:foodfolio:item": "nx serve foodfolio-item-service --skip-nx-cache",
         "docker:gateway": "nx docker-build azkaban-gateway --skip-nx-cache --VERSION=local",
         "docker:webhooks": "nx docker-build azkaban-webhooks --skip-nx-cache --VERSION=local",
         "docker:webhooks:magpie": "nx docker-build apialerts-service --skip-nx-cache --VERSION=local",
@@ -37,6 +38,7 @@
         "docker:foodfolio:location": "nx docker-build foodfolio-location-service --skip-nx-cache",
         "docker:foodfolio:size": "nx docker-build foodfolio-size-service --skip-nx-cache",
         "docker:foodfolio:type": "nx docker-build foodfolio-type-service --skip-nx-cache",
+        "docker:foodfolio:item": "nx docker-build foodfolio-item-service --skip-nx-cache",
         "docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
         "docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
         "docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
@@ -50,7 +52,8 @@
         "docker:push:foodfolio:company": "nx docker-push foodfolio-company-service --skip-nx-cache",
         "docker:push:foodfolio:location": "nx docker-push foodfolio-location-service --skip-nx-cache",
         "docker:push:foodfolio:size": "nx docker-push foodfolio-size-service --skip-nx-cache",
-        "docker:push:foodfolio:type": "nx docker-push foodfolio-type-service --skip-nx-cache"
+        "docker:push:foodfolio:type": "nx docker-push foodfolio-type-service --skip-nx-cache",
+        "docker:push:foodfolio:item": "nx docker-push foodfolio-item-service --skip-nx-cache"
     },
     "private": true,
     "devDependencies": {
@@ -139,7 +142,7 @@
         "@toxictoast/azkaban-base-domain": "^0.0.2",
         "@toxictoast/azkaban-base-helpers": "^0.0.13",
         "@toxictoast/azkaban-base-types": "^0.0.1",
-        "@toxictoast/azkaban-broker-rabbitmq": "^0.0.19",
+        "@toxictoast/azkaban-broker-rabbitmq": "^0.0.20",
         "@toxictoast/azkaban-sdk": "^0.0.10",
         "@willsoto/nestjs-prometheus": "^6.0.1",
         "amqp-connection-manager": "^4.1.14",

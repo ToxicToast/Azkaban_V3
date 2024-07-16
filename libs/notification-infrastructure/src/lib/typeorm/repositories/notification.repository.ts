@@ -20,6 +20,9 @@ export class NotificationRepository implements DomainRepository {
             take: limit,
             skip: offset,
             withDeleted: true,
+            order: {
+                created_at: 'ASC',
+            },
         });
         return entities.map((entity) => this.mapper.toDomain(entity));
     }
