@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import {
     CategoryEntity,
     CompanyEntity,
+    ItemDetailEntity,
     ItemEntity,
     LocationEntity,
     SizeEntity,
@@ -31,6 +32,7 @@ export const datasourceProvider = [
                 SizeEntity,
                 TypeEntity,
                 ItemEntity,
+                ItemDetailEntity,
             ] as unknown as MixedList<string | EntitySchema>;
             //
             return buildDataSource(

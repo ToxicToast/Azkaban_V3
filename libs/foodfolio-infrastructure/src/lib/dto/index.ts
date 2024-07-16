@@ -4,3 +4,4 @@ export * from './create-location.dto';
 export * from './create-size.dto';
 export * from './create-type.dto';
 export * from './create-item.dto';
+export * from './create-item-detail.dto';
