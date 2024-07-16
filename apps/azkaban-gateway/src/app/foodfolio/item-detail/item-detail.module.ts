@@ -9,6 +9,8 @@ import {
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { AuthGuard } from '../../../guards';
 import { NotifyService } from '../notify.service';
+import { ItemDetailController } from './item-detail.controller';
+import { ItemDetailService } from './item-detail.service';
 
 @Module({
     imports: [
@@ -41,7 +43,7 @@ import { NotifyService } from '../notify.service';
             },
         ]),
     ],
-    controllers: [],
-    providers: [AuthGuard, NotifyService],
+    controllers: [ItemDetailController],
+    providers: [AuthGuard, NotifyService, ItemDetailService],
 })
 export class ItemDetailModule {}
