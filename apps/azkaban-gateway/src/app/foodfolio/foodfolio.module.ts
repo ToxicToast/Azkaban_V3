@@ -5,6 +5,7 @@ import { LocationModule } from './location/location.module';
 import { SizeModule } from './size/size.module';
 import { TypeModule } from './type/type.module';
 import { ItemModule } from './item/item.module';
+import { ItemDetailModule } from './item-detail/item-detail.module';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { ItemModule } from './item/item.module';
         SizeModule,
         TypeModule,
         ItemModule,
+        ItemDetailModule,
     ],
 })
 export class FoodfolioModule {}

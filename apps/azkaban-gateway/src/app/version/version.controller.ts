@@ -31,6 +31,9 @@ export class VersionController {
                     location: await this.service.getFoodFolioLocationVersion(),
                     type: await this.service.getFoodFolioTypeVersion(),
                     size: await this.service.getFoodFolioSizeVersion(),
+                    item: await this.service.getFoodFolioItemVersion(),
+                    itemdetail:
+                        await this.service.getFoodFolioItemDetailVersion(),
                 },
             };
         } catch (error) {
