@@ -16,6 +16,9 @@ export class GroupRepository implements DomainRepository {
             take: limit,
             skip: offset,
             withDeleted: true,
+            order: {
+                created_at: 'DESC',
+            },
         });
         return entities.map((entity) => this.mapper.toDomain(entity));
     }
