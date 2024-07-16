@@ -14,7 +14,7 @@ export class ItemDetailService {
     private readonly infrastructureService: BaseService;
 
     constructor(
-        @Inject('ITEM_REPOSITORY')
+        @Inject('ITEM_DETAIL_REPOSITORY')
         private readonly itemRepository: Repository<ItemDetailEntity>,
     ) {
         this.infrastructureRepository = new ItemDetailRepository(
