@@ -76,7 +76,7 @@ export class ItemController {
         @Payload('warehouse_id') warehouse_id: Nullable<string>,
     ) {
         try {
-            return await this.getItemByWarehouseId(warehouse_id);
+            return await this.service.getByWarehouseId(warehouse_id);
         } catch (error) {
             throw new RpcException(error);
         }
@@ -85,7 +85,7 @@ export class ItemController {
     @MessagePattern(FoodfolioProductTopics.ID)
     async getItemById(@Payload('id') id: string) {
         try {
-            return await this.getItemById(id);
+            return await this.service.getItemById(id);
         } catch (error) {
             throw new RpcException(error);
         }
