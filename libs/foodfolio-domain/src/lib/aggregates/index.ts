@@ -5,3 +5,4 @@ export * from './size.aggregate';
 export * from './type.aggregate';
 export * from './item.aggregate';
 export * from './item-detail.aggregate';
+export * from './warehouse.aggregate';
