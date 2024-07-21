@@ -1,0 +1,48 @@
+import {
+    WarehouseRepository as DomainRepository,
+    WarehouseAnemic,
+} from '@azkaban/foodfolio-domain';
+import { Repository } from 'typeorm';
+import { WarehouseMapper } from '../mappers';
+import { WarehouseEntity } from '../entities';
+import { WarehouseDAO } from '../../dao';
+
+export class WarehouseRepository implements DomainRepository {
+    private readonly mapper: WarehouseMapper = new WarehouseMapper();
+
+    constructor(private readonly repository: Repository<WarehouseEntity>) {}
+
+    async findList(
+        limit?: number,
+        offset?: number,
+    ): Promise<Array<WarehouseAnemic>> {
+        const entities = await this.repository.find({
+            take: limit,
+            skip: offset,
+            withDeleted: true,
+            order: {
+                created_at: 'ASC',
+            },
+        });
+        return entities.map((entity) => this.mapper.toDomain(entity));
+    }
+
+    async findById(id: string): Promise<WarehouseAnemic> {
+        const entity = await this.repository.findOne({
+            withDeleted: true,
+            where: { id },
+        });
+        return this.mapper.toDomain(entity);
+    }
+
+    async delete(id: string): Promise<WarehouseAnemic> {
+        await this.repository.softDelete(id);
+        return await this.findById(id);
+    }
+
+    async save(data: WarehouseDAO): Promise<WarehouseDAO> {
+        const entity = this.mapper.toEntity(data);
+        const saved = await this.repository.save(entity);
+        return this.mapper.toDomain(saved);
+    }
+}
