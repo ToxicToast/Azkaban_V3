@@ -1,0 +1,21 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:base",
+        ":dependencyDashboard",
+        ":enableVulnerabilityAlertsWithLabel('security')",
+        ":preserveSemverRanges",
+        ":rebaseStalePrs",
+        "group:recommended"
+    ],
+    "labels": ["renovate"],
+    "packageRules": [
+        {
+            "groupName": "devDependencies (non-major)",
+            "matchDepTypes": ["devDependencies", "require-dev"],
+            "matchUpdateTypes": ["digest", "minor", "patch"]
+        }
+    ],
+    "separateMinorPatch": true,
+    "stopUpdatingLabel": "renovate/stop_updating"
+}

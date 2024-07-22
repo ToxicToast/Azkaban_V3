@@ -5,3 +5,4 @@ export * from './size.dao';
 export * from './type.dao';
 export * from './item.dao';
 export * from './item-detail.dao';
+export * from './warehouse.dao';

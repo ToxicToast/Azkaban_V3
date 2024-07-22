@@ -6,3 +6,4 @@ export * from './size.provider';
 export * from './type.provider';
 export * from './item.provider';
 export * from './item-detail.provider';
+export * from './warehouse.provider';

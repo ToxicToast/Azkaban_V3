@@ -1,0 +1,53 @@
+{
+    "name": "foodfolio-warehouse-service",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/foodfolio-warehouse-service/src",
+    "projectType": "application",
+    "tags": ["scope:application"],
+    "targets": {
+        "build": {
+            "executor": "@nx/webpack:webpack",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "dist/apps/foodfolio-warehouse-service",
+                "main": "apps/foodfolio-warehouse-service/src/main.ts",
+                "tsConfig": "apps/foodfolio-warehouse-service/tsconfig.app.json",
+                "assets": ["apps/foodfolio-warehouse-service/src/assets"],
+                "webpackConfig": "apps/foodfolio-warehouse-service/webpack.config.js",
+                "generatePackageJson": true
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "foodfolio-warehouse-service:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "foodfolio-warehouse-service:build:development"
+                },
+                "production": {
+                    "buildTarget": "foodfolio-warehouse-service:build:production"
+                }
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/foodfolio-warehouse-service/jest.config.ts"
+            }
+        },
+        "docker-build": {
+            "dependsOn": ["build"],
+            "command": "docker build -f apps/foodfolio-warehouse-service/Dockerfile . -t azkaban2015/foodfolio-warehouse:{args.VERSION}"
+        },
+        "docker-push": {
+            "command": "docker push azkaban2015/foodfolio-warehouse:{args.VERSION}"
+        }
+    }
+}

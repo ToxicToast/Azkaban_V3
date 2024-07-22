@@ -8,6 +8,7 @@ import {
     LocationEntity,
     SizeEntity,
     TypeEntity,
+    WarehouseEntity,
 } from '../entities';
 import { EntitySchema, MixedList } from 'typeorm';
 
@@ -33,6 +34,7 @@ export const datasourceProvider = [
                 TypeEntity,
                 ItemEntity,
                 ItemDetailEntity,
+                WarehouseEntity,
             ] as unknown as MixedList<string | EntitySchema>;
             //
             return buildDataSource(

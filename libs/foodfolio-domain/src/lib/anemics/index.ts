@@ -5,3 +5,4 @@ export * from './size.anemic';
 export * from './type.anemic';
 export * from './item.anemic';
 export * from './item-detail.anemic';
+export * from './warehouse.anemic';

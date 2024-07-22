@@ -34,6 +34,8 @@ export class VersionController {
                     item: await this.service.getFoodFolioItemVersion(),
                     itemdetail:
                         await this.service.getFoodFolioItemDetailVersion(),
+                    warehouse:
+                        await this.service.getFoodFolioWarehouseVersion(),
                 },
             };
         } catch (error) {
