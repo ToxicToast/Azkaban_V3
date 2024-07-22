@@ -40,7 +40,7 @@ jobs:
               run: npm run nx affected:test --passWithNoTests --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
 
             - name: 🚀 e2e Apps
-              run: npm run nx affected:e2e --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
+              run: npm run nx affected:e2e --passWithNoTests --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
 
             - name: 🚀 Build Apps
               run: npm run nx affected:build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
@@ -65,10 +65,12 @@ jobs:
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
 
             - name: 🏗 Build Docker Images
-              run: npm run nx run-many -- --target=docker-build --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              # run: npm run nx run-many -- --target=docker-build --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npm run nx affected -t docker --VERSION=${{ steps.taggerDryRun.outputs.new_tag }} --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
 
             - name: 🏗 Push Docker Images
-              run: npm run nx run-many -- --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              # run: npm run nx run-many -- --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npm run nx affected -t docker-push --VERSION=${{ steps.taggerDryRun.outputs.new_tag }} --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
 
             - name: API Alerts Notify
               uses: apialerts/notify-action@v1
@@ -76,4 +78,4 @@ jobs:
                   api_key: ${{ secrets.API_ALERTS_KEY }}
                   message: '🚢 Feature - New Patch Released (${{ steps.taggerDryRun.outputs.new_tag }})'
                   tags: 'Azkaban,Feature'
-                  link: 'https://api.toxictoast.de/swagger'
+                  link: 'https://api.toxictoast.de/api'

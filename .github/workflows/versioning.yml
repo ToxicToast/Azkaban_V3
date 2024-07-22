@@ -62,10 +62,12 @@ jobs:
                   echo "${{ steps.taggerDryRun.outputs.new_tag }}"
 
             - name: 🏗 Build Docker Images
-              run: npm run nx run-many -- --target=docker-build --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              # run: npm run nx run-many -- --target=docker-build --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npm run nx affected -t docker --VERSION=${{ steps.taggerDryRun.outputs.new_tag }} --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
 
             - name: 🏗 Push Docker Images
-              run: npm run nx run-many -- --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              # run: npm run nx run-many -- --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npm run nx affected -t docker-push --VERSION=${{ steps.taggerDryRun.outputs.new_tag }} --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
 
             - name: API Alerts Notify
               uses: apialerts/notify-action@v1
@@ -73,4 +75,4 @@ jobs:
                   api_key: ${{ secrets.API_ALERTS_KEY }}
                   message: '🚢 Feature - New Minor Version Released (${{ steps.taggerDryRun.outputs.new_tag }})'
                   tags: 'Azkaban,Minor'
-                  link: 'https://api.toxictoast.de/swagger'
+                  link: 'https://api.toxictoast.de/api'

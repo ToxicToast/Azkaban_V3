@@ -53,7 +53,9 @@
         "docker:push:foodfolio:location": "nx docker-push foodfolio-location-service --skip-nx-cache",
         "docker:push:foodfolio:size": "nx docker-push foodfolio-size-service --skip-nx-cache",
         "docker:push:foodfolio:type": "nx docker-push foodfolio-type-service --skip-nx-cache",
-        "docker:push:foodfolio:item": "nx docker-push foodfolio-item-service --skip-nx-cache"
+        "docker:push:foodfolio:item": "nx docker-push foodfolio-item-service --skip-nx-cache",
+        "affected:docker": "nx affected --target=docker",
+        "affected:docker:push": "nx affected --target=docker-push"
     },
     "private": true,
     "devDependencies": {
