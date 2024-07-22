@@ -14,8 +14,14 @@
             "groupName": "devDependencies (non-major)",
             "matchDepTypes": ["devDependencies", "require-dev"],
             "matchUpdateTypes": ["digest", "minor", "patch"]
+        },
+        {
+            "groupName": "devDependencies (major)",
+            "matchDepTypes": ["devDependencies", "require-dev"],
+            "matchUpdateTypes": ["major"]
         }
     ],
     "separateMinorPatch": true,
-    "stopUpdatingLabel": "renovate/stop_updating"
+    "stopUpdatingLabel": "renovate/stop_updating",
+    "assignees": ["ToxicToast"]
 }
