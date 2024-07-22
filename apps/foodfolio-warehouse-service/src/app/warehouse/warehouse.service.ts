@@ -14,7 +14,7 @@ export class WarehouseService {
     private readonly infrastructureService: BaseService;
 
     constructor(
-        @Inject('TYPE_REPOSITORY')
+        @Inject('WAREHOUSE_REPOSITORY')
         private readonly typeRepository: Repository<WarehouseEntity>,
     ) {
         this.infrastructureRepository = new WarehouseRepository(
