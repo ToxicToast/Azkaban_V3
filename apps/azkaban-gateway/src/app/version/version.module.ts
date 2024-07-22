@@ -18,6 +18,7 @@ import {
     foodfolio_product_detail,
     foodfolio_size,
     foodfolio_type,
+    foodfolio_warehouse,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ConfigService } from '@nestjs/config';
 
@@ -176,6 +177,17 @@ import { ConfigService } from '@nestjs/config';
                 name: 'FOODFOLIO_ITEM_DETAIL_SERVICE',
                 ...clientProvider({
                     queueName: foodfolio_product_detail,
+                    noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+                    brokerUsername: process.env.BROKER_USERNAME,
+                    brokerPassword: process.env.BROKER_PASSWORD,
+                    brokerHost: process.env.BROKER_HOST,
+                    brokerPort: parseInt(process.env.BROKER_PORT),
+                }),
+            },
+            {
+                name: 'FOODFOLIO_WAREHOUSE_SERVICE',
+                ...clientProvider({
+                    queueName: foodfolio_warehouse,
                     noAck: process.env.BROKER_ACK === 'yes' ? true : false,
                     brokerUsername: process.env.BROKER_USERNAME,
                     brokerPassword: process.env.BROKER_PASSWORD,
