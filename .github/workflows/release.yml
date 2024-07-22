@@ -18,7 +18,7 @@ jobs:
 
             - name: Major version for each merge
               id: taggerDryRun
-              uses: anothrNick/github-tag-action@1.69.0
+              uses: anothrNick/github-tag-action@1.70.0
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   WITH_V: true
@@ -36,4 +36,4 @@ jobs:
                   api_key: ${{ secrets.API_ALERTS_KEY }}
                   message: '🚢 Feature - New Version Released (${{ steps.taggerDryRun.outputs.new_tag }})'
                   tags: 'Azkaban,Release'
-                  link: 'https://api.toxictoast.de/swagger'
+                  link: 'https://api.toxictoast.de/api'
