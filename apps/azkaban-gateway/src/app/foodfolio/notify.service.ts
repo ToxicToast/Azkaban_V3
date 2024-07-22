@@ -7,6 +7,7 @@ import {
     FoodfolioProductTopics,
     FoodfolioSizeTopics,
     FoodfolioTypeTopics,
+    FoodfolioWarehouseTopics,
     NotifyTopics,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -80,6 +81,18 @@ export class NotifyService {
         const notifyPayload = {
             service: 'foodfolio-item-service',
             event: FoodfolioProductTopics.CREATE,
+            data: {
+                id,
+                title,
+            },
+        };
+        await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+    }
+
+    async onCreateWarehouse(id: string, title: string): Promise<void> {
+        const notifyPayload = {
+            service: 'foodfolio-warehouse-service',
+            event: FoodfolioWarehouseTopics.CREATE,
             data: {
                 id,
                 title,
