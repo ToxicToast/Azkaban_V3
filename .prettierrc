@@ -1,6 +1,7 @@
 {
     "singleQuote": true,
     "tabWidth": 4,
+    "useTabs": true,
     "plugins": ["prettier-plugin-tailwindcss"],
     "tailwindConfig": "./apps/azkaban-admin-ui/tailwind.config.js"
 }
