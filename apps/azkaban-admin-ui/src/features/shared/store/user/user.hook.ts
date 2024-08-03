@@ -1,25 +1,40 @@
 import { useAppSelector } from '../store';
 import { useLazyFetchUserListQuery } from './user.api';
 import {
+	selectSelectedUser,
 	selectUserData,
 	selectUserDataCount,
 	selectUserDataLatest,
-	selectUserSelected,
+	selectSelectedUserId,
 } from './user.selector';
+import { useDispatch } from 'react-redux';
+import { useCallback } from 'react';
+import { userSlice } from './user.slice';
+import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export function useUserState() {
-	const [fetchUserListTrigger] = useLazyFetchUserListQuery();
-
+	const dispatch = useDispatch();
+	// Selectors
 	const data = useAppSelector(selectUserData);
 	const dataCount = useAppSelector(selectUserDataCount);
-	const selectedUser = useAppSelector(selectUserSelected);
+	const selectedId = useAppSelector(selectSelectedUserId);
+	const selectedUser = useAppSelector(selectSelectedUser);
 	const latestUser = useAppSelector(selectUserDataLatest);
+	// Api Trigger
+	const [fetchUserListTrigger] = useLazyFetchUserListQuery();
+	// Actions
+	const selectUserId = useCallback(
+		(id: Nullable<string>) => dispatch(userSlice.actions.setSelectedId(id)),
+		[dispatch],
+	);
 
 	return {
-		fetchUserListTrigger,
 		data,
 		dataCount,
-		latestUser,
+		selectedId,
 		selectedUser,
+		latestUser,
+		fetchUserListTrigger,
+		selectUserId,
 	};
 }
