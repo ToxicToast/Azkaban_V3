@@ -9,9 +9,9 @@ import {
 	Input,
 	Label,
 } from '../../shared';
-import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useMemo } from 'react';
+import { Headline } from '../../shared/components/components/headline.component';
 
 function CategoryViewPage() {
 	const { category, selectCategoryId, categoryDropdown } = useCategoryState();
@@ -33,18 +33,10 @@ function CategoryViewPage() {
 	return (
 		<div className="mx-auto grid max-w-[60rem] flex-1 auto-rows-max gap-4">
 			<div className="flex items-center gap-4">
-				<Button
-					variant="outline"
-					size="icon"
-					className="h-7 w-7"
-					onClick={() => navigateBack()}
-				>
-					<ChevronLeft className="h-4 w-4" />
-					<span className="sr-only">Back</span>
-				</Button>
-				<h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-					View Category #{category?.id}
-				</h1>
+				<Headline
+					headline={`View Category #${category?.id}`}
+					onNavigateBack={navigateBack}
+				/>
 				BADGE
 				<div className="hidden items-center gap-2 md:ml-auto md:flex">
 					<Button variant="outline" size="sm">
