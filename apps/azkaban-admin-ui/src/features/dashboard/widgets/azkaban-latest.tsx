@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { useUserState } from '../../shared/store/user/user.hook';
 
 export function AzkabanLatest() {
-	const { latestUser } = useUserState();
+	const { latestUser, selectUserId } = useUserState();
 
 	const getUserId = useMemo(() => {
 		return latestUser?.id ?? '0';
@@ -24,7 +24,7 @@ export function AzkabanLatest() {
 			/>
 			<Link
 				to={`/users/view/${getUserId}`}
-				onClick={() => console.error('selectUserId', getUserId)}
+				onClick={() => selectUserId(getUserId)}
 			>
 				<Stats
 					title="Latest Azkaban User"

@@ -10,6 +10,10 @@ import {
 } from '../../shared';
 import { useUserState } from '../../shared/store/user/user.hook';
 import { Headline } from '../../shared/components/components/headline.component';
+import { Status } from '../../shared/components/components/status.component';
+import { Banned } from '../../shared/components/components/banned.component';
+import { Archive } from '../../shared/components/components/archive.component';
+import { GroupsList } from '../components/groups-list.component';
 
 function UserViewPage() {
 	const { selectedUser } = useUserState();
@@ -60,6 +64,15 @@ function UserViewPage() {
 							</div>
 						</CardContent>
 					</Card>
+
+					<Card>
+						<CardHeader>
+							<CardTitle>User Groups</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<GroupsList groups={selectedUser?.groups ?? []} />
+						</CardContent>
+					</Card>
 				</div>
 
 				<div className="grid auto-rows-max items-start gap-4 lg:gap-8">
@@ -70,8 +83,11 @@ function UserViewPage() {
 						<CardContent>
 							<div className="grid gap-6">
 								<div className="grid gap-3">
-									<Label htmlFor="status">Status</Label>
-									<Debugger data={selectedUser?.isActive} />
+									<Status
+										isActive={
+											selectedUser?.isActive ?? false
+										}
+									/>
 								</div>
 							</div>
 						</CardContent>
@@ -79,16 +95,27 @@ function UserViewPage() {
 
 					<Card>
 						<CardHeader>
-							<CardTitle>Archive User</CardTitle>
+							<CardTitle>User Banned</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<Debugger data={selectedUser} />
-							<div></div>
-							<Button size="sm" variant="secondary">
-								Archive User
-							</Button>
+							<div className="grid gap-6">
+								<div className="grid gap-3">
+									<Banned
+										isBanned={
+											selectedUser?.isBanned ?? false
+										}
+									/>
+								</div>
+							</div>
 						</CardContent>
 					</Card>
+
+					<Archive
+						isDeleted={selectedUser?.isDeleted ?? false}
+						type="User"
+					/>
+
+					<Debugger data={selectedUser} />
 				</div>
 			</div>
 		</div>

@@ -12,6 +12,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useMemo } from 'react';
 import { Headline } from '../../shared/components/components/headline.component';
+import { Status } from '../../shared/components/components/status.component';
+import { Archive } from '../../shared/components/components/archive.component';
 
 function CategoryViewPage() {
 	const { category, selectCategoryId, categoryDropdown } = useCategoryState();
@@ -21,14 +23,6 @@ function CategoryViewPage() {
 		selectCategoryId(null);
 		navigate('/foodfolio/category');
 	}, [navigate, selectCategoryId]);
-
-	const statusButtonVariant = useMemo(() => {
-		return category?.isActive ? 'default' : 'destructive';
-	}, [category?.isActive]);
-
-	const statusButtonText = useMemo(() => {
-		return category?.isActive ? 'Active' : 'Inactive';
-	}, [category?.isActive]);
 
 	return (
 		<div className="mx-auto grid max-w-[60rem] flex-1 auto-rows-max gap-4">
@@ -90,28 +84,20 @@ function CategoryViewPage() {
 						<CardContent>
 							<div className="grid gap-6">
 								<div className="grid gap-3">
-									<Button variant={statusButtonVariant}>
-										{statusButtonText}
-									</Button>
+									<Status
+										isActive={category?.isActive ?? false}
+									/>
 								</div>
 							</div>
 						</CardContent>
 					</Card>
 
-					<Card>
-						<CardHeader>
-							<CardTitle>Archive Category</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<div className="grid gap-6">
-								<div className="grid gap-3">
-									<Button variant="secondary">
-										Archive Category
-									</Button>
-								</div>
-							</div>
-						</CardContent>
-					</Card>
+					<Archive
+						isDeleted={category?.isDeleted ?? false}
+						type="Category"
+					/>
+
+					<Debugger data={category} />
 				</div>
 			</div>
 		</div>
