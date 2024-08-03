@@ -1,5 +1,5 @@
 function UserDashboardPage() {
-    return <>USER TABLE</>;
+	return <>USER TABLE</>;
 }
 
 export default UserDashboardPage;

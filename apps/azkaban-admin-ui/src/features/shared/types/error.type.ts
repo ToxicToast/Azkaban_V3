@@ -1,7 +1,7 @@
 export type HttpError = {
-    data: {
-        statusCode: number;
-        message: string;
-    };
-    status: number;
+	data: {
+		statusCode: number;
+		message: string;
+	};
+	status: number;
 };

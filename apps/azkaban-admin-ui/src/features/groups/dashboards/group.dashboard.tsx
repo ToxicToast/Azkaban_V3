@@ -1,5 +1,5 @@
 function GroupsDashboardPage() {
-    return <>GROUPS TABLE</>;
+	return <>GROUPS TABLE</>;
 }
 
 export default GroupsDashboardPage;

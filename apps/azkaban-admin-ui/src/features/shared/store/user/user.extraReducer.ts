@@ -1,7 +1,7 @@
 import {
-    ActionReducerMapBuilder,
-    Draft,
-    PayloadAction,
+	ActionReducerMapBuilder,
+	Draft,
+	PayloadAction,
 } from '@reduxjs/toolkit';
 import { UserModel } from './user.model';
 import { userApi } from './user.api';
@@ -11,29 +11,29 @@ import { HttpError } from '../../types';
 import { toastService } from '../../service';
 
 export const fetchUsersFullfilled = (
-    builder: ActionReducerMapBuilder<UserModel>,
+	builder: ActionReducerMapBuilder<UserModel>,
 ) => {
-    builder.addMatcher(
-        userApi.endpoints?.fetchUserList.matchFulfilled,
-        (state: Draft<UserModel>, action: PayloadAction<Array<User>>) => {
-            const payload = action.payload;
-            //
-            state.data = payload;
-        },
-    );
+	builder.addMatcher(
+		userApi.endpoints?.fetchUserList.matchFulfilled,
+		(state: Draft<UserModel>, action: PayloadAction<Array<User>>) => {
+			const payload = action.payload;
+			//
+			state.data = payload;
+		},
+	);
 };
 
 export const fetchUsersRejected = (
-    builder: ActionReducerMapBuilder<UserModel>,
+	builder: ActionReducerMapBuilder<UserModel>,
 ) => {
-    builder.addMatcher(
-        userApi.endpoints?.fetchUserList.matchRejected,
-        (state: Draft<UserModel>, action: RejectedAction<any, any>) => {
-            const { payload } = action as { payload: HttpError };
-            toastService.sendToast({
-                text: payload.data.message,
-                type: 'danger',
-            });
-        },
-    );
+	builder.addMatcher(
+		userApi.endpoints?.fetchUserList.matchRejected,
+		(state: Draft<UserModel>, action: RejectedAction<any, any>) => {
+			const { payload } = action as { payload: HttpError };
+			toastService.sendToast({
+				text: payload.data.message,
+				type: 'danger',
+			});
+		},
+	);
 };

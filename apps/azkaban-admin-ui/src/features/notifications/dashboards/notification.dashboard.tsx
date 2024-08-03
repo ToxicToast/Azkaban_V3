@@ -1,5 +1,5 @@
 function NotificationsDashboardPage() {
-    return <>NOTIFICATION TABLE</>;
+	return <>NOTIFICATION TABLE</>;
 }
 
 export default NotificationsDashboardPage;

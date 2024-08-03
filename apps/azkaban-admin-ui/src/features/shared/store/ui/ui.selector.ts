@@ -4,6 +4,6 @@ import { createDraftSafeSelector } from '@reduxjs/toolkit';
 const selectUi = (state: RootState) => state.ui;
 
 export const selectSignInButtonDisabled = createDraftSafeSelector(
-    selectUi,
-    (ui) => ui.signInButtonDisabled,
+	selectUi,
+	(ui) => ui.signInButtonDisabled,
 );
