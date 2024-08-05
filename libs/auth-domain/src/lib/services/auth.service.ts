@@ -78,9 +78,12 @@ export class AuthService {
 			if (!checkUsername.isActive) {
 				return Result.fail<AuthAnemic>(UserErrorCodes.NOT_ACTIVE);
 			}
+			//
 			const aggregate = this.factory.reconstitute(checkUsername);
 			aggregate.updateLogin();
-			return await this.save(aggregate.toAnemic());
+			await this.save(aggregate.toAnemic());
+			//
+			return Result.ok(checkUsername);
 		} catch (error) {
 			return Result.fail<AuthAnemic>(error);
 		}

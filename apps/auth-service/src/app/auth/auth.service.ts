@@ -60,6 +60,7 @@ export class AuthService {
 					isActive: res.isActive,
 					isBanned: res.isBanned,
 					activation_token: res.activation_token,
+					loggedin_at: res.loggedin_at,
 				};
 			})
 			.then(async (res) => {

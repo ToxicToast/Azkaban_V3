@@ -70,8 +70,8 @@ export class AuthFactory
 			banned_at,
 			isActive,
 			isBanned,
-			groups,
 			loggedin_at,
+			groups,
 		};
 	}
 
