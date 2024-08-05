@@ -2,6 +2,7 @@ import { FoodFolioCategory } from '@toxictoast/azkaban-sdk';
 import { Badge, TableCell, TableRow } from '../../shared';
 import { useMemo } from 'react';
 import { Actions } from '../../shared/components/components/actions.component';
+import { PrettyDates } from '../../shared/helpers';
 
 interface Props {
 	category: FoodFolioCategory;
@@ -40,6 +41,11 @@ export function CategoryList(props: Props) {
 			<TableCell>
 				<Badge variant={getCategoryStatusVariant}>
 					{getCategoryStatus}
+				</Badge>
+			</TableCell>
+			<TableCell>
+				<Badge variant="outline">
+					{PrettyDates(category.created_at)}
 				</Badge>
 			</TableCell>
 			<TableCell>
