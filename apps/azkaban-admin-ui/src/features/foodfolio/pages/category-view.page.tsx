@@ -1,11 +1,13 @@
 import { useCategoryState } from '../../shared/store/foodfolio';
 import {
+	Badge,
 	Button,
 	Card,
 	CardContent,
 	CardHeader,
 	CardTitle,
 	Debugger,
+	Label,
 } from '../../shared';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
@@ -34,16 +36,10 @@ function CategoryViewPage() {
 		<div className="mx-auto grid max-w-[60rem] flex-1 auto-rows-max gap-4">
 			<div className="flex items-center gap-4">
 				<Headline
-					headline={`View Category #${category?.id}`}
+					headline="View Category"
+					badgeText={category?.id ?? '-'}
 					onNavigateBack={navigateBack}
 				/>
-				BADGE
-				<div className="hidden items-center gap-2 md:ml-auto md:flex">
-					<Button variant="outline" size="sm">
-						Discard
-					</Button>
-					<Button size="sm">Save Category</Button>
-				</div>
 			</div>
 			<div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
 				<div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
@@ -54,13 +50,14 @@ function CategoryViewPage() {
 						<CardContent>
 							<div className="grid gap-6">
 								<div className="grid gap-3">
-									{category?.title}
+									<Label htmlFor="title">Title</Label>
+									<Badge id="title">{category?.title}</Badge>
 								</div>
 							</div>
 						</CardContent>
 					</Card>
 
-					<Card>
+					<Card hidden={category?.isParent ?? false}>
 						<CardHeader>
 							<CardTitle>Parent Category</CardTitle>
 						</CardHeader>

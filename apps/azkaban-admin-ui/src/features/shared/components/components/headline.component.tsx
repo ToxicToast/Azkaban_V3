@@ -1,13 +1,14 @@
-import { Button } from '../../index';
+import { Badge, Button } from '../../index';
 import { ChevronLeft } from 'lucide-react';
 
 interface Props {
 	headline: string;
+	badgeText: string;
 	onNavigateBack?: () => void;
 }
 
 export function Headline(props: Props) {
-	const { headline, onNavigateBack } = props;
+	const { headline, badgeText, onNavigateBack } = props;
 
 	return (
 		<>
@@ -23,6 +24,7 @@ export function Headline(props: Props) {
 			<h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
 				{headline}
 			</h1>
+			<Badge>{badgeText}</Badge>
 		</>
 	);
 }

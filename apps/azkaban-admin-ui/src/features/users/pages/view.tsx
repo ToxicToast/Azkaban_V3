@@ -1,11 +1,9 @@
 import {
-	Button,
+	Badge,
 	Card,
 	CardContent,
 	CardHeader,
 	CardTitle,
-	Debugger,
-	Input,
 	Label,
 } from '../../shared';
 import { useUserState } from '../../shared/store/user/user.hook';
@@ -37,10 +35,10 @@ function UserViewPage() {
 		<div className="mx-auto grid max-w-[60rem] flex-1 auto-rows-max gap-4">
 			<div className="flex items-center gap-4">
 				<Headline
-					headline={`View User #${selectedUser?.id}`}
+					headline="View User"
+					badgeText={selectedUser?.id ?? '-'}
 					onNavigateBack={navigateBack}
 				/>
-				BADGE
 			</div>
 			<div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
 				<div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
@@ -52,12 +50,16 @@ function UserViewPage() {
 							<div className="grid gap-6">
 								<div className="grid gap-3">
 									<Label htmlFor="username">Username</Label>
-									{selectedUser?.username}
+									<Badge id="username">
+										{selectedUser?.username}
+									</Badge>
 								</div>
 
 								<div className="grid gap-3">
 									<Label htmlFor="email">Email</Label>
-									{selectedUser?.email}
+									<Badge id="email">
+										{selectedUser?.email}
+									</Badge>
 								</div>
 							</div>
 						</CardContent>
@@ -65,7 +67,7 @@ function UserViewPage() {
 
 					<Card>
 						<CardHeader>
-							<CardTitle>Token</CardTitle>
+							<CardTitle>User Token</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div className="grid gap-6">
@@ -73,7 +75,9 @@ function UserViewPage() {
 									<Label htmlFor="activation_token">
 										Activation Token
 									</Label>
-									{selectedUser?.activation_token ?? '-'}
+									<Badge>
+										{selectedUser?.activation_token ?? '-'}
+									</Badge>
 								</div>
 							</div>
 						</CardContent>

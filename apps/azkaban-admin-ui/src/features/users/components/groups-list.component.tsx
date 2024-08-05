@@ -15,7 +15,7 @@ export function GroupsList(props: Props) {
 
 	return (
 		<div className="grid gap-6">
-			<div className="flex items-center gap-3">
+			<div className="grid grid-cols-3 items-center gap-3">
 				{groups.map((group) => (
 					<GroupsItem key={group.id} group={group} />
 				))}

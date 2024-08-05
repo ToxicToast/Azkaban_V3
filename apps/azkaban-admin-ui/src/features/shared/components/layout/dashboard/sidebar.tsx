@@ -204,7 +204,7 @@ export function Sidebar(props: Props) {
 						<ul className="mb-3 mt-3">
 							<SidebarLink
 								title="Task List"
-								path="/twitch/task-list"
+								path="/co-working/task-list"
 								icon={Cuboid}
 							/>
 						</ul>

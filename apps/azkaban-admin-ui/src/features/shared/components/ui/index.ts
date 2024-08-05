@@ -5,3 +5,5 @@ export * from './input';
 export * from './label';
 export * from './popover';
 export * from './toast';
+export * from './badge';
+export * from './table';
