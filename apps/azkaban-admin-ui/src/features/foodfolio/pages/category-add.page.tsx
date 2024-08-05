@@ -35,8 +35,11 @@ function CategoryAddPage() {
 
 	const onSubmit = useCallback(
 		(data: CategoryForm) => {
-			createCategoryTrigger(data);
-			navigateBack();
+			const { title } = data;
+			if (title.trim() !== '') {
+				createCategoryTrigger(data);
+				navigateBack();
+			}
 		},
 		[createCategoryTrigger, navigateBack],
 	);
