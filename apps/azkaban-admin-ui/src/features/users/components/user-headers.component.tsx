@@ -6,9 +6,9 @@ export function UserHeaders() {
 			<TableRow>
 				<TableHead>Username</TableHead>
 				<TableHead>Email</TableHead>
-				<TableHead>Active</TableHead>
-				<TableHead>Deleted</TableHead>
-				<TableHead>Banned</TableHead>
+				<TableHead>Status</TableHead>
+				<TableHead>Created At</TableHead>
+				<TableHead>Last Login</TableHead>
 				<TableHead className="text-center">Groups</TableHead>
 				<TableHead />
 			</TableRow>

@@ -18,7 +18,7 @@ function CategoryAddPage() {
 			<div className="flex items-center gap-4">
 				<Headline
 					headline="Add Category"
-					badgeText=""
+					badgeText="Draft"
 					onNavigateBack={console.log}
 				/>
 			</div>

@@ -1,5 +1,6 @@
 import { FoodFolioCategory } from '@toxictoast/azkaban-sdk';
-import { Badge, Button, TableBody, TableCell, TableRow } from '../../shared';
+import { Badge, Button, TableCell, TableRow } from '../../shared';
+import { useMemo } from 'react';
 
 interface Props {
 	category: FoodFolioCategory;
@@ -9,33 +10,40 @@ interface Props {
 export function CategoryList(props: Props) {
 	const { category, onView } = props;
 
+	const getCategoryStatus = useMemo(() => {
+		if (category.isDeleted) {
+			return 'Deleted';
+		} else if (!category.isActive) {
+			return 'Inactive';
+		}
+		return 'Active';
+	}, [category.isActive, category.isDeleted]);
+
+	const getCategoryStatusVariant = useMemo(() => {
+		if (category.isDeleted) {
+			return 'destructive';
+		} else if (!category.isActive) {
+			return 'outline';
+		}
+		return 'default';
+	}, [category.isActive, category.isDeleted]);
+
 	return (
-		<TableBody>
-			<TableRow>
-				<TableCell className="font-medium">{category.title}</TableCell>
-				<TableCell>
-					<Badge variant="outline">
-						{category.isParent ? 'Root' : 'Not Root'}
-					</Badge>
-				</TableCell>
-				<TableCell>
-					<Badge
-						variant={category.isActive ? 'outline' : 'destructive'}
-					>
-						{category.isActive ? 'Active' : 'Inactive'}
-					</Badge>
-				</TableCell>
-				<TableCell>
-					<Badge
-						variant={category.isDeleted ? 'destructive' : 'outline'}
-					>
-						{category.isDeleted ? 'Deleted' : 'Not Deleted'}
-					</Badge>
-				</TableCell>
-				<TableCell>
-					<Button onClick={() => onView()}>View</Button>
-				</TableCell>
-			</TableRow>
-		</TableBody>
+		<TableRow>
+			<TableCell className="font-medium">{category.title}</TableCell>
+			<TableCell>
+				<Badge variant="outline">
+					{category.isParent ? 'Root' : 'Not Root'}
+				</Badge>
+			</TableCell>
+			<TableCell>
+				<Badge variant={getCategoryStatusVariant}>
+					{getCategoryStatus}
+				</Badge>
+			</TableCell>
+			<TableCell>
+				<Button onClick={() => onView()}>View</Button>
+			</TableCell>
+		</TableRow>
 	);
 }

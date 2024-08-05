@@ -6,3 +6,4 @@ export const userEndpoint = '/user';
 
 export const foodfolioEndpoint = '/foodfolio';
 export const foodfolioCategoryEndpoint = `${foodfolioEndpoint}/category`;
+export const foodfolioCompanyEndpoint = `${foodfolioEndpoint}/company`;

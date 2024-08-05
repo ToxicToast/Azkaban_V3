@@ -38,8 +38,8 @@ export function useCategoryState() {
 		category,
 		categoryCount,
 		categoryLatest,
+		categoryDropdown,
 		fetchCategoriesTrigger,
 		selectCategoryId,
-		categoryDropdown,
 	};
 }

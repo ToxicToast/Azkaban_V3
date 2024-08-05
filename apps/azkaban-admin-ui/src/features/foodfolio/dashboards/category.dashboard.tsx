@@ -1,5 +1,5 @@
 import { useCategoryState } from '../../shared/store/foodfolio';
-import { Table } from '../../shared';
+import { Table, TableBody } from '../../shared';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import {
@@ -38,13 +38,15 @@ function CategoryDashboardPage() {
 			<div className="p-6 pt-0">
 				<Table>
 					<CategoryHeaders />
-					{categoryData.map((category) => (
-						<CategoryList
-							key={category.id}
-							category={category}
-							onView={() => onView(category.id)}
-						/>
-					))}
+					<TableBody>
+						{categoryData.map((category) => (
+							<CategoryList
+								key={category.id}
+								category={category}
+								onView={() => onView(category.id)}
+							/>
+						))}
+					</TableBody>
 				</Table>
 			</div>
 		</>

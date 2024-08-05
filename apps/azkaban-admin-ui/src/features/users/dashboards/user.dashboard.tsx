@@ -1,5 +1,5 @@
 import { useUserState } from '../../shared/store/user/user.hook';
-import { Table } from '../../shared';
+import { Table, TableBody } from '../../shared';
 import { UserHeaders } from '../components/user-headers.component';
 import { UserList } from '../components/user-list.component';
 import { useCallback } from 'react';
@@ -30,13 +30,15 @@ function UserDashboardPage() {
 			<div className="p-6 pt-0">
 				<Table>
 					<UserHeaders />
-					{data.map((user) => (
-						<UserList
-							user={user}
-							key={user.id}
-							onView={() => onView(user.id)}
-						/>
-					))}
+					<TableBody>
+						{data.map((user) => (
+							<UserList
+								user={user}
+								key={user.id}
+								onView={() => onView(user.id)}
+							/>
+						))}
+					</TableBody>
 				</Table>
 			</div>
 		</>

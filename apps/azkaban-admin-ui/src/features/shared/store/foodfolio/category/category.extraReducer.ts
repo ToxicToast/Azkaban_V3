@@ -27,7 +27,7 @@ export function onFetchCategoriesRejected(
 ) {
 	builder.addMatcher(
 		categoryApi.endpoints?.fetchCategories.matchRejected,
-		(state: Draft<CategoryModel>) => {
+		() => {
 			toastService.sendToast({
 				text: 'categoryApi.endpoints.fetchCategories.matchRejected',
 				type: 'danger',

@@ -12,6 +12,7 @@ import FoodFolioBrandReducer from './foodfolio/brand/brand.slice';
 import { authApi } from './auth/auth.api';
 import { userApi } from './user/user.api';
 import { categoryApi } from './foodfolio/category/category.api';
+import { brandApi } from './foodfolio/brand/brand.api';
 
 const foodfolioReducer = combineReducers({
 	category: FoodFolioCategoryReducer,
@@ -36,12 +37,14 @@ export const store = configureStore({
 		[authApi.reducerPath]: authApi.reducer,
 		[userApi.reducerPath]: userApi.reducer,
 		[categoryApi.reducerPath]: categoryApi.reducer,
+		[brandApi.reducerPath]: brandApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
 			.concat(authApi.middleware)
 			.concat(userApi.middleware)
-			.concat(categoryApi.middleware),
+			.concat(categoryApi.middleware)
+			.concat(brandApi.middleware),
 	devTools: true,
 	enhancers: (getDefaultEnhancers) => getDefaultEnhancers(),
 });

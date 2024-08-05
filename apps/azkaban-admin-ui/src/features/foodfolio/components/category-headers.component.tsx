@@ -6,8 +6,7 @@ export function CategoryHeaders() {
 			<TableRow>
 				<TableHead>Title</TableHead>
 				<TableHead>Root Category</TableHead>
-				<TableHead>Active</TableHead>
-				<TableHead>Deleted</TableHead>
+				<TableHead>Status</TableHead>
 				<TableHead />
 			</TableRow>
 		</TableHeader>

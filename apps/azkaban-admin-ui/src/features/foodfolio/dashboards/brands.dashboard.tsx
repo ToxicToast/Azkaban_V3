@@ -1,7 +1,10 @@
 import { Debugger, Table } from '../../shared';
 import { PageTitle } from '../../shared/components/components/page-title.component';
+import { useBrandState } from '../../shared/store/foodfolio';
 
 function BrandsDashboardPage() {
+	const { brandData } = useBrandState();
+
 	return (
 		<>
 			<PageTitle
@@ -13,7 +16,7 @@ function BrandsDashboardPage() {
 
 			<div className="p-6 pt-0">
 				<Table>
-					<Debugger data={[]} />
+					<Debugger data={brandData} />
 				</Table>
 			</div>
 		</>
