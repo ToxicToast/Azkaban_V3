@@ -4,6 +4,8 @@ export const dashboardRoute = '/dashboard';
 
 export const usersRoute = '/users';
 export const viewUsersRoute = '/users/view/:id';
+export const editUsersRoute = '/users/edit/:id';
+export const deleteUsersRoute = '/users/delete/:id';
 
 export const groupsRoute = '/groups';
 

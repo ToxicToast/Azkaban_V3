@@ -2,14 +2,18 @@ import { User } from '@toxictoast/azkaban-sdk';
 import { Badge, Button, TableCell, TableRow } from '../../shared';
 import { PrettyDates } from '../../shared/helpers';
 import { useMemo } from 'react';
+import { EditIcon, SearchIcon, TrashIcon } from 'lucide-react';
+import { Actions } from '../../shared/components/components/actions.component';
 
 interface Props {
 	user: User;
 	onView: () => void;
+	onEdit: () => void;
+	onDelete: () => void;
 }
 
 export function UserList(props: Props) {
-	const { user, onView } = props;
+	const { user, onView, onEdit, onDelete } = props;
 
 	const getUserStatus = useMemo(() => {
 		if (user.isDeleted) {
@@ -48,7 +52,11 @@ export function UserList(props: Props) {
 				<Badge variant="outline">{user.groups.length}</Badge>
 			</TableCell>
 			<TableCell>
-				<Button onClick={() => onView()}>View</Button>
+				<Actions
+					onView={() => onView()}
+					onEdit={() => onEdit()}
+					onDelete={() => onDelete()}
+				/>
 			</TableCell>
 		</TableRow>
 	);

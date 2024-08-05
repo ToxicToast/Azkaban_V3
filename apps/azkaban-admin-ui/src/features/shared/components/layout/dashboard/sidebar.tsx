@@ -4,11 +4,17 @@ import { Group, Notebook, User, Cuboid } from 'lucide-react';
 import { CubeIcon, DashboardIcon } from '@radix-ui/react-icons';
 import {
 	dashboardRoute,
+	deleteUsersRoute,
+	editUsersRoute,
 	foodfolioBrandRoute,
+	foodfolioBrandViewRoute,
+	foodfolioCategoryAddRoute,
 	foodfolioCategoryRoute,
+	foodfolioCategoryViewRoute,
 	groupsRoute,
 	notificationsRoute,
 	usersRoute,
+	viewUsersRoute,
 } from '../../../../../config/routes';
 
 interface Props {
@@ -118,6 +124,11 @@ export function Sidebar(props: Props) {
 								title="Users"
 								path={usersRoute}
 								icon={User}
+								otherPaths={[
+									viewUsersRoute,
+									deleteUsersRoute,
+									editUsersRoute,
+								]}
 							/>
 
 							<SidebarLink
@@ -139,11 +150,16 @@ export function Sidebar(props: Props) {
 								title="Categories"
 								path={foodfolioCategoryRoute}
 								icon={CubeIcon}
+								otherPaths={[
+									foodfolioCategoryViewRoute,
+									foodfolioCategoryAddRoute,
+								]}
 							/>
 							<SidebarLink
 								title="Brands"
 								path={foodfolioBrandRoute}
 								icon={CubeIcon}
+								otherPaths={[foodfolioBrandViewRoute]}
 							/>
 							<SidebarLink
 								title="Products"

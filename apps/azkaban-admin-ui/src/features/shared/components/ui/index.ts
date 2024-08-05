@@ -7,3 +7,4 @@ export * from './popover';
 export * from './toast';
 export * from './badge';
 export * from './table';
+export * from './select';

@@ -8,7 +8,10 @@ import {
 	selectSelectedCategory,
 	selectSelectedCategoryId,
 } from './category.selectors';
-import { useLazyFetchCategoriesQuery } from './category.api';
+import {
+	useCreateCategoryMutation,
+	useLazyFetchCategoriesQuery,
+} from './category.api';
 import { useCallback } from 'react';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 import { categorySlice } from './category.slice';
@@ -24,6 +27,8 @@ export function useCategoryState() {
 	const categoryDropdown = useAppSelector(selectCategoryDataWithoutSelected);
 	// Api Trigger
 	const [fetchCategoriesTrigger] = useLazyFetchCategoriesQuery();
+	// Api Mutations
+	const [createCategoryTrigger] = useCreateCategoryMutation();
 	// Actions
 	const selectCategoryId = useCallback(
 		(id: Nullable<string>) => {
@@ -40,6 +45,7 @@ export function useCategoryState() {
 		categoryLatest,
 		categoryDropdown,
 		fetchCategoriesTrigger,
+		createCategoryTrigger,
 		selectCategoryId,
 	};
 }

@@ -1,6 +1,7 @@
 import { FoodFolioCategory } from '@toxictoast/azkaban-sdk';
-import { Badge, Button, TableCell, TableRow } from '../../shared';
+import { Badge, TableCell, TableRow } from '../../shared';
 import { useMemo } from 'react';
+import { Actions } from '../../shared/components/components/actions.component';
 
 interface Props {
 	category: FoodFolioCategory;
@@ -42,7 +43,11 @@ export function CategoryList(props: Props) {
 				</Badge>
 			</TableCell>
 			<TableCell>
-				<Button onClick={() => onView()}>View</Button>
+				<Actions
+					onView={() => onView()}
+					onEdit={() => console.error('on edit category')}
+					onDelete={() => console.error('on delete category')}
+				/>
 			</TableCell>
 		</TableRow>
 	);

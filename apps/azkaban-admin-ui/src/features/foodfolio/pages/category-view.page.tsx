@@ -38,7 +38,7 @@ function CategoryViewPage() {
 				<Headline
 					headline="View Category"
 					badgeText={category?.id ?? '-'}
-					onNavigateBack={navigateBack}
+					onNavigateBack={() => navigateBack()}
 				/>
 			</div>
 			<div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
@@ -86,8 +86,6 @@ function CategoryViewPage() {
 						isDeleted={category?.isDeleted ?? false}
 						type="Category"
 					/>
-
-					<Debugger data={category} />
 				</div>
 			</div>
 		</div>
