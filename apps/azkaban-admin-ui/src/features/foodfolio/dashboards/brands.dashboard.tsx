@@ -1,6 +1,8 @@
-import { Debugger, Table } from '../../shared';
+import { Debugger, Table, TableBody } from '../../shared';
 import { PageTitle } from '../../shared/components/components/page-title.component';
 import { useBrandState } from '../../shared/store/foodfolio';
+import { BrandHeaders } from '../components/brand-headers.component';
+import { BrandList } from '../components/brand-list.component';
 
 function BrandsDashboardPage() {
 	const { brandData } = useBrandState();
@@ -16,7 +18,16 @@ function BrandsDashboardPage() {
 
 			<div className="p-6 pt-0">
 				<Table>
-					<Debugger data={brandData} />
+					<BrandHeaders />
+					<TableBody>
+						{brandData.map((brand) => (
+							<BrandList
+								key={brand.id}
+								brand={brand}
+								onView={console.error}
+							/>
+						))}
+					</TableBody>
 				</Table>
 			</div>
 		</>

@@ -2,7 +2,11 @@ import { FoodFolioCategory } from '@toxictoast/azkaban-sdk';
 import { Badge, TableCell, TableRow } from '../../shared';
 import { useMemo } from 'react';
 import { Actions } from '../../shared/components/components/actions.component';
-import { PrettyDates } from '../../shared/helpers';
+import {
+	getStatusText,
+	getStatusVariant,
+	PrettyDates,
+} from '../../shared/helpers';
 
 interface Props {
 	category: FoodFolioCategory;
@@ -13,21 +17,11 @@ export function CategoryList(props: Props) {
 	const { category, onView } = props;
 
 	const getCategoryStatus = useMemo(() => {
-		if (category.isDeleted) {
-			return 'Deleted';
-		} else if (!category.isActive) {
-			return 'Inactive';
-		}
-		return 'Active';
+		return getStatusText(category.isDeleted, category.isActive);
 	}, [category.isActive, category.isDeleted]);
 
 	const getCategoryStatusVariant = useMemo(() => {
-		if (category.isDeleted) {
-			return 'destructive';
-		} else if (!category.isActive) {
-			return 'outline';
-		}
-		return 'default';
+		return getStatusVariant(category.isDeleted, category.isActive);
 	}, [category.isActive, category.isDeleted]);
 
 	return (

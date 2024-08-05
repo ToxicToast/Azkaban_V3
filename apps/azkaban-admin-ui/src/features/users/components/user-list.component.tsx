@@ -1,8 +1,7 @@
 import { User } from '@toxictoast/azkaban-sdk';
-import { Badge, Button, TableCell, TableRow } from '../../shared';
-import { PrettyDates } from '../../shared/helpers';
+import { Badge, TableCell, TableRow } from '../../shared';
+import { PrettyDateDistance, PrettyDates } from '../../shared/helpers';
 import { useMemo } from 'react';
-import { EditIcon, SearchIcon, TrashIcon } from 'lucide-react';
 import { Actions } from '../../shared/components/components/actions.component';
 
 interface Props {
@@ -35,6 +34,13 @@ export function UserList(props: Props) {
 		return 'default';
 	}, [user.isActive, user.isBanned, user.isDeleted]);
 
+	const getUserLastLogin = useMemo(() => {
+		if (user.loggedin_at) {
+			return PrettyDateDistance(user.loggedin_at);
+		}
+		return 'Never';
+	}, [user.loggedin_at]);
+
 	return (
 		<TableRow>
 			<TableCell className="font-medium">{user.username}</TableCell>
@@ -46,7 +52,7 @@ export function UserList(props: Props) {
 				<Badge variant="outline">{PrettyDates(user.created_at)}</Badge>
 			</TableCell>
 			<TableCell>
-				<Badge variant="outline">LAST LOGIN</Badge>
+				<Badge variant="outline">{getUserLastLogin}</Badge>
 			</TableCell>
 			<TableCell className="text-center">
 				<Badge variant="outline">{user.groups.length}</Badge>
