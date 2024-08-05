@@ -1,6 +1,19 @@
 import { lazy } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { Redirect } from '../features/shared';
+import {
+	authLoginRoute,
+	authSignoutRoute,
+	dashboardRoute,
+	foodfolioCategoryRoute,
+	foodfolioCategoryViewRoute,
+	foodfolioRoute,
+	groupsRoute,
+	notificationsRoute,
+	usersRoute,
+	viewUsersRoute,
+	wildcardRoute,
+} from '../config/routes';
 
 // Layouts
 const LazyAuthLayout = lazy(
@@ -47,57 +60,57 @@ const authenticatedRoutes = [
 		errorElement: <div>Failed loading Layout</div>,
 		children: [
 			{
-				path: '*',
-				element: <Redirect path="/dashboard" />,
+				path: wildcardRoute,
+				element: <Redirect path={dashboardRoute} />,
 				hasErrorBoundary: true,
 			},
 			{
-				path: '/dashboard',
+				path: dashboardRoute,
 				element: <LazyDashboardPage />,
 				hasErrorBoundary: true,
 				errorElement: <div>Failed loading Dashboard</div>,
 			},
 			{
-				path: '/users',
+				path: usersRoute,
 				element: <LazyUserDashboardPage />,
 				hasErrorBoundary: true,
 				errorElement: <div>Failed loading Users</div>,
 			},
 			{
-				path: '/users/view/:id',
+				path: viewUsersRoute,
 				element: <LazyUserViewPage />,
 				hasErrorBoundary: true,
 				errorElement: <div>Failed loading Users</div>,
 			},
 			{
-				path: '/groups',
+				path: groupsRoute,
 				element: <LazyGroupsDashboardPage />,
 				hasErrorBoundary: true,
 				errorElement: <div>Failed loading Groups</div>,
 			},
 			{
-				path: '/notifications',
+				path: notificationsRoute,
 				element: <LazyNotificationsDashboardPage />,
 				hasErrorBoundary: true,
 				errorElement: <div>Failed loading Notifications</div>,
 			},
 			{
-				path: '/auth/signout',
+				path: authSignoutRoute,
 				element: <LazySignoutPage />,
 				hasErrorBoundary: true,
 			},
 			{
-				path: 'foodfolio',
+				path: foodfolioRoute,
 				hasErrorBoundary: true,
 				errorElement: <div>Failed loading Foodfolio</div>,
 				children: [
 					{
-						path: '/foodfolio/category',
+						path: foodfolioCategoryRoute,
 						element: <LazyFoodFolioCategoryPage />,
 						hasErrorBoundary: true,
 					},
 					{
-						path: '/foodfolio/category/view/:id',
+						path: foodfolioCategoryViewRoute,
 						element: <LazyFoodFolioCategoryViewPage />,
 						hasErrorBoundary: true,
 					},
@@ -114,12 +127,12 @@ const guestRoutes = [
 		errorElement: <div>error</div>,
 		children: [
 			{
-				path: '*',
-				element: <Redirect path="/auth/login" />,
+				path: wildcardRoute,
+				element: <Redirect path={authLoginRoute} />,
 				hasErrorBoundary: true,
 			},
 			{
-				path: '/auth/login',
+				path: authLoginRoute,
 				element: <LazyLoginPage />,
 				hasErrorBoundary: true,
 			},

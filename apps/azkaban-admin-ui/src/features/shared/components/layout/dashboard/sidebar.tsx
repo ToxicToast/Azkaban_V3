@@ -2,6 +2,13 @@ import { SidebarHeader } from './sidebar/header';
 import { SidebarLink } from './sidebar/link';
 import { Group, Notebook, User, Cuboid } from 'lucide-react';
 import { CubeIcon, DashboardIcon } from '@radix-ui/react-icons';
+import {
+	dashboardRoute,
+	foodfolioCategoryRoute,
+	groupsRoute,
+	notificationsRoute,
+	usersRoute,
+} from '../../../../../config/routes';
 
 interface Props {
 	sidebarOpen: boolean;
@@ -102,25 +109,25 @@ export function Sidebar(props: Props) {
 						<ul className="mb-3 mt-3">
 							<SidebarLink
 								title="Dashboard"
-								path="/dashboard"
+								path={dashboardRoute}
 								icon={DashboardIcon}
 							/>
 
 							<SidebarLink
 								title="Users"
-								path="/users"
+								path={usersRoute}
 								icon={User}
 							/>
 
 							<SidebarLink
 								title="Groups"
-								path="/groups"
+								path={groupsRoute}
 								icon={Group}
 							/>
 
 							<SidebarLink
 								title="Notifications"
-								path="/notifications"
+								path={notificationsRoute}
 								icon={Notebook}
 							/>
 						</ul>
@@ -129,7 +136,7 @@ export function Sidebar(props: Props) {
 						<ul className="mb-3 mt-3">
 							<SidebarLink
 								title="Categories"
-								path="/foodfolio/category"
+								path={foodfolioCategoryRoute}
 								icon={CubeIcon}
 							/>
 							<SidebarLink
@@ -189,6 +196,15 @@ export function Sidebar(props: Props) {
 							<SidebarLink
 								title="Ban List"
 								path="/twitch/ban-list"
+								icon={Cuboid}
+							/>
+						</ul>
+
+						<SidebarHeader title="Co-Working" />
+						<ul className="mb-3 mt-3">
+							<SidebarLink
+								title="Task List"
+								path="/twitch/task-list"
 								icon={Cuboid}
 							/>
 						</ul>

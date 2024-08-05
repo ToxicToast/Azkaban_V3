@@ -1,4 +1,5 @@
-import { Debugger } from '../../shared';
+import { GroupsItem } from './groups-item.component';
+import { AddGroups } from './add-groups.component';
 
 interface Props {
 	groups: Array<{
@@ -14,7 +15,11 @@ export function GroupsList(props: Props) {
 
 	return (
 		<div className="grid gap-6">
-			<Debugger data={groups} />
+			<div className="flex items-center gap-3">
+				{groups.map((group) => (
+					<GroupsItem key={group.id} group={group} />
+				))}
+			</div>
 		</div>
 	);
 }

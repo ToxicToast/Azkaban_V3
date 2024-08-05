@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { dynamicBaseQuery } from '../dynamicBaseQuery';
 import { Auth } from '@toxictoast/azkaban-sdk';
+import { authLoginWithCookieEndpoint } from '../../../../config/endpoints';
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
@@ -11,7 +12,7 @@ export const authApi = createApi({
 			{ username: string; password: string }
 		>({
 			query: (data) => ({
-				url: '/auth/login/cookie',
+				url: authLoginWithCookieEndpoint,
 				method: 'POST',
 				body: data,
 			}),

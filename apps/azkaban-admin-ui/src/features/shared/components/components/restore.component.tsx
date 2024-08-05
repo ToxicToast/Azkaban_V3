@@ -2,25 +2,25 @@ import { useMemo } from 'react';
 import { Button, Card, CardContent, CardHeader, CardTitle } from '../ui';
 
 interface Props {
-	isActive: boolean;
+	isDeleted: boolean;
 	type: string;
 }
 
-export function Status(props: Props) {
-	const { isActive, type } = props;
+export function Restore(props: Props) {
+	const { isDeleted, type } = props;
 
 	const statusButtonVariant = useMemo(() => {
-		return isActive ? 'secondary' : 'destructive';
-	}, [isActive]);
+		return isDeleted ? 'destructive' : 'secondary';
+	}, [isDeleted]);
 
 	const statusButtonText = useMemo(() => {
-		return isActive ? 'Active' : 'Inactive';
-	}, [isActive]);
+		return isDeleted ? 'Restore' : ' ';
+	}, [isDeleted]);
 
 	return (
-		<Card>
+		<Card hidden={!isDeleted}>
 			<CardHeader>
-				<CardTitle>{type} Status</CardTitle>
+				<CardTitle>Restore {type}</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<div className="grid gap-6">

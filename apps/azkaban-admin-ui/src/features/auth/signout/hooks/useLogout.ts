@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useAuthState } from '../../../shared/store/auth/auth.hook';
 import { useNavigate } from 'react-router-dom';
 import { toastService } from '../../../shared';
+import { homeRoute } from '../../../../config/routes';
 
 export function useLogout() {
 	const { logoutUser } = useAuthState();
@@ -19,7 +20,7 @@ export function useLogout() {
 		//
 		const timeout = setTimeout(() => {
 			logoutUser();
-			navigate('/');
+			navigate(homeRoute);
 		}, 2000);
 		return () => {
 			clearTimeout(timeout);

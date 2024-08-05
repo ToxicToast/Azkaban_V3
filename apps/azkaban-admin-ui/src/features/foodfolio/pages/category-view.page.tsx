@@ -6,14 +6,14 @@ import {
 	CardHeader,
 	CardTitle,
 	Debugger,
-	Input,
-	Label,
 } from '../../shared';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Headline } from '../../shared/components/components/headline.component';
 import { Status } from '../../shared/components/components/status.component';
 import { Archive } from '../../shared/components/components/archive.component';
+import { Restore } from '../../shared/components/components/restore.component';
+import { foodfolioCategoryRoute } from '../../../config/routes';
 
 function CategoryViewPage() {
 	const { category, selectCategoryId, categoryDropdown } = useCategoryState();
@@ -21,8 +21,14 @@ function CategoryViewPage() {
 
 	const navigateBack = useCallback(() => {
 		selectCategoryId(null);
-		navigate('/foodfolio/category');
+		navigate(foodfolioCategoryRoute);
 	}, [navigate, selectCategoryId]);
+
+	useEffect(() => {
+		if (!category) {
+			navigateBack();
+		}
+	}, [category, navigateBack]);
 
 	return (
 		<div className="mx-auto grid max-w-[60rem] flex-1 auto-rows-max gap-4">
@@ -48,15 +54,7 @@ function CategoryViewPage() {
 						<CardContent>
 							<div className="grid gap-6">
 								<div className="grid gap-3">
-									<Label htmlFor="name">Name</Label>
-									<Input
-										id="name"
-										type="text"
-										className="w-full"
-										defaultValue={category?.title}
-										readOnly={true}
-										disabled={true}
-									/>
+									{category?.title}
 								</div>
 							</div>
 						</CardContent>
@@ -77,22 +75,17 @@ function CategoryViewPage() {
 				</div>
 
 				<div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-					<Card>
-						<CardHeader>
-							<CardTitle>Category Status</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<div className="grid gap-6">
-								<div className="grid gap-3">
-									<Status
-										isActive={category?.isActive ?? false}
-									/>
-								</div>
-							</div>
-						</CardContent>
-					</Card>
+					<Status
+						isActive={category?.isActive ?? false}
+						type="Category"
+					/>
 
 					<Archive
+						isDeleted={category?.isDeleted ?? false}
+						type="Category"
+					/>
+
+					<Restore
 						isDeleted={category?.isDeleted ?? false}
 						type="Category"
 					/>
