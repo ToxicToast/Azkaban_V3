@@ -4,6 +4,7 @@ import { Group, Notebook, User, Cuboid } from 'lucide-react';
 import { CubeIcon, DashboardIcon } from '@radix-ui/react-icons';
 import {
 	dashboardRoute,
+	foodfolioBrandRoute,
 	foodfolioCategoryRoute,
 	groupsRoute,
 	notificationsRoute,
@@ -141,7 +142,7 @@ export function Sidebar(props: Props) {
 							/>
 							<SidebarLink
 								title="Brands"
-								path="/foodfolio/brands"
+								path={foodfolioBrandRoute}
 								icon={CubeIcon}
 							/>
 							<SidebarLink

@@ -5,6 +5,7 @@ import { UserList } from '../components/user-list.component';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { viewUsersRoute } from '../../../config/routes';
+import { PageTitle } from '../../shared/components/components/page-title.component';
 
 function UserDashboardPage() {
 	const { data, selectUserId } = useUserState();
@@ -20,14 +21,12 @@ function UserDashboardPage() {
 
 	return (
 		<>
-			<div className="flex flex-col space-y-1.5 p-6 px-7">
-				<h3 className="font-semibold leading-none tracking-tight">
-					Users
-				</h3>
-				<p className="text-sm text-muted-foreground">
-					All registered Users in Azkaban.
-				</p>
-			</div>
+			<PageTitle
+				title="Users"
+				description="All registered Users in Azkaban."
+				type="User"
+				onAdd={console.log}
+			/>
 			<div className="p-6 pt-0">
 				<Table>
 					<UserHeaders />

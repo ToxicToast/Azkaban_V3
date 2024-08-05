@@ -5,6 +5,8 @@ import {
 	authLoginRoute,
 	authSignoutRoute,
 	dashboardRoute,
+	foodfolioBrandRoute,
+	foodfolioCategoryAddRoute,
 	foodfolioCategoryRoute,
 	foodfolioCategoryViewRoute,
 	foodfolioRoute,
@@ -47,6 +49,12 @@ const LazyFoodFolioCategoryPage = lazy(
 );
 const LazyFoodFolioCategoryViewPage = lazy(
 	() => import('../features/foodfolio/pages/category-view.page'),
+);
+const LazyFoodFolioCategoryAddPage = lazy(
+	() => import('../features/foodfolio/pages/category-add.page'),
+);
+const LazyFoodFolioBrandPage = lazy(
+	() => import('../features/foodfolio/dashboards/brands.dashboard'),
 );
 
 interface Props {
@@ -112,6 +120,16 @@ const authenticatedRoutes = [
 					{
 						path: foodfolioCategoryViewRoute,
 						element: <LazyFoodFolioCategoryViewPage />,
+						hasErrorBoundary: true,
+					},
+					{
+						path: foodfolioCategoryAddRoute,
+						element: <LazyFoodFolioCategoryAddPage />,
+						hasErrorBoundary: true,
+					},
+					{
+						path: foodfolioBrandRoute,
+						element: <LazyFoodFolioBrandPage />,
 						hasErrorBoundary: true,
 					},
 				],

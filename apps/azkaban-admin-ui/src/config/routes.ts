@@ -16,5 +16,9 @@ export const authLoginRoute = `${authRoute}/login`;
 export const foodfolioRoute = '/foodfolio';
 export const foodfolioCategoryRoute = `${foodfolioRoute}/category`;
 export const foodfolioCategoryViewRoute = `${foodfolioCategoryRoute}/view/:id`;
+export const foodfolioCategoryAddRoute = `${foodfolioCategoryRoute}/add`;
+
+export const foodfolioBrandRoute = `${foodfolioRoute}/brand`;
+export const foodfolioBrandViewRoute = `${foodfolioBrandRoute}/view/:id`;
 
 export const wildcardRoute = '*';

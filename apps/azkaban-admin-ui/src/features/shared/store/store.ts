@@ -7,6 +7,7 @@ import AuthReducer from './auth/auth.slice';
 import UserReducer from './user/user.slice';
 import UiReducer from './ui/ui.slice';
 import FoodFolioCategoryReducer from './foodfolio/category/category.slice';
+import FoodFolioBrandReducer from './foodfolio/brand/brand.slice';
 
 import { authApi } from './auth/auth.api';
 import { userApi } from './user/user.api';
@@ -14,6 +15,7 @@ import { categoryApi } from './foodfolio/category/category.api';
 
 const foodfolioReducer = combineReducers({
 	category: FoodFolioCategoryReducer,
+	brand: FoodFolioBrandReducer,
 });
 
 const authReducer = combineReducers({
