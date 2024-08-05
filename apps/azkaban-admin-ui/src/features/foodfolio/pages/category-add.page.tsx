@@ -55,3 +55,5 @@ function CategoryAddPage() {
 		</div>
 	);
 }
+
+export default CategoryAddPage;
