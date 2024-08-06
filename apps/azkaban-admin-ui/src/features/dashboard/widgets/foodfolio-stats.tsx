@@ -1,15 +1,21 @@
 import { Stats } from '../components';
 import { CubeIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
-import { useBrandState, useCategoryState } from '../../shared/store/foodfolio';
+import {
+	useBrandState,
+	useCategoryState,
+	useLocationState,
+} from '../../shared/store/foodfolio';
 import {
 	foodfolioBrandRoute,
 	foodfolioCategoryRoute,
+	foodfolioLocationRoute,
 } from '../../../config/routes';
 
 export function FoodfolioStats() {
 	const { categoryCount } = useCategoryState();
 	const { brandCount } = useBrandState();
+	const { locationCount } = useLocationState();
 
 	return (
 		<>
@@ -38,11 +44,17 @@ export function FoodfolioStats() {
 				icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
 				statistic="0"
 			/>
-			<Stats
-				title="Total Foodfolio Locations"
-				icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-				statistic="0"
-			/>
+
+			<Link to={foodfolioLocationRoute}>
+				<Stats
+					title="Total Foodfolio Locations"
+					icon={
+						<CubeIcon className="h-4 w-4 text-muted-foreground" />
+					}
+					statistic={String(locationCount)}
+				/>
+			</Link>
+
 			<Stats
 				title="Total Foodfolio Sizes"
 				icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}

@@ -1,7 +1,7 @@
 import { RootState } from '../store';
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
 
-const selectAuth = (state: RootState) => state.auth.auth;
+const selectAuth = (state: RootState) => state.azkaban.auth;
 
 export const selectAuthId = createDraftSafeSelector(
 	selectAuth,

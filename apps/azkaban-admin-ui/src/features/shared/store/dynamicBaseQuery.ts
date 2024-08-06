@@ -19,7 +19,7 @@ export const dynamicBaseQuery: BaseQueryFn<
 ) => {
 	const rootState = WebApi.getState() as RootState;
 	const baseUrl = rootState.config.baseUrl ?? '';
-	const token = rootState.auth.auth.token ?? null;
+	const token = rootState.azkaban.auth.token ?? null;
 	const rawBaseQuery = fetchBaseQuery({
 		baseUrl,
 		prepareHeaders: (headers: Headers) => {

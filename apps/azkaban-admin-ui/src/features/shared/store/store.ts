@@ -16,26 +16,22 @@ import { categoryApi } from './foodfolio/category/category.api';
 import { brandApi } from './foodfolio/brand/brand.api';
 import { locationApi } from './foodfolio/location/location.api';
 
+const azkabanReducer = combineReducers({
+	auth: AuthReducer,
+	user: UserReducer,
+});
+
 const foodfolioReducer = combineReducers({
 	category: FoodFolioCategoryReducer,
 	brand: FoodFolioBrandReducer,
 	location: FoodFolioLocationReducer,
 });
 
-const authReducer = combineReducers({
-	auth: AuthReducer,
-});
-
-const userReducer = combineReducers({
-	user: UserReducer,
-});
-
 export const store = configureStore({
 	reducer: {
 		config: ConfigReducer,
 		ui: UiReducer,
-		user: userReducer,
-		auth: authReducer,
+		azkaban: azkabanReducer,
 		foodfolio: foodfolioReducer,
 		[authApi.reducerPath]: authApi.reducer,
 		[userApi.reducerPath]: userApi.reducer,

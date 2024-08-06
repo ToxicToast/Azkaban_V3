@@ -2,7 +2,7 @@ import { RootState } from '../store';
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 
-const selectUser = (state: RootState) => state.user.user;
+const selectUser = (state: RootState) => state.azkaban.user;
 
 export const selectUserData = createDraftSafeSelector(
 	selectUser,
