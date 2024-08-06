@@ -24,5 +24,6 @@ export const foodfolioBrandRoute = `${foodfolioRoute}/brand`;
 export const foodfolioBrandViewRoute = `${foodfolioBrandRoute}/view/:id`;
 
 export const foodfolioLocationRoute = `${foodfolioRoute}/location`;
+export const foodfolioLocationViewRoute = `${foodfolioLocationRoute}/view/:id`;
 
 export const wildcardRoute = '*';
