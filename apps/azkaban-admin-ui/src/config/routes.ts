@@ -23,4 +23,6 @@ export const foodfolioCategoryAddRoute = `${foodfolioCategoryRoute}/add`;
 export const foodfolioBrandRoute = `${foodfolioRoute}/brand`;
 export const foodfolioBrandViewRoute = `${foodfolioBrandRoute}/view/:id`;
 
+export const foodfolioLocationRoute = `${foodfolioRoute}/location`;
+
 export const wildcardRoute = '*';

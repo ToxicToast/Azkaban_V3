@@ -11,6 +11,7 @@ import {
 	foodfolioCategoryAddRoute,
 	foodfolioCategoryRoute,
 	foodfolioCategoryViewRoute,
+	foodfolioLocationRoute,
 	groupsRoute,
 	notificationsRoute,
 	usersRoute,
@@ -168,7 +169,7 @@ export function Sidebar(props: Props) {
 							/>
 							<SidebarLink
 								title="Locations"
-								path="/foodfolio/locations"
+								path={foodfolioLocationRoute}
 								icon={CubeIcon}
 							/>
 							<SidebarLink
