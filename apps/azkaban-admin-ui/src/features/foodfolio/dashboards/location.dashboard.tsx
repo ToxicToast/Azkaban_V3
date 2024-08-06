@@ -1,11 +1,11 @@
 import { Table, TableBody } from '../../shared';
 import { PageTitle } from '../../shared/components/components/page-title.component';
-import { useBrandState } from '../../shared/store/foodfolio';
+import { useLocationState } from '../../shared/store/foodfolio';
 import { LocationHeaders } from '../components/location-headers.component';
 import { LocationList } from '../components/location-list.component';
 
 function LocationDashboardPage() {
-	const { brandData } = useBrandState();
+	const { locationData } = useLocationState();
 
 	return (
 		<>
@@ -20,7 +20,7 @@ function LocationDashboardPage() {
 				<Table>
 					<LocationHeaders />
 					<TableBody>
-						{brandData.map((location) => (
+						{locationData.map((location) => (
 							<LocationList
 								key={location.id}
 								location={location}
