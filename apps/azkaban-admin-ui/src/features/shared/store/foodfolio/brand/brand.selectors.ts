@@ -3,10 +3,6 @@ import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import { BrandModel } from './brand.model';
 import { FoodFolioCompany } from '@toxictoast/azkaban-sdk';
 import { Nullable } from '@toxictoast/azkaban-base-types';
-import {
-	selectCategoryData,
-	selectSelectedCategoryId,
-} from '../category/category.selectors';
 
 const selectBrand = (state: RootState) => state.foodfolio.brand;
 
@@ -21,8 +17,8 @@ export const selectSelectedBrandId = createDraftSafeSelector(
 );
 
 export const selectSelectedBrand = createDraftSafeSelector(
-	selectCategoryData,
-	selectSelectedCategoryId,
+	selectBrandData,
+	selectSelectedBrandId,
 	(data: Array<FoodFolioCompany>, selectedId: Nullable<string>) => {
 		if (selectedId !== null) {
 			return data.find((brand) => brand.id === selectedId);

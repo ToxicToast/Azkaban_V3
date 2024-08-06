@@ -7,6 +7,7 @@ import {
 	useBrandState,
 	useCategoryState,
 } from '../features/shared/store/foodfolio';
+import { useLocationState } from '../features/shared/store/foodfolio/location';
 
 export function App() {
 	const { isAuthenticated } = useAuthState();
@@ -14,14 +15,17 @@ export function App() {
 	const { fetchUserListTrigger } = useUserState();
 	const { fetchCategoriesTrigger } = useCategoryState();
 	const { fetchBrandsTrigger } = useBrandState();
+	const { fetchLocationsTrigger } = useLocationState();
 
 	useEffect(() => {
 		if (isAuthenticated) {
 			fetchUserListTrigger();
 			fetchCategoriesTrigger();
 			fetchBrandsTrigger();
+			fetchLocationsTrigger();
 		}
 	}, [
+		fetchLocationsTrigger,
 		fetchBrandsTrigger,
 		fetchCategoriesTrigger,
 		fetchUserListTrigger,

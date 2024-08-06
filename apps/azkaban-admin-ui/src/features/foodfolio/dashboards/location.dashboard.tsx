@@ -1,8 +1,8 @@
 import { Table, TableBody } from '../../shared';
 import { PageTitle } from '../../shared/components/components/page-title.component';
 import { useBrandState } from '../../shared/store/foodfolio';
-import { BrandHeaders } from '../components/brand-headers.component';
-import { BrandList } from '../components/brand-list.component';
+import { LocationHeaders } from '../components/location-headers.component';
+import { LocationList } from '../components/location-list.component';
 
 function LocationDashboardPage() {
 	const { brandData } = useBrandState();
@@ -18,12 +18,12 @@ function LocationDashboardPage() {
 
 			<div className="p-6 pt-0">
 				<Table>
-					<BrandHeaders />
+					<LocationHeaders />
 					<TableBody>
-						{brandData.map((brand) => (
-							<BrandList
-								key={brand.id}
-								brand={brand}
+						{brandData.map((location) => (
+							<LocationList
+								key={location.id}
+								location={location}
 								onView={console.error}
 							/>
 						))}
