@@ -36,13 +36,12 @@ export class NotifyService {
 		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
 	}
 
-	async onLoginAttempt(username: string, password: string): Promise<void> {
+	async onLoginAttempt(username: string): Promise<void> {
 		const notifyPayload = {
 			service: 'auth-service',
 			event: AuthTopics.LOGIN_ATTEMPT,
 			data: {
 				username,
-				password,
 			},
 		};
 		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();

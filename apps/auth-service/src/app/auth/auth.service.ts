@@ -74,7 +74,7 @@ export class AuthService {
 				};
 			})
 			.catch(async () => {
-				await this.notifyService.onLoginAttempt(username, password);
+				await this.notifyService.onLoginAttempt(username);
 				return null;
 			});
 	}
