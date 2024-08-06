@@ -1,6 +1,11 @@
 import { User } from '@toxictoast/azkaban-sdk';
 import { Badge, TableCell, TableRow } from '../../shared';
-import { PrettyDateDistance, PrettyDates } from '../../shared/helpers';
+import {
+	getStatusText,
+	getStatusVariant,
+	PrettyDateDistance,
+	PrettyDates,
+} from '../../shared/helpers';
 import { useMemo } from 'react';
 import { Actions } from '../../shared/components/components/actions.component';
 
@@ -15,23 +20,11 @@ export function UserList(props: Props) {
 	const { user, onView, onEdit, onDelete } = props;
 
 	const getUserStatus = useMemo(() => {
-		if (user.isDeleted) {
-			return 'Deleted';
-		} else if (user.isBanned) {
-			return 'Banned';
-		} else if (!user.isActive) {
-			return 'Inactive';
-		}
-		return 'Active';
+		return getStatusText(user.isDeleted, user.isBanned, user.isActive);
 	}, [user.isActive, user.isBanned, user.isDeleted]);
 
 	const getUserStatusVariant = useMemo(() => {
-		if (user.isDeleted || user.isBanned) {
-			return 'destructive';
-		} else if (!user.isActive) {
-			return 'outline';
-		}
-		return 'default';
+		return getStatusVariant(user.isDeleted, user.isBanned, user.isActive);
 	}, [user.isActive, user.isBanned, user.isDeleted]);
 
 	const getUserLastLogin = useMemo(() => {

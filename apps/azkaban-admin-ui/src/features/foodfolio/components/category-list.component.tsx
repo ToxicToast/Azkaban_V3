@@ -17,11 +17,11 @@ export function CategoryList(props: Props) {
 	const { category, onView } = props;
 
 	const getCategoryStatus = useMemo(() => {
-		return getStatusText(category.isDeleted, category.isActive);
+		return getStatusText(category.isDeleted, false, category.isActive);
 	}, [category.isActive, category.isDeleted]);
 
 	const getCategoryStatusVariant = useMemo(() => {
-		return getStatusVariant(category.isDeleted, category.isActive);
+		return getStatusVariant(category.isDeleted, false, category.isActive);
 	}, [category.isActive, category.isDeleted]);
 
 	return (

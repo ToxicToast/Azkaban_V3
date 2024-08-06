@@ -17,11 +17,11 @@ export function BrandList(props: Props) {
 	const { brand, onView } = props;
 
 	const getBrandStatus = useMemo(() => {
-		return getStatusText(brand.isDeleted, brand.isActive);
+		return getStatusText(brand.isDeleted, false, brand.isActive);
 	}, [brand.isActive, brand.isDeleted]);
 
 	const getBrandStatusVariant = useMemo(() => {
-		return getStatusVariant(brand.isDeleted, brand.isActive);
+		return getStatusVariant(brand.isDeleted, false, brand.isActive);
 	}, [brand.isActive, brand.isDeleted]);
 
 	return (
