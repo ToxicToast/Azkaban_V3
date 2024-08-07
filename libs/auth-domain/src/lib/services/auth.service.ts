@@ -40,6 +40,15 @@ export class AuthService {
 		}
 	}
 
+	async findById(id: string): Promise<Result<AuthAnemic>> {
+		try {
+			const result = await this.repository.findById(id);
+			return Result.ok<AuthAnemic>(result);
+		} catch (error) {
+			return Result.fail<AuthAnemic>(error);
+		}
+	}
+
 	async createUser(data: AuthData): Promise<Result<AuthAnemic>> {
 		try {
 			const checkEmail = await this.repository.findByEmail(data.email);

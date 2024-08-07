@@ -33,6 +33,16 @@ export class AuthService {
 		}
 	}
 
+	async refresh(id: string): Promise<AuthDAO> {
+		const result = await this.domainService.findById(id);
+		if (result.isSuccess) {
+			return result.value;
+		} else {
+			const errorMessage = result.errorValue;
+			throw new BadRequestException(errorMessage);
+		}
+	}
+
 	async activateAccount(email: string, token: string): Promise<AuthDAO> {
 		const result = await this.domainService.activateUser(email, token);
 		if (result.isSuccess) {

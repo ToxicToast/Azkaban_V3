@@ -4,7 +4,6 @@ import {
 	Controller,
 	Delete,
 	HttpException,
-	Logger,
 	Post,
 	Put,
 	Req,
@@ -76,8 +75,10 @@ export class AuthController {
 	@Post('refresh')
 	async refreshToken(@Req() request, @Res({ passthrough: true }) response) {
 		try {
-			const user = request['user'];
-			return user;
+			const { id } = request['user'];
+			const auth = await this.service.refresh(id);
+			this.setCookie(response, auth.token);
+			return auth;
 		} catch (error) {
 			throw new HttpException(
 				error.message ?? 'Unknown Error',

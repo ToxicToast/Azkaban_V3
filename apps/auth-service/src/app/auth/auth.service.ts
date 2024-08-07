@@ -79,6 +79,35 @@ export class AuthService {
 			});
 	}
 
+	async refresh(id: string) {
+		return await this.infrastructureService
+			.refresh(id)
+			.then(async (res) => {
+				return {
+					id: res.id,
+					username: res.username,
+					email: res.email,
+					groups: res.groups,
+					isActive: res.isActive,
+					isBanned: res.isBanned,
+					activation_token: res.activation_token,
+					loggedin_at: res.loggedin_at,
+				};
+			})
+			.then(async (res) => {
+				const token = await this.jwtService.signAsync(res);
+				const decoded = await this.jwtService.decode(token);
+				return {
+					user: res,
+					token,
+					exp: decoded.exp,
+				};
+			})
+			.catch(async () => {
+				return null;
+			});
+	}
+
 	async activateAccount(email: string, token: string) {
 		return await this.infrastructureService.activateAccount(email, token);
 	}
