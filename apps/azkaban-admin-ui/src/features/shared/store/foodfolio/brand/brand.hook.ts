@@ -10,7 +10,7 @@ import {
 import { useCallback } from 'react';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 import { brandSlice } from './brand.slice';
-import { useLazyFetchBrandsQuery } from './brand.api';
+import { useCreateBrandMutation, useLazyFetchBrandsQuery } from './brand.api';
 
 export function useBrandState() {
 	const dispatch = useDispatch();
@@ -22,6 +22,8 @@ export function useBrandState() {
 	const brandLatest = useAppSelector(selectBrandDataLatest);
 	// Api Trigger
 	const [fetchBrandsTrigger] = useLazyFetchBrandsQuery();
+	// Api Mutations
+	const [createBrandTrigger] = useCreateBrandMutation();
 	// Actions
 	const selectBrandId = useCallback(
 		(id: Nullable<string>) => {
@@ -37,6 +39,7 @@ export function useBrandState() {
 		brandCount,
 		brandLatest,
 		fetchBrandsTrigger,
+		createBrandTrigger,
 		selectBrandId,
 	};
 }

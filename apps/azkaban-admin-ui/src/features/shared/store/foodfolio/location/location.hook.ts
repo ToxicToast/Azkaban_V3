@@ -10,7 +10,10 @@ import {
 import { useCallback } from 'react';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 import { locationSlice } from './location.slice';
-import { useLazyFetchLocationsQuery } from './location.api';
+import {
+	useCreateLocationMutation,
+	useLazyFetchLocationsQuery,
+} from './location.api';
 
 export function useLocationState() {
 	const dispatch = useDispatch();
@@ -22,6 +25,8 @@ export function useLocationState() {
 	const locationLatest = useAppSelector(selectLocationDataLatest);
 	// Api Trigger
 	const [fetchLocationsTrigger] = useLazyFetchLocationsQuery();
+	// Api Mutations
+	const [createLocationTrigger] = useCreateLocationMutation();
 	// Actions
 	const selectLocationId = useCallback(
 		(id: Nullable<string>) => {
@@ -37,6 +42,7 @@ export function useLocationState() {
 		locationCount,
 		locationLatest,
 		fetchLocationsTrigger,
+		createLocationTrigger,
 		selectLocationId,
 	};
 }

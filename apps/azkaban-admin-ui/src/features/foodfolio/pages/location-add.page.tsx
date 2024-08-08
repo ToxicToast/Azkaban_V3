@@ -1,5 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useCallback, useMemo } from 'react';
+import { foodfolioLocationRoute } from '../../../config/routes';
 import { Headline } from '../../shared/components/components/headline.component';
 import {
+	Badge,
 	Card,
 	CardContent,
 	CardHeader,
@@ -9,40 +14,39 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
+	Show,
 } from '../../shared';
-import { useCategoryState } from '../../shared/store/foodfolio';
-import { useNavigate } from 'react-router-dom';
-import { useCallback } from 'react';
-import { foodfolioCategoryRoute } from '../../../config/routes';
-import { useForm } from 'react-hook-form';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
-import { BoxIcon, LocateIcon } from 'lucide-react';
+import { Nullable } from '@toxictoast/azkaban-base-types';
+import { useLocationState } from '../../shared/store/foodfolio';
+import { LocateIcon } from 'lucide-react';
 import { SelectItemAtom } from '../../shared/components/atoms/select-item.atom';
 
-type CategoryForm = {
+type LocationForm = {
 	title: string;
-	parent_id: string;
+	parent_id: Nullable<string>;
+	freezer: string;
 };
 
-function CategoryAddPage() {
-	const { categoryData, createCategoryTrigger } = useCategoryState();
+function LocationAddPage() {
+	const { locationData, createLocationTrigger } = useLocationState();
 	const navigate = useNavigate();
-	const { handleSubmit, setValue } = useForm<CategoryForm>();
+	const { handleSubmit, setValue } = useForm<LocationForm>();
 
 	const navigateBack = useCallback(() => {
-		navigate(foodfolioCategoryRoute);
+		navigate(foodfolioLocationRoute);
 	}, [navigate]);
 
 	const onSubmit = useCallback(
-		(data: CategoryForm) => {
+		(data: LocationForm) => {
 			const { title } = data;
 			if (title.trim() !== '') {
-				createCategoryTrigger(data);
+				createLocationTrigger(data);
 				navigateBack();
 			}
 		},
-		[createCategoryTrigger, navigateBack],
+		[createLocationTrigger, navigateBack],
 	);
 
 	return (
@@ -50,7 +54,7 @@ function CategoryAddPage() {
 			<div className="mx-auto grid max-w-[60rem] flex-1 auto-rows-max gap-4">
 				<div className="flex items-center gap-4">
 					<Headline
-						headline="Add Category"
+						headline="Add Location"
 						badgeText="Draft"
 						onNavigateBack={() => navigateBack()}
 					/>
@@ -59,7 +63,7 @@ function CategoryAddPage() {
 					<div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
 						<Card>
 							<CardHeader>
-								<CardTitle>Category Details</CardTitle>
+								<CardTitle>Location Details</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="grid gap-6">
@@ -78,7 +82,7 @@ function CategoryAddPage() {
 
 						<Card>
 							<CardHeader>
-								<CardTitle>Parent Category</CardTitle>
+								<CardTitle>Parent Location</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="grid gap-6">
@@ -89,26 +93,61 @@ function CategoryAddPage() {
 											}
 										>
 											<SelectTrigger className="w-full">
-												<SelectValue placeholder="No Parent Category" />
+												<SelectValue placeholder="No Parent Location" />
 											</SelectTrigger>
 											<SelectContent>
-												{categoryData.map(
-													(category) => (
+												{locationData.map(
+													(location) => (
 														<SelectItem
-															key={category.id}
-															value={category.id}
+															key={location.id}
+															value={location.id}
 														>
 															<SelectItemAtom
 																icon={
-																	<BoxIcon className="size-5" />
+																	<LocateIcon className="size-5" />
 																}
 																title={
-																	category.title
+																	location.title
 																}
 															/>
 														</SelectItem>
 													),
 												)}
+											</SelectContent>
+										</Select>
+									</div>
+								</div>
+							</CardContent>
+						</Card>
+
+						<Card>
+							<CardHeader>
+								<CardTitle>Is Location a Freezer?</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="grid gap-6">
+									<div className="grid gap-3">
+										<Select
+											onValueChange={(value) =>
+												setValue('freezer', value)
+											}
+										>
+											<SelectTrigger className="w-full">
+												<SelectValue placeholder="No Freezer" />
+											</SelectTrigger>
+											<SelectContent>
+												<SelectItem value="0">
+													<SelectItemAtom
+														icon={<></>}
+														title="No"
+													/>
+												</SelectItem>
+												<SelectItem value="1">
+													<SelectItemAtom
+														icon={<></>}
+														title="Yes"
+													/>
+												</SelectItem>
 											</SelectContent>
 										</Select>
 									</div>
@@ -137,4 +176,4 @@ function CategoryAddPage() {
 	);
 }
 
-export default CategoryAddPage;
+export default LocationAddPage;

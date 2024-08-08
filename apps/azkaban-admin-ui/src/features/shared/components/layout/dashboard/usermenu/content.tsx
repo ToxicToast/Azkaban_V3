@@ -1,6 +1,6 @@
 import { UserMenuContentUser } from './content/user';
 import { UserMenuContentLinks } from './content/links';
-import { AvatarIcon, ExitIcon } from '@radix-ui/react-icons';
+import { AvatarIcon, ExitIcon, ReloadIcon } from '@radix-ui/react-icons';
 
 interface Props {
 	username: string;
@@ -17,6 +17,11 @@ export function UserMenuContent(props: Props) {
 					path="/settings"
 					title="Settings"
 					icon={<AvatarIcon />}
+				/>
+				<UserMenuContentLinks
+					path="/auth/refresh"
+					title="Refresh Token"
+					icon={<ReloadIcon />}
 				/>
 				<UserMenuContentLinks
 					path="/auth/signout"

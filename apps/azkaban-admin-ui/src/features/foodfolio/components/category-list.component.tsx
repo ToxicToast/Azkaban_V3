@@ -7,14 +7,16 @@ import {
 	getStatusVariant,
 	PrettyDates,
 } from '../../shared/helpers';
+import { Nullable } from '@toxictoast/azkaban-base-types';
 
 interface Props {
 	category: FoodFolioCategory;
 	onView: () => void;
+	parent: Nullable<FoodFolioCategory>;
 }
 
 export function CategoryList(props: Props) {
-	const { category, onView } = props;
+	const { category, onView, parent } = props;
 
 	const getCategoryStatus = useMemo(() => {
 		return getStatusText(category.isDeleted, false, category.isActive);
@@ -29,7 +31,7 @@ export function CategoryList(props: Props) {
 			<TableCell className="font-medium">{category.title}</TableCell>
 			<TableCell>
 				<Badge variant="outline">
-					{category.isParent ? 'Root' : 'Not Root'}
+					{parent === null ? 'Root' : parent?.title}
 				</Badge>
 			</TableCell>
 			<TableCell>

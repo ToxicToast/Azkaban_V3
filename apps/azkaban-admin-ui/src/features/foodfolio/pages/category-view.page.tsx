@@ -1,7 +1,6 @@
 import { useCategoryState } from '../../shared/store/foodfolio';
 import {
 	Badge,
-	Button,
 	Card,
 	CardContent,
 	CardHeader,

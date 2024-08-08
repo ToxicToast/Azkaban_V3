@@ -15,7 +15,16 @@ export const brandApi = createApi({
 			}),
 			providesTags: ['FetchBrands'],
 		}),
+
+		createBrand: builder.mutation<void, { title: string }>({
+			query: (data) => ({
+				url: foodfolioCompanyEndpoint,
+				method: 'POST',
+				body: data,
+			}),
+			invalidatesTags: ['FetchBrands'],
+		}),
 	}),
 });
 
-export const { useLazyFetchBrandsQuery } = brandApi;
+export const { useLazyFetchBrandsQuery, useCreateBrandMutation } = brandApi;

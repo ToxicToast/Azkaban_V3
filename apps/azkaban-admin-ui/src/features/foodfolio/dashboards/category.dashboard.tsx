@@ -9,6 +9,7 @@ import {
 import { CategoryHeaders } from '../components/category-headers.component';
 import { CategoryList } from '../components/category-list.component';
 import { PageTitle } from '../../shared/components/components/page-title.component';
+import { Nullable } from '@toxictoast/azkaban-base-types';
 
 function CategoryDashboardPage() {
 	const { categoryData, selectCategoryId } = useCategoryState();
@@ -25,6 +26,13 @@ function CategoryDashboardPage() {
 	const onAdd = useCallback(() => {
 		navigate(foodfolioCategoryAddRoute);
 	}, [navigate]);
+
+	const findParent = useCallback(
+		(parentId: Nullable<string>) => {
+			return categoryData.find((category) => category.id === parentId);
+		},
+		[categoryData],
+	);
 
 	return (
 		<>
@@ -44,6 +52,7 @@ function CategoryDashboardPage() {
 								key={category.id}
 								category={category}
 								onView={() => onView(category.id)}
+								parent={findParent(category.parent_id) ?? null}
 							/>
 						))}
 					</TableBody>

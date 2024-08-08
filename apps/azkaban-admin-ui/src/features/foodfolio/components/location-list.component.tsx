@@ -7,14 +7,16 @@ import {
 } from '../../shared/helpers';
 import { Badge, TableCell, TableRow } from '../../shared';
 import { Actions } from '../../shared/components/components/actions.component';
+import { Nullable } from '@toxictoast/azkaban-base-types';
 
 interface Props {
 	location: FoodFolioLocation;
 	onView: () => void;
+	parent: Nullable<FoodFolioLocation>;
 }
 
 export function LocationList(props: Props) {
-	const { location, onView } = props;
+	const { location, onView, parent } = props;
 
 	const getLocationStatus = useMemo(() => {
 		return getStatusText(location.isDeleted, false, location.isActive);
@@ -29,7 +31,7 @@ export function LocationList(props: Props) {
 			<TableCell className="font-medium">{location.title}</TableCell>
 			<TableCell>
 				<Badge variant="outline">
-					{location.isParent ? 'Root' : 'Not Root'}
+					{parent === null ? 'Root' : parent?.title}
 				</Badge>
 			</TableCell>
 			<TableCell>

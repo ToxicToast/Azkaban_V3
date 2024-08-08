@@ -14,6 +14,7 @@ export const notificationsRoute = '/notifications';
 export const authRoute = '/auth';
 export const authSignoutRoute = `${authRoute}/signout`;
 export const authLoginRoute = `${authRoute}/login`;
+export const authRefreshRoute = `${authRoute}/refresh`;
 
 export const foodfolioRoute = '/foodfolio';
 export const foodfolioCategoryRoute = `${foodfolioRoute}/category`;
@@ -22,8 +23,10 @@ export const foodfolioCategoryAddRoute = `${foodfolioCategoryRoute}/add`;
 
 export const foodfolioBrandRoute = `${foodfolioRoute}/brand`;
 export const foodfolioBrandViewRoute = `${foodfolioBrandRoute}/view/:id`;
+export const foodfolioBrandAddRoute = `${foodfolioBrandRoute}/add`;
 
 export const foodfolioLocationRoute = `${foodfolioRoute}/location`;
 export const foodfolioLocationViewRoute = `${foodfolioLocationRoute}/view/:id`;
+export const foodfolioLocationAddRoute = `${foodfolioLocationRoute}/add`;
 
 export const wildcardRoute = '*';

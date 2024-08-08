@@ -3,12 +3,16 @@ import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { Redirect } from '../features/shared';
 import {
 	authLoginRoute,
+	authRefreshRoute,
 	authSignoutRoute,
 	dashboardRoute,
+	foodfolioBrandAddRoute,
 	foodfolioBrandRoute,
+	foodfolioBrandViewRoute,
 	foodfolioCategoryAddRoute,
 	foodfolioCategoryRoute,
 	foodfolioCategoryViewRoute,
+	foodfolioLocationAddRoute,
 	foodfolioLocationRoute,
 	foodfolioRoute,
 	groupsRoute,
@@ -31,6 +35,9 @@ const LazyLoginPage = lazy(
 );
 const LazySignoutPage = lazy(
 	() => import('../features/auth/signout/pages/signout.page'),
+);
+const LazyRefreshPage = lazy(
+	() => import('../features/auth/refresh/pages/refresh.page'),
 );
 const LazyDashboardPage = lazy(
 	() => import('../features/dashboard/dashboard.page'),
@@ -57,8 +64,14 @@ const LazyFoodFolioCategoryAddPage = lazy(
 const LazyFoodFolioBrandPage = lazy(
 	() => import('../features/foodfolio/dashboards/brands.dashboard'),
 );
+const LazyFoodFolioBrandAddPage = lazy(
+	() => import('../features/foodfolio/pages/brand-add.page'),
+);
 const LazyFoodFolioLocationPage = lazy(
 	() => import('../features/foodfolio/dashboards/location.dashboard'),
+);
+const LazyFoodFolioLocationAddPage = lazy(
+	() => import('../features/foodfolio/pages/location-add.page'),
 );
 
 interface Props {
@@ -112,6 +125,11 @@ const authenticatedRoutes = [
 				hasErrorBoundary: true,
 			},
 			{
+				path: authRefreshRoute,
+				element: <LazyRefreshPage />,
+				hasErrorBoundary: true,
+			},
+			{
 				path: foodfolioRoute,
 				hasErrorBoundary: true,
 				errorElement: <div>Failed loading Foodfolio</div>,
@@ -131,14 +149,31 @@ const authenticatedRoutes = [
 						element: <LazyFoodFolioCategoryAddPage />,
 						hasErrorBoundary: true,
 					},
+					//
 					{
 						path: foodfolioBrandRoute,
 						element: <LazyFoodFolioBrandPage />,
 						hasErrorBoundary: true,
 					},
 					{
+						path: foodfolioBrandViewRoute,
+						element: <LazyFoodFolioBrandPage />,
+						hasErrorBoundary: true,
+					},
+					{
+						path: foodfolioBrandAddRoute,
+						element: <LazyFoodFolioBrandAddPage />,
+						hasErrorBoundary: true,
+					},
+					//
+					{
 						path: foodfolioLocationRoute,
 						element: <LazyFoodFolioLocationPage />,
+						hasErrorBoundary: true,
+					},
+					{
+						path: foodfolioLocationAddRoute,
+						element: <LazyFoodFolioLocationAddPage />,
 						hasErrorBoundary: true,
 					},
 				],
