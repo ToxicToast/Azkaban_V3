@@ -29,4 +29,8 @@ export const foodfolioLocationRoute = `${foodfolioRoute}/location`;
 export const foodfolioLocationViewRoute = `${foodfolioLocationRoute}/view/:id`;
 export const foodfolioLocationAddRoute = `${foodfolioLocationRoute}/add`;
 
+export const foodfolioSizeRoute = `${foodfolioRoute}/size`;
+export const foodfolioSizeViewRoute = `${foodfolioSizeRoute}/view/:id`;
+export const foodfolioSizeAddRoute = `${foodfolioSizeRoute}/add`;
+
 export const wildcardRoute = '*';

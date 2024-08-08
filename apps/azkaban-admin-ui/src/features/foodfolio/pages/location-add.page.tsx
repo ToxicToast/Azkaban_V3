@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { foodfolioLocationRoute } from '../../../config/routes';
 import { Headline } from '../../shared/components/components/headline.component';
 import {
-	Badge,
 	Card,
 	CardContent,
 	CardHeader,
@@ -14,13 +13,12 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-	Show,
 } from '../../shared';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 import { useLocationState } from '../../shared/store/foodfolio';
-import { LocateIcon } from 'lucide-react';
+import { LocateIcon, RefrigeratorIcon, VaultIcon } from 'lucide-react';
 import { SelectItemAtom } from '../../shared/components/atoms/select-item.atom';
 
 type LocationForm = {
@@ -133,18 +131,22 @@ function LocationAddPage() {
 											}
 										>
 											<SelectTrigger className="w-full">
-												<SelectValue placeholder="No Freezer" />
+												<SelectValue placeholder="No" />
 											</SelectTrigger>
 											<SelectContent>
 												<SelectItem value="0">
 													<SelectItemAtom
-														icon={<></>}
+														icon={
+															<VaultIcon className="size-5" />
+														}
 														title="No"
 													/>
 												</SelectItem>
 												<SelectItem value="1">
 													<SelectItemAtom
-														icon={<></>}
+														icon={
+															<RefrigeratorIcon className="size-5" />
+														}
 														title="Yes"
 													/>
 												</SelectItem>

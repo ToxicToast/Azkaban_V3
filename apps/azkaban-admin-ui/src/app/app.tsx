@@ -6,8 +6,9 @@ import { useEffect } from 'react';
 import {
 	useBrandState,
 	useCategoryState,
+	useLocationState,
+	useSizeState,
 } from '../features/shared/store/foodfolio';
-import { useLocationState } from '../features/shared/store/foodfolio/location';
 
 export function App() {
 	const { isAuthenticated } = useAuthState();
@@ -16,6 +17,7 @@ export function App() {
 	const { fetchCategoriesTrigger } = useCategoryState();
 	const { fetchBrandsTrigger } = useBrandState();
 	const { fetchLocationsTrigger } = useLocationState();
+	const { fetchSizesTrigger } = useSizeState();
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -23,8 +25,10 @@ export function App() {
 			fetchCategoriesTrigger();
 			fetchBrandsTrigger();
 			fetchLocationsTrigger();
+			fetchSizesTrigger();
 		}
 	}, [
+		fetchSizesTrigger,
 		fetchLocationsTrigger,
 		fetchBrandsTrigger,
 		fetchCategoriesTrigger,

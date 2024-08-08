@@ -12,6 +12,7 @@ import {
 	foodfolioCategoryRoute,
 	foodfolioCategoryViewRoute,
 	foodfolioLocationRoute,
+	foodfolioSizeRoute,
 	groupsRoute,
 	notificationsRoute,
 	usersRoute,
@@ -174,7 +175,7 @@ export function Sidebar(props: Props) {
 							/>
 							<SidebarLink
 								title="Sizes"
-								path="/foodfolio/sizes"
+								path={foodfolioSizeRoute}
 								icon={CubeIcon}
 							/>
 							<SidebarLink

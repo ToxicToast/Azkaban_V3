@@ -9,3 +9,4 @@ export const foodfolioEndpoint = '/foodfolio';
 export const foodfolioCategoryEndpoint = `${foodfolioEndpoint}/category`;
 export const foodfolioCompanyEndpoint = `${foodfolioEndpoint}/company`;
 export const foodfolioLocationEndpoint = `${foodfolioEndpoint}/location`;
+export const foodfolioSizeEndpoint = `${foodfolioEndpoint}/size`;

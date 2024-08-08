@@ -47,8 +47,8 @@ export function LocationList(props: Props) {
 			<TableCell>
 				<Actions
 					onView={() => onView()}
-					onEdit={() => console.error('on edit category')}
-					onDelete={() => console.error('on delete category')}
+					onEdit={() => console.error('on edit location')}
+					onDelete={() => console.error('on delete location')}
 				/>
 			</TableCell>
 		</TableRow>
