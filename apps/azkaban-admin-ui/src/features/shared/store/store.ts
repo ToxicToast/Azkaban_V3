@@ -9,23 +9,35 @@ import UiReducer from './ui/ui.slice';
 import FoodFolioCategoryReducer from './foodfolio/category/category.slice';
 import FoodFolioBrandReducer from './foodfolio/brand/brand.slice';
 import FoodFolioLocationReducer from './foodfolio/location/location.slice';
+import FoodFolioSizeReducer from './foodfolio/size/size.slice';
 
 import { authApi } from './auth/auth.api';
 import { userApi } from './user/user.api';
 import { categoryApi } from './foodfolio/category/category.api';
 import { brandApi } from './foodfolio/brand/brand.api';
 import { locationApi } from './foodfolio/location/location.api';
+import { sizeApi } from './foodfolio/size/size.api';
 
 const azkabanReducer = combineReducers({
 	auth: AuthReducer,
 	user: UserReducer,
 });
 
+const azkabanMiddleware = [authApi.middleware, userApi.middleware];
+
 const foodfolioReducer = combineReducers({
 	category: FoodFolioCategoryReducer,
 	brand: FoodFolioBrandReducer,
 	location: FoodFolioLocationReducer,
+	size: FoodFolioSizeReducer,
 });
+
+const foodfolioMiddleware = [
+	categoryApi.middleware,
+	brandApi.middleware,
+	locationApi.middleware,
+	sizeApi.middleware,
+];
 
 export const store = configureStore({
 	reducer: {
@@ -33,19 +45,19 @@ export const store = configureStore({
 		ui: UiReducer,
 		azkaban: azkabanReducer,
 		foodfolio: foodfolioReducer,
+		// Azkaban API reducers
 		[authApi.reducerPath]: authApi.reducer,
 		[userApi.reducerPath]: userApi.reducer,
+		// Foodfolio API reducers
 		[categoryApi.reducerPath]: categoryApi.reducer,
 		[brandApi.reducerPath]: brandApi.reducer,
 		[locationApi.reducerPath]: locationApi.reducer,
+		[sizeApi.reducerPath]: sizeApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
-			.concat(authApi.middleware)
-			.concat(userApi.middleware)
-			.concat(categoryApi.middleware)
-			.concat(brandApi.middleware)
-			.concat(locationApi.middleware),
+			.concat(azkabanMiddleware)
+			.concat(foodfolioMiddleware),
 	devTools: true,
 	enhancers: (getDefaultEnhancers) => getDefaultEnhancers(),
 });
