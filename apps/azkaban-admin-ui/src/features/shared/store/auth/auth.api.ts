@@ -1,7 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { dynamicBaseQuery } from '../dynamicBaseQuery';
 import { Auth } from '@toxictoast/azkaban-sdk';
-import { authLoginWithCookieEndpoint } from '../../../../config/endpoints';
+import {
+	authLoginWithCookieEndpoint,
+	authRefreshEndpoint,
+} from '../../../../config/endpoints';
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
@@ -17,7 +20,14 @@ export const authApi = createApi({
 				body: data,
 			}),
 		}),
+
+		refreshToken: builder.mutation<Auth, void>({
+			query: () => ({
+				url: authRefreshEndpoint,
+				method: 'POST',
+			}),
+		}),
 	}),
 });
 
-export const { useLoginUserMutation } = authApi;
+export const { useLoginUserMutation, useRefreshTokenMutation } = authApi;

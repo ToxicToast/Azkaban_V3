@@ -1,5 +1,5 @@
 import { AppDispatch, useAppSelector } from '../store';
-import { useLoginUserMutation } from './auth.api';
+import { useLoginUserMutation, useRefreshTokenMutation } from './auth.api';
 import { useCallback } from 'react';
 import {
 	selectAuthActivationToken,
@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 export function useAuthState() {
 	const dispatch = useDispatch<AppDispatch>();
 	const [loginUserTrigger] = useLoginUserMutation();
+	const [refreshTokenTrigger] = useRefreshTokenMutation();
 
 	const id = useAppSelector(selectAuthId);
 	const username = useAppSelector(selectAuthUsername);
@@ -36,6 +37,10 @@ export function useAuthState() {
 		},
 		[loginUserTrigger],
 	);
+
+	const refreshToken = useCallback(() => {
+		refreshTokenTrigger();
+	}, [refreshTokenTrigger]);
 
 	const authenticateUser = useCallback(
 		(auth: Auth) => {
@@ -60,6 +65,7 @@ export function useAuthState() {
 		expireTime,
 		//
 		loginUser,
+		refreshToken,
 		logoutUser,
 		authenticateUser,
 	};

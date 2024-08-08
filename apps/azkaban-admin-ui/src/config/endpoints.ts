@@ -1,6 +1,7 @@
 export const authEndpoint = '/auth';
 export const authLoginEndpoint = `${authEndpoint}/login`;
 export const authLoginWithCookieEndpoint = `${authLoginEndpoint}/cookie`;
+export const authRefreshEndpoint = `${authEndpoint}/refresh`;
 
 export const userEndpoint = '/user';
 
