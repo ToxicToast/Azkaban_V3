@@ -16,7 +16,9 @@ import {
 	foodfolioLocationRoute,
 	foodfolioLocationViewRoute,
 	foodfolioRoute,
+	foodfolioSizeAddRoute,
 	foodfolioSizeRoute,
+	foodfolioSizeViewRoute,
 	groupsRoute,
 	notificationsRoute,
 	usersRoute,
@@ -82,6 +84,9 @@ const LazyFoodFolioBrandAddPage = lazy(
 
 const LazyFoodFolioLocationAddPage = lazy(
 	() => import('../features/foodfolio/pages/location-add.page'),
+);
+const LazyFoodFolioSizeAddPage = lazy(
+	() => import('../features/foodfolio/pages/size-add.page'),
 );
 
 interface Props {
@@ -181,6 +186,11 @@ const authenticatedRoutes = [
 						element: <>LOCATION VIEW</>,
 						hasErrorBoundary: true,
 					},
+					{
+						path: foodfolioSizeViewRoute,
+						element: <>SIZE VIEW</>,
+						hasErrorBoundary: true,
+					},
 					// Add Pages
 					{
 						path: foodfolioCategoryAddRoute,
@@ -195,6 +205,11 @@ const authenticatedRoutes = [
 					{
 						path: foodfolioLocationAddRoute,
 						element: <LazyFoodFolioLocationAddPage />,
+						hasErrorBoundary: true,
+					},
+					{
+						path: foodfolioSizeAddRoute,
+						element: <LazyFoodFolioSizeAddPage />,
 						hasErrorBoundary: true,
 					},
 					// Edit Pages
