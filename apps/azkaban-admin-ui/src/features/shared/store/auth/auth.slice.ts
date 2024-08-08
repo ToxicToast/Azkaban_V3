@@ -6,6 +6,7 @@ import {
 	userLoginFullfilled,
 	userLoginRejected,
 	userRefreshFullfilled,
+	userRefreshRejected,
 } from './auth.extraReducer';
 import { setLogoutAction, setUserAction } from './auth.reducer';
 
@@ -20,6 +21,7 @@ export const authSlice = createSlice({
 		userLoginFullfilled(builder);
 		userLoginRejected(builder);
 		userRefreshFullfilled(builder);
+		userRefreshRejected(builder);
 	},
 });
 

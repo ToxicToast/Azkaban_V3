@@ -42,15 +42,12 @@ export const userLoginFullfilled = (
 export const userLoginRejected = (
 	builder: ActionReducerMapBuilder<AuthModel>,
 ) => {
-	builder.addMatcher(
-		authApi.endpoints?.loginUser.matchRejected,
-		(state: Draft<AuthModel>) => {
-			toastService.sendToast({
-				text: 'authApi.endpoints.loginUser.matchRejected',
-				type: 'danger',
-			});
-		},
-	);
+	builder.addMatcher(authApi.endpoints?.loginUser.matchRejected, () => {
+		toastService.sendToast({
+			text: 'authApi.endpoints.loginUser.matchRejected',
+			type: 'danger',
+		});
+	});
 };
 
 export const userRefreshFullfilled = (
@@ -82,4 +79,15 @@ export const userRefreshFullfilled = (
 			});
 		},
 	);
+};
+
+export const userRefreshRejected = (
+	builder: ActionReducerMapBuilder<AuthModel>,
+) => {
+	builder.addMatcher(authApi.endpoints?.refreshToken.matchRejected, () => {
+		toastService.sendToast({
+			text: 'authApi.endpoints.refreshToken.matchRejected',
+			type: 'danger',
+		});
+	});
 };
