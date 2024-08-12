@@ -137,12 +137,14 @@ export function Sidebar(props: Props) {
 								title="Groups"
 								path={groupsRoute}
 								icon={Group}
+								disabled={true}
 							/>
 
 							<SidebarLink
 								title="Notifications"
 								path={notificationsRoute}
 								icon={Notebook}
+								disabled={true}
 							/>
 						</ul>
 
@@ -167,6 +169,7 @@ export function Sidebar(props: Props) {
 								title="Products"
 								path="/foodfolio/products"
 								icon={CubeIcon}
+								disabled={true}
 							/>
 							<SidebarLink
 								title="Locations"
@@ -182,16 +185,19 @@ export function Sidebar(props: Props) {
 								title="Types"
 								path="/foodfolio/types"
 								icon={CubeIcon}
+								disabled={true}
 							/>
 							<SidebarLink
 								title="Receipts"
 								path="/foodfolio/receipts"
 								icon={CubeIcon}
+								disabled={true}
 							/>
 							<SidebarLink
 								title="Warehouses"
 								path="/foodfolio/warehouses"
 								icon={CubeIcon}
+								disabled={true}
 							/>
 						</ul>
 
@@ -201,21 +207,25 @@ export function Sidebar(props: Props) {
 								title="Viewers"
 								path="/twitch/viewers"
 								icon={Cuboid}
+								disabled={true}
 							/>
 							<SidebarLink
 								title="Streams"
 								path="/twitch/streams"
 								icon={Cuboid}
+								disabled={true}
 							/>
 							<SidebarLink
 								title="Messages"
 								path="/twitch/messages"
 								icon={Cuboid}
+								disabled={true}
 							/>
 							<SidebarLink
 								title="Ban List"
 								path="/twitch/ban-list"
 								icon={Cuboid}
+								disabled={true}
 							/>
 						</ul>
 
@@ -225,6 +235,7 @@ export function Sidebar(props: Props) {
 								title="Task List"
 								path="/co-working/task-list"
 								icon={Cuboid}
+								disabled={true}
 							/>
 						</ul>
 

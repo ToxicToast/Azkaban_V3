@@ -17,6 +17,7 @@ export function UserMenuContent(props: Props) {
 					path="/settings"
 					title="Settings"
 					icon={<AvatarIcon />}
+					disabled={true}
 				/>
 				<UserMenuContentLinks
 					path="/auth/refresh"
