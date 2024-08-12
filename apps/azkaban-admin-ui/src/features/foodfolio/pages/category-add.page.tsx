@@ -17,7 +17,7 @@ import { foodfolioCategoryRoute } from '../../../config/routes';
 import { useForm } from 'react-hook-form';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
-import { BoxIcon, LocateIcon } from 'lucide-react';
+import { BoxIcon } from 'lucide-react';
 import { SelectItemAtom } from '../../shared/components/atoms/select-item.atom';
 
 type CategoryForm = {

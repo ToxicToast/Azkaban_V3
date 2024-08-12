@@ -1,9 +1,11 @@
+import { ReactNode } from 'react';
+
 interface Props {
-	icon: React.ComponentType<React.SVGProps<SVGSVGElement>> | any;
+	icon: ReactNode;
 }
 
 export function SidebarLinkIcon(props: Props) {
-	const { icon: Icon } = props;
+	const { icon } = props;
 
-	return <Icon className="h-4 w-4 shrink-0" />;
+	return <>{icon}</>;
 }

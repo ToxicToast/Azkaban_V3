@@ -120,13 +120,15 @@ export function Sidebar(props: Props) {
 							<SidebarLink
 								title="Dashboard"
 								path={dashboardRoute}
-								icon={DashboardIcon}
+								icon={
+									<DashboardIcon className="h-4 w-4 shrink-0" />
+								}
 							/>
 
 							<SidebarLink
 								title="Users"
 								path={usersRoute}
-								icon={User}
+								icon={<User className="h-4 w-4 shrink-0" />}
 								otherPaths={[
 									viewUsersRoute,
 									deleteUsersRoute,
@@ -137,14 +139,14 @@ export function Sidebar(props: Props) {
 							<SidebarLink
 								title="Groups"
 								path={groupsRoute}
-								icon={Group}
+								icon={<Group className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 
 							<SidebarLink
 								title="Notifications"
 								path={notificationsRoute}
-								icon={Notebook}
+								icon={<Notebook className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 						</ul>
@@ -154,7 +156,7 @@ export function Sidebar(props: Props) {
 							<SidebarLink
 								title="Categories"
 								path={foodfolioCategoryRoute}
-								icon={CubeIcon}
+								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
 								otherPaths={[
 									foodfolioCategoryViewRoute,
 									foodfolioCategoryAddRoute,
@@ -163,40 +165,40 @@ export function Sidebar(props: Props) {
 							<SidebarLink
 								title="Brands"
 								path={foodfolioBrandRoute}
-								icon={CubeIcon}
+								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
 								otherPaths={[foodfolioBrandViewRoute]}
 							/>
 							<SidebarLink
 								title="Products"
 								path="/foodfolio/products"
-								icon={CubeIcon}
+								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 							<SidebarLink
 								title="Locations"
 								path={foodfolioLocationRoute}
-								icon={CubeIcon}
+								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
 							/>
 							<SidebarLink
 								title="Sizes"
 								path={foodfolioSizeRoute}
-								icon={CubeIcon}
+								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
 							/>
 							<SidebarLink
 								title="Types"
 								path={foodfolioTypeRoute}
-								icon={CubeIcon}
+								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
 							/>
 							<SidebarLink
 								title="Receipts"
 								path="/foodfolio/receipts"
-								icon={CubeIcon}
+								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 							<SidebarLink
 								title="Warehouses"
 								path="/foodfolio/warehouses"
-								icon={CubeIcon}
+								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 						</ul>
@@ -206,25 +208,25 @@ export function Sidebar(props: Props) {
 							<SidebarLink
 								title="Viewers"
 								path="/twitch/viewers"
-								icon={Cuboid}
+								icon={<Cuboid className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 							<SidebarLink
 								title="Streams"
 								path="/twitch/streams"
-								icon={Cuboid}
+								icon={<Cuboid className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 							<SidebarLink
 								title="Messages"
 								path="/twitch/messages"
-								icon={Cuboid}
+								icon={<Cuboid className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 							<SidebarLink
 								title="Ban List"
 								path="/twitch/ban-list"
-								icon={Cuboid}
+								icon={<Cuboid className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 						</ul>
@@ -234,7 +236,7 @@ export function Sidebar(props: Props) {
 							<SidebarLink
 								title="Task List"
 								path="/co-working/task-list"
-								icon={Cuboid}
+								icon={<Cuboid className="h-4 w-4 shrink-0" />}
 								disabled={true}
 							/>
 						</ul>

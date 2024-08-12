@@ -1,13 +1,12 @@
 import { ReactNode, useCallback, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { SidebarLinkIcon } from './icon';
-import { CubeIcon } from '@radix-ui/react-icons';
 import { Optional } from '@toxictoast/azkaban-base-types';
 
 interface Props {
 	path: string;
 	title: string;
-	icon: React.ComponentType<React.SVGProps<SVGSVGElement>> | any;
+	icon: ReactNode;
 	otherPaths?: Optional<Array<string>>;
 	disabled?: boolean;
 }

@@ -1,5 +1,4 @@
 import { GroupsItem } from './groups-item.component';
-import { AddGroups } from './add-groups.component';
 
 interface Props {
 	groups: Array<{

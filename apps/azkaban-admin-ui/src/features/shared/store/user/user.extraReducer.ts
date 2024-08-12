@@ -6,8 +6,6 @@ import {
 import { UserModel } from './user.model';
 import { userApi } from './user.api';
 import { User } from '@toxictoast/azkaban-sdk';
-import { RejectedAction } from '@reduxjs/toolkit/dist/query/core/buildThunks';
-import { HttpError } from '../../types';
 import { toastService } from '../../service';
 
 export const fetchUsersFullfilled = (
@@ -17,7 +15,6 @@ export const fetchUsersFullfilled = (
 		userApi.endpoints?.fetchUserList.matchFulfilled,
 		(state: Draft<UserModel>, action: PayloadAction<Array<User>>) => {
 			const payload = action.payload;
-			//
 			state.data = payload;
 		},
 	);
@@ -28,10 +25,9 @@ export const fetchUsersRejected = (
 ) => {
 	builder.addMatcher(
 		userApi.endpoints?.fetchUserList.matchRejected,
-		(state: Draft<UserModel>, action: RejectedAction<any, any>) => {
-			const { payload } = action as { payload: HttpError };
+		(state: Draft<UserModel>) => {
 			toastService.sendToast({
-				text: payload.data.message,
+				text: 'userApi.endpoints?.fetchUserList.matchRejected',
 				type: 'danger',
 			});
 		},
