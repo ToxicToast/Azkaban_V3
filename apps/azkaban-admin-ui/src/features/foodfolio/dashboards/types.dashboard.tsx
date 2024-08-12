@@ -7,15 +7,19 @@ import {
 	foodfolioTypeViewRoute,
 } from '../../../config/routes';
 import { TypeHeaders } from '../components/type-headers.component';
+import { useTypeState } from '../../shared/store/foodfolio';
+import { TypeList } from '../components/type-list.component';
 
 function TypeDashboardPage() {
+	const { typeData, selectTypeId } = useTypeState();
 	const navigate = useNavigate();
 
 	const onView = useCallback(
-		(sizeId: string) => {
-			navigate(foodfolioTypeViewRoute.replace(':id', sizeId));
+		(typeId: string) => {
+			selectTypeId(typeId);
+			navigate(foodfolioTypeViewRoute.replace(':id', typeId));
 		},
-		[navigate],
+		[navigate, selectTypeId],
 	);
 
 	const onAdd = useCallback(() => {
@@ -34,7 +38,15 @@ function TypeDashboardPage() {
 			<div className="p-6 pt-0">
 				<Table>
 					<TypeHeaders />
-					<TableBody>TypeList</TableBody>
+					<TableBody>
+						{typeData.map((type) => (
+							<TypeList
+								key={type.id}
+								type={type}
+								onView={() => onView(type.id)}
+							/>
+						))}
+					</TableBody>
 				</Table>
 			</div>
 		</>

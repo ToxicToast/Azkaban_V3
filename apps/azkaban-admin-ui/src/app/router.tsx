@@ -94,6 +94,9 @@ const LazyFoodFolioLocationAddPage = lazy(
 const LazyFoodFolioSizeAddPage = lazy(
 	() => import('../features/foodfolio/pages/size-add.page'),
 );
+const LazyFoodFolioTypeAddPage = lazy(
+	() => import('../features/foodfolio/pages/type-add.page'),
+);
 
 interface Props {
 	isAuthenticated: boolean;
@@ -230,7 +233,7 @@ const authenticatedRoutes = [
 					},
 					{
 						path: foodfolioTypeAddRoute,
-						element: <>TYPE VIEW</>,
+						element: <LazyFoodFolioTypeAddPage />,
 						hasErrorBoundary: true,
 					},
 					// Edit Pages
