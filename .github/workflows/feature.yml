@@ -66,7 +66,7 @@ jobs:
 
             - name: 🏗 Build Docker Images
               # run: npm run nx run-many -- --target=docker-build --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
-              run: npm run nx nx affected --target=docker --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npm run nx affected --target=docker --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: 🏗 Push Docker Images
               # run: npm run nx run-many -- --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
