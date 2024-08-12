@@ -2,18 +2,19 @@ import { LatestCategory } from '../atoms/foodfolio/latest-category.atom';
 import { LatestBrand } from '../atoms/foodfolio/latest-brand.atom';
 import { LatestLocation } from '../atoms/foodfolio/latest-location.atom';
 import { LatestSize } from '../atoms/foodfolio/latest-size.atom';
+import { LatestType } from '../atoms/foodfolio/latest-type.atom';
 
 export function FoodFolioLatest() {
 	return (
 		<>
 			<LatestCategory />
 			<LatestBrand />
-			{/* TODO: LATEST PRODUCT */}
+			<div>{/* TODO: LATEST PRODUCT */}</div>
 			<LatestLocation />
 			<LatestSize />
-			{/* TODO: LATEST TYPE */}
-			{/* TODO: LATEST RECEIPT */}
-			{/* TODO: LATEST WAREHOUSE */}
+			<LatestType />
+			<div>{/* TODO: LATEST RECEIPT */}</div>
+			<div>{/* TODO: LATEST WAREHOUSE */}</div>
 		</>
 	);
 }

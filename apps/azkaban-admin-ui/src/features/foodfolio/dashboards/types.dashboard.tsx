@@ -6,6 +6,7 @@ import {
 	foodfolioTypeAddRoute,
 	foodfolioTypeViewRoute,
 } from '../../../config/routes';
+import { TypeHeaders } from '../components/type-headers.component';
 
 function TypeDashboardPage() {
 	const navigate = useNavigate();
@@ -32,7 +33,7 @@ function TypeDashboardPage() {
 
 			<div className="p-6 pt-0">
 				<Table>
-					TypeHeaders
+					<TypeHeaders />
 					<TableBody>TypeList</TableBody>
 				</Table>
 			</div>
