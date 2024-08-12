@@ -62,12 +62,12 @@ jobs:
                   echo "${{ steps.taggerDryRun.outputs.new_tag }}"
 
             - name: 🏗 Build Docker Images
-              run: npm run nx run-many -- --target=docker-build --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
-              # run: npm run nx affected -t docker --VERSION=${{ steps.taggerDryRun.outputs.new_tag }} --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
+              # run: npm run nx run-many -- --target=docker-build --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npm run nx nx affected --target=docker --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: 🏗 Push Docker Images
-              run: npm run nx run-many -- --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
-              # run: npm run nx affected -t docker-push --VERSION=${{ steps.taggerDryRun.outputs.new_tag }} --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3
+              # run: npm run nx run-many -- --target=docker-push --all --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npm run nx affected --target=docker-push --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD  }}  --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: API Alerts Notify
               uses: apialerts/notify-action@v1
