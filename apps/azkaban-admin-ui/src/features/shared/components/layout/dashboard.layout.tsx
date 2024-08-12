@@ -14,11 +14,7 @@ function DashboardLayout() {
 	const { version } = useConfigState();
 
 	const onToggleSidebar = useCallback(() => {
-		if (sidebarOpen) {
-			setSidebarOpen(false);
-		} else if (!sidebarOpen) {
-			setSidebarOpen(true);
-		}
+		setSidebarOpen((prev) => !prev);
 	}, [sidebarOpen]);
 
 	return (
@@ -30,7 +26,10 @@ function DashboardLayout() {
 					version={version}
 				/>
 				<div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-					<Header username={username ?? ''} />
+					<Header
+						username={username ?? ''}
+						toggleSidebar={() => onToggleSidebar()}
+					/>
 					<main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
 						<Outlet />
 					</main>

@@ -1,9 +1,18 @@
 import { Button } from '../../ui/button';
 
-export function HeaderLeftSide() {
+interface Props {
+	toggleSidebar: () => void;
+}
+
+export function HeaderLeftSide(props: Props) {
+	const { toggleSidebar } = props;
+
 	return (
 		<div className="flex">
-			<Button className="bg-indigo-500 hover:bg-indigo-600 lg:hidden">
+			<Button
+				className="bg-indigo-500 hover:bg-indigo-600 lg:hidden"
+				onClick={() => toggleSidebar()}
+			>
 				<span className="sr-only">Open sidebar</span>
 				<svg
 					className="h-6 w-6 fill-current"
