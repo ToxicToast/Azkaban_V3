@@ -46,6 +46,7 @@ function UserDashboardPage() {
 				description="All registered Users in Azkaban."
 				type="User"
 				onAdd={console.log}
+				onAddDisabled={true}
 			/>
 			<div className="p-6 pt-0">
 				<Table>

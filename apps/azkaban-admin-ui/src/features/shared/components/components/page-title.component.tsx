@@ -1,15 +1,17 @@
 import { Button } from '../ui';
 import { PlusCircleIcon } from 'lucide-react';
+import { Optional } from '@toxictoast/azkaban-base-types';
 
 interface Props {
 	title: string;
 	description: string;
 	type: string;
 	onAdd: () => void;
+	onAddDisabled?: Optional<boolean>;
 }
 
 export function PageTitle(props: Props) {
-	const { title, description, type, onAdd } = props;
+	const { title, description, type, onAdd, onAddDisabled } = props;
 
 	return (
 		<div className="flex flex-row items-center justify-between p-6 px-7">
@@ -24,6 +26,7 @@ export function PageTitle(props: Props) {
 				variant="default"
 				className="text-xs"
 				onClick={() => onAdd()}
+				disabled={onAddDisabled ?? false}
 			>
 				<PlusCircleIcon className="h-3.5 w-3.5" />
 				&nbsp;Add {type}
