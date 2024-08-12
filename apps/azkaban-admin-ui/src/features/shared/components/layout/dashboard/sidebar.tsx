@@ -13,6 +13,7 @@ import {
 	foodfolioCategoryViewRoute,
 	foodfolioLocationRoute,
 	foodfolioSizeRoute,
+	foodfolioTypeRoute,
 	groupsRoute,
 	notificationsRoute,
 	usersRoute,
@@ -183,9 +184,8 @@ export function Sidebar(props: Props) {
 							/>
 							<SidebarLink
 								title="Types"
-								path="/foodfolio/types"
+								path={foodfolioTypeRoute}
 								icon={CubeIcon}
-								disabled={true}
 							/>
 							<SidebarLink
 								title="Receipts"

@@ -19,6 +19,9 @@ import {
 	foodfolioSizeAddRoute,
 	foodfolioSizeRoute,
 	foodfolioSizeViewRoute,
+	foodfolioTypeAddRoute,
+	foodfolioTypeRoute,
+	foodfolioTypeViewRoute,
 	groupsRoute,
 	notificationsRoute,
 	usersRoute,
@@ -57,6 +60,9 @@ const LazyFoodFolioLocationPage = lazy(
 );
 const LazyFoodFolioSizesPage = lazy(
 	() => import('../features/foodfolio/dashboards/sizes.dashboard'),
+);
+const LazyFoodFolioTypesPage = lazy(
+	() => import('../features/foodfolio/dashboards/types.dashboard'),
 );
 // Pages
 const LazyLoginPage = lazy(
@@ -170,6 +176,11 @@ const authenticatedRoutes = [
 						element: <LazyFoodFolioSizesPage />,
 						hasErrorBoundary: true,
 					},
+					{
+						path: foodfolioTypeRoute,
+						element: <LazyFoodFolioTypesPage />,
+						hasErrorBoundary: true,
+					},
 					// View Pages
 					{
 						path: foodfolioCategoryViewRoute,
@@ -191,6 +202,11 @@ const authenticatedRoutes = [
 						element: <>SIZE VIEW</>,
 						hasErrorBoundary: true,
 					},
+					{
+						path: foodfolioTypeViewRoute,
+						element: <>TYPE VIEW</>,
+						hasErrorBoundary: true,
+					},
 					// Add Pages
 					{
 						path: foodfolioCategoryAddRoute,
@@ -210,6 +226,11 @@ const authenticatedRoutes = [
 					{
 						path: foodfolioSizeAddRoute,
 						element: <LazyFoodFolioSizeAddPage />,
+						hasErrorBoundary: true,
+					},
+					{
+						path: foodfolioTypeAddRoute,
+						element: <>TYPE VIEW</>,
 						hasErrorBoundary: true,
 					},
 					// Edit Pages

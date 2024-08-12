@@ -33,4 +33,8 @@ export const foodfolioSizeRoute = `${foodfolioRoute}/size`;
 export const foodfolioSizeViewRoute = `${foodfolioSizeRoute}/view/:id`;
 export const foodfolioSizeAddRoute = `${foodfolioSizeRoute}/add`;
 
+export const foodfolioTypeRoute = `${foodfolioRoute}/type`;
+export const foodfolioTypeViewRoute = `${foodfolioTypeRoute}/view/:id`;
+export const foodfolioTypeAddRoute = `${foodfolioTypeRoute}/add`;
+
 export const wildcardRoute = '*';
