@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { dynamicBaseQuery } from '../../dynamicBaseQuery';
-import { FoodFolioLocation } from '@toxictoast/azkaban-sdk';
+import { FoodFolioSize } from '@toxictoast/azkaban-sdk';
 import { foodfolioSizeEndpoint } from '../../../../../config/endpoints';
 
 export const sizeApi = createApi({
@@ -8,7 +8,7 @@ export const sizeApi = createApi({
 	baseQuery: dynamicBaseQuery,
 	tagTypes: ['FetchSizes'],
 	endpoints: (builder) => ({
-		fetchSizes: builder.query<Array<FoodFolioLocation>, void>({
+		fetchSizes: builder.query<Array<FoodFolioSize>, void>({
 			query: () => ({
 				url: foodfolioSizeEndpoint,
 				method: 'GET',
