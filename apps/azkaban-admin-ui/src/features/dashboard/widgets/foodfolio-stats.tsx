@@ -11,6 +11,7 @@ export function FoodfolioStats() {
 			<StatsBrand />
 
 			<div>{/* TODO: TOTAL PRODUCTS */}</div>
+			<div>{/* TODO: TOTAL PRODUCT DETAILS */}</div>
 
 			<StatsLocation />
 			<StatsSize />

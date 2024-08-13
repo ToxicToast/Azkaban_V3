@@ -10,6 +10,7 @@ export function FoodFolioLatest() {
 			<LatestCategory />
 			<LatestBrand />
 			<div>{/* TODO: LATEST PRODUCT */}</div>
+			<div>{/* TODO: LATEST PRODUCT DETAIL */}</div>
 			<LatestLocation />
 			<LatestSize />
 			<LatestType />

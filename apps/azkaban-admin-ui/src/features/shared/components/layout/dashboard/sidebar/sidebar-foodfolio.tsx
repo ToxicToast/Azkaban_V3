@@ -43,6 +43,12 @@ export function SidebarFoodfolio(props: Props) {
 				disabled={true}
 			/>
 			<SidebarLink
+				title="Product Details"
+				path="/foodfolio/product-details"
+				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
+				disabled={true}
+			/>
+			<SidebarLink
 				title="Locations"
 				path={foodfolioLocationRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
