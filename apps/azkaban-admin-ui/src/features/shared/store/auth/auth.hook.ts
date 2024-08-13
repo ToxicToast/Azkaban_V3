@@ -3,13 +3,17 @@ import { useLoginUserMutation, useRefreshTokenMutation } from './auth.api';
 import { useCallback } from 'react';
 import {
 	selectAuthActivationToken,
+	selectAuthAdminGroup,
+	selectAuthCoWorkingGroup,
 	selectAuthExpireTime,
+	selectAuthFoodfolioGroup,
 	selectAuthGroups,
 	selectAuthId,
 	selectAuthIsActive,
 	selectAuthIsAuthenticated,
 	selectAuthIsBanned,
 	selectAuthToken,
+	selectAuthTwitchGroup,
 	selectAuthUsername,
 } from './auth.selector';
 import { Auth } from '@toxictoast/azkaban-sdk';
@@ -30,6 +34,10 @@ export function useAuthState() {
 	const isBanned = useAppSelector(selectAuthIsBanned);
 	const activationToken = useAppSelector(selectAuthActivationToken);
 	const expireTime = useAppSelector(selectAuthExpireTime);
+	const canSeeAzkaban = useAppSelector(selectAuthAdminGroup);
+	const canSeeFoodfolio = useAppSelector(selectAuthFoodfolioGroup);
+	const canSeeTwitch = useAppSelector(selectAuthTwitchGroup);
+	const canSeeCoWorking = useAppSelector(selectAuthCoWorkingGroup);
 
 	const loginUser = useCallback(
 		(username: string, password: string) => {
@@ -63,6 +71,10 @@ export function useAuthState() {
 		isBanned,
 		activationToken,
 		expireTime,
+		canSeeAzkaban,
+		canSeeFoodfolio,
+		canSeeTwitch,
+		canSeeCoWorking,
 		//
 		loginUser,
 		refreshToken,

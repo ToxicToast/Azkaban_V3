@@ -10,12 +10,18 @@ import { useConfigState } from '../../store/config/config.hook';
 function DashboardLayout() {
 	const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 	const { toasts } = useToasts();
-	const { username } = useAuthState();
+	const {
+		username,
+		canSeeAzkaban,
+		canSeeFoodfolio,
+		canSeeTwitch,
+		canSeeCoWorking,
+	} = useAuthState();
 	const { version } = useConfigState();
 
 	const onToggleSidebar = useCallback(() => {
 		setSidebarOpen((prev) => !prev);
-	}, [sidebarOpen]);
+	}, []);
 
 	return (
 		<div className="min-h-screen bg-background">
@@ -24,6 +30,10 @@ function DashboardLayout() {
 					sidebarOpen={sidebarOpen}
 					toggleSidebar={() => onToggleSidebar()}
 					version={version}
+					canSeeAzkaban={canSeeAzkaban}
+					canSeeFoodfolio={canSeeFoodfolio}
+					canSeeTwitch={canSeeTwitch}
+					canSeeCoWorking={canSeeCoWorking}
 				/>
 				<div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
 					<Header

@@ -1,5 +1,6 @@
 import { RootState } from '../store';
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
+import { UserGroups } from '../../enums';
 
 const selectAuth = (state: RootState) => state.azkaban.auth;
 
@@ -44,4 +45,24 @@ export const selectAuthActivationToken = createDraftSafeSelector(
 export const selectAuthExpireTime = createDraftSafeSelector(
 	selectAuth,
 	(auth) => auth.expireTime,
+);
+
+export const selectAuthAdminGroup = createDraftSafeSelector(
+	selectAuthGroups,
+	(groups) => groups.includes(UserGroups.ADMIN),
+);
+
+export const selectAuthFoodfolioGroup = createDraftSafeSelector(
+	selectAuthGroups,
+	(groups) => groups.includes(UserGroups.FOODFOLIOADMIN),
+);
+
+export const selectAuthTwitchGroup = createDraftSafeSelector(
+	selectAuthGroups,
+	(groups) => groups.includes(UserGroups.TWITCHADMIN),
+);
+
+export const selectAuthCoWorkingGroup = createDraftSafeSelector(
+	selectAuthGroups,
+	(groups) => groups.includes(UserGroups.COWORKINGADMIN),
 );

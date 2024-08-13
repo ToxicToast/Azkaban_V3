@@ -2,32 +2,34 @@ import { SidebarHeader } from './sidebar/header';
 import { SidebarLink } from './sidebar/link';
 import { Group, Notebook, User, Cuboid } from 'lucide-react';
 import { CubeIcon, DashboardIcon } from '@radix-ui/react-icons';
-import {
-	dashboardRoute,
-	deleteUsersRoute,
-	editUsersRoute,
-	foodfolioBrandRoute,
-	foodfolioBrandViewRoute,
-	foodfolioCategoryAddRoute,
-	foodfolioCategoryRoute,
-	foodfolioCategoryViewRoute,
-	foodfolioLocationRoute,
-	foodfolioSizeRoute,
-	foodfolioTypeRoute,
-	groupsRoute,
-	notificationsRoute,
-	usersRoute,
-	viewUsersRoute,
-} from '../../../../../config/routes';
+import { dashboardRoute } from '../../../../../config/routes';
+import { SidebarAzkaban } from './sidebar/sidebar-azkaban';
+import { SidebarFoodfolio } from './sidebar/sidebar-foodfolio';
+import { Debugger } from '../../debugger';
+import { SidebarTwitch } from './sidebar/sidebar-twitch';
+import { SidebarNoPermission } from './sidebar/sidebar-nopermission';
+import { SidebarCoworking } from './sidebar/sidebar-coworking';
 
 interface Props {
 	sidebarOpen: boolean;
 	toggleSidebar: () => void;
 	version: string;
+	canSeeAzkaban: boolean;
+	canSeeFoodfolio: boolean;
+	canSeeTwitch: boolean;
+	canSeeCoWorking: boolean;
 }
 
 export function Sidebar(props: Props) {
-	const { sidebarOpen, toggleSidebar, version } = props;
+	const {
+		sidebarOpen,
+		toggleSidebar,
+		version,
+		canSeeAzkaban,
+		canSeeFoodfolio,
+		canSeeTwitch,
+		canSeeCoWorking,
+	} = props;
 
 	return (
 		<div>
@@ -115,7 +117,7 @@ export function Sidebar(props: Props) {
 
 				<div className="space-y-8">
 					<div>
-						<SidebarHeader title="Azkaban" />
+						<SidebarHeader title="Administration" />
 						<ul className="mb-3 mt-3">
 							<SidebarLink
 								title="Dashboard"
@@ -124,121 +126,30 @@ export function Sidebar(props: Props) {
 									<DashboardIcon className="h-4 w-4 shrink-0" />
 								}
 							/>
+						</ul>
 
-							<SidebarLink
-								title="Users"
-								path={usersRoute}
-								icon={<User className="h-4 w-4 shrink-0" />}
-								otherPaths={[
-									viewUsersRoute,
-									deleteUsersRoute,
-									editUsersRoute,
-								]}
-							/>
-
-							<SidebarLink
-								title="Groups"
-								path={groupsRoute}
-								icon={<Group className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
-
-							<SidebarLink
-								title="Notifications"
-								path={notificationsRoute}
-								icon={<Notebook className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
+						<SidebarHeader title="Azkaban" />
+						<ul className="mb-3 mt-3">
+							<SidebarAzkaban canSee={canSeeAzkaban} />
+							<SidebarNoPermission canNotSee={!canSeeAzkaban} />
 						</ul>
 
 						<SidebarHeader title="FoodFolio" />
 						<ul className="mb-3 mt-3">
-							<SidebarLink
-								title="Categories"
-								path={foodfolioCategoryRoute}
-								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-								otherPaths={[
-									foodfolioCategoryViewRoute,
-									foodfolioCategoryAddRoute,
-								]}
-							/>
-							<SidebarLink
-								title="Brands"
-								path={foodfolioBrandRoute}
-								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-								otherPaths={[foodfolioBrandViewRoute]}
-							/>
-							<SidebarLink
-								title="Products"
-								path="/foodfolio/products"
-								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
-							<SidebarLink
-								title="Locations"
-								path={foodfolioLocationRoute}
-								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-							/>
-							<SidebarLink
-								title="Sizes"
-								path={foodfolioSizeRoute}
-								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-							/>
-							<SidebarLink
-								title="Types"
-								path={foodfolioTypeRoute}
-								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-							/>
-							<SidebarLink
-								title="Receipts"
-								path="/foodfolio/receipts"
-								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
-							<SidebarLink
-								title="Warehouses"
-								path="/foodfolio/warehouses"
-								icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
+							<SidebarFoodfolio canSee={canSeeFoodfolio} />
+							<SidebarNoPermission canNotSee={!canSeeFoodfolio} />
 						</ul>
 
 						<SidebarHeader title="Twitch" />
 						<ul className="mb-3 mt-3">
-							<SidebarLink
-								title="Viewers"
-								path="/twitch/viewers"
-								icon={<Cuboid className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
-							<SidebarLink
-								title="Streams"
-								path="/twitch/streams"
-								icon={<Cuboid className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
-							<SidebarLink
-								title="Messages"
-								path="/twitch/messages"
-								icon={<Cuboid className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
-							<SidebarLink
-								title="Ban List"
-								path="/twitch/ban-list"
-								icon={<Cuboid className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
+							<SidebarTwitch canSee={canSeeTwitch} />
+							<SidebarNoPermission canNotSee={!canSeeTwitch} />
 						</ul>
 
 						<SidebarHeader title="Co-Working" />
 						<ul className="mb-3 mt-3">
-							<SidebarLink
-								title="Task List"
-								path="/co-working/task-list"
-								icon={<Cuboid className="h-4 w-4 shrink-0" />}
-								disabled={true}
-							/>
+							<SidebarCoworking canSee={canSeeCoWorking} />
+							<SidebarNoPermission canNotSee={!canSeeCoWorking} />
 						</ul>
 
 						<SidebarHeader title={`Version: ${version}`} />
