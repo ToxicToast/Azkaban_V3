@@ -4,70 +4,74 @@ import { ItemDetailDAO } from '../../dao';
 import { ItemDetailEntity } from '../entities';
 
 export class ItemDetailMapper
-    implements Mapper<ItemDetailDAO, ItemDetailEntity>
+	implements Mapper<ItemDetailDAO, ItemDetailEntity>
 {
-    private readonly domainFactory: ItemDetailFactory = new ItemDetailFactory();
+	private readonly domainFactory: ItemDetailFactory = new ItemDetailFactory();
 
-    toEntity(data: ItemDetailDAO): ItemDetailEntity {
-        const {
-            id,
-            item_id,
-            purchase_date,
-            expiration_date,
-            opening_date,
-            returnable,
-            activated_at,
-            created_at,
-            updated_at,
-            deleted_at,
-        } = data;
-        const entity = new ItemDetailEntity();
-        entity.id = id;
-        entity.item_id = item_id;
-        entity.purchase_date = purchase_date;
-        entity.expiration_date = expiration_date;
-        entity.opening_date = opening_date;
-        entity.returnable = returnable;
-        entity.activated_at = activated_at;
-        entity.created_at = created_at;
-        entity.updated_at = updated_at;
-        entity.deleted_at = deleted_at;
-        return entity;
-    }
+	toEntity(data: ItemDetailDAO): ItemDetailEntity {
+		const {
+			id,
+			item_id,
+			art_no,
+			purchase_date,
+			expiration_date,
+			opening_date,
+			returnable,
+			activated_at,
+			created_at,
+			updated_at,
+			deleted_at,
+		} = data;
+		const entity = new ItemDetailEntity();
+		entity.id = id;
+		entity.item_id = item_id;
+		entity.art_no = art_no;
+		entity.purchase_date = purchase_date;
+		entity.expiration_date = expiration_date;
+		entity.opening_date = opening_date;
+		entity.returnable = returnable;
+		entity.activated_at = activated_at;
+		entity.created_at = created_at;
+		entity.updated_at = updated_at;
+		entity.deleted_at = deleted_at;
+		return entity;
+	}
 
-    toDomain(data: ItemDetailEntity): ItemDetailDAO {
-        const {
-            id,
-            item_id,
-            purchase_date,
-            expiration_date,
-            opening_date,
-            returnable,
-            activated_at,
-            created_at,
-            updated_at,
-            deleted_at,
-        } = data;
+	toDomain(data: ItemDetailEntity): ItemDetailDAO {
+		const {
+			id,
+			item_id,
+			art_no,
+			purchase_date,
+			expiration_date,
+			opening_date,
+			returnable,
+			activated_at,
+			created_at,
+			updated_at,
+			deleted_at,
+		} = data;
 
-        const date = new Date().getTime();
+		const date = new Date().getTime();
 
-        const aggregate = this.domainFactory.reconstitute({
-            id,
-            item_id,
-            purchase_date,
-            expiration_date,
-            opening_date,
-            returnable,
-            activated_at,
-            created_at,
-            updated_at,
-            deleted_at,
-            isActive: !!activated_at,
-            isUpdated: !!updated_at,
-            isDeleted: !!deleted_at,
-            isExpired: date > expiration_date.getTime(),
-            isOpened: !!opening_date,
-        });
-        return this.domainFactory.constitute(aggregate);
-    }
+		const aggregate = this.domainFactory.reconstitute({
+			id,
+			item_id,
+			art_no,
+			purchase_date,
+			expiration_date,
+			opening_date,
+			returnable,
+			activated_at,
+			created_at,
+			updated_at,
+			deleted_at,
+			isActive: !!activated_at,
+			isUpdated: !!updated_at,
+			isDeleted: !!deleted_at,
+			isExpired: date > expiration_date.getTime(),
+			isOpened: !!opening_date,
+		});
+		return this.domainFactory.constitute(aggregate);
+	}
 }
