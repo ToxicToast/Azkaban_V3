@@ -83,6 +83,7 @@ export class AuthService {
 		return await this.infrastructureService
 			.refresh(id)
 			.then(async (res) => {
+				await this.notifyService.onRefesh(res.username);
 				return {
 					id: res.id,
 					username: res.username,

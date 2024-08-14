@@ -46,4 +46,15 @@ export class NotifyService {
 		};
 		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
 	}
+
+	async onRefesh(username: string): Promise<void> {
+		const notifyPayload = {
+			service: 'auth-service',
+			event: AuthTopics.REFRESH,
+			data: {
+				username,
+			},
+		};
+		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+	}
 }
