@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { dynamicBaseQuery } from '../../dynamicBaseQuery';
-import { FoodFolioType } from '@toxictoast/azkaban-sdk';
+import { CreateFoodFolioType, FoodFolioType } from '@toxictoast/azkaban-sdk';
 import { foodfolioTypeEndpoint } from '../../../../../config/endpoints';
 
 export const typeApi = createApi({
@@ -16,7 +16,7 @@ export const typeApi = createApi({
 			providesTags: ['FetchTypes'],
 		}),
 
-		createType: builder.mutation<void, { title: string }>({
+		createType: builder.mutation<void, CreateFoodFolioType>({
 			query: (data) => ({
 				url: foodfolioTypeEndpoint,
 				method: 'POST',

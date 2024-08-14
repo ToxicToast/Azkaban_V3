@@ -41,6 +41,7 @@ function WarehouseDashboardPage() {
 					<TableBody>
 						{warehouseData.map((warehouse) => (
 							<WarehouseList
+								key={warehouse.id}
 								warehouse={warehouse}
 								onView={() => onView(warehouse.id)}
 							/>

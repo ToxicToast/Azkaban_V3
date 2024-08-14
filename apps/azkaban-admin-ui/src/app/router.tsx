@@ -15,6 +15,9 @@ import {
 	foodfolioLocationAddRoute,
 	foodfolioLocationRoute,
 	foodfolioLocationViewRoute,
+	foodfolioProductAddRoute,
+	foodfolioProductRoute,
+	foodfolioProductViewRoute,
 	foodfolioRoute,
 	foodfolioSizeAddRoute,
 	foodfolioSizeRoute,
@@ -70,6 +73,9 @@ const LazyFoodFolioTypesPage = lazy(
 const LazyFoodFolioWarehousesPage = lazy(
 	() => import('../features/foodfolio/dashboards/warehouse.dashboard'),
 );
+const LazyFoodFolioProductsPage = lazy(
+	() => import('../features/foodfolio/dashboards/product.dashboard'),
+);
 // Pages
 const LazyLoginPage = lazy(
 	() => import('../features/auth/login/pages/login.page'),
@@ -105,6 +111,9 @@ const LazyFoodFolioTypeAddPage = lazy(
 );
 const LazyFoodFolioWarehouseAddPage = lazy(
 	() => import('../features/foodfolio/pages/warehouse-add.page'),
+);
+const LazyFoodFolioProductAddPage = lazy(
+	() => import('../features/foodfolio/pages/product-add.page'),
 );
 
 interface Props {
@@ -198,6 +207,11 @@ const authenticatedRoutes = [
 						element: <LazyFoodFolioWarehousesPage />,
 						hasErrorBoundary: true,
 					},
+					{
+						path: foodfolioProductRoute,
+						element: <LazyFoodFolioProductsPage />,
+						hasErrorBoundary: true,
+					},
 					// View Pages
 					{
 						path: foodfolioCategoryViewRoute,
@@ -229,6 +243,11 @@ const authenticatedRoutes = [
 						element: <>WAREHOUSE VIEW</>,
 						hasErrorBoundary: true,
 					},
+					{
+						path: foodfolioProductViewRoute,
+						element: <>PRODUCT VIEW</>,
+						hasErrorBoundary: true,
+					},
 					// Add Pages
 					{
 						path: foodfolioCategoryAddRoute,
@@ -258,6 +277,11 @@ const authenticatedRoutes = [
 					{
 						path: foodfolioWarehouseAddRoute,
 						element: <LazyFoodFolioWarehouseAddPage />,
+						hasErrorBoundary: true,
+					},
+					{
+						path: foodfolioProductAddRoute,
+						element: <LazyFoodFolioProductAddPage />,
 						hasErrorBoundary: true,
 					},
 					// Edit Pages

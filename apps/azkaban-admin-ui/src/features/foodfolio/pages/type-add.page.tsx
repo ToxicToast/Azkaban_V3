@@ -7,22 +7,19 @@ import { Headline } from '../../shared/components/components/headline.component'
 import { Card, CardContent, CardHeader, CardTitle } from '../../shared';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
-
-type TypeForm = {
-	title: string;
-};
+import { CreateFoodFolioType } from '@toxictoast/azkaban-sdk';
 
 function TypeAddPage() {
 	const { createTypeTrigger } = useTypeState();
 	const navigate = useNavigate();
-	const { handleSubmit, setValue } = useForm<TypeForm>();
+	const { handleSubmit, setValue } = useForm<CreateFoodFolioType>();
 
 	const navigateBack = useCallback(() => {
 		navigate(foodfolioTypeRoute);
 	}, [navigate]);
 
 	const onSubmit = useCallback(
-		(data: TypeForm) => {
+		(data: CreateFoodFolioType) => {
 			const { title } = data;
 			if (title.trim() !== '') {
 				createTypeTrigger(data);

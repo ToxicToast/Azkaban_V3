@@ -41,4 +41,8 @@ export const foodfolioWarehouseRoute = `${foodfolioRoute}/warehouse`;
 export const foodfolioWarehouseViewRoute = `${foodfolioWarehouseRoute}/view/:id`;
 export const foodfolioWarehouseAddRoute = `${foodfolioWarehouseRoute}/add`;
 
+export const foodfolioProductRoute = `${foodfolioRoute}/product`;
+export const foodfolioProductViewRoute = `${foodfolioProductRoute}/view/:id`;
+export const foodfolioProductAddRoute = `${foodfolioProductRoute}/add`;
+
 export const wildcardRoute = '*';

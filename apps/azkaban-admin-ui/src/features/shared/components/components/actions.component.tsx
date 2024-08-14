@@ -24,7 +24,12 @@ export function Actions(props: Props) {
 				<SearchIcon className="h-3.5 w-3.5" />
 			</Button>
 			&nbsp;
-			<Button onClick={() => onEdit()} size="sm" variant="secondary">
+			<Button
+				onClick={() => onEdit()}
+				size="sm"
+				variant="secondary"
+				disabled={true}
+			>
 				<EditIcon className="h-3.5 w-3.5" />
 			</Button>
 			&nbsp;
@@ -33,12 +38,18 @@ export function Actions(props: Props) {
 					onClick={() => onDelete()}
 					size="sm"
 					variant="destructive"
+					disabled={true}
 				>
 					<TrashIcon className="h-3.5 w-3.5" />
 				</Button>
 			</Show>
 			<Show show={isDeleted}>
-				<Button onClick={() => onRestore()} size="sm" variant="outline">
+				<Button
+					onClick={() => onRestore()}
+					size="sm"
+					variant="outline"
+					disabled={true}
+				>
 					<ArchiveRestoreIcon className="h-3.5 w-3.5" />
 				</Button>
 			</Show>

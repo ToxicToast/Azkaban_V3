@@ -4,9 +4,10 @@ import {
 	useLocationState,
 	useSizeState,
 	useTypeState,
+	useWarehouseState,
+	useProductState,
 } from '../features/shared/store/foodfolio';
 import { useEffect } from 'react';
-import { useWarehouseState } from '../features/shared/store/foodfolio/warehouse';
 
 interface Props {
 	isAuthenticated: boolean;
@@ -21,6 +22,7 @@ export function Azkaban(props: Props) {
 	const { fetchSizesTrigger } = useSizeState();
 	const { fetchTypesTrigger } = useTypeState();
 	const { fetchWarehousesTrigger } = useWarehouseState();
+	const { fetchProductsTrigger } = useProductState();
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -30,8 +32,10 @@ export function Azkaban(props: Props) {
 			fetchSizesTrigger();
 			fetchTypesTrigger();
 			fetchWarehousesTrigger();
+			fetchProductsTrigger();
 		}
 	}, [
+		fetchProductsTrigger,
 		fetchWarehousesTrigger,
 		fetchTypesTrigger,
 		fetchSizesTrigger,

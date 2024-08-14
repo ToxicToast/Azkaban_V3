@@ -1,32 +1,34 @@
 import { Badge, Input, Label } from '../ui';
 import { Show } from '../../widgets';
 import { Optional } from '@toxictoast/azkaban-base-types';
-import { InputForm } from './input.form';
 
 interface Props {
+	id: string;
+	title: string;
 	onChange: (value: string) => void;
 	isRequired?: Optional<boolean>;
 	onlyShow: boolean;
 	defaultValue?: Optional<string>;
 }
 
-export function TitleForm(props: Props) {
-	const { onChange, onlyShow, defaultValue, isRequired } = props;
+export function NumberForm(props: Props) {
+	const { id, title, onChange, onlyShow, defaultValue, isRequired } = props;
 
 	return (
 		<>
-			<Label htmlFor="title">Title</Label>
+			<Label htmlFor={id}>{title}</Label>
 			<Show show={!onlyShow}>
-				<InputForm
-					id="title"
-					type="text"
-					isRequired={isRequired}
-					onChange={onChange}
+				<Input
+					id={id}
+					type="number"
+					className="w-full"
+					onChange={(e) => onChange(e.target.value)}
 					defaultValue={defaultValue}
+					required={isRequired ?? false}
 				/>
 			</Show>
 			<Show show={onlyShow}>
-				<Badge id="title">{defaultValue ?? '-'}</Badge>
+				<Badge id={id}>{defaultValue ?? '-'}</Badge>
 			</Show>
 		</>
 	);

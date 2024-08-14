@@ -7,22 +7,19 @@ import { Headline } from '../../shared/components/components/headline.component'
 import { Card, CardContent, CardHeader, CardTitle } from '../../shared';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
-
-type SizeForm = {
-	title: string;
-};
+import { CreateFoodFolioSize } from '@toxictoast/azkaban-sdk';
 
 function SizeAddPage() {
 	const { createSizeTrigger } = useSizeState();
 	const navigate = useNavigate();
-	const { handleSubmit, setValue } = useForm<SizeForm>();
+	const { handleSubmit, setValue } = useForm<CreateFoodFolioSize>();
 
 	const navigateBack = useCallback(() => {
 		navigate(foodfolioSizeRoute);
 	}, [navigate]);
 
 	const onSubmit = useCallback(
-		(data: SizeForm) => {
+		(data: CreateFoodFolioSize) => {
 			const { title } = data;
 			if (title.trim() !== '') {
 				createSizeTrigger(data);

@@ -16,28 +16,29 @@ import {
 } from '../../shared';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
-import { Nullable } from '@toxictoast/azkaban-base-types';
 import { useLocationState } from '../../shared/store/foodfolio';
-import { LocateIcon, RefrigeratorIcon, VaultIcon } from 'lucide-react';
+import { RefrigeratorIcon, VaultIcon } from 'lucide-react';
 import { SelectItemAtom } from '../../shared/components/atoms/select-item.atom';
-
-type LocationForm = {
-	title: string;
-	parent_id: Nullable<string>;
-	freezer: string;
-};
+import { CreateFoodFolioLocation } from '@toxictoast/azkaban-sdk';
+import { LocationSelectWidget } from '../widgets/location-select.widget';
 
 function LocationAddPage() {
 	const { locationData, createLocationTrigger } = useLocationState();
 	const navigate = useNavigate();
-	const { handleSubmit, setValue } = useForm<LocationForm>();
+	const { handleSubmit, setValue } = useForm<CreateFoodFolioLocation>({
+		values: {
+			title: '',
+			parent_id: null,
+			freezer: false,
+		},
+	});
 
 	const navigateBack = useCallback(() => {
 		navigate(foodfolioLocationRoute);
 	}, [navigate]);
 
 	const onSubmit = useCallback(
-		(data: LocationForm) => {
+		(data: CreateFoodFolioLocation) => {
 			const { title } = data;
 			if (title.trim() !== '') {
 				createLocationTrigger(data);
@@ -85,34 +86,13 @@ function LocationAddPage() {
 							<CardContent>
 								<div className="grid gap-6">
 									<div className="grid gap-3">
-										<Select
-											onValueChange={(value) =>
-												setValue('parent_id', value)
+										<LocationSelectWidget
+											locations={locationData}
+											onChange={(id) =>
+												setValue('parent_id', id)
 											}
-										>
-											<SelectTrigger className="w-full">
-												<SelectValue placeholder="No Parent Location" />
-											</SelectTrigger>
-											<SelectContent>
-												{locationData.map(
-													(location) => (
-														<SelectItem
-															key={location.id}
-															value={location.id}
-														>
-															<SelectItemAtom
-																icon={
-																	<LocateIcon className="size-5" />
-																}
-																title={
-																	location.title
-																}
-															/>
-														</SelectItem>
-													),
-												)}
-											</SelectContent>
-										</Select>
+											selectValueText="No Parent Location"
+										/>
 									</div>
 								</div>
 							</CardContent>
@@ -127,7 +107,10 @@ function LocationAddPage() {
 									<div className="grid gap-3">
 										<Select
 											onValueChange={(value) =>
-												setValue('freezer', value)
+												setValue(
+													'freezer',
+													value === '1',
+												)
 											}
 										>
 											<SelectTrigger className="w-full">

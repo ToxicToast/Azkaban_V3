@@ -30,7 +30,7 @@ export function CategoryList(props: Props) {
 		<TableRow>
 			<TableCell className="font-medium">{category.title}</TableCell>
 			<TableCell>
-				<Badge variant="outline">
+				<Badge variant={parent === null ? 'secondary' : 'outline'}>
 					{parent === null ? 'Root' : parent?.title}
 				</Badge>
 			</TableCell>

@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { dynamicBaseQuery } from '../../dynamicBaseQuery';
-import { FoodFolioSize } from '@toxictoast/azkaban-sdk';
+import { CreateFoodFolioSize, FoodFolioSize } from '@toxictoast/azkaban-sdk';
 import { foodfolioSizeEndpoint } from '../../../../../config/endpoints';
 
 export const sizeApi = createApi({
@@ -16,7 +16,7 @@ export const sizeApi = createApi({
 			providesTags: ['FetchSizes'],
 		}),
 
-		createSize: builder.mutation<void, { title: string }>({
+		createSize: builder.mutation<void, CreateFoodFolioSize>({
 			query: (data) => ({
 				url: foodfolioSizeEndpoint,
 				method: 'POST',

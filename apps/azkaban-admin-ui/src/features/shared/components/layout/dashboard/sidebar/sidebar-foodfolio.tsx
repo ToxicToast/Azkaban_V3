@@ -6,6 +6,7 @@ import {
 	foodfolioCategoryRoute,
 	foodfolioCategoryViewRoute,
 	foodfolioLocationRoute,
+	foodfolioProductRoute,
 	foodfolioSizeRoute,
 	foodfolioTypeRoute,
 	foodfolioWarehouseRoute,
@@ -39,9 +40,8 @@ export function SidebarFoodfolio(props: Props) {
 			/>
 			<SidebarLink
 				title="Products"
-				path="/foodfolio/products"
+				path={foodfolioProductRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-				disabled={true}
 			/>
 			<SidebarLink
 				title="Product Details"

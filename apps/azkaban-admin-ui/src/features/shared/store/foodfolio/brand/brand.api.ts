@@ -1,6 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { dynamicBaseQuery } from '../../dynamicBaseQuery';
-import { FoodFolioCompany } from '@toxictoast/azkaban-sdk';
+import {
+	CreateFoodFolioCompany,
+	FoodFolioCompany,
+} from '@toxictoast/azkaban-sdk';
 import { foodfolioCompanyEndpoint } from '../../../../../config/endpoints';
 
 export const brandApi = createApi({
@@ -16,7 +19,7 @@ export const brandApi = createApi({
 			providesTags: ['FetchBrands'],
 		}),
 
-		createBrand: builder.mutation<void, { title: string }>({
+		createBrand: builder.mutation<void, CreateFoodFolioCompany>({
 			query: (data) => ({
 				url: foodfolioCompanyEndpoint,
 				method: 'POST',

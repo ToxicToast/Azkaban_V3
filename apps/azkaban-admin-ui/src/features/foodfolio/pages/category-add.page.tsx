@@ -1,15 +1,5 @@
 import { Headline } from '../../shared/components/components/headline.component';
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '../../shared';
+import { Card, CardContent, CardHeader, CardTitle } from '../../shared';
 import { useCategoryState } from '../../shared/store/foodfolio';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
@@ -17,25 +7,25 @@ import { foodfolioCategoryRoute } from '../../../config/routes';
 import { useForm } from 'react-hook-form';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
-import { BoxIcon } from 'lucide-react';
-import { SelectItemAtom } from '../../shared/components/atoms/select-item.atom';
-
-type CategoryForm = {
-	title: string;
-	parent_id: string;
-};
+import { CreateFoodFolioCategory } from '@toxictoast/azkaban-sdk';
+import { CategorySelectWidget } from '../widgets/category-select.widget';
 
 function CategoryAddPage() {
 	const { categoryData, createCategoryTrigger } = useCategoryState();
 	const navigate = useNavigate();
-	const { handleSubmit, setValue } = useForm<CategoryForm>();
+	const { handleSubmit, setValue } = useForm<CreateFoodFolioCategory>({
+		values: {
+			title: '',
+			parent_id: null,
+		},
+	});
 
 	const navigateBack = useCallback(() => {
 		navigate(foodfolioCategoryRoute);
 	}, [navigate]);
 
 	const onSubmit = useCallback(
-		(data: CategoryForm) => {
+		(data: CreateFoodFolioCategory) => {
 			const { title } = data;
 			if (title.trim() !== '') {
 				createCategoryTrigger(data);
@@ -83,34 +73,13 @@ function CategoryAddPage() {
 							<CardContent>
 								<div className="grid gap-6">
 									<div className="grid gap-3">
-										<Select
-											onValueChange={(value) =>
-												setValue('parent_id', value)
+										<CategorySelectWidget
+											categories={categoryData}
+											onChange={(id) =>
+												setValue('parent_id', id)
 											}
-										>
-											<SelectTrigger className="w-full">
-												<SelectValue placeholder="No Parent Category" />
-											</SelectTrigger>
-											<SelectContent>
-												{categoryData.map(
-													(category) => (
-														<SelectItem
-															key={category.id}
-															value={category.id}
-														>
-															<SelectItemAtom
-																icon={
-																	<BoxIcon className="size-5" />
-																}
-																title={
-																	category.title
-																}
-															/>
-														</SelectItem>
-													),
-												)}
-											</SelectContent>
-										</Select>
+											selectValueText="No Parent Category"
+										/>
 									</div>
 								</div>
 							</CardContent>

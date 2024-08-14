@@ -12,6 +12,7 @@ import FoodFolioLocationReducer from './foodfolio/location/location.slice';
 import FoodFolioSizeReducer from './foodfolio/size/size.slice';
 import FoodFolioTypeReducer from './foodfolio/type/type.slice';
 import FoodFolioWarehouseReducer from './foodfolio/warehouse/warehouse.slice';
+import FoodFolioProductReducer from './foodfolio/product/product.slice';
 
 import { authApi } from './auth/auth.api';
 import { userApi } from './user/user.api';
@@ -21,11 +22,17 @@ import { locationApi } from './foodfolio/location/location.api';
 import { sizeApi } from './foodfolio/size/size.api';
 import { typeApi } from './foodfolio/type/type.api';
 import { warehouseApi } from './foodfolio/warehouse/warehouse.api';
+import { productApi } from './foodfolio/product/product.api';
 
 const azkabanReducer = combineReducers({
 	auth: AuthReducer,
 	user: UserReducer,
 });
+
+const azkabanApiReducer = {
+	[authApi.reducerPath]: authApi.reducer,
+	[userApi.reducerPath]: userApi.reducer,
+};
 
 const azkabanMiddleware = [authApi.middleware, userApi.middleware];
 
@@ -36,7 +43,18 @@ const foodfolioReducer = combineReducers({
 	size: FoodFolioSizeReducer,
 	type: FoodFolioTypeReducer,
 	warehouse: FoodFolioWarehouseReducer,
+	product: FoodFolioProductReducer,
 });
+
+const foodfolioApiReducer = {
+	[categoryApi.reducerPath]: categoryApi.reducer,
+	[brandApi.reducerPath]: brandApi.reducer,
+	[locationApi.reducerPath]: locationApi.reducer,
+	[sizeApi.reducerPath]: sizeApi.reducer,
+	[typeApi.reducerPath]: typeApi.reducer,
+	[warehouseApi.reducerPath]: warehouseApi.reducer,
+	[productApi.reducerPath]: productApi.reducer,
+};
 
 const foodfolioMiddleware = [
 	categoryApi.middleware,
@@ -45,6 +63,7 @@ const foodfolioMiddleware = [
 	sizeApi.middleware,
 	typeApi.middleware,
 	warehouseApi.middleware,
+	productApi.middleware,
 ];
 
 export const store = configureStore({
@@ -54,15 +73,9 @@ export const store = configureStore({
 		azkaban: azkabanReducer,
 		foodfolio: foodfolioReducer,
 		// Azkaban API reducers
-		[authApi.reducerPath]: authApi.reducer,
-		[userApi.reducerPath]: userApi.reducer,
+		...azkabanApiReducer,
 		// Foodfolio API reducers
-		[categoryApi.reducerPath]: categoryApi.reducer,
-		[brandApi.reducerPath]: brandApi.reducer,
-		[locationApi.reducerPath]: locationApi.reducer,
-		[sizeApi.reducerPath]: sizeApi.reducer,
-		[typeApi.reducerPath]: typeApi.reducer,
-		[warehouseApi.reducerPath]: warehouseApi.reducer,
+		...foodfolioApiReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()

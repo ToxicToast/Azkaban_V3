@@ -7,22 +7,23 @@ import { Headline } from '../../shared/components/components/headline.component'
 import { Card, CardContent, CardHeader, CardTitle } from '../../shared';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
-
-type BrandForm = {
-	title: string;
-};
+import { CreateFoodFolioCompany } from '@toxictoast/azkaban-sdk';
 
 function BrandAddPage() {
 	const { createBrandTrigger } = useBrandState();
 	const navigate = useNavigate();
-	const { handleSubmit, setValue } = useForm<BrandForm>();
+	const { handleSubmit, setValue } = useForm<CreateFoodFolioCompany>({
+		values: {
+			title: '',
+		},
+	});
 
 	const navigateBack = useCallback(() => {
 		navigate(foodfolioBrandRoute);
 	}, [navigate]);
 
 	const onSubmit = useCallback(
-		(data: BrandForm) => {
+		(data: CreateFoodFolioCompany) => {
 			const { title } = data;
 			if (title.trim() !== '') {
 				createBrandTrigger(data);

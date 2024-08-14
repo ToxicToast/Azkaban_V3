@@ -1,13 +1,39 @@
 import { Stats } from '../../components';
-import { Cross1Icon } from '@radix-ui/react-icons';
+import { useProductState } from '../../../shared/store/foodfolio';
+import { useMemo } from 'react';
+import {
+	foodfolioProductRoute,
+	foodfolioProductViewRoute,
+} from '../../../../config/routes';
+import { Link } from 'react-router-dom';
+import { CubeIcon } from '@radix-ui/react-icons';
 
 export function LatestProduct() {
+	const { productLatest, selectProductId } = useProductState();
+
+	const getProductId = useMemo(() => {
+		return productLatest?.id ?? '0';
+	}, [productLatest?.id]);
+
+	const getProductName = useMemo(() => {
+		return productLatest?.title ?? 'No Product :(';
+	}, [productLatest?.title]);
+
+	const getProductLink = useMemo(() => {
+		const sizeId = productLatest?.id ?? null;
+		if (sizeId !== null) {
+			return foodfolioProductViewRoute.replace(':id', sizeId);
+		}
+		return foodfolioProductRoute;
+	}, [productLatest?.id]);
+
 	return (
-		<Stats
-			title="Latest FoodFolio Product"
-			icon={<Cross1Icon className="h-4 w-4 text-muted-foreground" />}
-			statistic="Not Available"
-			isDisabled={true}
-		/>
+		<Link to={getProductLink} onClick={() => selectProductId(getProductId)}>
+			<Stats
+				title="Latest FoodFolio Product"
+				icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
+				statistic={getProductName}
+			/>
+		</Link>
 	);
 }
