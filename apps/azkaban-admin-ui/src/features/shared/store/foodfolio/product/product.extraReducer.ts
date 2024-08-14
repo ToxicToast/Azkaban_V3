@@ -35,3 +35,17 @@ export function onFetchProductsRejected(
 		},
 	);
 }
+
+export function onCreateProductFulfilled(
+	builder: ActionReducerMapBuilder<ProductModel>,
+) {
+	builder.addMatcher(
+		productApi.endpoints?.createProduct.matchFulfilled,
+		() => {
+			toastService.sendToast({
+				text: 'Product created successfully',
+				type: 'success',
+			});
+		},
+	);
+}

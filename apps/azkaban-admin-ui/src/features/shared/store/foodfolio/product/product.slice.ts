@@ -4,6 +4,7 @@ import { SetSelectedIdAction } from './product.reducer';
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 import { ProductModel } from './product.model';
 import {
+	onCreateProductFulfilled,
 	onFetchProductsFulfilled,
 	onFetchProductsRejected,
 } from './product.extraReducer';
@@ -17,6 +18,7 @@ export const productSlice = createSlice({
 	extraReducers: (builder: ActionReducerMapBuilder<ProductModel>) => {
 		onFetchProductsFulfilled(builder);
 		onFetchProductsRejected(builder);
+		onCreateProductFulfilled(builder);
 	},
 });
 
