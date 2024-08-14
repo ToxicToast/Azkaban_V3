@@ -156,6 +156,7 @@
 		"cache-manager": "^5.7.4",
 		"cache-manager-redis-store": "^3.0.1",
 		"class-variance-authority": "^0.7.0",
+		"classnames": "^2.5.1",
 		"compression": "^1.7.4",
 		"cookie-parser": "^1.4.6",
 		"date-fns": "^3.6.0",

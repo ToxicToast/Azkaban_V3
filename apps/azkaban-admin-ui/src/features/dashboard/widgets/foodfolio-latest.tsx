@@ -4,18 +4,21 @@ import { LatestLocation } from '../atoms/foodfolio/latest-location.atom';
 import { LatestSize } from '../atoms/foodfolio/latest-size.atom';
 import { LatestType } from '../atoms/foodfolio/latest-type.atom';
 import { LatestWarehouse } from '../atoms/foodfolio/latest-warehouse.atom';
+import { LatestProduct } from '../atoms/foodfolio/latest-product.atom';
+import { LatestProductDetail } from '../atoms/foodfolio/latest-product-detail.atom';
+import { LatestReceipt } from '../atoms/foodfolio/latest-receipt.atom';
 
 export function FoodFolioLatest() {
 	return (
 		<>
 			<LatestCategory />
 			<LatestBrand />
-			<div>{/* TODO: LATEST PRODUCT */}</div>
-			<div>{/* TODO: LATEST PRODUCT DETAIL */}</div>
+			<LatestProduct />
+			<LatestProductDetail />
 			<LatestLocation />
 			<LatestSize />
 			<LatestType />
-			<div>{/* TODO: LATEST RECEIPT */}</div>
+			<LatestReceipt />
 			<LatestWarehouse />
 		</>
 	);

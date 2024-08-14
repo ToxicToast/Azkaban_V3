@@ -4,21 +4,21 @@ import { StatsLocation } from '../atoms/foodfolio/stats-location.atom';
 import { StatsSize } from '../atoms/foodfolio/stats-size.atom';
 import { StatsType } from '../atoms/foodfolio/stats-type.atom';
 import { StatsWarehouse } from '../atoms/foodfolio/stats-warehouse.atom';
+import { StatsProducts } from '../atoms/foodfolio/stats-products.atom';
+import { StatsProductDetails } from '../atoms/foodfolio/stats-product-details.atom';
+import { StatsReceipts } from '../atoms/foodfolio/stats-receipts.atom';
 
 export function FoodfolioStats() {
 	return (
 		<>
 			<StatsCategory />
 			<StatsBrand />
-
-			<div>{/* TODO: TOTAL PRODUCTS */}</div>
-			<div>{/* TODO: TOTAL PRODUCT DETAILS */}</div>
-
+			<StatsProducts />
+			<StatsProductDetails />
 			<StatsLocation />
 			<StatsSize />
 			<StatsType />
-
-			<div>{/* TODO: TOTAL RECEIPTS */}</div>
+			<StatsReceipts />
 			<StatsWarehouse />
 		</>
 	);

@@ -1,11 +1,13 @@
 import { StatsUser } from '../atoms/azkaban/stats-user.atom';
+import { StatsNotification } from '../atoms/azkaban/stats-notification.atom';
+import { StatsGroup } from '../atoms/azkaban/stats-group.atom';
 
 export function AzkabanStats() {
 	return (
 		<>
-			<div>{/* TODO: TOTAL NOTIFICATIONS */}</div>
+			<StatsNotification />
 			<StatsUser />
-			<div>{/* TODO: TOTAL GROUPS */}</div>
+			<StatsGroup />
 		</>
 	);
 }
