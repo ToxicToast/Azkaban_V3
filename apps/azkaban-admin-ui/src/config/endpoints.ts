@@ -11,3 +11,4 @@ export const foodfolioCompanyEndpoint = `${foodfolioEndpoint}/company`;
 export const foodfolioLocationEndpoint = `${foodfolioEndpoint}/location`;
 export const foodfolioSizeEndpoint = `${foodfolioEndpoint}/size`;
 export const foodfolioTypeEndpoint = `${foodfolioEndpoint}/type`;
+export const foodfolioWarehouseEndpoint = `${foodfolioEndpoint}/warehouse`;

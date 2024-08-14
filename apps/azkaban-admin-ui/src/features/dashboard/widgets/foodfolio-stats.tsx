@@ -3,6 +3,7 @@ import { StatsBrand } from '../atoms/foodfolio/stats-brand.atom';
 import { StatsLocation } from '../atoms/foodfolio/stats-location.atom';
 import { StatsSize } from '../atoms/foodfolio/stats-size.atom';
 import { StatsType } from '../atoms/foodfolio/stats-type.atom';
+import { StatsWarehouse } from '../atoms/foodfolio/stats-warehouse.atom';
 
 export function FoodfolioStats() {
 	return (
@@ -18,7 +19,7 @@ export function FoodfolioStats() {
 			<StatsType />
 
 			<div>{/* TODO: TOTAL RECEIPTS */}</div>
-			<div>{/* TODO: TOTAL WAREHOUSES */}</div>
+			<StatsWarehouse />
 		</>
 	);
 }

@@ -11,6 +11,7 @@ import FoodFolioBrandReducer from './foodfolio/brand/brand.slice';
 import FoodFolioLocationReducer from './foodfolio/location/location.slice';
 import FoodFolioSizeReducer from './foodfolio/size/size.slice';
 import FoodFolioTypeReducer from './foodfolio/type/type.slice';
+import FoodFolioWarehouseReducer from './foodfolio/warehouse/warehouse.slice';
 
 import { authApi } from './auth/auth.api';
 import { userApi } from './user/user.api';
@@ -19,6 +20,7 @@ import { brandApi } from './foodfolio/brand/brand.api';
 import { locationApi } from './foodfolio/location/location.api';
 import { sizeApi } from './foodfolio/size/size.api';
 import { typeApi } from './foodfolio/type/type.api';
+import { warehouseApi } from './foodfolio/warehouse/warehouse.api';
 
 const azkabanReducer = combineReducers({
 	auth: AuthReducer,
@@ -33,6 +35,7 @@ const foodfolioReducer = combineReducers({
 	location: FoodFolioLocationReducer,
 	size: FoodFolioSizeReducer,
 	type: FoodFolioTypeReducer,
+	warehouse: FoodFolioWarehouseReducer,
 });
 
 const foodfolioMiddleware = [
@@ -41,6 +44,7 @@ const foodfolioMiddleware = [
 	locationApi.middleware,
 	sizeApi.middleware,
 	typeApi.middleware,
+	warehouseApi.middleware,
 ];
 
 export const store = configureStore({
@@ -58,6 +62,7 @@ export const store = configureStore({
 		[locationApi.reducerPath]: locationApi.reducer,
 		[sizeApi.reducerPath]: sizeApi.reducer,
 		[typeApi.reducerPath]: typeApi.reducer,
+		[warehouseApi.reducerPath]: warehouseApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()

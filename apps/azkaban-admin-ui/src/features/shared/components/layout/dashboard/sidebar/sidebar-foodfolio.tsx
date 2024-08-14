@@ -8,6 +8,7 @@ import {
 	foodfolioLocationRoute,
 	foodfolioSizeRoute,
 	foodfolioTypeRoute,
+	foodfolioWarehouseRoute,
 } from '../../../../../../config/routes';
 import { CubeIcon } from '@radix-ui/react-icons';
 import { Show } from '../../../../widgets';
@@ -71,9 +72,8 @@ export function SidebarFoodfolio(props: Props) {
 			/>
 			<SidebarLink
 				title="Warehouses"
-				path="/foodfolio/warehouses"
+				path={foodfolioWarehouseRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-				disabled={true}
 			/>
 		</Show>
 	);
