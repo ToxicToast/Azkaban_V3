@@ -38,6 +38,8 @@ export function SizeList(props: Props) {
 					onView={() => onView()}
 					onEdit={() => console.error('on edit size')}
 					onDelete={() => console.error('on delete size')}
+					onRestore={() => console.error('on restore size')}
+					isDeleted={size.isDeleted}
 				/>
 			</TableCell>
 		</TableRow>

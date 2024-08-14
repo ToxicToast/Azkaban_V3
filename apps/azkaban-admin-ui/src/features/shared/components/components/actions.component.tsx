@@ -1,14 +1,22 @@
 import { Button } from '../ui';
-import { EditIcon, SearchIcon, TrashIcon } from 'lucide-react';
+import {
+	EditIcon,
+	SearchIcon,
+	TrashIcon,
+	ArchiveRestoreIcon,
+} from 'lucide-react';
+import { Show } from '../../widgets';
 
 interface Props {
 	onView: () => void;
 	onEdit: () => void;
 	onDelete: () => void;
+	onRestore: () => void;
+	isDeleted: boolean;
 }
 
 export function Actions(props: Props) {
-	const { onView, onEdit, onDelete } = props;
+	const { onView, onEdit, onDelete, onRestore, isDeleted } = props;
 
 	return (
 		<>
@@ -20,9 +28,20 @@ export function Actions(props: Props) {
 				<EditIcon className="h-3.5 w-3.5" />
 			</Button>
 			&nbsp;
-			<Button onClick={() => onDelete()} size="sm" variant="destructive">
-				<TrashIcon className="h-3.5 w-3.5" />
-			</Button>
+			<Show show={!isDeleted}>
+				<Button
+					onClick={() => onDelete()}
+					size="sm"
+					variant="destructive"
+				>
+					<TrashIcon className="h-3.5 w-3.5" />
+				</Button>
+			</Show>
+			<Show show={isDeleted}>
+				<Button onClick={() => onRestore()} size="sm" variant="outline">
+					<ArchiveRestoreIcon className="h-3.5 w-3.5" />
+				</Button>
+			</Show>
 		</>
 	);
 }

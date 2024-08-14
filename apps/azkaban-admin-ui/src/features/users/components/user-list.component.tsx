@@ -55,6 +55,8 @@ export function UserList(props: Props) {
 					onView={() => onView()}
 					onEdit={() => onEdit()}
 					onDelete={() => onDelete()}
+					onRestore={() => console.error('on restore user')}
+					isDeleted={user.isDeleted}
 				/>
 			</TableCell>
 		</TableRow>

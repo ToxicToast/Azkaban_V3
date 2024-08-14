@@ -42,6 +42,8 @@ export function WarehouseList(props: Props) {
 					onView={() => onView()}
 					onEdit={() => console.error('on edit warehouse')}
 					onDelete={() => console.error('on delete warehouse')}
+					onRestore={() => console.error('on restore warehouse')}
+					isDeleted={warehouse.isDeleted}
 				/>
 			</TableCell>
 		</TableRow>

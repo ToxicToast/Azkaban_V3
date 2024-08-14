@@ -38,6 +38,8 @@ export function BrandList(props: Props) {
 					onView={() => onView()}
 					onEdit={() => console.error('on edit brand')}
 					onDelete={() => console.error('on delete brand')}
+					onRestore={() => console.error('on restore brand')}
+					isDeleted={brand.isDeleted}
 				/>
 			</TableCell>
 		</TableRow>

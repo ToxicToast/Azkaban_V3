@@ -49,6 +49,8 @@ export function LocationList(props: Props) {
 					onView={() => onView()}
 					onEdit={() => console.error('on edit location')}
 					onDelete={() => console.error('on delete location')}
+					onRestore={() => console.error('on restore location')}
+					isDeleted={location.isDeleted}
 				/>
 			</TableCell>
 		</TableRow>

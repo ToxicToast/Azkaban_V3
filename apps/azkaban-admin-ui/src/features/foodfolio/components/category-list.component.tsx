@@ -49,6 +49,8 @@ export function CategoryList(props: Props) {
 					onView={() => onView()}
 					onEdit={() => console.error('on edit category')}
 					onDelete={() => console.error('on delete category')}
+					onRestore={() => console.error('on restore category')}
+					isDeleted={category.isDeleted}
 				/>
 			</TableCell>
 		</TableRow>

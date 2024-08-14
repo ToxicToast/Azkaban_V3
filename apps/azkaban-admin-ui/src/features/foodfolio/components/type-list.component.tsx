@@ -38,6 +38,8 @@ export function TypeList(props: Props) {
 					onView={() => onView()}
 					onEdit={() => console.error('on edit type')}
 					onDelete={() => console.error('on delete type')}
+					onRestore={() => console.error('on restore type')}
+					isDeleted={type.isDeleted}
 				/>
 			</TableCell>
 		</TableRow>
