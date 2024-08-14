@@ -1,6 +1,6 @@
 {
 	"name": "@azkaban/source",
-	"version": "0.13.31",
+	"version": "0.13.44",
 	"license": "MIT",
 	"scripts": {
 		"nx": "nx",
