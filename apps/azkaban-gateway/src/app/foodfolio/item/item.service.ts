@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
@@ -240,9 +240,7 @@ export class ItemService {
 					returnable: false,
 					art_no: null,
 				})
-				.toPromise()
-				.then((value) => Logger.debug(value))
-				.catch((error) => Logger.error(error));
+				.toPromise();
 		}
 	}
 }
