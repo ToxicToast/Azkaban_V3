@@ -163,8 +163,8 @@ export class ItemService {
 				price,
 			})
 			.toPromise()
-			.then((value) => {
-				this.notifySerivce.onCreateItem(value.id, value.title);
+			.then(async (value) => {
+				await this.notifySerivce.onCreateItem(value.id, value.title);
 				return value;
 			});
 	}

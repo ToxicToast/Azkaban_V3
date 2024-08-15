@@ -75,7 +75,14 @@ export class ItemDetailService {
 				returnable,
 				art_no,
 			})
-			.toPromise();
+			.toPromise()
+			.then(async (value) => {
+				await this.notifySerivce.onCreateItemDetail(
+					value.id,
+					value.item_id,
+				);
+				return value;
+			});
 	}
 
 	async updateItemDetail(
