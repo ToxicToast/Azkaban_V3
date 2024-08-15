@@ -8,7 +8,6 @@ export class ItemDetailFactory
 	implements Factory<ItemDetailAnemic, ItemDetailAggregate, ItemDetailData>
 {
 	reconstitute(data: ItemDetailAnemic): ItemDetailAggregate {
-		console.error('reconstitute::data', data);
 		const {
 			id,
 			item_id,
@@ -42,7 +41,6 @@ export class ItemDetailFactory
 	}
 
 	constitute(data: ItemDetailAggregate): ItemDetailAnemic {
-		console.error('constitute::data', data);
 		const {
 			id,
 			item_id,
@@ -86,7 +84,6 @@ export class ItemDetailFactory
 	}
 
 	createDomain(data: ItemDetailData): ItemDetailAggregate {
-		console.error('createDomain::data', data);
 		const { item_id, purchase_date, expiration_date, returnable, art_no } =
 			data;
 

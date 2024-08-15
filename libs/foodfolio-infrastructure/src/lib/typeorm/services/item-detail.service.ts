@@ -17,7 +17,6 @@ export class ItemDetailService {
 		offset?: Optional<number>,
 	): Promise<Array<ItemDetailDAO>> {
 		const result = await this.domainService.getItemsDetails(limit, offset);
-		console.error('getItemDetailList', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -29,7 +28,6 @@ export class ItemDetailService {
 		item_id: string,
 	): Promise<Array<ItemDetailDAO>> {
 		const result = await this.domainService.getItemDetailByItemId(item_id);
-		console.error('getItemDetailByItemId', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -40,7 +38,6 @@ export class ItemDetailService {
 
 	async getItemDetailById(id: string): Promise<ItemDetailDAO> {
 		const result = await this.domainService.getItemDetailById(id);
-		console.error('getItemDetailById', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -51,7 +48,6 @@ export class ItemDetailService {
 
 	async createItemDetail(data: CreateItemDetailDTO): Promise<ItemDetailDAO> {
 		const result = await this.domainService.createItemDetail(data);
-		console.error('createItemDetail', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -65,7 +61,6 @@ export class ItemDetailService {
 		item_id: Nullable<string>,
 	): Promise<ItemDetailDAO> {
 		const result = await this.domainService.updateItemId(id, item_id);
-		console.error('updateItemId', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -79,7 +74,6 @@ export class ItemDetailService {
 		art_no: Nullable<string>,
 	): Promise<ItemDetailDAO> {
 		const result = await this.domainService.updateArtNo(id, art_no);
-		console.error('updateArtNo', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -96,7 +90,6 @@ export class ItemDetailService {
 			id,
 			purchase_date,
 		);
-		console.error('updatePurchaseDate', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -113,7 +106,6 @@ export class ItemDetailService {
 			id,
 			expiration_date,
 		);
-		console.error('updateExpirationDate', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -130,7 +122,6 @@ export class ItemDetailService {
 			id,
 			opening_date,
 		);
-		console.error('updateOpeningDate', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -147,7 +138,6 @@ export class ItemDetailService {
 			id,
 			returnable,
 		);
-		console.error('updateReturnable', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -164,7 +154,6 @@ export class ItemDetailService {
 			id,
 			activated_at,
 		);
-		console.error('updateActivatedAt', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -175,7 +164,6 @@ export class ItemDetailService {
 
 	async deleteItemDetail(id: string): Promise<ItemDetailDAO> {
 		const result = await this.domainService.deleteItemDetail(id);
-		console.error('deleteItemDetail', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
@@ -186,7 +174,6 @@ export class ItemDetailService {
 
 	async restoreItemDetail(id: string): Promise<ItemDetailDAO> {
 		const result = await this.domainService.restoreItemDetail(id);
-		console.error('restoreItemDetail', result);
 		if (result.isSuccess) {
 			return result.value;
 		} else {
