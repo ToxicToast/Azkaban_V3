@@ -127,16 +127,10 @@ export class ItemController {
 					price,
 				)
 				.then(async (item) => {
-					const currentSku = item.current_sku;
-					for (let i = 0; i < currentSku; i++) {
-						await this.detailService.createItemDetail(
-							item.id,
-							new Date(),
-							null,
-							false,
-							null,
-						);
-					}
+					await this.detailService.createItemDetail(
+						item.id,
+						item.current_sku,
+					);
 					return item;
 				});
 		} catch (error) {

@@ -1,4 +1,5 @@
 import {
+	CreateItemDetailDTO,
 	ItemDetailDAO,
 	ItemDetailEntity,
 	ItemDetailRepository,
@@ -27,17 +28,18 @@ export class DetailService {
 
 	async createItemDetail(
 		item_id: string,
-		purchase_date: Date,
-		expiration_date: Nullable<Date>,
-		returnable: boolean,
-		art_no: Nullable<string>,
-	): Promise<ItemDetailDAO> {
-		return await this.infrastructureService.createItemDetail({
+		current_sku: number,
+	): Promise<void> {
+		const real_sku = current_sku === 0 ? 1 : current_sku;
+		const data: CreateItemDetailDTO = {
 			item_id,
-			purchase_date,
-			expiration_date,
-			returnable,
-			art_no,
-		});
+			purchase_date: new Date(),
+			expiration_date: null,
+			returnable: false,
+			art_no: null,
+		};
+		for (let i = 0; i < real_sku; i++) {
+			await this.infrastructureService.createItemDetail(data);
+		}
 	}
 }
