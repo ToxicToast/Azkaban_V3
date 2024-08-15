@@ -5,9 +5,10 @@ import {
 	ItemDetailRepository,
 	ItemDetailService as BaseService,
 } from '@azkaban/foodfolio-infrastructure';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Nullable } from '@toxictoast/azkaban-base-types';
+import { sleep } from '@nestjs/terminus/dist/utils';
 
 @Injectable()
 export class DetailService {
@@ -39,7 +40,9 @@ export class DetailService {
 			art_no: null,
 		};
 		for (let i = 0; i < real_sku; i++) {
-			await this.infrastructureService.createItemDetail(data);
+			const detail =
+				await this.infrastructureService.createItemDetail(data);
+			Logger.debug({ ...detail }, 'createItemDetail');
 		}
 	}
 }
