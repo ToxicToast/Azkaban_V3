@@ -22,7 +22,7 @@ export function LatestLocation() {
 	const getLocationLink = useMemo(() => {
 		const locationId = locationLatest?.id ?? null;
 		if (locationId !== null) {
-			return foodfolioLocationViewRoute.replace(':id', locationId);
+			return foodfolioLocationViewRoute;
 		}
 		return foodfolioLocationRoute;
 	}, [locationLatest?.id]);

@@ -22,7 +22,7 @@ export function LatestCategory() {
 	const getCategoryLink = useMemo(() => {
 		const categoryId = categoryLatest?.id ?? null;
 		if (categoryId !== null) {
-			return foodfolioCategoryViewRoute.replace(':id', categoryId);
+			return foodfolioCategoryViewRoute;
 		}
 		return foodfolioCategoryRoute;
 	}, [categoryLatest?.id]);

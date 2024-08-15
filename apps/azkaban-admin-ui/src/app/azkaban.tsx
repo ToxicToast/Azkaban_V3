@@ -1,49 +1,21 @@
-import {
-	useBrandState,
-	useCategoryState,
-	useLocationState,
-	useSizeState,
-	useTypeState,
-	useWarehouseState,
-	useProductState,
-} from '../features/shared/store/foodfolio';
 import { useEffect } from 'react';
+import { useUserState } from '../features/shared/store/user/user.hook';
 
 interface Props {
 	isAuthenticated: boolean;
+	canSeeAzkaban: boolean;
 }
 
 export function Azkaban(props: Props) {
-	const { isAuthenticated } = props;
+	const { isAuthenticated, canSeeAzkaban } = props;
 
-	const { fetchCategoriesTrigger } = useCategoryState();
-	const { fetchBrandsTrigger } = useBrandState();
-	const { fetchLocationsTrigger } = useLocationState();
-	const { fetchSizesTrigger } = useSizeState();
-	const { fetchTypesTrigger } = useTypeState();
-	const { fetchWarehousesTrigger } = useWarehouseState();
-	const { fetchProductsTrigger } = useProductState();
+	const { fetchUserListTrigger } = useUserState();
 
 	useEffect(() => {
-		if (isAuthenticated) {
-			fetchCategoriesTrigger();
-			fetchBrandsTrigger();
-			fetchLocationsTrigger();
-			fetchSizesTrigger();
-			fetchTypesTrigger();
-			fetchWarehousesTrigger();
-			fetchProductsTrigger();
+		if (isAuthenticated && canSeeAzkaban) {
+			fetchUserListTrigger();
 		}
-	}, [
-		fetchProductsTrigger,
-		fetchWarehousesTrigger,
-		fetchTypesTrigger,
-		fetchSizesTrigger,
-		fetchLocationsTrigger,
-		fetchBrandsTrigger,
-		fetchCategoriesTrigger,
-		isAuthenticated,
-	]);
+	}, [fetchUserListTrigger, canSeeAzkaban, isAuthenticated]);
 
 	return null;
 }

@@ -20,7 +20,7 @@ export class ItemDetailAggregate implements Domain<ItemDetailAnemic> {
 	isExpired(): boolean {
 		if (this.expiration_date !== null) {
 			const date = new Date().getTime();
-			return date > this.expiration_date.getTime();
+			return date > this.expiration_date?.getTime();
 		}
 		return false;
 	}

@@ -22,7 +22,7 @@ export function LatestBrand() {
 	const getBrandLink = useMemo(() => {
 		const brandId = brandLatest?.id ?? null;
 		if (brandId !== null) {
-			return foodfolioBrandViewRoute.replace(':id', brandId);
+			return foodfolioBrandViewRoute;
 		}
 		return foodfolioBrandRoute;
 	}, [brandLatest?.id]);

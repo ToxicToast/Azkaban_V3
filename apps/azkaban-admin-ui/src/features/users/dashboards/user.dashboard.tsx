@@ -18,7 +18,7 @@ function UserDashboardPage() {
 	const onView = useCallback(
 		(userId: string) => {
 			selectUserId(userId);
-			navigate(viewUsersRoute.replace(':id', userId));
+			navigate(viewUsersRoute);
 		},
 		[navigate, selectUserId],
 	);
@@ -26,7 +26,7 @@ function UserDashboardPage() {
 	const onEdit = useCallback(
 		(userId: string) => {
 			selectUserId(userId);
-			navigate(editUsersRoute.replace(':id', userId));
+			navigate(editUsersRoute);
 		},
 		[navigate, selectUserId],
 	);
@@ -34,7 +34,7 @@ function UserDashboardPage() {
 	const onDelete = useCallback(
 		(userId: string) => {
 			selectUserId(userId);
-			navigate(deleteUsersRoute.replace(':id', userId));
+			navigate(deleteUsersRoute);
 		},
 		[navigate, selectUserId],
 	);

@@ -34,15 +34,16 @@ function ProductDashboardPage() {
 	const { sizeData } = useSizeState();
 	const { typeData } = useTypeState();
 	const { warehouseData } = useWarehouseState();
-	const { productData } = useProductState();
+	const { productData, selectProductId } = useProductState();
 
 	const navigate = useNavigate();
 
 	const onView = useCallback(
-		(userId: string) => {
-			navigate(foodfolioProductViewRoute.replace(':id', userId));
+		(productId: string) => {
+			selectProductId(productId);
+			navigate(foodfolioProductViewRoute);
 		},
-		[navigate],
+		[navigate, selectProductId],
 	);
 
 	const onAdd = useCallback(() => {

@@ -18,7 +18,7 @@ function CategoryDashboardPage() {
 	const onView = useCallback(
 		(userId: string) => {
 			selectCategoryId(userId);
-			navigate(foodfolioCategoryViewRoute.replace(':id', userId));
+			navigate(foodfolioCategoryViewRoute);
 		},
 		[navigate, selectCategoryId],
 	);

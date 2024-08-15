@@ -18,7 +18,7 @@ export function SidebarLink(props: Props) {
 	const isActive = useCallback(() => {
 		const pathName = location.pathname;
 		const paths = [path, ...(props.otherPaths || [])];
-		return paths.some((p) => pathName.startsWith(p));
+		return paths.some((p) => pathName === p);
 	}, [location.pathname, path, props.otherPaths]);
 
 	const getCursor = useMemo(() => {

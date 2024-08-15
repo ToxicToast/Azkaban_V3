@@ -22,7 +22,7 @@ export function LatestType() {
 	const getTypeLink = useMemo(() => {
 		const typeId = typeLatest?.id ?? null;
 		if (typeId !== null) {
-			return foodfolioTypeViewRoute.replace(':id', typeId);
+			return foodfolioTypeViewRoute;
 		}
 		return foodfolioTypeRoute;
 	}, [typeLatest?.id]);

@@ -22,7 +22,7 @@ export function LatestSize() {
 	const getSizeLink = useMemo(() => {
 		const sizeId = sizeLatest?.id ?? null;
 		if (sizeId !== null) {
-			return foodfolioSizeViewRoute.replace(':id', sizeId);
+			return foodfolioSizeViewRoute;
 		}
 		return foodfolioSizeRoute;
 	}, [sizeLatest?.id]);

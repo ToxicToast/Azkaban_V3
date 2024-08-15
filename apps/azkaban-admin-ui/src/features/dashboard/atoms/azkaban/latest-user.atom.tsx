@@ -19,7 +19,7 @@ export function LatestUser() {
 	const getUserLink = useMemo(() => {
 		const userId = latestUser?.id ?? null;
 		if (userId !== null) {
-			return viewUsersRoute.replace(':id', userId);
+			return viewUsersRoute;
 		}
 		return usersRoute;
 	}, [latestUser?.id]);

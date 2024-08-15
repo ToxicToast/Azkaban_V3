@@ -69,7 +69,7 @@ export class ItemDetailMapper
 			isActive: !!activated_at,
 			isUpdated: !!updated_at,
 			isDeleted: !!deleted_at,
-			isExpired: date > expiration_date.getTime(),
+			isExpired: date > expiration_date?.getTime(),
 			isOpened: !!opening_date,
 		});
 		return this.domainFactory.constitute(aggregate);

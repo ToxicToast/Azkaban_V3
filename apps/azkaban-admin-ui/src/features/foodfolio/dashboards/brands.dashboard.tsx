@@ -17,7 +17,7 @@ function BrandsDashboardPage() {
 	const onView = useCallback(
 		(brandId: string) => {
 			selectBrandId(brandId);
-			navigate(foodfolioBrandViewRoute.replace(':id', brandId));
+			navigate(foodfolioBrandViewRoute);
 		},
 		[navigate, selectBrandId],
 	);

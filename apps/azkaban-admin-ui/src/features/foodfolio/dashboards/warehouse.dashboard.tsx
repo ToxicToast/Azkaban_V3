@@ -17,7 +17,7 @@ function WarehouseDashboardPage() {
 	const onView = useCallback(
 		(warehouseId: string) => {
 			selectWarehouseId(warehouseId);
-			navigate(foodfolioWarehouseViewRoute.replace(':id', warehouseId));
+			navigate(foodfolioWarehouseViewRoute);
 		},
 		[selectWarehouseId, navigate],
 	);

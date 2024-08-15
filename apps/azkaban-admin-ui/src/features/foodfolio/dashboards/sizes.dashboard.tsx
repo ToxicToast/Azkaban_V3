@@ -17,7 +17,7 @@ function SizeDashboardPage() {
 	const onView = useCallback(
 		(sizeId: string) => {
 			selectSizeId(sizeId);
-			navigate(foodfolioSizeViewRoute.replace(':id', sizeId));
+			navigate(foodfolioSizeViewRoute);
 		},
 		[navigate, selectSizeId],
 	);

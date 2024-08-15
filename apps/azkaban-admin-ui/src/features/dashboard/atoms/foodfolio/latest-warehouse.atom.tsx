@@ -22,7 +22,7 @@ export function LatestWarehouse() {
 	const getWarehouseLink = useMemo(() => {
 		const warehouseId = warehouseLatest?.id ?? null;
 		if (warehouseId !== null) {
-			return foodfolioWarehouseViewRoute.replace(':id', warehouseId);
+			return foodfolioWarehouseViewRoute;
 		}
 		return foodfolioWarehouseRoute;
 	}, [warehouseLatest?.id]);

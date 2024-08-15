@@ -18,7 +18,7 @@ function LocationDashboardPage() {
 	const onView = useCallback(
 		(locationId: string) => {
 			selectLocationId(locationId);
-			navigate(foodfolioLocationViewRoute.replace(':id', locationId));
+			navigate(foodfolioLocationViewRoute);
 		},
 		[navigate, selectLocationId],
 	);

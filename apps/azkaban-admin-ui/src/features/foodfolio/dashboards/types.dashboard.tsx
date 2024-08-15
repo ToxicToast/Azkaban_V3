@@ -17,7 +17,7 @@ function TypeDashboardPage() {
 	const onView = useCallback(
 		(typeId: string) => {
 			selectTypeId(typeId);
-			navigate(foodfolioTypeViewRoute.replace(':id', typeId));
+			navigate(foodfolioTypeViewRoute);
 		},
 		[navigate, selectTypeId],
 	);

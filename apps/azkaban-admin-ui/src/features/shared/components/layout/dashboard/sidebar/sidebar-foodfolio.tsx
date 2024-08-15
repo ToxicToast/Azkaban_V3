@@ -1,15 +1,29 @@
 import { SidebarLink } from './link';
 import {
+	foodfolioBrandAddRoute,
 	foodfolioBrandRoute,
 	foodfolioBrandViewRoute,
 	foodfolioCategoryAddRoute,
 	foodfolioCategoryRoute,
 	foodfolioCategoryViewRoute,
+	foodfolioLocationAddRoute,
 	foodfolioLocationRoute,
+	foodfolioLocationViewRoute,
+	foodfolioProductAddRoute,
+	foodfolioProductDetailAddRoute,
+	foodfolioProductDetailRoute,
+	foodfolioProductDetailViewRoute,
 	foodfolioProductRoute,
+	foodfolioProductViewRoute,
+	foodfolioSizeAddRoute,
 	foodfolioSizeRoute,
+	foodfolioSizeViewRoute,
+	foodfolioTypeAddRoute,
 	foodfolioTypeRoute,
+	foodfolioTypeViewRoute,
+	foodfolioWarehouseAddRoute,
 	foodfolioWarehouseRoute,
+	foodfolioWarehouseViewRoute,
 } from '../../../../../../config/routes';
 import { CubeIcon } from '@radix-ui/react-icons';
 import { Show } from '../../../../widgets';
@@ -36,33 +50,46 @@ export function SidebarFoodfolio(props: Props) {
 				title="Brands"
 				path={foodfolioBrandRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-				otherPaths={[foodfolioBrandViewRoute]}
+				otherPaths={[foodfolioBrandViewRoute, foodfolioBrandAddRoute]}
 			/>
 			<SidebarLink
 				title="Products"
 				path={foodfolioProductRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
+				otherPaths={[
+					foodfolioProductViewRoute,
+					foodfolioProductAddRoute,
+				]}
 			/>
 			<SidebarLink
 				title="Product Details"
-				path="/foodfolio/product-details"
+				path={foodfolioProductDetailRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
-				disabled={true}
+				otherPaths={[
+					foodfolioProductDetailViewRoute,
+					foodfolioProductDetailAddRoute,
+				]}
 			/>
 			<SidebarLink
 				title="Locations"
 				path={foodfolioLocationRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
+				otherPaths={[
+					foodfolioLocationViewRoute,
+					foodfolioLocationAddRoute,
+				]}
 			/>
 			<SidebarLink
 				title="Sizes"
 				path={foodfolioSizeRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
+				otherPaths={[foodfolioSizeViewRoute, foodfolioSizeAddRoute]}
 			/>
 			<SidebarLink
 				title="Types"
 				path={foodfolioTypeRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
+				otherPaths={[foodfolioTypeViewRoute, foodfolioTypeAddRoute]}
 			/>
 			<SidebarLink
 				title="Receipts"
@@ -74,6 +101,10 @@ export function SidebarFoodfolio(props: Props) {
 				title="Warehouses"
 				path={foodfolioWarehouseRoute}
 				icon={<CubeIcon className="h-4 w-4 shrink-0" />}
+				otherPaths={[
+					foodfolioWarehouseViewRoute,
+					foodfolioWarehouseAddRoute,
+				]}
 			/>
 		</Show>
 	);

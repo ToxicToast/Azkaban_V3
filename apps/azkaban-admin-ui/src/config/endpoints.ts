@@ -13,3 +13,4 @@ export const foodfolioSizeEndpoint = `${foodfolioEndpoint}/size`;
 export const foodfolioTypeEndpoint = `${foodfolioEndpoint}/type`;
 export const foodfolioWarehouseEndpoint = `${foodfolioEndpoint}/warehouse`;
 export const foodfolioProductEndpoint = `${foodfolioEndpoint}/item`;
+export const foodfolioProductDetailEndpoint = `${foodfolioEndpoint}/item-detail`;
