@@ -3,14 +3,10 @@ import { ItemService } from './item.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { FoodfolioProductTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
-import { DetailService } from './detail.service';
 
 @Controller('item')
 export class ItemController {
-	constructor(
-		private readonly service: ItemService,
-		private readonly detailService: DetailService,
-	) {}
+	constructor(private readonly service: ItemService) {}
 
 	@MessagePattern(FoodfolioProductTopics.LIST)
 	async getItemList(
@@ -111,28 +107,20 @@ export class ItemController {
 		@Payload('price') price: Nullable<number>,
 	) {
 		try {
-			return await this.service
-				.createItem(
-					category_id,
-					location_id,
-					company_id,
-					size_id,
-					type_id,
-					warehouse_id,
-					title,
-					current_sku,
-					min_sku,
-					max_sku,
-					ean,
-					price,
-				)
-				.then(async (item) => {
-					await this.detailService.createItemDetail(
-						item.id,
-						item.current_sku,
-					);
-					return item;
-				});
+			return await this.service.createItem(
+				category_id,
+				location_id,
+				company_id,
+				size_id,
+				type_id,
+				warehouse_id,
+				title,
+				current_sku,
+				min_sku,
+				max_sku,
+				ean,
+				price,
+			);
 		} catch (error) {
 			throw new RpcException(error);
 		}

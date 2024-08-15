@@ -1,9 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { ItemDAO } from '@azkaban/foodfolio-infrastructure';
-import { FoodfolioProductTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioProductDetailTopics,
+	FoodfolioProductTopics,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 
 @Injectable()
@@ -11,6 +14,8 @@ export class ItemService {
 	constructor(
 		@Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
 		@Inject('ITEM_SERVICE') private readonly client: ClientProxy,
+		@Inject('ITEM_DETAIL_SERVICE')
+		private readonly detailClient: ClientProxy,
 		private readonly notifySerivce: NotifyService,
 	) {}
 
@@ -166,6 +171,13 @@ export class ItemService {
 			.then(async (value) => {
 				await this.notifySerivce.onCreateItem(value.id, value.title);
 				return value;
+			})
+			.then(async (value) => {
+				await this.createItemDetailBySku(
+					value.id,
+					value.current_sku ?? 0,
+				);
+				return value;
 			});
 	}
 
@@ -215,5 +227,22 @@ export class ItemService {
 		return await this.client
 			.send(FoodfolioProductTopics.RESTORE, { id })
 			.toPromise();
+	}
+
+	private async createItemDetailBySku(item_id: string, sku: number) {
+		const realSku = sku === 0 ? 1 : sku;
+		for (let i = 0; i < realSku; i++) {
+			await this.detailClient
+				.emit(FoodfolioProductDetailTopics.CREATE, {
+					item_id,
+					purchase_date: new Date(),
+					expiration_date: null,
+					returnable: false,
+					art_no: null,
+				})
+				.toPromise()
+				.then((value) => Logger.debug(value))
+				.catch((error) => Logger.error(error));
+		}
 	}
 }
