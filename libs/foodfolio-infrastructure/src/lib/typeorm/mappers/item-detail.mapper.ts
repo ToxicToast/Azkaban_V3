@@ -9,6 +9,7 @@ export class ItemDetailMapper
 	private readonly domainFactory: ItemDetailFactory = new ItemDetailFactory();
 
 	toEntity(data: ItemDetailDAO): ItemDetailEntity {
+		console.error('toEntity::data', data);
 		const {
 			id,
 			item_id,
@@ -34,10 +35,12 @@ export class ItemDetailMapper
 		entity.created_at = created_at;
 		entity.updated_at = updated_at;
 		entity.deleted_at = deleted_at;
+		console.error('toEntity::entity', entity);
 		return entity;
 	}
 
 	toDomain(data: ItemDetailEntity): ItemDetailDAO {
+		console.error('toDomain::data', data);
 		const {
 			id,
 			item_id,
@@ -72,6 +75,7 @@ export class ItemDetailMapper
 			isExpired: date > expiration_date?.getTime(),
 			isOpened: !!opening_date,
 		});
+		console.error('toDomain::aggregate', aggregate);
 		return this.domainFactory.constitute(aggregate);
 	}
 }
