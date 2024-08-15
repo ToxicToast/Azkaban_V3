@@ -8,7 +8,6 @@ export function ProductDetailHeaders() {
 				<TableHead>Purchased At</TableHead>
 				<TableHead>Expire At</TableHead>
 				<TableHead>Opened At</TableHead>
-				<TableHead>Returnable</TableHead>
 				<TableHead>Status</TableHead>
 				<TableHead>Created At</TableHead>
 				<TableHead />

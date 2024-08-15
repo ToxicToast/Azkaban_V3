@@ -7,3 +7,7 @@ export function PrettyDates(date: Date): string {
 export function PrettyDateDistance(date: Date): string {
 	return formatDistance(date, new Date());
 }
+
+export function PrettyDateDistanceReversed(date: Date): string {
+	return formatDistance(new Date(), date);
+}
