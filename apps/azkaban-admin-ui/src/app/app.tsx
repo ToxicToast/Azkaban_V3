@@ -4,6 +4,7 @@ import { useAuthState } from '../features/shared/store/auth/auth.hook';
 import { Foodfolio } from './foodfolio';
 import { Azkaban } from './azkaban';
 import { Auth } from './auth';
+import { SSE } from './sse';
 
 export function App() {
 	const {
@@ -28,6 +29,11 @@ export function App() {
 				isAuthenticated={isAuthenticated}
 				expireTime={expireTime ?? 0}
 				refreshToken={() => refreshToken()}
+			/>
+			<SSE
+				isAuthenticated={isAuthenticated}
+				canSeeAzkaban={canSeeAzkaban}
+				canSeeFoodfolio={canSeeFoodfolio}
 			/>
 			<Routes isAuthenticated={isAuthenticated} />
 		</ErrorBoundary>
