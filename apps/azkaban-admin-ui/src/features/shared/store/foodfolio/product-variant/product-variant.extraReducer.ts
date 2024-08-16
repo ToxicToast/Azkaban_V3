@@ -29,7 +29,7 @@ export function onFetchProductVariantsRejected(
 		productVariantApi.endpoints?.fetchProductVariants.matchRejected,
 		() => {
 			toastService.sendToast({
-				text: 'productApi.endpoints?.fetchProducts.matchRejected',
+				text: 'productVariantApi.endpoints?.fetchProductVariants.matchRejected',
 				type: 'danger',
 			});
 		},
