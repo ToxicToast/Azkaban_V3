@@ -1,6 +1,6 @@
 import {
 	useProductDetailState,
-	useProductState,
+	useProductVariantState,
 } from '../../shared/store/foodfolio';
 import { Show, Table, TableBody } from '../../shared';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import {
 } from '../../../config/routes';
 import { PageTitle } from '../../shared/components/components/page-title.component';
 import { Nullable } from '@toxictoast/azkaban-base-types';
-import { FoodFolioItem } from '@toxictoast/azkaban-sdk';
+import { FoodFolioItemVariant } from '@toxictoast/azkaban-sdk';
 import { ProductDetailHeaders } from '../components/product-detail-headers.component';
 import { ProductDetailList } from '../components/product-detail-list.component';
 import { ProductDetailFooter } from '../components/product-detail-footer.component';
@@ -19,7 +19,7 @@ import { ProductDetailFooter } from '../components/product-detail-footer.compone
 function ProductDetailDashboardPage() {
 	const { productDetailData, productDetailCount, selectProductDetailId } =
 		useProductDetailState();
-	const { productData } = useProductState();
+	const { productVariantData } = useProductVariantState();
 
 	const navigate = useNavigate();
 
@@ -37,12 +37,11 @@ function ProductDetailDashboardPage() {
 
 	const findItemVariant = useCallback(
 		(productId: Nullable<string>) => {
-			// TODO: Use FoodFolioItemVariant instead of FoodFolioItem
-			return productData.find(
-				(product: FoodFolioItem) => product.id === productId,
+			return productVariantData.find(
+				(product: FoodFolioItemVariant) => product.id === productId,
 			);
 		},
-		[productData],
+		[productVariantData],
 	);
 
 	return (

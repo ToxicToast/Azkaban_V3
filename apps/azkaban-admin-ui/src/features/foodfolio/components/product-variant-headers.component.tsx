@@ -5,7 +5,7 @@ export function ProductVariantHeaders() {
 		<TableHeader className="w-full">
 			<TableRow>
 				<TableHead>Item</TableHead>
-				<TableHead>Title</TableHead>
+				<TableHead>Variant</TableHead>
 				<TableHead>Category</TableHead>
 				<TableHead>Location</TableHead>
 				<TableHead>Brand</TableHead>

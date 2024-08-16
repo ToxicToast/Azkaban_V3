@@ -1,29 +1,14 @@
-import {
-	useCategoryState,
-	useLocationState,
-	useBrandState,
-	useSizeState,
-	useTypeState,
-	useWarehouseState,
-	useProductState,
-} from '../../shared/store/foodfolio';
+import { useProductState } from '../../shared/store/foodfolio';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { CreateFoodFolioItem } from '@toxictoast/azkaban-sdk';
 import { useCallback } from 'react';
 import { foodfolioProductRoute } from '../../../config/routes';
 import { Headline } from '../../shared/components/components/headline.component';
-import { Card, CardContent, CardHeader, CardTitle, Label } from '../../shared';
+import { Card, CardContent, CardHeader, CardTitle } from '../../shared';
 import { TitleForm } from '../../shared/components/form/title.form';
 import { SubmitForm } from '../../shared/components/form/submit.form';
 import { NumberForm } from '../../shared/components/form/number.form';
-import { InputForm } from '../../shared/components/form/input.form';
-import { CategorySelectWidget } from '../widgets/category-select.widget';
-import { LocationSelectWidget } from '../widgets/location-select.widget';
-import { BrandSelectWidget } from '../widgets/brand-select.widget';
-import { SizeSelectWidget } from '../widgets/size-select.widget';
-import { TypeSelectWidget } from '../widgets/type-select.widget';
-import { WarehouseSelectWidget } from '../widgets/warehouse-select.widget';
 
 function ProductAddPage() {
 	const { createProductTrigger } = useProductState();

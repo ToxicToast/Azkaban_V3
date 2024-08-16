@@ -1,4 +1,4 @@
-import { Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import {
@@ -23,10 +23,12 @@ import {
 	useCategoryState,
 	useLocationState,
 	useProductState,
+	useProductVariantState,
 	useSizeState,
 	useTypeState,
 	useWarehouseState,
 } from '../../shared/store/foodfolio';
+import { ProductVariantList } from '../components/product-variant-list.component';
 
 function ProductVariantDashboardPage() {
 	const navigate = useNavigate();
@@ -37,6 +39,8 @@ function ProductVariantDashboardPage() {
 	const { typeData } = useTypeState();
 	const { warehouseData } = useWarehouseState();
 	const { productData } = useProductState();
+	const { productVariantData, productVariantCount } =
+		useProductVariantState();
 
 	const onView = useCallback(
 		(detailId: string) => {
@@ -120,8 +124,31 @@ function ProductVariantDashboardPage() {
 			<div className="p-6 pt-0">
 				<Table className="rounded border">
 					<ProductVariantHeaders />
-					<TableBody></TableBody>
-					<ProductVariantFooter />
+					<TableBody>
+						{productVariantData.map((variant) => (
+							<ProductVariantList
+								key={variant.id}
+								variant={variant}
+								onView={() => onView(variant.id)}
+								product={findProduct(variant.item_id) ?? null}
+								category={
+									findCategory(variant.category_id) ?? null
+								}
+								location={
+									findLocation(variant.location_id) ?? null
+								}
+								brand={findBrand(variant.company_id) ?? null}
+								size={findSize(variant.size_id) ?? null}
+								type={findType(variant.type_id) ?? null}
+								warehouse={
+									findWarehouse(variant.warehouse_id) ?? null
+								}
+							/>
+						))}
+					</TableBody>
+					<Show show={productVariantCount === 0}>
+						<ProductVariantFooter />
+					</Show>
 				</Table>
 			</div>
 		</>

@@ -18,11 +18,11 @@ import {
 export function useProductVariantState() {
 	const dispatch = useDispatch();
 	// Selectors
-	const productData = useAppSelector(selectProductVariantData);
-	const productId = useAppSelector(selectSelectedProductVariantId);
-	const product = useAppSelector(selectSelectedProductVariant);
-	const productCount = useAppSelector(selectProductVariantDataCount);
-	const productLatest = useAppSelector(selectProductVariantDataLatest);
+	const productVariantData = useAppSelector(selectProductVariantData);
+	const productVariantId = useAppSelector(selectSelectedProductVariantId);
+	const productVariant = useAppSelector(selectSelectedProductVariant);
+	const productVariantCount = useAppSelector(selectProductVariantDataCount);
+	const productVariantLatest = useAppSelector(selectProductVariantDataLatest);
 	// Api Trigger
 	const [fetchProductVariantsTrigger] = useLazyFetchProductVariantsQuery();
 	// Api Mutations
@@ -36,11 +36,11 @@ export function useProductVariantState() {
 	);
 
 	return {
-		productData,
-		productId,
-		product,
-		productCount,
-		productLatest,
+		productVariantData,
+		productVariantId,
+		productVariant,
+		productVariantCount,
+		productVariantLatest,
 		fetchProductVariantsTrigger,
 		createProductVariantTrigger,
 		selectProductVariantId,

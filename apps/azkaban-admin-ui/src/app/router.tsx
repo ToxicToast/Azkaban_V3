@@ -20,6 +20,7 @@ import {
 	foodfolioProductDetailRoute,
 	foodfolioProductDetailViewRoute,
 	foodfolioProductRoute,
+	foodfolioProductVariantAddRoute,
 	foodfolioProductVariantRoute,
 	foodfolioProductViewRoute,
 	foodfolioRoute,
@@ -124,6 +125,9 @@ const LazyFoodFolioWarehouseAddPage = lazy(
 );
 const LazyFoodFolioProductAddPage = lazy(
 	() => import('../features/foodfolio/pages/product-add.page'),
+);
+const LazyFoodFolioProductVariantAddPage = lazy(
+	() => import('../features/foodfolio/pages/product-variant-add.page'),
 );
 
 interface Props {
@@ -456,6 +460,16 @@ const authenticatedRoutes = [
 						errorElement: (
 							<Badge variant="destructive">
 								Failed loading Product Detail Draft
+							</Badge>
+						),
+					},
+					{
+						path: foodfolioProductVariantAddRoute,
+						element: <LazyFoodFolioProductVariantAddPage />,
+						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Product Variant Draft
 							</Badge>
 						),
 					},

@@ -29,21 +29,13 @@ export function LocationList(props: Props) {
 	return (
 		<TableRow>
 			<TableCell className="font-medium">{location.title}</TableCell>
-			<TableCell>
-				<Badge variant={parent === null ? 'secondary' : 'outline'}>
-					{parent === null ? 'Root' : parent?.title}
-				</Badge>
-			</TableCell>
+			<TableCell>{parent === null ? '' : parent?.title}</TableCell>
 			<TableCell>
 				<Badge variant={getLocationStatusVariant}>
 					{getLocationStatus}
 				</Badge>
 			</TableCell>
-			<TableCell>
-				<Badge variant="outline">
-					{PrettyDates(location.created_at)}
-				</Badge>
-			</TableCell>
+			<TableCell>{PrettyDates(location.created_at)}</TableCell>
 			<TableCell>
 				<Actions
 					onView={() => onView()}

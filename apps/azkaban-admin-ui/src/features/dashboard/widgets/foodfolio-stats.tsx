@@ -7,6 +7,7 @@ import { StatsWarehouse } from '../atoms/foodfolio/stats-warehouse.atom';
 import { StatsProducts } from '../atoms/foodfolio/stats-products.atom';
 import { StatsProductDetails } from '../atoms/foodfolio/stats-product-details.atom';
 import { StatsReceipts } from '../atoms/foodfolio/stats-receipts.atom';
+import { StatsProductVariants } from '../atoms/foodfolio/stats-product-variants.atom';
 
 export function FoodfolioStats() {
 	return (
@@ -14,6 +15,7 @@ export function FoodfolioStats() {
 			<StatsCategory />
 			<StatsBrand />
 			<StatsProducts />
+			<StatsProductVariants />
 			<StatsProductDetails />
 			<StatsLocation />
 			<StatsSize />

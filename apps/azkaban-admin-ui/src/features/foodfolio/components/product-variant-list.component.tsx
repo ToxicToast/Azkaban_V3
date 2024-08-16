@@ -53,35 +53,21 @@ export function ProductVariantList(props: Props) {
 
 	return (
 		<TableRow>
+			<TableCell>{product === null ? '' : product?.title}</TableCell>
 			<TableCell className="font-medium">{variant.title}</TableCell>
-			<TableCell>
-				{product === null ? 'No Product' : product?.title}
-			</TableCell>
-			<TableCell>
-				{category === null ? 'No Category' : category?.title}
-			</TableCell>
-			<TableCell>
-				{location === null ? 'No Location' : location?.title}
-			</TableCell>
-			<TableCell>{brand === null ? 'No Brand' : brand?.title}</TableCell>
-			<TableCell>{size === null ? 'No Size' : size?.title}</TableCell>
-			<TableCell>{type === null ? 'No Type' : type?.title}</TableCell>
-			<TableCell>
-				<Badge variant={warehouse === null ? 'secondary' : 'outline'}>
-					{warehouse === null ? 'No Warehouse' : warehouse?.title}
-				</Badge>
-			</TableCell>
+			<TableCell>{category === null ? '' : category?.title}</TableCell>
+			<TableCell>{location === null ? '' : location?.title}</TableCell>
+			<TableCell>{brand === null ? '' : brand?.title}</TableCell>
+			<TableCell>{size === null ? '' : size?.title}</TableCell>
+			<TableCell>{type === null ? '' : type?.title}</TableCell>
+			<TableCell>{warehouse === null ? '' : warehouse?.title}</TableCell>
 			<TableCell>{variant?.sku}</TableCell>
 			<TableCell>
 				<Badge variant={getProductVariantStatusVariant}>
 					{getProductVariantStatus}
 				</Badge>
 			</TableCell>
-			<TableCell>
-				<Badge variant="outline">
-					{PrettyDates(variant.created_at)}
-				</Badge>
-			</TableCell>
+			<TableCell>{PrettyDates(variant.created_at)}</TableCell>
 			<TableCell>
 				<Actions
 					onView={() => onView()}

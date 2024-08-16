@@ -1,4 +1,7 @@
-import { FoodFolioItem, FoodFolioItemDetail } from '@toxictoast/azkaban-sdk';
+import {
+	FoodFolioItemVariant,
+	FoodFolioItemDetail,
+} from '@toxictoast/azkaban-sdk';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 import {
 	PrettyDates,
@@ -13,7 +16,7 @@ import { useMemo } from 'react';
 
 interface Props {
 	detail: FoodFolioItemDetail;
-	item: Nullable<FoodFolioItem>;
+	item: Nullable<FoodFolioItemVariant>;
 	onView: () => void;
 }
 
@@ -32,29 +35,19 @@ export function ProductDetailList(props: Props) {
 		<TableRow>
 			<TableCell className="font-medium">{item?.title}</TableCell>
 
-			<TableCell>
-				<Badge variant="outline">
-					{PrettyDateDistance(detail.purchase_date)}
-				</Badge>
-			</TableCell>
+			<TableCell>{PrettyDateDistance(detail.purchase_date)}</TableCell>
 
 			<TableCell>
 				<Show show={detail.expiration_date !== null}>
-					<Badge
-						variant={detail.isExpired ? 'destructive' : 'outline'}
-					>
-						{PrettyDateDistanceReversed(
-							detail.expiration_date ?? new Date(),
-						)}
-					</Badge>
+					{PrettyDateDistanceReversed(
+						detail.expiration_date ?? new Date(),
+					)}
 				</Show>
 			</TableCell>
 
 			<TableCell>
 				<Show show={detail.opening_date !== null}>
-					<Badge variant={detail.isOpened ? 'secondary' : 'outline'}>
-						{PrettyDateDistance(detail.opening_date ?? new Date())}
-					</Badge>
+					{PrettyDateDistance(detail.opening_date ?? new Date())}
 				</Show>
 			</TableCell>
 
@@ -64,11 +57,7 @@ export function ProductDetailList(props: Props) {
 				</Badge>
 			</TableCell>
 
-			<TableCell>
-				<Badge variant="outline">
-					{PrettyDates(detail.created_at)}
-				</Badge>
-			</TableCell>
+			<TableCell>{PrettyDates(detail.created_at)}</TableCell>
 			<TableCell>
 				<Actions
 					onView={() => onView()}
