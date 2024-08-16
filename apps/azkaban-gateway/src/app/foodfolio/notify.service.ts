@@ -6,6 +6,7 @@ import {
 	FoodfolioLocationTopics,
 	FoodfolioProductDetailTopics,
 	FoodfolioProductTopics,
+	FoodfolioProductVariantTopics,
 	FoodfolioSizeTopics,
 	FoodfolioTypeTopics,
 	FoodfolioWarehouseTopics,
@@ -97,6 +98,23 @@ export class NotifyService {
 			data: {
 				id,
 				item_id,
+			},
+		};
+		await this.notify(notifyPayload);
+	}
+
+	async onCreateItemVariant(
+		id: string,
+		item_id: string,
+		title: string,
+	): Promise<void> {
+		const notifyPayload = {
+			service: 'foodfolio-item-variant-service',
+			event: FoodfolioProductVariantTopics.CREATE,
+			data: {
+				id,
+				item_id,
+				title,
 			},
 		};
 		await this.notify(notifyPayload);

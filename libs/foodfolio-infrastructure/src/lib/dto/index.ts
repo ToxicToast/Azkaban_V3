@@ -6,3 +6,4 @@ export * from './create-type.dto';
 export * from './create-item.dto';
 export * from './create-item-detail.dto';
 export * from './create-warehouse.dto';
+export * from './create-item-variant.dto';

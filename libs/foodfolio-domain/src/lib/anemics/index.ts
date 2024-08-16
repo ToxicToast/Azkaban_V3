@@ -6,3 +6,4 @@ export * from './type.anemic';
 export * from './item.anemic';
 export * from './item-detail.anemic';
 export * from './warehouse.anemic';
+export * from './item-variant.anemic';

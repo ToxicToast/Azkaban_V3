@@ -6,3 +6,4 @@ export * from './type.service';
 export * from './item.service';
 export * from './item-detail.service';
 export * from './warehouse.service';
+export * from './item-variant.service';
