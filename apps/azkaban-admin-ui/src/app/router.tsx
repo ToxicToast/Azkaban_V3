@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
-import { Redirect } from '../features/shared';
+import { Badge, Redirect } from '../features/shared';
 import {
 	authLoginRoute,
 	authRefreshRoute,
@@ -130,7 +130,9 @@ const authenticatedRoutes = [
 	{
 		element: <LazyDashboardLayout />,
 		hasErrorBoundary: true,
-		errorElement: <div>Failed loading Layout</div>,
+		errorElement: (
+			<Badge variant="destructive">Failed loading Layout</Badge>
+		),
 		children: [
 			{
 				path: wildcardRoute,
@@ -141,31 +143,45 @@ const authenticatedRoutes = [
 				path: dashboardRoute,
 				element: <LazyDashboardPage />,
 				hasErrorBoundary: true,
-				errorElement: <div>Failed loading Dashboard</div>,
+				errorElement: (
+					<Badge variant="destructive">
+						Failed loading Dashboard
+					</Badge>
+				),
 			},
 			{
 				path: usersRoute,
 				element: <LazyUserDashboardPage />,
 				hasErrorBoundary: true,
-				errorElement: <div>Failed loading Users</div>,
+				errorElement: (
+					<Badge variant="destructive">Failed loading Users</Badge>
+				),
 			},
 			{
 				path: viewUsersRoute,
 				element: <LazyUserViewPage />,
 				hasErrorBoundary: true,
-				errorElement: <div>Failed loading Users</div>,
+				errorElement: (
+					<Badge variant="destructive">Failed loading User</Badge>
+				),
 			},
 			{
 				path: groupsRoute,
 				element: <LazyGroupsDashboardPage />,
 				hasErrorBoundary: true,
-				errorElement: <div>Failed loading Groups</div>,
+				errorElement: (
+					<Badge variant="destructive">Failed loading Groups</Badge>
+				),
 			},
 			{
 				path: notificationsRoute,
 				element: <LazyNotificationsDashboardPage />,
 				hasErrorBoundary: true,
-				errorElement: <div>Failed loading Notifications</div>,
+				errorElement: (
+					<Badge variant="destructive">
+						Failed loading Notifications
+					</Badge>
+				),
 			},
 			{
 				path: authSignoutRoute,
@@ -180,130 +196,254 @@ const authenticatedRoutes = [
 			{
 				path: foodfolioRoute,
 				hasErrorBoundary: true,
-				errorElement: <div>Failed loading Foodfolio</div>,
+				errorElement: (
+					<Badge variant="destructive">
+						Failed loading Foodfolio
+					</Badge>
+				),
 				children: [
 					// Dashboards
 					{
 						path: foodfolioCategoryRoute,
 						element: <LazyFoodFolioCategoryPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Categories
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioBrandRoute,
 						element: <LazyFoodFolioBrandPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Brands
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioLocationRoute,
 						element: <LazyFoodFolioLocationPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Locations
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioSizeRoute,
 						element: <LazyFoodFolioSizesPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Sizes
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioTypeRoute,
 						element: <LazyFoodFolioTypesPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Types
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioWarehouseRoute,
 						element: <LazyFoodFolioWarehousesPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Warehouses
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioProductRoute,
 						element: <LazyFoodFolioProductsPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Products
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioProductDetailRoute,
 						element: <LazyFoodFolioProductDetailsPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Product Details
+							</Badge>
+						),
 					},
 					// View Pages
 					{
 						path: foodfolioCategoryViewRoute,
 						element: <LazyFoodFolioCategoryViewPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Category
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioBrandViewRoute,
 						element: <>BRAND VIEW</>,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Brand
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioLocationViewRoute,
 						element: <>LOCATION VIEW</>,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Location
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioSizeViewRoute,
 						element: <>SIZE VIEW</>,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Size
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioTypeViewRoute,
 						element: <>TYPE VIEW</>,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Type
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioWarehouseViewRoute,
 						element: <>WAREHOUSE VIEW</>,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Warehouse
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioProductViewRoute,
 						element: <>PRODUCT VIEW</>,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Product
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioProductDetailViewRoute,
 						element: <>PRODUCT DETAIL VIEW</>,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Product Detail
+							</Badge>
+						),
 					},
 					// Add Pages
 					{
 						path: foodfolioCategoryAddRoute,
 						element: <LazyFoodFolioCategoryAddPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Category Draft
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioBrandAddRoute,
 						element: <LazyFoodFolioBrandAddPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Brand Draft
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioLocationAddRoute,
 						element: <LazyFoodFolioLocationAddPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Location Draft
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioSizeAddRoute,
 						element: <LazyFoodFolioSizeAddPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Size Draft
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioTypeAddRoute,
 						element: <LazyFoodFolioTypeAddPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Type Draft
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioWarehouseAddRoute,
 						element: <LazyFoodFolioWarehouseAddPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Warehouse Draft
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioProductAddRoute,
 						element: <LazyFoodFolioProductAddPage />,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Product Draft
+							</Badge>
+						),
 					},
 					{
 						path: foodfolioProductDetailAddRoute,
 						element: <>PRODUCT DETAIL VIEW</>,
 						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Product Detail Draft
+							</Badge>
+						),
 					},
 					// Edit Pages
 					// Delete Pages

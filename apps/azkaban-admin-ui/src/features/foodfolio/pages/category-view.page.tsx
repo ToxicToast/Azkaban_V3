@@ -9,7 +9,7 @@ import {
 	Label,
 } from '../../shared';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Headline } from '../../shared/components/components/headline.component';
 import { Status } from '../../shared/components/components/status.component';
 import { Archive } from '../../shared/components/components/archive.component';
@@ -17,13 +17,19 @@ import { Restore } from '../../shared/components/components/restore.component';
 import { foodfolioCategoryRoute } from '../../../config/routes';
 
 function CategoryViewPage() {
-	const { category, selectCategoryId, categoryDropdown } = useCategoryState();
+	const { category, selectCategoryId, categoryData } = useCategoryState();
 	const navigate = useNavigate();
 
 	const navigateBack = useCallback(() => {
 		selectCategoryId(null);
 		navigate(foodfolioCategoryRoute);
 	}, [navigate, selectCategoryId]);
+
+	const parentCategory = useMemo(() => {
+		return (
+			categoryData.find((item) => item.id === category?.parent_id) ?? null
+		);
+	}, [category?.parent_id, categoryData]);
 
 	useEffect(() => {
 		if (!category) {
@@ -50,7 +56,9 @@ function CategoryViewPage() {
 							<div className="grid gap-6">
 								<div className="grid gap-3">
 									<Label htmlFor="title">Title</Label>
-									<Badge id="title">{category?.title}</Badge>
+									<Badge id="title" variant="secondary">
+										{category?.title}
+									</Badge>
 								</div>
 							</div>
 						</CardContent>
@@ -63,7 +71,9 @@ function CategoryViewPage() {
 						<CardContent>
 							<div className="grid gap-6">
 								<div className="grid gap-3">
-									<Debugger data={categoryDropdown} />
+									<Badge id="title" variant="secondary">
+										{parentCategory?.title}
+									</Badge>
 								</div>
 							</div>
 						</CardContent>
