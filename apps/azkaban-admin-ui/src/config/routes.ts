@@ -49,4 +49,8 @@ export const foodfolioProductDetailRoute = `${foodfolioRoute}/product-detail`;
 export const foodfolioProductDetailViewRoute = `${foodfolioProductDetailRoute}/view`;
 export const foodfolioProductDetailAddRoute = `${foodfolioProductDetailRoute}/add`;
 
+export const foodfolioProductVariantRoute = `${foodfolioRoute}/product-variant`;
+export const foodfolioProductVariantViewRoute = `${foodfolioProductVariantRoute}/view`;
+export const foodfolioProductVariantAddRoute = `${foodfolioProductVariantRoute}/add`;
+
 export const wildcardRoute = '*';
