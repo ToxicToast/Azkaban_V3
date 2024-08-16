@@ -2,7 +2,7 @@ import {
 	useProductDetailState,
 	useProductState,
 } from '../../shared/store/foodfolio';
-import { Debugger, Table, TableBody } from '../../shared';
+import { Debugger, Show, Table, TableBody } from '../../shared';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import {
@@ -14,9 +14,10 @@ import { Nullable } from '@toxictoast/azkaban-base-types';
 import { FoodFolioItem } from '@toxictoast/azkaban-sdk';
 import { ProductDetailHeaders } from '../components/product-detail-headers.component';
 import { ProductDetailList } from '../components/product-detail-list.component';
+import { ProductDetailFooter } from '../components/product-detail-footer.component';
 
 function ProductDetailDashboardPage() {
-	const { productDetailData, selectProductDetailId } =
+	const { productDetailData, productDetailCount, selectProductDetailId } =
 		useProductDetailState();
 	const { productData } = useProductState();
 
@@ -65,6 +66,9 @@ function ProductDetailDashboardPage() {
 							/>
 						))}
 					</TableBody>
+					<Show show={productDetailCount === 0}>
+						<ProductDetailFooter />
+					</Show>
 				</Table>
 			</div>
 		</>

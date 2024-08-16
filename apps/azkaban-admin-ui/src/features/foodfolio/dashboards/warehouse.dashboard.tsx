@@ -1,4 +1,4 @@
-import { Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { PageTitle } from '../../shared/components/components/page-title.component';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
@@ -9,9 +9,11 @@ import {
 import { useWarehouseState } from '../../shared/store/foodfolio/warehouse';
 import { WarehouseHeaders } from '../components/warehouse-headers.component';
 import { WarehouseList } from '../components/warehouse-list.component';
+import { WarehouseFooter } from '../components/warehouse-footer.component';
 
 function WarehouseDashboardPage() {
-	const { warehouseData, selectWarehouseId } = useWarehouseState();
+	const { warehouseData, warehouseCount, selectWarehouseId } =
+		useWarehouseState();
 	const navigate = useNavigate();
 
 	const onView = useCallback(
@@ -47,6 +49,9 @@ function WarehouseDashboardPage() {
 							/>
 						))}
 					</TableBody>
+					<Show show={warehouseCount === 0}>
+						<WarehouseFooter />
+					</Show>
 				</Table>
 			</div>
 		</>

@@ -1,5 +1,5 @@
 import { useUserState } from '../../shared/store/user/user.hook';
-import { Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { UserHeaders } from '../components/user-headers.component';
 import { UserList } from '../components/user-list.component';
 import { useCallback } from 'react';
@@ -10,9 +10,10 @@ import {
 	viewUsersRoute,
 } from '../../../config/routes';
 import { PageTitle } from '../../shared/components/components/page-title.component';
+import { UserFooter } from '../components/user-footer.component';
 
 function UserDashboardPage() {
-	const { data, selectUserId } = useUserState();
+	const { data, dataCount, selectUserId } = useUserState();
 	const navigate = useNavigate();
 
 	const onView = useCallback(
@@ -62,6 +63,9 @@ function UserDashboardPage() {
 							/>
 						))}
 					</TableBody>
+					<Show show={dataCount === 0}>
+						<UserFooter />
+					</Show>
 				</Table>
 			</div>
 		</>

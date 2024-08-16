@@ -1,4 +1,4 @@
-import { Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { PageTitle } from '../../shared/components/components/page-title.component';
 import { useLocationState } from '../../shared/store/foodfolio';
 import { LocationHeaders } from '../components/location-headers.component';
@@ -10,9 +10,11 @@ import {
 	foodfolioLocationViewRoute,
 } from '../../../config/routes';
 import { Nullable } from '@toxictoast/azkaban-base-types';
+import { LocationFooter } from '../components/location-footer.component';
 
 function LocationDashboardPage() {
-	const { locationData, selectLocationId } = useLocationState();
+	const { locationData, locationCount, selectLocationId } =
+		useLocationState();
 	const navigate = useNavigate();
 
 	const onView = useCallback(
@@ -56,6 +58,9 @@ function LocationDashboardPage() {
 							/>
 						))}
 					</TableBody>
+					<Show show={locationCount === 0}>
+						<LocationFooter />
+					</Show>
 				</Table>
 			</div>
 		</>

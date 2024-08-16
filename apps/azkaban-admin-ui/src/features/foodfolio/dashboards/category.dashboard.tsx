@@ -1,5 +1,5 @@
 import { useCategoryState } from '../../shared/store/foodfolio';
-import { Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import {
@@ -10,9 +10,11 @@ import { CategoryHeaders } from '../components/category-headers.component';
 import { CategoryList } from '../components/category-list.component';
 import { PageTitle } from '../../shared/components/components/page-title.component';
 import { Nullable } from '@toxictoast/azkaban-base-types';
+import { CategoryFooter } from '../components/category-footer.component';
 
 function CategoryDashboardPage() {
-	const { categoryData, selectCategoryId } = useCategoryState();
+	const { categoryData, categoryCount, selectCategoryId } =
+		useCategoryState();
 	const navigate = useNavigate();
 
 	const onView = useCallback(
@@ -56,6 +58,9 @@ function CategoryDashboardPage() {
 							/>
 						))}
 					</TableBody>
+					<Show show={categoryCount === 0}>
+						<CategoryFooter />
+					</Show>
 				</Table>
 			</div>
 		</>

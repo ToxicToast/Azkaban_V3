@@ -1,4 +1,4 @@
-import { Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { PageTitle } from '../../shared/components/components/page-title.component';
 import { useBrandState } from '../../shared/store/foodfolio';
 import { BrandHeaders } from '../components/brand-headers.component';
@@ -9,9 +9,10 @@ import {
 	foodfolioBrandAddRoute,
 	foodfolioBrandViewRoute,
 } from '../../../config/routes';
+import { BrandFooter } from '../components/brand-footer.component';
 
 function BrandsDashboardPage() {
-	const { brandData, selectBrandId } = useBrandState();
+	const { brandData, brandCount, selectBrandId } = useBrandState();
 	const navigate = useNavigate();
 
 	const onView = useCallback(
@@ -47,6 +48,9 @@ function BrandsDashboardPage() {
 							/>
 						))}
 					</TableBody>
+					<Show show={brandCount === 0}>
+						<BrandFooter />
+					</Show>
 				</Table>
 			</div>
 		</>

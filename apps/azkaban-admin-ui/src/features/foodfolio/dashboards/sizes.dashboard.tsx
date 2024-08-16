@@ -1,4 +1,4 @@
-import { Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { PageTitle } from '../../shared/components/components/page-title.component';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
@@ -9,9 +9,10 @@ import {
 import { SizeHeaders } from '../components/size-headers.component';
 import { useSizeState } from '../../shared/store/foodfolio';
 import { SizeList } from '../components/size-list.component';
+import { SizeFooter } from '../components/size-footer.component';
 
 function SizeDashboardPage() {
-	const { sizeData, selectSizeId } = useSizeState();
+	const { sizeData, sizeCount, selectSizeId } = useSizeState();
 	const navigate = useNavigate();
 
 	const onView = useCallback(
@@ -47,6 +48,9 @@ function SizeDashboardPage() {
 							/>
 						))}
 					</TableBody>
+					<Show show={sizeCount === 0}>
+						<SizeFooter />
+					</Show>
 				</Table>
 			</div>
 		</>

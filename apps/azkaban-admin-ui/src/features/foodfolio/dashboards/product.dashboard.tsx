@@ -7,7 +7,7 @@ import {
 	useWarehouseState,
 	useProductState,
 } from '../../shared/store/foodfolio';
-import { Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import {
@@ -26,6 +26,7 @@ import {
 } from '@toxictoast/azkaban-sdk';
 import { ProductHeaders } from '../components/product-headers.component';
 import { ProductList } from '../components/product-list.component';
+import { ProductFooter } from '../components/product-footer.component';
 
 function ProductDashboardPage() {
 	const { categoryData } = useCategoryState();
@@ -34,7 +35,7 @@ function ProductDashboardPage() {
 	const { sizeData } = useSizeState();
 	const { typeData } = useTypeState();
 	const { warehouseData } = useWarehouseState();
-	const { productData, selectProductId } = useProductState();
+	const { productData, productCount, selectProductId } = useProductState();
 
 	const navigate = useNavigate();
 
@@ -133,6 +134,9 @@ function ProductDashboardPage() {
 							/>
 						))}
 					</TableBody>
+					<Show show={productCount === 0}>
+						<ProductFooter />
+					</Show>
 				</Table>
 			</div>
 		</>
