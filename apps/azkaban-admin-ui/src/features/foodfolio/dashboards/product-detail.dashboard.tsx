@@ -2,7 +2,7 @@ import {
 	useProductDetailState,
 	useProductState,
 } from '../../shared/store/foodfolio';
-import { Debugger, Show, Table, TableBody } from '../../shared';
+import { Show, Table, TableBody } from '../../shared';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import {
@@ -35,8 +35,9 @@ function ProductDetailDashboardPage() {
 		navigate(foodfolioProductDetailAddRoute);
 	}, [navigate]);
 
-	const findItem = useCallback(
+	const findItemVariant = useCallback(
 		(productId: Nullable<string>) => {
+			// TODO: Use FoodFolioItemVariant instead of FoodFolioItem
 			return productData.find(
 				(product: FoodFolioItem) => product.id === productId,
 			);
@@ -54,13 +55,13 @@ function ProductDetailDashboardPage() {
 			/>
 
 			<div className="p-6 pt-0">
-				<Table>
+				<Table className="rounded border">
 					<ProductDetailHeaders />
 					<TableBody>
 						{productDetailData.map((detail) => (
 							<ProductDetailList
 								detail={detail}
-								item={findItem(detail.item_id) ?? null}
+								item={findItemVariant(detail.item_id) ?? null}
 								key={detail.id}
 								onView={() => onView(detail.id)}
 							/>

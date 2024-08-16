@@ -37,7 +37,7 @@ function BrandsDashboardPage() {
 			/>
 
 			<div className="p-6 pt-0">
-				<Table>
+				<Table className="rounded border">
 					<BrandHeaders />
 					<TableBody>
 						{brandData.map((brand) => (

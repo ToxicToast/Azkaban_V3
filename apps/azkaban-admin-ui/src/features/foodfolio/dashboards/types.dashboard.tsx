@@ -37,7 +37,7 @@ function TypeDashboardPage() {
 			/>
 
 			<div className="p-6 pt-0">
-				<Table>
+				<Table className="rounded border">
 					<TypeHeaders />
 					<TableBody>
 						{typeData.map((type) => (

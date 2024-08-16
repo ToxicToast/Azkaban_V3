@@ -6,3 +6,4 @@ export * from './type';
 export * from './warehouse';
 export * from './product';
 export * from './product-detail';
+export * from './product-variant';

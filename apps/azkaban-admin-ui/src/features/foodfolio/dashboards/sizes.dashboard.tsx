@@ -37,7 +37,7 @@ function SizeDashboardPage() {
 			/>
 
 			<div className="p-6 pt-0">
-				<Table>
+				<Table className="rounded border">
 					<SizeHeaders />
 					<TableBody>
 						{sizeData.map((size) => (

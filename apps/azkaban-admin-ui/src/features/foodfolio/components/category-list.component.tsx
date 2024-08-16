@@ -29,21 +29,13 @@ export function CategoryList(props: Props) {
 	return (
 		<TableRow>
 			<TableCell className="font-medium">{category.title}</TableCell>
-			<TableCell>
-				<Badge variant={parent === null ? 'secondary' : 'outline'}>
-					{parent === null ? 'Parent' : parent?.title}
-				</Badge>
-			</TableCell>
+			<TableCell>{parent === null ? '' : parent?.title}</TableCell>
 			<TableCell>
 				<Badge variant={getCategoryStatusVariant}>
 					{getCategoryStatus}
 				</Badge>
 			</TableCell>
-			<TableCell>
-				<Badge variant="outline">
-					{PrettyDates(category.created_at)}
-				</Badge>
-			</TableCell>
+			<TableCell>{PrettyDates(category.created_at)}</TableCell>
 			<TableCell>
 				<Actions
 					onView={() => onView()}

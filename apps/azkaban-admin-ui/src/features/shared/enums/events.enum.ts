@@ -7,4 +7,5 @@ export enum FoodfolioEvents {
 	WAREHOUSE_CREATE = 'foodfolio_warehouse_create',
 	PRODUCT_CREATE = 'foodfolio_product_create',
 	PRODUCT_DETAIL_CREATE = 'foodfolio_productdetail_create',
+	PRODUCT_VARIANT_CREATE = 'foodfolio_productvariant_create',
 }

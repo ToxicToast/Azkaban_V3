@@ -8,6 +8,7 @@ import {
 	useSizeState,
 	useTypeState,
 	useWarehouseState,
+	useProductVariantState,
 } from '../features/shared/store/foodfolio';
 
 interface Props {
@@ -26,6 +27,7 @@ export function Foodfolio(props: Props) {
 	const { fetchWarehousesTrigger } = useWarehouseState();
 	const { fetchProductsTrigger } = useProductState();
 	const { fetchProductDetailsTrigger } = useProductDetailState();
+	const { fetchProductVariantsTrigger } = useProductVariantState();
 
 	useEffect(() => {
 		if (isAuthenticated && canSeeFoodfolio) {
@@ -37,8 +39,10 @@ export function Foodfolio(props: Props) {
 			fetchWarehousesTrigger();
 			fetchProductsTrigger();
 			fetchProductDetailsTrigger();
+			fetchProductVariantsTrigger();
 		}
 	}, [
+		fetchProductVariantsTrigger,
 		fetchProductDetailsTrigger,
 		fetchProductsTrigger,
 		fetchWarehousesTrigger,

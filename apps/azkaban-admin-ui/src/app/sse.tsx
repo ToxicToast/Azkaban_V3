@@ -11,6 +11,7 @@ import {
 	useSizeState,
 	useTypeState,
 	useWarehouseState,
+	useProductVariantState,
 } from '../features/shared/store/foodfolio';
 
 interface Props {
@@ -30,6 +31,7 @@ export function SSE(props: Props) {
 	const { fetchWarehousesTrigger } = useWarehouseState();
 	const { fetchProductsTrigger } = useProductState();
 	const { fetchProductDetailsTrigger } = useProductDetailState();
+	const { fetchProductVariantsTrigger } = useProductVariantState();
 
 	const processFoodfolioEvents = useCallback(
 		(event: string, data: unknown) => {
@@ -58,11 +60,15 @@ export function SSE(props: Props) {
 			} else if (event === FoodfolioEvents.PRODUCT_DETAIL_CREATE) {
 				console.log(FoodfolioEvents.PRODUCT_DETAIL_CREATE, data);
 				fetchProductDetailsTrigger();
+			} else if (event === FoodfolioEvents.PRODUCT_VARIANT_CREATE) {
+				console.log(FoodfolioEvents.PRODUCT_VARIANT_CREATE, data);
+				fetchProductVariantsTrigger();
 			} else {
 				console.log('Foodfolio', event, data);
 			}
 		},
 		[
+			fetchProductVariantsTrigger,
 			fetchBrandsTrigger,
 			fetchCategoriesTrigger,
 			fetchLocationsTrigger,
