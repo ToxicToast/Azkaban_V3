@@ -11,7 +11,7 @@ export function ProductHeaders() {
 				<TableHead>Size</TableHead>
 				<TableHead>Type</TableHead>
 				<TableHead>Warehouse</TableHead>
-				<TableHead>SKU</TableHead>
+				<TableHead>Stock</TableHead>
 				<TableHead>Status</TableHead>
 				<TableHead>Created At</TableHead>
 				<TableHead />

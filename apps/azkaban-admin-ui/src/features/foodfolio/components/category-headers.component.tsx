@@ -5,7 +5,7 @@ export function CategoryHeaders() {
 		<TableHeader className="w-full">
 			<TableRow>
 				<TableHead>Title</TableHead>
-				<TableHead>Root Category</TableHead>
+				<TableHead>Parent Category</TableHead>
 				<TableHead>Status</TableHead>
 				<TableHead>Created At</TableHead>
 				<TableHead />

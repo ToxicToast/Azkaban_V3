@@ -8,6 +8,8 @@ import {
 } from '../../shared';
 import { SelectItemAtom } from '../../shared/components/atoms/select-item.atom';
 import { BoxIcon } from 'lucide-react';
+import { useCallback } from 'react';
+import { Nullable } from '@toxictoast/azkaban-base-types';
 
 interface Props {
 	categories: Array<FoodFolioCategory>;
@@ -17,6 +19,29 @@ interface Props {
 
 export function CategorySelectWidget(props: Props) {
 	const { categories, onChange, selectValueText } = props;
+
+	const findParentCategory = useCallback(
+		(parent_category_id: Nullable<string>) => {
+			return parent_category_id !== null
+				? categories.find(
+						(category) => category.id === parent_category_id,
+					)
+				: null;
+		},
+		[categories],
+	);
+
+	const transformTitle = useCallback(
+		(category: FoodFolioCategory) => {
+			const title = category.title;
+			const parentCategory = findParentCategory(category.parent_id);
+			if (parentCategory) {
+				return `${title} (${parentCategory.title})`;
+			}
+			return title;
+		},
+		[findParentCategory],
+	);
 
 	return (
 		<Select onValueChange={(value) => onChange(value)}>
@@ -28,7 +53,7 @@ export function CategorySelectWidget(props: Props) {
 					<SelectItem key={category.id} value={category.id}>
 						<SelectItemAtom
 							icon={<BoxIcon className="size-5" />}
-							title={category.title}
+							title={transformTitle(category)}
 						/>
 					</SelectItem>
 				))}

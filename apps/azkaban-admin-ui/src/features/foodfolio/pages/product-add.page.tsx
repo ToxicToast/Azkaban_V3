@@ -102,7 +102,7 @@ function ProductAddPage() {
 									<div className="grid gap-3">
 										<NumberForm
 											id="current_sku"
-											title="Current SKU"
+											title="Current Stock"
 											onChange={(value) =>
 												setValue(
 													'current_sku',
@@ -115,7 +115,7 @@ function ProductAddPage() {
 										/>
 										<NumberForm
 											id="min_sku"
-											title="Min SKU"
+											title="Min Stock"
 											onChange={(value) =>
 												setValue(
 													'min_sku',
@@ -128,7 +128,7 @@ function ProductAddPage() {
 										/>
 										<NumberForm
 											id="max_sku"
-											title="Max SKU"
+											title="Max Stock"
 											onChange={(value) =>
 												setValue(
 													'max_sku',
