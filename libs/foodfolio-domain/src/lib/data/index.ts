@@ -6,3 +6,4 @@ export * from './type.data';
 export * from './item.data';
 export * from './item-detail.data';
 export * from './warehouse.data';
+export * from './item-variant.data';

@@ -6,3 +6,4 @@ export * from './type.repository';
 export * from './item.repository';
 export * from './item-detail.repository';
 export * from './warehouse.repository';
+export * from './item-variant.repository';

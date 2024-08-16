@@ -1,43 +1,43 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "rootDir": ".",
-        "sourceMap": true,
-        "declaration": false,
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "importHelpers": true,
-        "target": "es2015",
-        "module": "esnext",
-        "lib": ["es2020", "dom"],
-        "skipLibCheck": true,
-        "skipDefaultLibCheck": true,
-        "baseUrl": ".",
-        "paths": {
-            "@azkaban/auth-domain": ["libs/auth-domain/src/index.ts"],
-            "@azkaban/auth-infrastructure": [
-                "libs/auth-infrastructure/src/index.ts"
-            ],
-            "@azkaban/foodfolio-domain": ["libs/foodfolio-domain/src/index.ts"],
-            "@azkaban/foodfolio-infrastructure": [
-                "libs/foodfolio-infrastructure/src/index.ts"
-            ],
-            "@azkaban/group-domain": ["libs/group-domain/src/index.ts"],
-            "@azkaban/group-infrastructure": [
-                "libs/group-infrastructure/src/index.ts"
-            ],
-            "@azkaban/notification-domain": [
-                "libs/notification-domain/src/index.ts"
-            ],
-            "@azkaban/notification-infrastructure": [
-                "libs/notification-infrastructure/src/index.ts"
-            ],
-            "@azkaban/user-domain": ["libs/user-domain/src/index.ts"],
-            "@azkaban/user-infrastructure": [
-                "libs/user-infrastructure/src/index.ts"
-            ]
-        }
-    },
-    "exclude": ["node_modules", "tmp"]
+	"compileOnSave": false,
+	"compilerOptions": {
+		"rootDir": ".",
+		"sourceMap": true,
+		"declaration": false,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"target": "es2015",
+		"module": "esnext",
+		"lib": ["es2020", "dom"],
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"baseUrl": ".",
+		"paths": {
+			"@azkaban/auth-domain": ["libs/auth-domain/src/index.ts"],
+			"@azkaban/auth-infrastructure": [
+				"libs/auth-infrastructure/src/index.ts"
+			],
+			"@azkaban/foodfolio-domain": ["libs/foodfolio-domain/src/index.ts"],
+			"@azkaban/foodfolio-infrastructure": [
+				"libs/foodfolio-infrastructure/src/index.ts"
+			],
+			"@azkaban/group-domain": ["libs/group-domain/src/index.ts"],
+			"@azkaban/group-infrastructure": [
+				"libs/group-infrastructure/src/index.ts"
+			],
+			"@azkaban/notification-domain": [
+				"libs/notification-domain/src/index.ts"
+			],
+			"@azkaban/notification-infrastructure": [
+				"libs/notification-infrastructure/src/index.ts"
+			],
+			"@azkaban/user-domain": ["libs/user-domain/src/index.ts"],
+			"@azkaban/user-infrastructure": [
+				"libs/user-infrastructure/src/index.ts"
+			]
+		}
+	},
+	"exclude": ["node_modules", "tmp"]
 }

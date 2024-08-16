@@ -6,3 +6,4 @@ export * from './type.aggregate';
 export * from './item.aggregate';
 export * from './item-detail.aggregate';
 export * from './warehouse.aggregate';
+export * from './item-variant.aggregate';
