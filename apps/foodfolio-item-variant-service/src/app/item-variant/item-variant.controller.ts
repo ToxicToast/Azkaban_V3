@@ -4,7 +4,7 @@ import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { FoodfolioProductVariantTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 
-@Controller('item')
+@Controller('item-variant')
 export class ItemVariantController {
 	constructor(private readonly service: ItemVariantService) {}
 
