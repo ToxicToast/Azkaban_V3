@@ -1,9 +1,11 @@
-import { TableCell, TableFooter } from '../../shared';
+import { TableCell, TableFooter, TableRow } from '../../shared';
 
 export function ProductFooter() {
 	return (
 		<TableFooter className="w-full">
-			<TableCell colSpan={11}>No Products found</TableCell>
+			<TableRow>
+				<TableCell colSpan={11}>No Products found</TableCell>
+			</TableRow>
 		</TableFooter>
 	);
 }

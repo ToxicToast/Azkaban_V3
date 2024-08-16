@@ -1,9 +1,11 @@
-import { TableCell, TableFooter } from '../../shared';
+import { TableCell, TableFooter, TableRow } from '../../shared';
 
 export function TypeFooter() {
 	return (
 		<TableFooter className="w-full">
-			<TableCell colSpan={4}>No Types found</TableCell>
+			<TableRow>
+				<TableCell colSpan={4}>No Types found</TableCell>
+			</TableRow>
 		</TableFooter>
 	);
 }
