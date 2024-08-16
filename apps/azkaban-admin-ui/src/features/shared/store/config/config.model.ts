@@ -1,4 +1,4 @@
 export interface ConfigModel {
-    baseUrl: string;
-    version: string;
+	baseUrl: string;
+	version: string;
 }

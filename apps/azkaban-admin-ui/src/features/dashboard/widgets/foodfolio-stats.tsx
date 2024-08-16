@@ -1,49 +1,25 @@
-import { Stats } from '../components';
-import { CubeIcon } from '@radix-ui/react-icons';
+import { StatsCategory } from '../atoms/foodfolio/stats-category.atom';
+import { StatsBrand } from '../atoms/foodfolio/stats-brand.atom';
+import { StatsLocation } from '../atoms/foodfolio/stats-location.atom';
+import { StatsSize } from '../atoms/foodfolio/stats-size.atom';
+import { StatsType } from '../atoms/foodfolio/stats-type.atom';
+import { StatsWarehouse } from '../atoms/foodfolio/stats-warehouse.atom';
+import { StatsProducts } from '../atoms/foodfolio/stats-products.atom';
+import { StatsProductDetails } from '../atoms/foodfolio/stats-product-details.atom';
+import { StatsReceipts } from '../atoms/foodfolio/stats-receipts.atom';
 
 export function FoodfolioStats() {
-    return (
-        <>
-            <Stats
-                title="Total Foodfolio Categories"
-                icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-                statistic="0"
-            />
-            <Stats
-                title="Total Foodfolio Brands"
-                icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-                statistic="0"
-            />
-            <Stats
-                title="Total Foodfolio Products"
-                icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-                statistic="0"
-            />
-            <Stats
-                title="Total Foodfolio Locations"
-                icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-                statistic="0"
-            />
-            <Stats
-                title="Total Foodfolio Sizes"
-                icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-                statistic="0"
-            />
-            <Stats
-                title="Total Foodfolio Types"
-                icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-                statistic="0"
-            />
-            <Stats
-                title="Total Foodfolio Receipts"
-                icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-                statistic="0"
-            />
-            <Stats
-                title="Total Foodfolio Warehouses"
-                icon={<CubeIcon className="h-4 w-4 text-muted-foreground" />}
-                statistic="0"
-            />
-        </>
-    );
+	return (
+		<>
+			<StatsCategory />
+			<StatsBrand />
+			<StatsProducts />
+			<StatsProductDetails />
+			<StatsLocation />
+			<StatsSize />
+			<StatsType />
+			<StatsReceipts />
+			<StatsWarehouse />
+		</>
+	);
 }

@@ -5,97 +5,103 @@ import { ItemDetailData } from '../data';
 import { ItemDetailId, ItemId } from '../valueObjects';
 
 export class ItemDetailFactory
-    implements Factory<ItemDetailAnemic, ItemDetailAggregate, ItemDetailData>
+	implements Factory<ItemDetailAnemic, ItemDetailAggregate, ItemDetailData>
 {
-    reconstitute(data: ItemDetailAnemic): ItemDetailAggregate {
-        const {
-            id,
-            item_id,
-            purchase_date,
-            expiration_date,
-            opening_date,
-            returnable,
-            activated_at,
-            created_at,
-            updated_at,
-            deleted_at,
-        } = data;
+	reconstitute(data: ItemDetailAnemic): ItemDetailAggregate {
+		const {
+			id,
+			item_id,
+			art_no,
+			purchase_date,
+			expiration_date,
+			opening_date,
+			returnable,
+			activated_at,
+			created_at,
+			updated_at,
+			deleted_at,
+		} = data;
 
-        const itemDetailId = new ItemDetailId(id);
-        const itemId = new ItemDetailId(item_id);
+		const itemDetailId = new ItemDetailId(id);
+		const itemId = new ItemDetailId(item_id);
 
-        return new ItemDetailAggregate(
-            itemDetailId.value,
-            itemId.value,
-            purchase_date,
-            expiration_date,
-            opening_date,
-            returnable,
-            activated_at,
-            created_at,
-            updated_at,
-            deleted_at,
-        );
-    }
+		return new ItemDetailAggregate(
+			itemDetailId.value,
+			itemId.value,
+			art_no,
+			purchase_date,
+			expiration_date,
+			opening_date,
+			returnable,
+			activated_at,
+			created_at,
+			updated_at,
+			deleted_at,
+		);
+	}
 
-    constitute(data: ItemDetailAggregate): ItemDetailAnemic {
-        const {
-            id,
-            item_id,
-            purchase_date,
-            expiration_date,
-            opening_date,
-            returnable,
-            activated_at,
-            created_at,
-            updated_at,
-            deleted_at,
-            isActive,
-            isUpdated,
-            isDeleted,
-            isOpened,
-            isExpired,
-        } = data.toAnemic();
+	constitute(data: ItemDetailAggregate): ItemDetailAnemic {
+		const {
+			id,
+			item_id,
+			purchase_date,
+			expiration_date,
+			opening_date,
+			returnable,
+			activated_at,
+			created_at,
+			updated_at,
+			deleted_at,
+			isActive,
+			isUpdated,
+			isDeleted,
+			isOpened,
+			isExpired,
+			art_no,
+		} = data.toAnemic();
 
-        const itemDetailId = new ItemDetailId(id);
-        const itemId = new ItemDetailId(item_id);
+		const itemDetailId = new ItemDetailId(id);
+		const itemId = new ItemDetailId(item_id);
 
-        return {
-            id: itemDetailId.value,
-            item_id: itemId.value,
-            purchase_date,
-            expiration_date,
-            opening_date,
-            returnable,
-            activated_at,
-            isActive,
-            created_at,
-            updated_at,
-            deleted_at,
-            isUpdated,
-            isDeleted,
-            isOpened,
-            isExpired,
-        };
-    }
+		return {
+			id: itemDetailId.value,
+			item_id: itemId.value,
+			art_no,
+			purchase_date,
+			expiration_date,
+			opening_date,
+			returnable,
+			activated_at,
+			isActive,
+			created_at,
+			updated_at,
+			deleted_at,
+			isUpdated,
+			isDeleted,
+			isOpened,
+			isExpired,
+		};
+	}
 
-    createDomain(data: ItemDetailData): ItemDetailAggregate {
-        const { item_id, purchase_date, expiration_date, returnable } = data;
+	createDomain(data: ItemDetailData): ItemDetailAggregate {
+		const { item_id, purchase_date, expiration_date, returnable, art_no } =
+			data;
 
-        const itemDetailId = new ItemDetailId();
-        const itemId = new ItemId(item_id);
+		const itemDetailId = new ItemDetailId();
+		const itemId = new ItemId(item_id);
 
-        return new ItemDetailAggregate(
-            itemDetailId.value,
-            itemId.value,
-            purchase_date,
-            expiration_date,
-            null,
-            returnable,
-            null,
-            new Date(),
-            null,
-            null,
-        );
-    }
+		return new ItemDetailAggregate(
+			itemDetailId.value,
+			itemId.value,
+			art_no,
+			purchase_date,
+			expiration_date,
+			null,
+			returnable,
+			null,
+			new Date(),
+			null,
+			null,
+		);
+	}
 }
