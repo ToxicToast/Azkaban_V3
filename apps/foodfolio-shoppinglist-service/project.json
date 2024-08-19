@@ -1,0 +1,53 @@
+{
+	"name": "foodfolio-shoppinglist-service",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/foodfolio-shoppinglist-service/src",
+	"projectType": "application",
+	"tags": ["scope:application"],
+	"targets": {
+		"build": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"target": "node",
+				"compiler": "tsc",
+				"outputPath": "dist/apps/foodfolio-shoppinglist-service",
+				"main": "apps/foodfolio-shoppinglist-service/src/main.ts",
+				"tsConfig": "apps/foodfolio-shoppinglist-service/tsconfig.app.json",
+				"assets": ["apps/foodfolio-shoppinglist-service/src/assets"],
+				"webpackConfig": "apps/foodfolio-shoppinglist-service/webpack.config.js",
+				"generatePackageJson": true
+			}
+		},
+		"serve": {
+			"executor": "@nx/js:node",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "foodfolio-shoppinglist-service:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "foodfolio-shoppinglist-service:build:development"
+				},
+				"production": {
+					"buildTarget": "foodfolio-shoppinglist-service:build:production"
+				}
+			}
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/foodfolio-shoppinglist-service/jest.config.ts"
+			}
+		},
+		"docker-build": {
+			"dependsOn": ["build"],
+			"command": "docker build -f apps/foodfolio-shoppinglist-service/Dockerfile . -t azkaban2015/foodfolio-shoppinglist:{args.VERSION}"
+		},
+		"docker-push": {
+			"command": "docker push azkaban2015/foodfolio-shoppinglist:{args.VERSION}"
+		}
+	}
+}
