@@ -133,6 +133,7 @@
 		"@nestjs/jwt": "^10.2.0",
 		"@nestjs/microservices": "^10.3.10",
 		"@nestjs/platform-express": "^10.3.10",
+		"@nestjs/schedule": "^4.1.0",
 		"@nestjs/swagger": "^7.4.0",
 		"@nestjs/terminus": "^10.2.3",
 		"@nestjs/throttler": "^6.0.0",
