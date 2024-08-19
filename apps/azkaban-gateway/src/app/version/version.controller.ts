@@ -38,6 +38,8 @@ export class VersionController {
 						await this.service.getFoodFolioItemDetailVersion(),
 					warehouse:
 						await this.service.getFoodFolioWarehouseVersion(),
+					shoppinglist:
+						await this.service.getFoodFolioShoppingListVersion(),
 				},
 			};
 		} catch (error) {
