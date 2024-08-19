@@ -25,6 +25,7 @@
 		"serve:foodfolio:type": "nx serve foodfolio-type-service --skip-nx-cache",
 		"serve:foodfolio:item": "nx serve foodfolio-item-service --skip-nx-cache",
 		"serve:foodfolio:itemdetail": "nx serve foodfolio-item-detail-service --skip-nx-cache",
+		"serve:foodfolio:shoppinglist": "nx serve foodfolio-shoppinglist-service --skip-nx-cache",
 		"docker:gateway": "nx docker-build azkaban-gateway --skip-nx-cache --VERSION=local",
 		"docker:webhooks": "nx docker-build azkaban-webhooks --skip-nx-cache --VERSION=local",
 		"docker:webhooks:magpie": "nx docker-build apialerts-service --skip-nx-cache --VERSION=local",
@@ -41,6 +42,7 @@
 		"docker:foodfolio:type": "nx docker-build foodfolio-type-service --skip-nx-cache",
 		"docker:foodfolio:item": "nx docker-build foodfolio-item-service --skip-nx-cache",
 		"docker:foodfolio:itemdetail": "nx docker-build foodfolio-item-detail-service --skip-nx-cache",
+		"docker:foodfolio:shoppinglist": "nx docker-build foodfolio-shoppinglist-service --skip-nx-cache",
 		"docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
 		"docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
 		"docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
@@ -57,6 +59,7 @@
 		"docker:push:foodfolio:type": "nx docker-push foodfolio-type-service --skip-nx-cache",
 		"docker:push:foodfolio:item": "nx docker-push foodfolio-item-service --skip-nx-cache",
 		"docker:push:foodfolio:itemdetail": "nx docker-push foodfolio-item-detail-service --skip-nx-cache",
+		"docker:push:foodfolio:shoppinglist": "nx docker-push foodfolio-shoppinglist-service --skip-nx-cache",
 		"affected:docker": "nx affected --target=docker",
 		"affected:docker:push": "nx affected --target=docker-push"
 	},
