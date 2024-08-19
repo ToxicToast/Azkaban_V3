@@ -46,7 +46,7 @@ function LocationDashboardPage() {
 			/>
 
 			<div className="p-6 pt-0">
-				<Table>
+				<Table className="rounded border">
 					<LocationHeaders />
 					<TableBody>
 						{locationData.map((location) => (

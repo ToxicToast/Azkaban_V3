@@ -14,6 +14,7 @@ import FoodFolioTypeReducer from './foodfolio/type/type.slice';
 import FoodFolioWarehouseReducer from './foodfolio/warehouse/warehouse.slice';
 import FoodFolioProductReducer from './foodfolio/product/product.slice';
 import FoodFolioProductDetailReducer from './foodfolio/product-detail/product-detail.slice';
+import FoodFolioProductVariantReducer from './foodfolio/product-variant/product-variant.slice';
 
 import { authApi } from './auth/auth.api';
 import { userApi } from './user/user.api';
@@ -25,6 +26,7 @@ import { typeApi } from './foodfolio/type/type.api';
 import { warehouseApi } from './foodfolio/warehouse/warehouse.api';
 import { productApi } from './foodfolio/product/product.api';
 import { productDetailApi } from './foodfolio/product-detail/product-detail.api';
+import { productVariantApi } from './foodfolio/product-variant/product-variant.api';
 
 const azkabanReducer = combineReducers({
 	auth: AuthReducer,
@@ -47,6 +49,7 @@ const foodfolioReducer = combineReducers({
 	warehouse: FoodFolioWarehouseReducer,
 	product: FoodFolioProductReducer,
 	productDetail: FoodFolioProductDetailReducer,
+	productVariant: FoodFolioProductVariantReducer,
 });
 
 const foodfolioApiReducer = {
@@ -58,6 +61,7 @@ const foodfolioApiReducer = {
 	[warehouseApi.reducerPath]: warehouseApi.reducer,
 	[productApi.reducerPath]: productApi.reducer,
 	[productDetailApi.reducerPath]: productDetailApi.reducer,
+	[productVariantApi.reducerPath]: productVariantApi.reducer,
 };
 
 const foodfolioMiddleware = [
@@ -69,6 +73,7 @@ const foodfolioMiddleware = [
 	warehouseApi.middleware,
 	productApi.middleware,
 	productDetailApi.middleware,
+	productVariantApi.middleware,
 ];
 
 export const store = configureStore({

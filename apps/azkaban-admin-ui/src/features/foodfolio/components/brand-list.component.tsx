@@ -30,9 +30,7 @@ export function BrandList(props: Props) {
 			<TableCell>
 				<Badge variant={getBrandStatusVariant}>{getBrandStatus}</Badge>
 			</TableCell>
-			<TableCell>
-				<Badge variant="outline">{PrettyDates(brand.created_at)}</Badge>
-			</TableCell>
+			<TableCell>{PrettyDates(brand.created_at)}</TableCell>
 			<TableCell>
 				<Actions
 					onView={() => onView()}

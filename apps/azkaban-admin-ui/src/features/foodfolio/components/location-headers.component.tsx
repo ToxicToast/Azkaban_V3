@@ -5,7 +5,7 @@ export function LocationHeaders() {
 		<TableHeader className="w-full">
 			<TableRow>
 				<TableHead>Title</TableHead>
-				<TableHead>Root Category</TableHead>
+				<TableHead>Parent Location</TableHead>
 				<TableHead>Freezer</TableHead>
 				<TableHead>Status</TableHead>
 				<TableHead>Created At</TableHead>

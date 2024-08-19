@@ -7,6 +7,7 @@ import { LatestWarehouse } from '../atoms/foodfolio/latest-warehouse.atom';
 import { LatestProduct } from '../atoms/foodfolio/latest-product.atom';
 import { LatestProductDetail } from '../atoms/foodfolio/latest-product-detail.atom';
 import { LatestReceipt } from '../atoms/foodfolio/latest-receipt.atom';
+import { LatestProductVariant } from '../atoms/foodfolio/latest-product-variant.atom';
 
 export function FoodFolioLatest() {
 	return (
@@ -14,6 +15,7 @@ export function FoodFolioLatest() {
 			<LatestCategory />
 			<LatestBrand />
 			<LatestProduct />
+			<LatestProductVariant />
 			<LatestProductDetail />
 			<LatestLocation />
 			<LatestSize />

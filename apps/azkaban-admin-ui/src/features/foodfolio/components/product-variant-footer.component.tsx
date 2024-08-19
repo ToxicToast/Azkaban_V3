@@ -1,10 +1,10 @@
 import { TableCell, TableFooter, TableRow } from '../../shared';
 
-export function ProductFooter() {
+export function ProductVariantFooter() {
 	return (
 		<TableFooter className="w-full">
 			<TableRow>
-				<TableCell colSpan={7}>No Products found</TableCell>
+				<TableCell colSpan={12}>No Product Variants found</TableCell>
 			</TableRow>
 		</TableFooter>
 	);

@@ -14,5 +14,6 @@ export const foodfolioTypeEndpoint = `${foodfolioEndpoint}/type`;
 export const foodfolioWarehouseEndpoint = `${foodfolioEndpoint}/warehouse`;
 export const foodfolioProductEndpoint = `${foodfolioEndpoint}/item`;
 export const foodfolioProductDetailEndpoint = `${foodfolioEndpoint}/item-detail`;
+export const foodfolioProductVariantEndpoint = `${foodfolioEndpoint}/item-variant`;
 
 export const sseEndpoint = 'https://sse-dev.toxictoast.de/api/sse';

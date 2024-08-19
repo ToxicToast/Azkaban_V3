@@ -20,6 +20,8 @@ import {
 	foodfolioProductDetailRoute,
 	foodfolioProductDetailViewRoute,
 	foodfolioProductRoute,
+	foodfolioProductVariantAddRoute,
+	foodfolioProductVariantRoute,
 	foodfolioProductViewRoute,
 	foodfolioRoute,
 	foodfolioSizeAddRoute,
@@ -82,6 +84,9 @@ const LazyFoodFolioProductsPage = lazy(
 const LazyFoodFolioProductDetailsPage = lazy(
 	() => import('../features/foodfolio/dashboards/product-detail.dashboard'),
 );
+const LazyFoodFolioProductVariantsPage = lazy(
+	() => import('../features/foodfolio/dashboards/product-variant.dashboard'),
+);
 // Pages
 const LazyLoginPage = lazy(
 	() => import('../features/auth/login/pages/login.page'),
@@ -120,6 +125,9 @@ const LazyFoodFolioWarehouseAddPage = lazy(
 );
 const LazyFoodFolioProductAddPage = lazy(
 	() => import('../features/foodfolio/pages/product-add.page'),
+);
+const LazyFoodFolioProductVariantAddPage = lazy(
+	() => import('../features/foodfolio/pages/product-variant-add.page'),
 );
 
 interface Props {
@@ -283,6 +291,16 @@ const authenticatedRoutes = [
 							</Badge>
 						),
 					},
+					{
+						path: foodfolioProductVariantRoute,
+						element: <LazyFoodFolioProductVariantsPage />,
+						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Product Variants
+							</Badge>
+						),
+					},
 					// View Pages
 					{
 						path: foodfolioCategoryViewRoute,
@@ -442,6 +460,16 @@ const authenticatedRoutes = [
 						errorElement: (
 							<Badge variant="destructive">
 								Failed loading Product Detail Draft
+							</Badge>
+						),
+					},
+					{
+						path: foodfolioProductVariantAddRoute,
+						element: <LazyFoodFolioProductVariantAddPage />,
+						hasErrorBoundary: true,
+						errorElement: (
+							<Badge variant="destructive">
+								Failed loading Product Variant Draft
 							</Badge>
 						),
 					},

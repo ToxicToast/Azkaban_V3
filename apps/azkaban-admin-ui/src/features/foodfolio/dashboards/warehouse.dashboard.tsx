@@ -38,7 +38,7 @@ function WarehouseDashboardPage() {
 			/>
 
 			<div className="p-6 pt-0">
-				<Table>
+				<Table className="rounded border">
 					<WarehouseHeaders />
 					<TableBody>
 						{warehouseData.map((warehouse) => (
