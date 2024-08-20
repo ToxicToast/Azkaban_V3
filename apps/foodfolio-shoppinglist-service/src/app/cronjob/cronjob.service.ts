@@ -29,13 +29,34 @@ export class CronjobService {
 		return items.filter((item) => item.isStockAlert);
 	}
 
+	async createShoppingListItem(item: ItemDAO): Promise<void> {
+		this.logger.debug('Creating shopping list item');
+		const itemData = {
+			item_id: item.id,
+			current_sku: item.current_sku,
+			min_sku: item.min_sku,
+			max_sku: item.max_sku,
+		};
+		this.logger.debug({ ...itemData });
+	}
+
 	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
-		name: 'Empty Products',
+		name: 'Empty Products (Daily)',
 		timeZone: 'Europe/Berlin',
 	})
 	async checkForEmptyProducts(): Promise<void> {
 		this.logger.debug('Checking for empty products');
 		const emptyProducts = await this.getProductsWithStockAlert();
-		this.logger.debug({ ...emptyProducts });
+		for (let i = 0; i < emptyProducts.length; i++) {
+			await this.createShoppingListItem(emptyProducts[i]);
+		}
+	}
+
+	@Cron(CronExpression.EVERY_HOUR, {
+		name: 'Empty Products (Hourly)',
+		timeZone: 'Europe/Berlin',
+	})
+	async checkForEmptyProductsHourly(): Promise<void> {
+		await this.checkForEmptyProducts();
 	}
 }
