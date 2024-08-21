@@ -6,6 +6,7 @@ import { ClientsModule } from '@nestjs/microservices';
 import {
 	clientProvider,
 	foodfolio_product,
+	foodfolio_product_variant,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Module({
@@ -22,6 +23,18 @@ import {
 					brokerHost: process.env.BROKER_HOST,
 					brokerPort: parseInt(process.env.BROKER_PORT),
 					consumerTag: 'mobile-foodfolio-item',
+				}),
+			},
+			{
+				name: 'ITEM_VARIANT_SERVICE',
+				...clientProvider({
+					queueName: foodfolio_product_variant,
+					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+					brokerUsername: process.env.BROKER_USERNAME,
+					brokerPassword: process.env.BROKER_PASSWORD,
+					brokerHost: process.env.BROKER_HOST,
+					brokerPort: parseInt(process.env.BROKER_PORT),
+					consumerTag: 'mobile-foodfolio-item-variant',
 				}),
 			},
 		]),

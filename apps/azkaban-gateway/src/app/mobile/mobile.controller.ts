@@ -18,4 +18,16 @@ export class MobileController {
 			);
 		}
 	}
+
+	@Get('foodfolio/item-variants')
+	async getFoodfolioItemVariants() {
+		try {
+			return await this.mobileService.getFoodfolioItemVariants(0, 0);
+		} catch (error) {
+			throw new HttpException(
+				error.message ?? 'Unknown Error',
+				error.status ?? 500,
+			);
+		}
+	}
 }

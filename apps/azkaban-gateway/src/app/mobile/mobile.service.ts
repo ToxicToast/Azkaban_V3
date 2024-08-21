@@ -1,27 +1,49 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { ClientProxy } from '@nestjs/microservices';
-import { ItemDAO } from '@azkaban/foodfolio-infrastructure';
-import { FoodfolioProductTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import { ItemDAO, ItemVariantDAO } from '@azkaban/foodfolio-infrastructure';
+import {
+	FoodfolioProductTopics,
+	FoodfolioProductVariantTopics,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
 export class MobileService {
 	constructor(
 		@Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
-		@Inject('ITEM_SERVICE') private readonly client: ClientProxy,
+		@Inject('ITEM_SERVICE') private readonly clientItem: ClientProxy,
+		@Inject('ITEM_VARIANT_SERVICE')
+		private readonly clientItemVariant: ClientProxy,
 	) {}
 
 	async getFoodfolioItems(limit: number, offset: number) {
-		const cacheKey = `${FoodfolioProductTopics.LIST}:${limit}:${offset}`;
+		const topic = FoodfolioProductTopics.LIST;
+		const cacheKey = `${topic}:${limit}:${offset}`;
 		const cachedData = await this.getCachedItems<Array<ItemDAO>>(cacheKey);
 		if (cachedData) {
 			return cachedData.filter((item: ItemDAO) => item.isActive);
 		} else {
-			const data = await this.client
-				.send(FoodfolioProductTopics.LIST, { limit, offset })
+			const data = await this.clientItem
+				.send(topic, { limit, offset })
 				.toPromise();
 			await this.setCachedItem<Array<ItemDAO>>(cacheKey, data);
 			return data.filter((item: ItemDAO) => item.isActive);
+		}
+	}
+
+	async getFoodfolioItemVariants(limit: number, offset: number) {
+		const topic = FoodfolioProductVariantTopics.LIST;
+		const cacheKey = `${topic}:${limit}:${offset}`;
+		const cachedData =
+			await this.getCachedItems<Array<ItemVariantDAO>>(cacheKey);
+		if (cachedData) {
+			return cachedData.filter((item: ItemVariantDAO) => item.isActive);
+		} else {
+			const data = await this.clientItemVariant
+				.send(topic, { limit, offset })
+				.toPromise();
+			await this.setCachedItem<Array<ItemVariantDAO>>(cacheKey, data);
+			return data.filter((item: ItemVariantDAO) => item.isActive);
 		}
 	}
 
