@@ -8,6 +8,7 @@ import {
 	ItemService as BaseService,
 } from '@azkaban/foodfolio-infrastructure';
 
+// TODO: Move this to a dedicated Cronjob Microservice
 @Injectable()
 export class CronjobService {
 	private readonly infrastructureRepository: ItemRepository;

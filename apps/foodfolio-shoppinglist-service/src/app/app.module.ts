@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import { VersionModule } from './version/version.module';
 import { MetricsModule } from './metrics/metrics.module';
-import { CronjobModule } from './cronjob/cronjob.module';
+import { ShoppingListModule } from './shoppinglist/shoppinglist.module';
 
 @Module({
 	imports: [
@@ -11,7 +11,7 @@ import { CronjobModule } from './cronjob/cronjob.module';
 		HealthModule,
 		MetricsModule,
 		VersionModule,
-		CronjobModule,
+		ShoppingListModule,
 	],
 })
 export class AppModule {}
