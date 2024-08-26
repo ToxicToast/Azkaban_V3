@@ -161,7 +161,7 @@
 		"amqplib": "^0.10.4",
 		"argon2": "^0.40.3",
 		"axios": "^1.7.2",
-		"cache-manager": "^5.7.4",
+		"cache-manager": "^5.7.6",
 		"cache-manager-redis-store": "^3.0.1",
 		"class-variance-authority": "^0.7.0",
 		"classnames": "^2.5.1",
