@@ -154,7 +154,7 @@
 		"@toxictoast/azkaban-base-domain": "^0.0.2",
 		"@toxictoast/azkaban-base-helpers": "^0.0.13",
 		"@toxictoast/azkaban-base-types": "^0.0.1",
-		"@toxictoast/azkaban-broker-rabbitmq": "^0.0.26",
+		"@toxictoast/azkaban-broker-rabbitmq": "^0.0.27",
 		"@toxictoast/azkaban-sdk": "^0.0.14",
 		"@willsoto/nestjs-prometheus": "^6.0.1",
 		"amqp-connection-manager": "^4.1.14",
