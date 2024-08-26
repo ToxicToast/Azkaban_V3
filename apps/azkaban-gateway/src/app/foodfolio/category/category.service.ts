@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { FoodfolioCategoryTopics } from '@toxictoast/azkaban-broker-rabbitmq';
