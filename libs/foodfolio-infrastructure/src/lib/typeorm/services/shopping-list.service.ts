@@ -3,7 +3,7 @@ import { ShoppingListRepository } from '../repositories';
 import { Optional } from '@toxictoast/azkaban-base-types';
 import { ShoppingListDAO } from '../../dao';
 import { NotFoundException } from '@nestjs/common';
-import { CreateShoppingListDTO } from '@azkaban/foodfolio-infrastructure';
+import { CreateShoppingListDTO } from '../../dto';
 
 export class ShoppingListService {
 	private readonly domainService: DomainService;
