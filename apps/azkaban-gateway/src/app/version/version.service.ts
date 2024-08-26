@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
 	AuthTopics,
+	CronjobTopics,
 	FoodfolioCategoryTopics,
 	FoodfolioCompanyTopics,
 	FoodfolioLocationTopics,
@@ -51,6 +52,8 @@ export class VersionService {
 		private readonly foodfolioWarehouseClient: ClientProxy,
 		@Inject('FOODFOLIO_SHOPPINGLIST_SERVICE')
 		private readonly foodfolioShoppinglistClient: ClientProxy,
+		@Inject('CRONJOB_SERVICE')
+		private readonly cronjobClient: ClientProxy,
 		//
 		@Inject('APP_VERSION') private readonly appVersion: string,
 	) {}
@@ -154,6 +157,12 @@ export class VersionService {
 	async getFoodFolioShoppingListVersion() {
 		return await this.foodfolioShoppinglistClient
 			.send(FoodfolioShoppinglistTopics.VERSION, {})
+			.toPromise();
+	}
+
+	async getCronjobVersion() {
+		return await this.cronjobClient
+			.send(CronjobTopics.VERSION, {})
 			.toPromise();
 	}
 }

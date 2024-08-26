@@ -5,10 +5,10 @@ import { FoodfolioCategoryTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller('version')
 export class VersionController {
-    constructor(private readonly service: VersionService) {}
+	constructor(private readonly service: VersionService) {}
 
-    @MessagePattern(FoodfolioCategoryTopics.VERSION)
-    async getVersion() {
-        return this.service.getVersion();
-    }
+	@MessagePattern(FoodfolioCategoryTopics.VERSION)
+	async getVersion() {
+		return this.service.getVersion();
+	}
 }

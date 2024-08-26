@@ -21,8 +21,17 @@ import {
 	foodfolio_size,
 	foodfolio_type,
 	foodfolio_warehouse,
+	azkaban_cronjob,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ConfigService } from '@nestjs/config';
+
+const brokerDefaultOptions = {
+	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+	brokerUsername: process.env.BROKER_USERNAME,
+	brokerPassword: process.env.BROKER_PASSWORD,
+	brokerHost: process.env.BROKER_HOST,
+	brokerPort: parseInt(process.env.BROKER_PORT),
+};
 
 @Module({
 	imports: [
@@ -32,44 +41,28 @@ import { ConfigService } from '@nestjs/config';
 				name: 'WEBHOOKS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'APIALERTS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_apialerts,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'NOTIFICATIONS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_notification,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'SSE_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_sse,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			// USER
@@ -77,11 +70,7 @@ import { ConfigService } from '@nestjs/config';
 				name: 'USERS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_user,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			// Auth
@@ -89,11 +78,7 @@ import { ConfigService } from '@nestjs/config';
 				name: 'AUTH_SERVICE',
 				...clientProvider({
 					queueName: azkaban_auth,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			// Group
@@ -101,11 +86,7 @@ import { ConfigService } from '@nestjs/config';
 				name: 'GROUP_SERVICE',
 				...clientProvider({
 					queueName: azkaban_group,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			// Foodfolio
@@ -113,110 +94,78 @@ import { ConfigService } from '@nestjs/config';
 				name: 'FOODFOLIO_CATEGORY_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_category,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_COMPANY_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_company,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_LOCATION_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_location,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_SIZE_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_size,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_TYPE_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_type,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_ITEM_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_ITEM_DETAIL_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product_detail,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_ITEM_VARIANT_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product_variant,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_WAREHOUSE_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_warehouse,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_SHOPPINGLIST_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_shopping_list,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
+					...brokerDefaultOptions,
+				}),
+			},
+			// Cronjob
+			{
+				name: 'CRONJOB_SERVICE',
+				...clientProvider({
+					queueName: azkaban_cronjob,
+					...brokerDefaultOptions,
 				}),
 			},
 		]),

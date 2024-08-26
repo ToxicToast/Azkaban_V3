@@ -16,15 +16,19 @@ export class VersionController {
 			//
 			return {
 				...gateway,
-				notify: {
-					notifications: await this.service.getNotificationsVersion(),
-					webhooks: await this.service.getWebhooksVersion(),
-					alerts: await this.service.getApiAlertsVersion(),
-					sse: await this.service.getSSEVersion(),
+				azkaban: {
+					notify: {
+						notifications:
+							await this.service.getNotificationsVersion(),
+						webhooks: await this.service.getWebhooksVersion(),
+						alerts: await this.service.getApiAlertsVersion(),
+						sse: await this.service.getSSEVersion(),
+					},
+					auth: await this.service.getAuthVersion(),
+					users: await this.service.getUsersVersion(),
+					groups: await this.service.getGroupsVersion(),
+					cronjobs: await this.service.getCronjobVersion(),
 				},
-				auth: await this.service.getAuthVersion(),
-				users: await this.service.getUsersVersion(),
-				groups: await this.service.getGroupsVersion(),
 				foodfolio: {
 					category: await this.service.getFoodFolioCategoryVersion(),
 					company: await this.service.getFoodFolioCompanyVersion(),
