@@ -29,6 +29,15 @@ export class ShoppingListController {
 		}
 	}
 
+	@MessagePattern(FoodfolioShoppinglistTopics.ITEMID)
+	async getShoppingListByItemId(@Payload('item_id') item_id: string) {
+		try {
+			return await this.service.getShoppingListByItemId(item_id);
+		} catch (error) {
+			throw new RpcException(error);
+		}
+	}
+
 	@MessagePattern(FoodfolioShoppinglistTopics.CREATE)
 	async createShoppingList(
 		@Payload('item_id') item_id: string,
@@ -39,29 +48,6 @@ export class ShoppingListController {
 	) {
 		try {
 			return await this.service.createShoppingList(
-				item_id,
-				variant_id,
-				current_sku,
-				min_sku,
-				max_sku,
-			);
-		} catch (error) {
-			throw new RpcException(error);
-		}
-	}
-
-	@MessagePattern(FoodfolioShoppinglistTopics.UPDATE)
-	async updateShoppingList(
-		@Payload('id') id: string,
-		@Payload('item_id') item_id?: Optional<string>,
-		@Payload('variant_id') variant_id?: Optional<string>,
-		@Payload('current_sku') current_sku?: Optional<number>,
-		@Payload('min_sku') min_sku?: Optional<number>,
-		@Payload('max_sku') max_sku?: Optional<number>,
-	) {
-		try {
-			return await this.service.updateShoppingList(
-				id,
 				item_id,
 				variant_id,
 				current_sku,

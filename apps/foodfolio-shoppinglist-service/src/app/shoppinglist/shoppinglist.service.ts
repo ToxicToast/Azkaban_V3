@@ -35,6 +35,14 @@ export class ShoppingListService {
 		return await this.infrastructureService.getShoppingListById(id);
 	}
 
+	async getShoppingListByItemId(
+		item_id: string,
+	): Promise<Array<ShoppingListDAO>> {
+		return await this.infrastructureService.getShoppingListByItemId(
+			item_id,
+		);
+	}
+
 	async createShoppingList(
 		item_id: string,
 		variant_id: string,
