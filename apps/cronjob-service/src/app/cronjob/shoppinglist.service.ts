@@ -61,24 +61,15 @@ export class ShoppingListService {
 			.toPromise();
 	}
 
-	async checkForShoppingListEntry(
-		item_id: string,
-		variant_id: string,
-	): Promise<Nullable<ShoppingListDAO>> {
-		const items = await this.shoppingListClient
-			.send(FoodfolioShoppinglistTopics.ITEMID, { item_id })
-			.toPromise();
-		return items.find((item) => item.variant_id === variant_id) ?? null;
-	}
-
 	@Cron(CronExpression.EVERY_HOUR, {
 		name: 'Empty Products (Hourly)',
-		timeZone: 'Europe/Berlin',
 	})
 	async checkForEmptyProducts(): Promise<void> {
 		const items = await this.getItemsWithStockAlert();
+		Logger.debug({ items });
 		for (const item of items) {
 			const variants = await this.getItemVariants(item.id);
+			Logger.debug({ variants });
 			for (const variant of variants) {
 				const item_id = item.id;
 				const variant_id = variant.id;
@@ -86,21 +77,14 @@ export class ShoppingListService {
 				const min_sku = item.min_sku;
 				const max_sku = item.max_sku;
 				//
-				const check = await this.checkForShoppingListEntry(
+				const result = await this.createShoppingListItem(
 					item_id,
 					variant_id,
+					current_sku,
+					min_sku,
+					max_sku,
 				);
-				//
-				if (check === null) {
-					const result = await this.createShoppingListItem(
-						item_id,
-						variant_id,
-						current_sku,
-						min_sku,
-						max_sku,
-					);
-					Logger.debug({ result });
-				}
+				Logger.debug({ result });
 			}
 		}
 	}
