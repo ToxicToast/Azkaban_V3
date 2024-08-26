@@ -31,7 +31,7 @@ export class ItemController {
 		@Query('offset') offset?: Optional<number>,
 	) {
 		try {
-			const limitNumber = limit ?? 50;
+			const limitNumber = limit ?? 0;
 			const offsetNumber = offset ?? 0;
 			return await this.service.getItems(limitNumber, offsetNumber);
 		} catch (error) {

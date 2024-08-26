@@ -8,6 +8,7 @@ import { ItemModule } from './item/item.module';
 import { ItemDetailModule } from './item-detail/item-detail.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { ItemVariantModule } from './item-variant/item-variant.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @Module({
 	imports: [
@@ -20,6 +21,7 @@ import { ItemVariantModule } from './item-variant/item-variant.module';
 		ItemDetailModule,
 		WarehouseModule,
 		ItemVariantModule,
+		ShoppingListModule,
 	],
 })
 export class FoodfolioModule {}

@@ -9,35 +9,37 @@ import { AuthModule } from './auth/auth.module';
 import { GroupsModule } from './groups/groups.module';
 import { JwtModule } from '@nestjs/jwt';
 import { FoodfolioModule } from './foodfolio/foodfolio.module';
+import { MobileModule } from './mobile/mobile.module';
 
 @Module({
-    imports: [
-        JwtModule.registerAsync({
-            useFactory: (config: ConfigService) => {
-                return {
-                    global: true,
-                    secret: config.get('JWT_SECRET', 'secret'),
-                    signOptions: { expiresIn: '1h' },
-                };
-            },
-            inject: [ConfigService],
-        }),
-        ConfigModule.forRoot({ isGlobal: true }),
-        ThrottlerModule.forRoot([
-            {
-                name: 'azkaban',
-                ttl: 60000,
-                limit: 10,
-            },
-        ]),
-        //
-        HealthModule,
-        MetricsModule,
-        VersionModule,
-        UserModule,
-        AuthModule,
-        GroupsModule,
-        FoodfolioModule,
-    ],
+	imports: [
+		JwtModule.registerAsync({
+			useFactory: (config: ConfigService) => {
+				return {
+					global: true,
+					secret: config.get('JWT_SECRET', 'secret'),
+					signOptions: { expiresIn: '1h' },
+				};
+			},
+			inject: [ConfigService],
+		}),
+		ConfigModule.forRoot({ isGlobal: true }),
+		ThrottlerModule.forRoot([
+			{
+				name: 'azkaban',
+				ttl: 60000,
+				limit: 10,
+			},
+		]),
+		//
+		HealthModule,
+		MetricsModule,
+		VersionModule,
+		UserModule,
+		AuthModule,
+		GroupsModule,
+		FoodfolioModule,
+		MobileModule,
+	],
 })
 export class AppModule {}

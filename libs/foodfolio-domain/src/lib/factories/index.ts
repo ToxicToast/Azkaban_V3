@@ -7,3 +7,4 @@ export * from './item.factory';
 export * from './item-detail.factory';
 export * from './warehouse.factory';
 export * from './item-variant.factory';
+export * from './shopping-list.factory';

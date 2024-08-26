@@ -8,6 +8,7 @@ import {
 	FoodfolioProductDetailTopics,
 	FoodfolioProductTopics,
 	FoodfolioProductVariantTopics,
+	FoodfolioShoppinglistTopics,
 	FoodfolioSizeTopics,
 	FoodfolioTypeTopics,
 	FoodfolioWarehouseTopics,
@@ -48,6 +49,8 @@ export class VersionService {
 		private readonly foodfolioItemVariantClient: ClientProxy,
 		@Inject('FOODFOLIO_WAREHOUSE_SERVICE')
 		private readonly foodfolioWarehouseClient: ClientProxy,
+		@Inject('FOODFOLIO_SHOPPINGLIST_SERVICE')
+		private readonly foodfolioShoppinglistClient: ClientProxy,
 		//
 		@Inject('APP_VERSION') private readonly appVersion: string,
 	) {}
@@ -145,6 +148,12 @@ export class VersionService {
 	async getFoodFolioWarehouseVersion() {
 		return await this.foodfolioWarehouseClient
 			.send(FoodfolioWarehouseTopics.VERSION, {})
+			.toPromise();
+	}
+
+	async getFoodFolioShoppingListVersion() {
+		return await this.foodfolioShoppinglistClient
+			.send(FoodfolioShoppinglistTopics.VERSION, {})
 			.toPromise();
 	}
 }

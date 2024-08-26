@@ -7,3 +7,4 @@ export * from './item.mapper';
 export * from './item-detail.mapper';
 export * from './warehouse.mapper';
 export * from './item-variant.mapper';
+export * from './shopping-list.mapper';

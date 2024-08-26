@@ -254,8 +254,7 @@ export class ItemVariantService {
 	}
 
 	private async createItemVariantDetailBySku(item_id: string, sku: number) {
-		const realSku = sku === 0 ? 1 : sku;
-		for (let i = 0; i < realSku; i++) {
+		for (let i = 0; i < sku; i++) {
 			await this.detailClient
 				.emit(FoodfolioProductDetailTopics.CREATE, {
 					item_id,
