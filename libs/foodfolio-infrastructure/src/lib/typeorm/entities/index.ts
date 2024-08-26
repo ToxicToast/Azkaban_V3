@@ -7,3 +7,4 @@ export * from './item.entity';
 export * from './item-detail.entity';
 export * from './warehouse.entity';
 export * from './item-variant.entity';
+export * from './shopping-list.entity';

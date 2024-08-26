@@ -7,3 +7,4 @@ export * from './item.dao';
 export * from './item-detail.dao';
 export * from './warehouse.dao';
 export * from './item-variant.dao';
+export * from './shopping-list.dao';

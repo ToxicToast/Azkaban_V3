@@ -7,6 +7,7 @@ import {
 	ItemEntity,
 	ItemVariantEntity,
 	LocationEntity,
+	ShoppingListEntity,
 	SizeEntity,
 	TypeEntity,
 	WarehouseEntity,
@@ -37,6 +38,7 @@ export const datasourceProvider = [
 				ItemDetailEntity,
 				WarehouseEntity,
 				ItemVariantEntity,
+				ShoppingListEntity,
 			] as unknown as MixedList<string | EntitySchema>;
 			//
 			return buildDataSource(

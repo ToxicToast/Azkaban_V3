@@ -8,3 +8,4 @@ export * from './item.provider';
 export * from './item-detail.provider';
 export * from './warehouse.provider';
 export * from './item-variant.provider';
+export * from './shopping-list.provider';
