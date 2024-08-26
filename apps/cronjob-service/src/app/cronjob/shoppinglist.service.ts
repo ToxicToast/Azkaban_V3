@@ -31,13 +31,16 @@ export class ShoppingListService {
 
 	private async getItemsWithStockAlert(): Promise<Array<ItemDAO>> {
 		const items = await this.getAllItems();
-		return items.filter((item) => item.isStockAlert);
+		return items.filter(
+			(item: ItemDAO) => item.isStockAlert && item.isActive,
+		);
 	}
 
 	private async getItemVariants(item_id): Promise<Array<ItemVariantDAO>> {
-		return await this.itemVariantClient
+		const variants = await this.itemVariantClient
 			.send(FoodfolioProductVariantTopics.ITEMID, { item_id })
 			.toPromise();
+		return variants.filter((variant: ItemVariantDAO) => variant.isActive);
 	}
 
 	async createShoppingListItem(
