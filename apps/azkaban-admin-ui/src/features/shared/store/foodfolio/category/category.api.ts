@@ -5,7 +5,6 @@ import {
 	FoodFolioCategory,
 } from '@toxictoast/azkaban-sdk';
 import { foodfolioCategoryEndpoint } from '../../../../../config/endpoints';
-import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export const categoryApi = createApi({
 	reducerPath: 'categoryApi',
