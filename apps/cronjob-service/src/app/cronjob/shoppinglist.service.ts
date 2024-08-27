@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
 	ItemDAO,
@@ -11,7 +11,6 @@ import {
 	FoodfolioShoppinglistTopics,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { Nullable } from '@toxictoast/azkaban-base-types';
 
 @Injectable()
 export class ShoppingListService {
@@ -66,10 +65,8 @@ export class ShoppingListService {
 	})
 	async checkForEmptyProducts(): Promise<void> {
 		const items = await this.getItemsWithStockAlert();
-		Logger.debug({ items });
 		for (const item of items) {
 			const variants = await this.getItemVariants(item.id);
-			Logger.debug({ variants });
 			for (const variant of variants) {
 				const item_id = item.id;
 				const variant_id = variant.id;
@@ -77,14 +74,13 @@ export class ShoppingListService {
 				const min_sku = item.min_sku;
 				const max_sku = item.max_sku;
 				//
-				const result = await this.createShoppingListItem(
+				await this.createShoppingListItem(
 					item_id,
 					variant_id,
 					current_sku,
 					min_sku,
 					max_sku,
 				);
-				Logger.debug({ result });
 			}
 		}
 	}
