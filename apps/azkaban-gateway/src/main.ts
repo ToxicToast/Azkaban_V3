@@ -73,7 +73,7 @@ async function bootstrap() {
 	const app = await createApp();
 	configureApp(app);
 	addModules(app);
-	addMiddleware();
+	addMiddleware(app);
 	if (environment === 'development') {
 		configureSwagger(app);
 	}
