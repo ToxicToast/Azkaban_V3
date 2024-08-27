@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { FoodfolioCategoryTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
@@ -14,7 +14,10 @@ export class CategoryController {
 		@Payload('offset') offset: number,
 	) {
 		try {
-			return await this.service.getList(limit, offset);
+			return await this.service.getList(limit, offset).then((data) => {
+				Logger.log({ data });
+				return data;
+			});
 		} catch (error) {
 			throw new RpcException(error);
 		}
