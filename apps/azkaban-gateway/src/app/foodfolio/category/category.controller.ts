@@ -5,7 +5,6 @@ import {
 	Delete,
 	Get,
 	HttpException,
-	Logger,
 	Param,
 	Post,
 	Put,
@@ -34,12 +33,7 @@ export class CategoryController {
 		try {
 			const limitNumber = limit ?? 0;
 			const offsetNumber = offset ?? 0;
-			return await this.service
-				.getCategories(limitNumber, offsetNumber)
-				.then((data) => {
-					Logger.log({ data });
-					return data;
-				});
+			return await this.service.getCategories(limitNumber, offsetNumber);
 		} catch (error) {
 			throw new HttpException(
 				error.message ?? 'Unknown Error',
