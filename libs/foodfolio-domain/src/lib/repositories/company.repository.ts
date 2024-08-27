@@ -1,4 +1,12 @@
 import { Repository } from '@toxictoast/azkaban-base-domain';
 import { CompanyAnemic } from '../anemics';
+import { Chainable } from '@toxictoast/azkaban-base-types';
 
-export type CompanyRepository = Repository<CompanyAnemic>;
+interface CompanyAdditions {
+	findByTitle(title: string): Promise<CompanyAnemic>;
+}
+
+export type CompanyRepository = Chainable<
+	CompanyAdditions,
+	Repository<CompanyAnemic>
+>;

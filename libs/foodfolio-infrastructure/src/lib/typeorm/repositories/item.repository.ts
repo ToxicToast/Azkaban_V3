@@ -35,6 +35,14 @@ export class ItemRepository implements DomainRepository {
 		return this.mapper.toDomain(entity);
 	}
 
+	async findByTitle(title: string): Promise<ItemAnemic> {
+		const entity = await this.repository.findOne({
+			withDeleted: true,
+			where: { title },
+		});
+		return this.mapper.toDomain(entity);
+	}
+
 	async delete(id: string): Promise<ItemAnemic> {
 		await this.repository.softDelete(id);
 		return await this.findById(id);

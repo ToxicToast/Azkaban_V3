@@ -51,14 +51,12 @@ export class AuthService {
 
 	async createUser(data: AuthData): Promise<Result<AuthAnemic>> {
 		try {
-			const checkEmail = await this.repository.findByEmail(data.email);
-			const checkUsername = await this.repository.findByUsername(
-				data.username,
-			);
-			if (checkEmail !== null) {
+			const checkEmail = await this.findByEmail(data.email);
+			if (checkEmail.isSuccess) {
 				return Result.fail<AuthAnemic>(AuthErrorCodes.EMAIL_FOUND);
 			}
-			if (checkUsername !== null) {
+			const checkUsername = await this.findByUsername(data.username);
+			if (checkUsername.isSuccess) {
 				return Result.fail<AuthAnemic>(AuthErrorCodes.USERNAME_FOUND);
 			}
 			const aggregate = this.factory.createDomain(data);
@@ -73,26 +71,22 @@ export class AuthService {
 		password: string,
 	): Promise<Result<AuthAnemic>> {
 		try {
-			const checkUsername =
-				await this.repository.findByUsername(username);
-			if (checkUsername === null) {
+			const checkUsername = await this.findByUsername(username);
+			if (checkUsername.isFailure) {
 				return Result.fail<AuthAnemic>(UserErrorCodes.NOT_FOUND);
 			}
-			if (checkUsername.password !== password) {
+			if (checkUsername.value.password !== password) {
 				return Result.fail<AuthAnemic>(AuthErrorCodes.INVALID_PASSWORD);
 			}
-			if (checkUsername.isBanned) {
+			if (checkUsername.value.isBanned) {
 				return Result.fail<AuthAnemic>(UserErrorCodes.IS_BANNED);
 			}
-			if (!checkUsername.isActive) {
+			if (!checkUsername.value.isActive) {
 				return Result.fail<AuthAnemic>(UserErrorCodes.NOT_ACTIVE);
 			}
-			//
-			const aggregate = this.factory.reconstitute(checkUsername);
+			const aggregate = this.factory.reconstitute(checkUsername.value);
 			aggregate.updateLogin();
-			await this.save(aggregate.toAnemic());
-			//
-			return Result.ok(checkUsername);
+			return await this.save(aggregate.toAnemic());
 		} catch (error) {
 			return Result.fail<AuthAnemic>(error);
 		}
@@ -103,17 +97,17 @@ export class AuthService {
 		token: string,
 	): Promise<Result<AuthAnemic>> {
 		try {
-			const result = await this.repository.findByEmail(email);
-			if (result !== null) {
-				if (result.isActive) {
+			const result = await this.findByEmail(email);
+			if (result.isSuccess) {
+				if (result.value.isActive) {
 					return Result.fail<AuthAnemic>(AuthErrorCodes.IS_ACTIVE);
 				}
-				if (result.activation_token !== token) {
+				if (result.value.activation_token !== token) {
 					return Result.fail<AuthAnemic>(
 						AuthErrorCodes.TOKEN_UNMATCH,
 					);
 				}
-				const aggregate = this.factory.reconstitute(result);
+				const aggregate = this.factory.reconstitute(result.value);
 				aggregate.updateActivation();
 				return await this.save(aggregate.toAnemic());
 			}

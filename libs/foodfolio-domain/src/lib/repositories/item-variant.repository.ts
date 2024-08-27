@@ -18,6 +18,7 @@ interface ItemVariantAdditions {
 	findByWarehouseId(
 		warehouseId: Nullable<string>,
 	): Promise<Array<ItemVariantAnemic>>;
+	findByTitle(title: string): Promise<ItemVariantAnemic>;
 }
 
 export type ItemVariantRepository = Chainable<

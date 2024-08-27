@@ -122,6 +122,16 @@ export class ItemVariantService {
 		}
 	}
 
+	async getItemVariantByTitle(title: string): Promise<ItemVariantDAO> {
+		const result = await this.domainService.getItemVariantByTitle(title);
+		if (result.isSuccess) {
+			return result.value;
+		} else {
+			const errorMessage = result.errorValue;
+			throw new NotFoundException(errorMessage);
+		}
+	}
+
 	async createItemVariant(
 		data: CreateItemVariantDTO,
 	): Promise<ItemVariantDAO> {
