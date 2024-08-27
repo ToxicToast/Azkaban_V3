@@ -86,7 +86,8 @@ export class AuthService {
 			}
 			const aggregate = this.factory.reconstitute(checkUsername.value);
 			aggregate.updateLogin();
-			return await this.save(aggregate.toAnemic());
+			await this.save(aggregate.toAnemic());
+			return Result.ok<AuthAnemic>(checkUsername.value);
 		} catch (error) {
 			return Result.fail<AuthAnemic>(error);
 		}
