@@ -32,7 +32,7 @@ function addModules(app: INestApplication): void {
 }
 
 function addMiddleware(app: INestApplication): void {
-	app.use(new CharsetMiddleware());
+	app.use(CharsetMiddleware);
 }
 
 function configureSwagger(app: INestApplication): void {
