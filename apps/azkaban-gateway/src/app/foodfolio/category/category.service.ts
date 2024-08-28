@@ -18,6 +18,15 @@ export class CategoryService {
 		limit: number,
 		offset: number,
 	): Promise<Array<CategoryDAO>> {
+		return await this.client
+			.send(FoodfolioCategoryTopics.LIST, { limit, offset })
+			.toPromise();
+	}
+
+	async getCategoriesCached(
+		limit: number,
+		offset: number,
+	): Promise<Array<CategoryDAO>> {
 		const cacheKey = `${FoodfolioCategoryTopics.LIST}:${limit}:${offset}`;
 		const cachedData =
 			await this.cacheManager.get<Array<CategoryDAO>>(cacheKey);
