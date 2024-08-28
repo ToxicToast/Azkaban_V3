@@ -49,14 +49,8 @@ function configureSwagger(app: INestApplication): void {
 }
 
 function configureCors(app: INestApplication): void {
-	const urls = [
-		'http://localhost:4200',
-		'https://admin-dev.toxictoast.de',
-		'https://admin.toxictoast.de',
-	];
-
 	app.enableCors({
-		origin: urls,
+		origin: '*',
 		maxAge: 3600,
 		optionsSuccessStatus: 200,
 	});
