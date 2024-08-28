@@ -9,6 +9,15 @@ import {
 	foodfolio_product_variant,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
+const brokerDefaultSettings = {
+	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+	brokerUsername: process.env.BROKER_USERNAME,
+	brokerPassword: process.env.BROKER_PASSWORD,
+	brokerHost: process.env.BROKER_HOST,
+	brokerPort: parseInt(process.env.BROKER_PORT),
+	brokerVHost: process.env.BROKER_VHOST,
+};
+
 @Module({
 	imports: [
 		CachingModule,
@@ -17,24 +26,16 @@ import {
 				name: 'ITEM_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
 					consumerTag: 'mobile-foodfolio-item',
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'ITEM_VARIANT_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product_variant,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
 					consumerTag: 'mobile-foodfolio-item-variant',
+					...brokerDefaultSettings,
 				}),
 			},
 		]),

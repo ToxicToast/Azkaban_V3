@@ -13,6 +13,15 @@ import { NotifyService } from '../notify.service';
 import { ItemVariantController } from './item-variant.controller';
 import { ItemVariantService } from './item-variant.service';
 
+const brokerDefaultSettings = {
+	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+	brokerUsername: process.env.BROKER_USERNAME,
+	brokerPassword: process.env.BROKER_PASSWORD,
+	brokerHost: process.env.BROKER_HOST,
+	brokerPort: parseInt(process.env.BROKER_PORT),
+	brokerVHost: process.env.BROKER_VHOST,
+};
+
 @Module({
 	imports: [
 		CachingModule,
@@ -22,36 +31,24 @@ import { ItemVariantService } from './item-variant.service';
 				name: 'ITEM_VARIANT_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product_variant,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
 					consumerTag: 'foodfolio-item-variant',
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'ITEM_DETAIL_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product_detail,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
 					consumerTag: 'foodfolio-itemdetail',
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'NOTIFY_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
 					consumerTag: 'foodfolio-item-variant-notify',
+					...brokerDefaultSettings,
 				}),
 			},
 		]),

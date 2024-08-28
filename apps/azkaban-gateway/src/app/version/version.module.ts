@@ -25,12 +25,13 @@ import {
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ConfigService } from '@nestjs/config';
 
-const brokerDefaultOptions = {
+const brokerDefaultSettings = {
 	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
 	brokerUsername: process.env.BROKER_USERNAME,
 	brokerPassword: process.env.BROKER_PASSWORD,
 	brokerHost: process.env.BROKER_HOST,
 	brokerPort: parseInt(process.env.BROKER_PORT),
+	brokerVHost: process.env.BROKER_VHOST,
 };
 
 @Module({
@@ -41,28 +42,28 @@ const brokerDefaultOptions = {
 				name: 'WEBHOOKS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'APIALERTS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_apialerts,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'NOTIFICATIONS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_notification,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'SSE_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_sse,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			// USER
@@ -70,7 +71,7 @@ const brokerDefaultOptions = {
 				name: 'USERS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_user,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			// Auth
@@ -78,7 +79,7 @@ const brokerDefaultOptions = {
 				name: 'AUTH_SERVICE',
 				...clientProvider({
 					queueName: azkaban_auth,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			// Group
@@ -86,7 +87,7 @@ const brokerDefaultOptions = {
 				name: 'GROUP_SERVICE',
 				...clientProvider({
 					queueName: azkaban_group,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			// Foodfolio
@@ -94,70 +95,70 @@ const brokerDefaultOptions = {
 				name: 'FOODFOLIO_CATEGORY_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_category,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_COMPANY_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_company,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_LOCATION_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_location,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_SIZE_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_size,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_TYPE_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_type,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_ITEM_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_ITEM_DETAIL_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product_detail,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_ITEM_VARIANT_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product_variant,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_WAREHOUSE_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_warehouse,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'FOODFOLIO_SHOPPINGLIST_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_shopping_list,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 			// Cronjob
@@ -165,7 +166,7 @@ const brokerDefaultOptions = {
 				name: 'CRONJOB_SERVICE',
 				...clientProvider({
 					queueName: azkaban_cronjob,
-					...brokerDefaultOptions,
+					...brokerDefaultSettings,
 				}),
 			},
 		]),

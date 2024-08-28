@@ -12,6 +12,15 @@ import { ItemService } from './item.service';
 import { ItemController } from './item.controller';
 import { CachingModule } from '../../core/caching.module';
 
+const brokerDefaultSettings = {
+	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+	brokerUsername: process.env.BROKER_USERNAME,
+	brokerPassword: process.env.BROKER_PASSWORD,
+	brokerHost: process.env.BROKER_HOST,
+	brokerPort: parseInt(process.env.BROKER_PORT),
+	brokerVHost: process.env.BROKER_VHOST,
+};
+
 @Module({
 	imports: [
 		CachingModule,
@@ -21,24 +30,16 @@ import { CachingModule } from '../../core/caching.module';
 				name: 'ITEM_SERVICE',
 				...clientProvider({
 					queueName: foodfolio_product,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
 					consumerTag: 'foodfolio-item',
+					...brokerDefaultSettings,
 				}),
 			},
 			{
 				name: 'NOTIFY_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
 					consumerTag: 'foodfolio-item-notify',
+					...brokerDefaultSettings,
 				}),
 			},
 		]),
