@@ -9,6 +9,15 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '../../guards';
 import { JwtModule } from '@nestjs/jwt';
 
+const brokerDefaultSettings = {
+	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
+	brokerUsername: process.env.BROKER_USERNAME,
+	brokerPassword: process.env.BROKER_PASSWORD,
+	brokerHost: process.env.BROKER_HOST,
+	brokerPort: parseInt(process.env.BROKER_PORT),
+	brokerVHost: process.env.BROKER_VHOST,
+};
+
 @Module({
 	imports: [
 		JwtModule,
@@ -17,13 +26,8 @@ import { JwtModule } from '@nestjs/jwt';
 				name: 'AUTH_SERVICE',
 				...clientProvider({
 					queueName: azkaban_auth,
-					noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-					brokerUsername: process.env.BROKER_USERNAME,
-					brokerPassword: process.env.BROKER_PASSWORD,
-					brokerHost: process.env.BROKER_HOST,
-					brokerPort: parseInt(process.env.BROKER_PORT),
-					brokerVHost: process.env.BROKER_VHOST,
 					consumerTag: 'gateway-auth',
+					...brokerDefaultSettings,
 				}),
 			},
 		]),
