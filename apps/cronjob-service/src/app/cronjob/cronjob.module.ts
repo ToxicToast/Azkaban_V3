@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 import {
+	azkaban_user,
 	clientProvider,
 	foodfolio_product,
 	foodfolio_product_variant,
@@ -8,6 +9,7 @@ import {
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ShoppingListService } from './shoppinglist.service';
+import { UsersService } from './user.service';
 
 const brokerDefaultSettings = {
 	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
@@ -46,8 +48,16 @@ const brokerDefaultSettings = {
 					...brokerDefaultSettings,
 				}),
 			},
+			{
+				name: 'USER_SERVICE',
+				...clientProvider({
+					queueName: azkaban_user,
+					consumerTag: 'cronjob-azkaban-user-service',
+					...brokerDefaultSettings,
+				}),
+			},
 		]),
 	],
-	providers: [ShoppingListService],
+	providers: [ShoppingListService, UsersService],
 })
 export class CronjobModule {}
