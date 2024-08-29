@@ -38,6 +38,27 @@ import { ConfigService } from '@nestjs/config';
 			},
 			inject: [ConfigService],
 		},
+		{
+			provide: 'REDIS_HOST_STRING',
+			useFactory: (config: ConfigService) => {
+				return config.get('REDIS_HOST', 'localhost');
+			},
+			inject: [ConfigService],
+		},
+		{
+			provide: 'REDIS_PORT_NUMBER',
+			useFactory: (config: ConfigService) => {
+				return config.get('REDIS_PORT', 6379);
+			},
+			inject: [ConfigService],
+		},
+		{
+			provide: 'REDIS_PASSWORD_STRING',
+			useFactory: (config: ConfigService) => {
+				return config.get('REDIS_PASSWORD', 'supersecret');
+			},
+			inject: [ConfigService],
+		},
 	],
 })
 export class HealthModule {}
