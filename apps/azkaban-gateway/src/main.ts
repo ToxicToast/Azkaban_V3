@@ -30,10 +30,6 @@ function addModules(app: INestApplication): void {
 	app.use(cookieParser());
 }
 
-function addMiddleware(app: INestApplication): void {
-	app.use(CharsetMiddleware);
-}
-
 function configureSwagger(app: INestApplication): void {
 	const config = new DocumentBuilder()
 		.setTitle('Azkaban')
@@ -66,7 +62,6 @@ async function bootstrap() {
 	const app = await createApp();
 	configureApp(app);
 	addModules(app);
-	addMiddleware(app);
 	if (environment === 'development') {
 		configureSwagger(app);
 	}
