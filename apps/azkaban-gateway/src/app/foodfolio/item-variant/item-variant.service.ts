@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { ItemVariantDAO } from '@azkaban/foodfolio-infrastructure';
 import {
@@ -8,15 +7,16 @@ import {
 	FoodfolioProductVariantTopics,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
+import { CachingService } from '../../core/caching.service';
 
 @Injectable()
 export class ItemVariantService {
 	constructor(
-		@Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
 		@Inject('ITEM_VARIANT_SERVICE') private readonly client: ClientProxy,
 		@Inject('ITEM_DETAIL_SERVICE')
 		private readonly detailClient: ClientProxy,
 		private readonly notifySerivce: NotifyService,
+		private readonly cachingService: CachingService,
 	) {}
 
 	async getItemVariants(
@@ -24,142 +24,142 @@ export class ItemVariantService {
 		offset: number,
 	): Promise<Array<ItemVariantDAO>> {
 		const cacheKey = `${FoodfolioProductVariantTopics.LIST}:${limit}:${offset}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemVariantDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.LIST, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.LIST, { limit, offset })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemVariantByItemId(
 		item_id: Nullable<string>,
 	): Promise<Array<ItemVariantDAO>> {
 		const cacheKey = `${FoodfolioProductVariantTopics.ITEMID}:${item_id}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemVariantDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ item_id }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.ITEMID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.ITEMID, { item_id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemVariantByCategoryId(
 		category_id: Nullable<string>,
 	): Promise<Array<ItemVariantDAO>> {
 		const cacheKey = `${FoodfolioProductVariantTopics.CATEGORYID}:${category_id}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemVariantDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ category_id }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.CATEGORYID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.CATEGORYID, { category_id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemVariantByLocationId(
 		location_id: Nullable<string>,
 	): Promise<Array<ItemVariantDAO>> {
 		const cacheKey = `${FoodfolioProductVariantTopics.LOCATIONID}:${location_id}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemVariantDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ location_id }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.LOCATIONID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.LOCATIONID, { location_id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemVariantByCompanyId(
 		company_id: Nullable<string>,
 	): Promise<Array<ItemVariantDAO>> {
 		const cacheKey = `${FoodfolioProductVariantTopics.COMPANYID}:${company_id}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemVariantDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ company_id }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.COMPANYID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.COMPANYID, { company_id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemVariantBySizeId(
 		size_id: Nullable<string>,
 	): Promise<Array<ItemVariantDAO>> {
 		const cacheKey = `${FoodfolioProductVariantTopics.SIZEID}:${size_id}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemVariantDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ size_id }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.SIZEID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.SIZEID, { size_id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemVariantByTypeId(
 		type_id: Nullable<string>,
 	): Promise<Array<ItemVariantDAO>> {
 		const cacheKey = `${FoodfolioProductVariantTopics.TYPEID}:${type_id}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemVariantDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ type_id }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.TYPEID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.TYPEID, { type_id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemVariantByWarehouseId(
 		warehouse_id: Nullable<string>,
 	): Promise<Array<ItemVariantDAO>> {
 		const cacheKey = `${FoodfolioProductVariantTopics.WAREHOUSEID}:${warehouse_id}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemVariantDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ warehouse_id }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.WAREHOUSEID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.WAREHOUSEID, { warehouse_id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemVariantById(id: string): Promise<ItemVariantDAO> {
 		const cacheKey = `${FoodfolioProductVariantTopics.ID}:${id}`;
-		const cachedData =
-			await this.cacheManager.get<ItemVariantDAO>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ id }).build();
+			const data = await this.client
+				.send(FoodfolioProductVariantTopics.ID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductVariantTopics.ID, { id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async createItemVariant(
@@ -196,12 +196,12 @@ export class ItemVariantService {
 					value.item_id,
 					value.title,
 				);
-				return value;
-			})
-			.then(async (value) => {
 				await this.createItemVariantDetailBySku(
 					value.id,
 					value.sku ?? 0,
+				);
+				await this.cachingService.removeCache(
+					`${FoodfolioProductVariantTopics.LIST}:0:0`,
 				);
 				return value;
 			});

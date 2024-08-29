@@ -1,44 +1,45 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { TypeDAO } from '@azkaban/foodfolio-infrastructure';
 import { FoodfolioTypeTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
-import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { CachingService } from '../../core/caching.service';
 
 @Injectable()
 export class TypeService {
 	constructor(
-		@Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
 		@Inject('TYPE_SERVICE') private readonly client: ClientProxy,
 		private readonly notifySerivce: NotifyService,
+		private readonly cachingService: CachingService,
 	) {}
 
 	async getTypes(limit: number, offset: number): Promise<Array<TypeDAO>> {
 		const cacheKey = `${FoodfolioTypeTopics.LIST}:${limit}:${offset}`;
-		const cachedData =
-			await this.cacheManager.get<Array<TypeDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const data = await this.client
+				.send(FoodfolioTypeTopics.LIST, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioTypeTopics.LIST, { limit, offset })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getTypeById(id: string): Promise<TypeDAO> {
 		const cacheKey = `${FoodfolioTypeTopics.ID}:${id}`;
-		const cachedData = await this.cacheManager.get<TypeDAO>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ id }).build();
+			const data = await this.client
+				.send(FoodfolioTypeTopics.ID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioTypeTopics.ID, { id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async createType(title: string): Promise<TypeDAO> {
@@ -49,6 +50,9 @@ export class TypeService {
 				await this.notifySerivce.onCreateType(
 					category.id,
 					category.title,
+				);
+				await this.cachingService.removeCache(
+					`${FoodfolioTypeTopics.LIST}:0:0`,
 				);
 				return category;
 			});

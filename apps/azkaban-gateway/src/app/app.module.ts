@@ -10,6 +10,7 @@ import { GroupsModule } from './groups/groups.module';
 import { JwtModule } from '@nestjs/jwt';
 import { FoodfolioModule } from './foodfolio/foodfolio.module';
 import { MobileModule } from './mobile/mobile.module';
+import { CachingModule } from './core/caching.module';
 
 @Module({
 	imports: [
@@ -32,6 +33,7 @@ import { MobileModule } from './mobile/mobile.module';
 			},
 		]),
 		//
+		CachingModule,
 		HealthModule,
 		MetricsModule,
 		VersionModule,

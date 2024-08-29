@@ -163,6 +163,7 @@
 		"axios": "^1.7.2",
 		"cache-manager": "^5.7.6",
 		"cache-manager-redis-store": "^3.0.1",
+		"cache-manager-redis-yet": "^5.1.4",
 		"class-variance-authority": "^0.7.0",
 		"classnames": "^2.5.1",
 		"compression": "^1.7.4",

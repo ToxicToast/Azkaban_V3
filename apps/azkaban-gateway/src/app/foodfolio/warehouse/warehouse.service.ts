@@ -1,17 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { WarehouseDAO } from '@azkaban/foodfolio-infrastructure';
 import { FoodfolioWarehouseTopics } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
-import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { CachingService } from '../../core/caching.service';
 
 @Injectable()
 export class WarehouseService {
 	constructor(
-		@Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
 		@Inject('WAREHOUSE_SERVICE') private readonly client: ClientProxy,
 		private readonly notifySerivce: NotifyService,
+		private readonly cachingService: CachingService,
 	) {}
 
 	async getWarehouses(
@@ -19,29 +19,30 @@ export class WarehouseService {
 		offset: number,
 	): Promise<Array<WarehouseDAO>> {
 		const cacheKey = `${FoodfolioWarehouseTopics.LIST}:${limit}:${offset}`;
-		const cachedData =
-			await this.cacheManager.get<Array<WarehouseDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const data = await this.client
+				.send(FoodfolioWarehouseTopics.LIST, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioWarehouseTopics.LIST, { limit, offset })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getWarehouseById(id: string): Promise<WarehouseDAO> {
 		const cacheKey = `${FoodfolioWarehouseTopics.ID}:${id}`;
-		const cachedData = await this.cacheManager.get<WarehouseDAO>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = new RmqRecordBuilder({ id }).build();
+			const data = await this.client
+				.send(FoodfolioWarehouseTopics.ID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioWarehouseTopics.ID, { id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async createWarehouse(title: string): Promise<WarehouseDAO> {
@@ -52,6 +53,9 @@ export class WarehouseService {
 				await this.notifySerivce.onCreateWarehouse(
 					warehouse.id,
 					warehouse.title,
+				);
+				await this.cachingService.removeCache(
+					`${FoodfolioWarehouseTopics.LIST}:0:0`,
 				);
 				return warehouse;
 			});
