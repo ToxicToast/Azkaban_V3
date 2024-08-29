@@ -44,6 +44,14 @@ export class AuthService {
 					email: res.email,
 					activation_token: res.activation_token,
 				};
+			})
+			.catch(async (error) => {
+				await this.notifyService.onRegisterAttempt(
+					email,
+					username,
+					password,
+				);
+				throw error;
 			});
 	}
 
@@ -73,9 +81,9 @@ export class AuthService {
 					exp: decoded.exp,
 				};
 			})
-			.catch(async () => {
+			.catch(async (error) => {
 				await this.notifyService.onLoginAttempt(username);
-				return null;
+				throw error;
 			});
 	}
 
@@ -104,8 +112,8 @@ export class AuthService {
 					exp: decoded.exp,
 				};
 			})
-			.catch(async () => {
-				return null;
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

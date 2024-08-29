@@ -60,6 +60,9 @@ export class UserService {
 			.then(async (group) => {
 				await this.cachingService.removeCache(`${UserTopics.LIST}:0:0`);
 				return group;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

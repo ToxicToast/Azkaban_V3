@@ -95,6 +95,9 @@ export class ShoppingListService {
 					`${FoodfolioShoppinglistTopics.LIST}:0:0`,
 				);
 				return value;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

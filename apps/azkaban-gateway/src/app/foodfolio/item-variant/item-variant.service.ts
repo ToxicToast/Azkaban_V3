@@ -225,6 +225,9 @@ export class ItemVariantService {
 					`${FoodfolioProductVariantTopics.LIST}:0:0`,
 				);
 				return value;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

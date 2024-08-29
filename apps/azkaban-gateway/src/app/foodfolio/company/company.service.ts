@@ -69,6 +69,9 @@ export class CompanyService {
 					`${FoodfolioCompanyTopics.LIST}:0:0`,
 				);
 				return company;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

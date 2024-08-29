@@ -31,7 +31,10 @@ export class MobileService {
 			const data = await this.clientItem
 				.send(FoodfolioProductTopics.LIST, payload)
 				.toPromise()
-				.then((data) => data.filter((item: ItemDAO) => item.isActive));
+				.then((data) => data.filter((item: ItemDAO) => item.isActive))
+				.catch(async (error) => {
+					throw error;
+				});
 			await this.cachingService.setCache(cacheKey, data);
 			return data;
 		}
@@ -54,7 +57,10 @@ export class MobileService {
 				.toPromise()
 				.then((data: Array<ItemVariantDAO>) =>
 					data.filter((item: ItemVariantDAO) => item.isActive),
-				);
+				)
+				.catch(async (error) => {
+					throw error;
+				});
 			await this.cachingService.setCache(cacheKey, data);
 			return data;
 		}

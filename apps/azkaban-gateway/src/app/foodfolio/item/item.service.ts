@@ -71,6 +71,9 @@ export class ItemService {
 					`${FoodfolioProductTopics.LIST}:0:0`,
 				);
 				return value;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

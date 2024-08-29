@@ -92,6 +92,9 @@ export class CategoryService {
 				);
 
 				return category;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

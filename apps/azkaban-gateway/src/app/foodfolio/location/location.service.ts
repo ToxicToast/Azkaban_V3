@@ -109,6 +109,9 @@ export class LocationService {
 					`${FoodfolioLocationTopics.LIST}:0:0`,
 				);
 				return value;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

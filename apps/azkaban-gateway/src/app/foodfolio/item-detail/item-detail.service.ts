@@ -97,6 +97,9 @@ export class ItemDetailService {
 					`${FoodfolioProductDetailTopics.LIST}:0:0`,
 				);
 				return value;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

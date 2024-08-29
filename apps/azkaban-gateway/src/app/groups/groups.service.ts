@@ -63,6 +63,9 @@ export class GroupsService {
 					`${GroupsTopics.LIST}:0:0`,
 				);
 				return group;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

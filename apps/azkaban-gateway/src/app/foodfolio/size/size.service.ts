@@ -66,6 +66,9 @@ export class SizeService {
 					`${FoodfolioSizeTopics.LIST}:0:0`,
 				);
 				return category;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 

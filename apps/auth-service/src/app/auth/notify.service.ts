@@ -29,6 +29,23 @@ export class NotifyService {
 		await this.client.emit(NotifyTopics.NOTIFY, payload).toPromise();
 	}
 
+	async onRegisterAttempt(
+		email: string,
+		username: string,
+		password: string,
+	): Promise<void> {
+		const payload = RmqRecordBuilderHelper({
+			service: 'auth-service',
+			event: AuthTopics.REGISTER_ATTEMPT,
+			data: {
+				email,
+				username,
+				password,
+			},
+		});
+		await this.client.emit(NotifyTopics.NOTIFY, payload).toPromise();
+	}
+
 	async onLogin(username: string): Promise<void> {
 		const payload = RmqRecordBuilderHelper({
 			service: 'auth-service',

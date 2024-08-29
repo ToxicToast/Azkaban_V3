@@ -69,6 +69,9 @@ export class WarehouseService {
 					`${FoodfolioWarehouseTopics.LIST}:0:0`,
 				);
 				return warehouse;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 
