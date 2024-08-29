@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { CharsetMiddleware } from './middleware/charset.middleware';
 
 async function createApp(): Promise<INestApplication> {
 	return await NestFactory.create(AppModule, {
@@ -27,6 +28,10 @@ function addModules(app: INestApplication): void {
 	app.use(compression({}));
 	app.use(helmet());
 	app.use(cookieParser());
+}
+
+function addMiddleware(app: INestApplication): void {
+	app.use(CharsetMiddleware);
 }
 
 function configureSwagger(app: INestApplication): void {
@@ -61,7 +66,7 @@ async function bootstrap() {
 	const app = await createApp();
 	configureApp(app);
 	addModules(app);
-	// addMiddleware(app);
+	addMiddleware(app);
 	if (environment === 'development') {
 		configureSwagger(app);
 	}
