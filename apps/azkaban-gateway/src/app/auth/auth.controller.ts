@@ -62,7 +62,9 @@ export class AuthController {
 	): Promise<TokenDAO> {
 		try {
 			const auth = await this.service.login(username, password);
-			this.setCookie(response, auth.token);
+			if (auth?.token) {
+				this.setCookie(response, auth.token);
+			}
 			return auth;
 		} catch (error) {
 			throw new HttpException(

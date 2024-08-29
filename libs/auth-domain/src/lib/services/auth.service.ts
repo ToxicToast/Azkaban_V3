@@ -73,7 +73,7 @@ export class AuthService {
 	): Promise<Result<AuthAnemic>> {
 		try {
 			const checkUsername = await this.findByUsername(username);
-			if (checkUsername.isFailure) {
+			if (checkUsername.value === null) {
 				return Result.fail<AuthAnemic>(UserErrorCodes.NOT_FOUND);
 			}
 			if (checkUsername.value.password !== password) {
