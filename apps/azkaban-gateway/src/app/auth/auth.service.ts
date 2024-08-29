@@ -5,6 +5,7 @@ import {
 	RmqRecordBuilderHelper,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { AuthDAO, TokenDAO } from '@azkaban/auth-infrastructure';
+import { TokenPresenter } from './auth.presenter';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +29,13 @@ export class AuthService {
 			username,
 			password,
 		});
-		return await this.client.send(AuthTopics.LOGIN, payload).toPromise();
+		return await this.client
+			.send(AuthTopics.LOGIN, payload)
+			.toPromise()
+			.then((res) => TokenPresenter(res))
+			.catch((error) => {
+				throw error;
+			});
 	}
 
 	async refresh(id: string): Promise<TokenDAO> {

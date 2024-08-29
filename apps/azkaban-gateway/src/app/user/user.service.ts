@@ -7,6 +7,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { UserDAO } from '@azkaban/user-infrastructure';
 import { CachingService } from '../core/caching.service';
+import { UserPresenter } from './user.presenter';
 
 @Injectable()
 export class UserService {
@@ -25,7 +26,10 @@ export class UserService {
 			});
 			const data = await this.client
 				.send(UserTopics.LIST, payload)
-				.toPromise();
+				.toPromise()
+				.then((users) => {
+					return users.map((user) => UserPresenter(user));
+				});
 			await this.cachingService.setCache(cacheKey, data);
 			return data;
 		}
@@ -41,7 +45,11 @@ export class UserService {
 			});
 			const data = await this.client
 				.send(UserTopics.ID, payload)
-				.toPromise();
+				.toPromise()
+				.then((user) => UserPresenter(user))
+				.catch((error) => {
+					throw error;
+				});
 			await this.cachingService.setCache(cacheKey, data);
 			return data;
 		}
