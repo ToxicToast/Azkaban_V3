@@ -1,7 +1,10 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
-import { FoodfolioCategoryTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioCategoryTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { CategoryDAO } from '@azkaban/foodfolio-infrastructure';
 import { CachingService } from '../../core/caching.service';
@@ -21,7 +24,10 @@ export class CategoryService {
 		const cacheKey = `${FoodfolioCategoryTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(FoodfolioCategoryTopics.LIST, payload)
 				.toPromise();
@@ -37,7 +43,9 @@ export class CategoryService {
 		const cacheKey = `${FoodfolioCategoryTopics.PARENT}:${parent_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ parent_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				parent_id,
+			});
 			const data = await this.client
 				.send(FoodfolioCategoryTopics.PARENT, payload)
 				.toPromise();
@@ -51,7 +59,9 @@ export class CategoryService {
 		const cacheKey = `${FoodfolioCategoryTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(FoodfolioCategoryTopics.ID, payload)
 				.toPromise();
@@ -65,7 +75,10 @@ export class CategoryService {
 		title: string,
 		parent_id?: Optional<Nullable<string>>,
 	): Promise<CategoryDAO> {
-		const payload = new RmqRecordBuilder({ title, parent_id }).build();
+		const payload = RmqRecordBuilderHelper({
+			title,
+			parent_id,
+		});
 		return await this.client
 			.send(FoodfolioCategoryTopics.CREATE, payload)
 			.toPromise()
@@ -88,30 +101,30 @@ export class CategoryService {
 		parent_id?: Optional<Nullable<string>>,
 		activated_at?: Optional<Nullable<Date>>,
 	): Promise<CategoryDAO> {
-		const payload = new RmqRecordBuilder({
+		const payload = RmqRecordBuilderHelper({
 			id,
 			title,
 			parent_id,
 			activated_at,
-		}).build();
+		});
 		return await this.client
 			.send(FoodfolioCategoryTopics.UPDATE, payload)
 			.toPromise();
 	}
 
 	async deleteCategory(id: string): Promise<CategoryDAO> {
-		const payload = new RmqRecordBuilder({
+		const payload = RmqRecordBuilderHelper({
 			id,
-		}).build();
+		});
 		return await this.client
 			.send(FoodfolioCategoryTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreCategory(id: string): Promise<CategoryDAO> {
-		const payload = new RmqRecordBuilder({
+		const payload = RmqRecordBuilderHelper({
 			id,
-		}).build();
+		});
 		return await this.client
 			.send(FoodfolioCategoryTopics.RESTORE, payload)
 			.toPromise();

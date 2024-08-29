@@ -1,8 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { LocationDAO } from '@azkaban/foodfolio-infrastructure';
-import { FoodfolioLocationTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioLocationTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { CachingService } from '../../core/caching.service';
 
@@ -21,7 +24,10 @@ export class LocationService {
 		const cacheKey = `${FoodfolioLocationTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(FoodfolioLocationTopics.LIST, payload)
 				.toPromise();
@@ -37,7 +43,9 @@ export class LocationService {
 		const cacheKey = `${FoodfolioLocationTopics.PARENT}:${parent_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ parent_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				parent_id,
+			});
 			const data = await this.client
 				.send(FoodfolioLocationTopics.PARENT, payload)
 				.toPromise();
@@ -51,7 +59,9 @@ export class LocationService {
 		const cacheKey = `${FoodfolioLocationTopics.FREEZER}:${freezer}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ freezer }).build();
+			const payload = RmqRecordBuilderHelper({
+				freezer,
+			});
 			const data = await this.client
 				.send(FoodfolioLocationTopics.FREEZER, payload)
 				.toPromise();
@@ -65,7 +75,9 @@ export class LocationService {
 		const cacheKey = `${FoodfolioLocationTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(FoodfolioLocationTopics.ID, payload)
 				.toPromise();
@@ -80,8 +92,13 @@ export class LocationService {
 		freezer: boolean,
 		parent_id?: Optional<Nullable<string>>,
 	): Promise<LocationDAO> {
+		const payload = RmqRecordBuilderHelper({
+			title,
+			parent_id,
+			freezer,
+		});
 		return await this.client
-			.send(FoodfolioLocationTopics.CREATE, { title, parent_id, freezer })
+			.send(FoodfolioLocationTopics.CREATE, payload)
 			.toPromise()
 			.then(async (value) => {
 				await this.notifySerivce.onCreateLocation(
@@ -102,26 +119,33 @@ export class LocationService {
 		freezer?: Optional<boolean>,
 		activated_at?: Optional<Nullable<Date>>,
 	): Promise<LocationDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+			title,
+			parent_id,
+			freezer,
+			activated_at,
+		});
 		return await this.client
-			.send(FoodfolioLocationTopics.UPDATE, {
-				id,
-				title,
-				parent_id,
-				freezer,
-				activated_at,
-			})
+			.send(FoodfolioLocationTopics.UPDATE, payload)
 			.toPromise();
 	}
 
 	async deleteLocation(id: string): Promise<LocationDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioLocationTopics.DELETE, { id })
+			.send(FoodfolioLocationTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreLocation(id: string): Promise<LocationDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioLocationTopics.RESTORE, { id })
+			.send(FoodfolioLocationTopics.RESTORE, payload)
 			.toPromise();
 	}
 }

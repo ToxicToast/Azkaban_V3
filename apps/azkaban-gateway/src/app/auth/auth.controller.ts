@@ -4,6 +4,7 @@ import {
 	Controller,
 	Delete,
 	HttpException,
+	Logger,
 	Post,
 	Put,
 	Req,

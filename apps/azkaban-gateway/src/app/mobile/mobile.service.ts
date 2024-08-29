@@ -1,9 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { ItemDAO, ItemVariantDAO } from '@azkaban/foodfolio-infrastructure';
 import {
 	FoodfolioProductTopics,
 	FoodfolioProductVariantTopics,
+	RmqRecordBuilderHelper,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { CachingService } from '../core/caching.service';
 
@@ -23,7 +24,10 @@ export class MobileService {
 		const cacheKey = `${FoodfolioProductTopics.LIST}:${limit}:${offset}:active`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.clientItem
 				.send(FoodfolioProductTopics.LIST, payload)
 				.toPromise()
@@ -41,7 +45,10 @@ export class MobileService {
 		const cacheKey = `${FoodfolioProductVariantTopics.LIST}:${limit}:${offset}:active`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.clientItemVariant
 				.send(FoodfolioProductVariantTopics.LIST, payload)
 				.toPromise()

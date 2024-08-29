@@ -1,7 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
-import { FoodfolioCompanyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioCompanyTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { CompanyDAO } from '@azkaban/foodfolio-infrastructure';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { CachingService } from '../../core/caching.service';
@@ -21,7 +24,10 @@ export class CompanyService {
 		const cacheKey = `${FoodfolioCompanyTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(FoodfolioCompanyTopics.LIST, payload)
 				.toPromise();
@@ -35,7 +41,9 @@ export class CompanyService {
 		const cacheKey = `${FoodfolioCompanyTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(FoodfolioCompanyTopics.ID, payload)
 				.toPromise();
@@ -46,7 +54,9 @@ export class CompanyService {
 	}
 
 	async createCompany(title: string): Promise<CompanyDAO> {
-		const payload = new RmqRecordBuilder({ title }).build();
+		const payload = RmqRecordBuilderHelper({
+			title,
+		});
 		return await this.client
 			.send(FoodfolioCompanyTopics.CREATE, payload)
 			.toPromise()
@@ -67,25 +77,29 @@ export class CompanyService {
 		title?: Optional<string>,
 		activated_at?: Optional<Nullable<Date>>,
 	): Promise<CompanyDAO> {
-		const payload = new RmqRecordBuilder({
+		const payload = RmqRecordBuilderHelper({
 			id,
 			title,
 			activated_at,
-		}).build();
+		});
 		return await this.client
 			.send(FoodfolioCompanyTopics.UPDATE, payload)
 			.toPromise();
 	}
 
 	async deleteCompany(id: string): Promise<CompanyDAO> {
-		const payload = new RmqRecordBuilder({ id }).build();
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
 			.send(FoodfolioCompanyTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreCompany(id: string): Promise<CompanyDAO> {
-		const payload = new RmqRecordBuilder({ id }).build();
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
 			.send(FoodfolioCompanyTopics.RESTORE, payload)
 			.toPromise();

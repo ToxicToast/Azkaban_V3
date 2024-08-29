@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { ItemVariantDAO } from '@azkaban/foodfolio-infrastructure';
 import {
 	FoodfolioProductDetailTopics,
 	FoodfolioProductVariantTopics,
+	RmqRecordBuilderHelper,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { CachingService } from '../../core/caching.service';
@@ -26,7 +27,10 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.LIST, payload)
 				.toPromise();
@@ -42,7 +46,9 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.ITEMID}:${item_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ item_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				item_id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.ITEMID, payload)
 				.toPromise();
@@ -58,7 +64,9 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.CATEGORYID}:${category_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ category_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				category_id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.CATEGORYID, payload)
 				.toPromise();
@@ -74,7 +82,9 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.LOCATIONID}:${location_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ location_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				location_id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.LOCATIONID, payload)
 				.toPromise();
@@ -90,7 +100,9 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.COMPANYID}:${company_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ company_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				company_id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.COMPANYID, payload)
 				.toPromise();
@@ -106,7 +118,9 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.SIZEID}:${size_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ size_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				size_id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.SIZEID, payload)
 				.toPromise();
@@ -122,7 +136,9 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.TYPEID}:${type_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ type_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				type_id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.TYPEID, payload)
 				.toPromise();
@@ -138,7 +154,9 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.WAREHOUSEID}:${warehouse_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ warehouse_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				warehouse_id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.WAREHOUSEID, payload)
 				.toPromise();
@@ -152,7 +170,9 @@ export class ItemVariantService {
 		const cacheKey = `${FoodfolioProductVariantTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductVariantTopics.ID, payload)
 				.toPromise();
@@ -175,20 +195,21 @@ export class ItemVariantService {
 		ean: Nullable<string>,
 		price: Nullable<number>,
 	): Promise<ItemVariantDAO> {
+		const payload = RmqRecordBuilderHelper({
+			item_id,
+			category_id,
+			location_id,
+			company_id,
+			size_id,
+			type_id,
+			warehouse_id,
+			title,
+			sku,
+			ean,
+			price,
+		});
 		return await this.client
-			.send(FoodfolioProductVariantTopics.CREATE, {
-				item_id,
-				category_id,
-				location_id,
-				company_id,
-				size_id,
-				type_id,
-				warehouse_id,
-				title,
-				sku,
-				ean,
-				price,
-			})
+			.send(FoodfolioProductVariantTopics.CREATE, payload)
 			.toPromise()
 			.then(async (value) => {
 				await this.notifySerivce.onCreateItemVariant(
@@ -222,47 +243,55 @@ export class ItemVariantService {
 		price?: Optional<Nullable<number>>,
 		activated_at?: Optional<Nullable<Date>>,
 	): Promise<ItemVariantDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+			item_id,
+			category_id,
+			location_id,
+			company_id,
+			size_id,
+			type_id,
+			warehouse_id,
+			title,
+			sku,
+			ean,
+			price,
+			activated_at,
+		});
 		return await this.client
-			.send(FoodfolioProductVariantTopics.UPDATE, {
-				id,
-				item_id,
-				category_id,
-				location_id,
-				company_id,
-				size_id,
-				type_id,
-				warehouse_id,
-				title,
-				sku,
-				ean,
-				price,
-				activated_at,
-			})
+			.send(FoodfolioProductVariantTopics.UPDATE, payload)
 			.toPromise();
 	}
 
 	async deleteItemVariant(id: string): Promise<ItemVariantDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioProductVariantTopics.DELETE, { id })
+			.send(FoodfolioProductVariantTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreItemVariant(id: string): Promise<ItemVariantDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioProductVariantTopics.RESTORE, { id })
+			.send(FoodfolioProductVariantTopics.RESTORE, payload)
 			.toPromise();
 	}
 
 	private async createItemVariantDetailBySku(item_id: string, sku: number) {
 		for (let i = 0; i < sku; i++) {
+			const payload = RmqRecordBuilderHelper({
+				item_id,
+				purchase_date: new Date(),
+				expiration_date: null,
+				returnable: false,
+				art_no: null,
+			});
 			await this.detailClient
-				.emit(FoodfolioProductDetailTopics.CREATE, {
-					item_id,
-					purchase_date: new Date(),
-					expiration_date: null,
-					returnable: false,
-					art_no: null,
-				})
+				.emit(FoodfolioProductDetailTopics.CREATE, payload)
 				.toPromise();
 		}
 	}

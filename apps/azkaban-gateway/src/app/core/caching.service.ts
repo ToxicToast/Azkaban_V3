@@ -3,12 +3,7 @@ import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class CachingService {
-	constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {
-		Logger.debug('CachingService initialized');
-		Logger.debug({
-			cacheManager: this.cacheManager,
-		});
-	}
+	constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
 
 	async hasCache(key: string): Promise<boolean> {
 		const data = await this.cacheManager

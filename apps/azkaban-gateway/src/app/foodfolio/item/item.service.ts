@@ -1,8 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { ItemDAO } from '@azkaban/foodfolio-infrastructure';
-import { FoodfolioProductTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioProductTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { CachingService } from '../../core/caching.service';
 
@@ -18,7 +21,10 @@ export class ItemService {
 		const cacheKey = `${FoodfolioProductTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(FoodfolioProductTopics.LIST, payload)
 				.toPromise();
@@ -32,7 +38,9 @@ export class ItemService {
 		const cacheKey = `${FoodfolioProductTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(FoodfolioProductTopics.ID, payload)
 				.toPromise();
@@ -48,12 +56,12 @@ export class ItemService {
 		min_sku: number,
 		max_sku: number,
 	): Promise<ItemDAO> {
-		const payload = new RmqRecordBuilder({
+		const payload = RmqRecordBuilderHelper({
 			title,
 			current_sku,
 			min_sku,
 			max_sku,
-		}).build();
+		});
 		return await this.client
 			.send(FoodfolioProductTopics.CREATE, payload)
 			.toPromise()
@@ -74,27 +82,34 @@ export class ItemService {
 		max_sku?: Optional<number>,
 		activated_at?: Optional<Nullable<Date>>,
 	): Promise<ItemDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+			title,
+			current_sku,
+			min_sku,
+			max_sku,
+			activated_at,
+		});
 		return await this.client
-			.send(FoodfolioProductTopics.UPDATE, {
-				id,
-				title,
-				current_sku,
-				min_sku,
-				max_sku,
-				activated_at,
-			})
+			.send(FoodfolioProductTopics.UPDATE, payload)
 			.toPromise();
 	}
 
 	async deleteItem(id: string): Promise<ItemDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioProductTopics.DELETE, { id })
+			.send(FoodfolioProductTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreItem(id: string): Promise<ItemDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioProductTopics.RESTORE, { id })
+			.send(FoodfolioProductTopics.RESTORE, payload)
 			.toPromise();
 	}
 }

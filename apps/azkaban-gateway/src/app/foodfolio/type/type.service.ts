@@ -1,8 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { TypeDAO } from '@azkaban/foodfolio-infrastructure';
-import { FoodfolioTypeTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioTypeTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { CachingService } from '../../core/caching.service';
 
@@ -18,7 +21,10 @@ export class TypeService {
 		const cacheKey = `${FoodfolioTypeTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(FoodfolioTypeTopics.LIST, payload)
 				.toPromise();
@@ -32,7 +38,9 @@ export class TypeService {
 		const cacheKey = `${FoodfolioTypeTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(FoodfolioTypeTopics.ID, payload)
 				.toPromise();
@@ -43,8 +51,11 @@ export class TypeService {
 	}
 
 	async createType(title: string): Promise<TypeDAO> {
+		const payload = RmqRecordBuilderHelper({
+			title,
+		});
 		return await this.client
-			.send(FoodfolioTypeTopics.CREATE, { title })
+			.send(FoodfolioTypeTopics.CREATE, payload)
 			.toPromise()
 			.then(async (category) => {
 				await this.notifySerivce.onCreateType(
@@ -63,24 +74,31 @@ export class TypeService {
 		title?: Optional<string>,
 		activated_at?: Optional<Nullable<Date>>,
 	): Promise<TypeDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+			title,
+			activated_at,
+		});
 		return await this.client
-			.send(FoodfolioTypeTopics.UPDATE, {
-				id,
-				title,
-				activated_at,
-			})
+			.send(FoodfolioTypeTopics.UPDATE, payload)
 			.toPromise();
 	}
 
 	async deleteType(id: string): Promise<TypeDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioTypeTopics.DELETE, { id })
+			.send(FoodfolioTypeTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreType(id: string): Promise<TypeDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioTypeTopics.RESTORE, { id })
+			.send(FoodfolioTypeTopics.RESTORE, payload)
 			.toPromise();
 	}
 }

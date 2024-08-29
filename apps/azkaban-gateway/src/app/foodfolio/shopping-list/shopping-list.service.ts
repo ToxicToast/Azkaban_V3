@@ -1,8 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { ShoppingListDAO } from '@azkaban/foodfolio-infrastructure';
-import { FoodfolioShoppinglistTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioShoppinglistTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { CachingService } from '../../core/caching.service';
 
 @Injectable()
@@ -20,7 +23,10 @@ export class ShoppingListService {
 		const cacheKey = `${FoodfolioShoppinglistTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(FoodfolioShoppinglistTopics.LIST, payload)
 				.toPromise();
@@ -34,7 +40,9 @@ export class ShoppingListService {
 		const cacheKey = `${FoodfolioShoppinglistTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(FoodfolioShoppinglistTopics.ID, payload)
 				.toPromise();
@@ -48,7 +56,9 @@ export class ShoppingListService {
 		const cacheKey = `${FoodfolioShoppinglistTopics.ITEMID}:${item_id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ item_id }).build();
+			const payload = RmqRecordBuilderHelper({
+				item_id,
+			});
 			const data = await this.client
 				.send(FoodfolioShoppinglistTopics.ITEMID, payload)
 				.toPromise();
@@ -65,14 +75,15 @@ export class ShoppingListService {
 		min_sku: number,
 		max_sku: number,
 	): Promise<ShoppingListDAO> {
+		const payload = RmqRecordBuilderHelper({
+			item_id,
+			variant_id,
+			current_sku,
+			min_sku,
+			max_sku,
+		});
 		return await this.client
-			.send(FoodfolioShoppinglistTopics.CREATE, {
-				item_id,
-				variant_id,
-				current_sku,
-				min_sku,
-				max_sku,
-			})
+			.send(FoodfolioShoppinglistTopics.CREATE, payload)
 			.toPromise()
 			.then(async (value) => {
 				await this.notifySerivce.onCreateShoppingList(
@@ -88,14 +99,20 @@ export class ShoppingListService {
 	}
 
 	async deleteShoppingList(id: string): Promise<ShoppingListDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioShoppinglistTopics.DELETE, { id })
+			.send(FoodfolioShoppinglistTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreShoppingList(id: string): Promise<ShoppingListDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioShoppinglistTopics.RESTORE, { id })
+			.send(FoodfolioShoppinglistTopics.RESTORE, payload)
 			.toPromise();
 	}
 }

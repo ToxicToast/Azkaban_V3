@@ -1,6 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import {
+	RmqRecordBuilderHelper,
+	UserTopics,
+} from '@toxictoast/azkaban-broker-rabbitmq';
+import { ClientProxy } from '@nestjs/microservices';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { UserDAO } from '@azkaban/user-infrastructure';
 import { CachingService } from '../core/caching.service';
@@ -16,7 +19,10 @@ export class UserService {
 		const cacheKey = `${UserTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(UserTopics.LIST, payload)
 				.toPromise();
@@ -30,7 +36,9 @@ export class UserService {
 		const cacheKey = `${UserTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(UserTopics.ID, payload)
 				.toPromise();
@@ -41,8 +49,13 @@ export class UserService {
 	}
 
 	async createUser(email: string, username: string, password: string) {
+		const payload = RmqRecordBuilderHelper({
+			email,
+			username,
+			password,
+		});
 		return await this.client
-			.send(UserTopics.CREATE, { email, username, password })
+			.send(UserTopics.CREATE, payload)
 			.toPromise()
 			.then(async (group) => {
 				await this.cachingService.removeCache(`${UserTopics.LIST}:0:0`);
@@ -59,24 +72,29 @@ export class UserService {
 		activated_at?: Optional<Nullable<Date>>,
 		banned_at?: Optional<Nullable<Date>>,
 	) {
-		return await this.client
-			.send(UserTopics.UPDATE, {
-				id,
-				email,
-				username,
-				password,
-				activation_token,
-				activated_at,
-				banned_at,
-			})
-			.toPromise();
+		const payload = RmqRecordBuilderHelper({
+			id,
+			email,
+			username,
+			password,
+			activation_token,
+			activated_at,
+			banned_at,
+		});
+		return await this.client.send(UserTopics.UPDATE, payload).toPromise();
 	}
 
 	async deleteUser(id: string) {
-		return await this.client.send(UserTopics.DELETE, { id }).toPromise();
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
+		return await this.client.send(UserTopics.DELETE, payload).toPromise();
 	}
 
 	async restoreUser(id: string) {
-		return await this.client.send(UserTopics.RESTORE, { id }).toPromise();
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
+		return await this.client.send(UserTopics.RESTORE, payload).toPromise();
 	}
 }

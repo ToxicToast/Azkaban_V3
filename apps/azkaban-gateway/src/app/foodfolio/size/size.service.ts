@@ -1,8 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { SizeDAO } from '@azkaban/foodfolio-infrastructure';
-import { FoodfolioSizeTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioSizeTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { CachingService } from '../../core/caching.service';
 
@@ -18,7 +21,10 @@ export class SizeService {
 		const cacheKey = `${FoodfolioSizeTopics.LIST}:${limit}:${offset}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ limit, offset }).build();
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
 			const data = await this.client
 				.send(FoodfolioSizeTopics.LIST, payload)
 				.toPromise();
@@ -32,7 +38,9 @@ export class SizeService {
 		const cacheKey = `${FoodfolioSizeTopics.ID}:${id}`;
 		const inCache = await this.cachingService.hasCache(cacheKey);
 		if (!inCache) {
-			const payload = new RmqRecordBuilder({ id }).build();
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
 			const data = await this.client
 				.send(FoodfolioSizeTopics.ID, payload)
 				.toPromise();
@@ -43,8 +51,11 @@ export class SizeService {
 	}
 
 	async createSize(title: string): Promise<SizeDAO> {
+		const payload = RmqRecordBuilderHelper({
+			title,
+		});
 		return await this.client
-			.send(FoodfolioSizeTopics.CREATE, { title })
+			.send(FoodfolioSizeTopics.CREATE, payload)
 			.toPromise()
 			.then(async (category) => {
 				await this.notifySerivce.onCreateSize(
@@ -63,24 +74,31 @@ export class SizeService {
 		title?: Optional<string>,
 		activated_at?: Optional<Nullable<Date>>,
 	): Promise<SizeDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+			title,
+			activated_at,
+		});
 		return await this.client
-			.send(FoodfolioSizeTopics.UPDATE, {
-				id,
-				title,
-				activated_at,
-			})
+			.send(FoodfolioSizeTopics.UPDATE, payload)
 			.toPromise();
 	}
 
 	async deleteSize(id: string): Promise<SizeDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioSizeTopics.DELETE, { id })
+			.send(FoodfolioSizeTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreSize(id: string): Promise<SizeDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioSizeTopics.RESTORE, { id })
+			.send(FoodfolioSizeTopics.RESTORE, payload)
 			.toPromise();
 	}
 }

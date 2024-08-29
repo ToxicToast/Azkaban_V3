@@ -15,6 +15,7 @@ import {
 	FoodfolioWarehouseTopics,
 	GroupsTopics,
 	NotifyTopics,
+	RmqRecordBuilderHelper,
 	UserTopics,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -65,104 +66,128 @@ export class VersionService {
 	}
 
 	async getWebhooksVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.hooksClient
-			.send(NotifyTopics.VERSION, {})
+			.send(NotifyTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getApiAlertsVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.apialertsClient
-			.send(NotifyTopics.VERSION, {})
+			.send(NotifyTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getNotificationsVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.notificationsClient
-			.send(NotifyTopics.VERSION, {})
+			.send(NotifyTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getSSEVersion() {
-		return await this.sseClient.send(NotifyTopics.VERSION, {}).toPromise();
+		const payload = RmqRecordBuilderHelper({});
+		return await this.sseClient
+			.send(NotifyTopics.VERSION, payload)
+			.toPromise();
 	}
 
 	async getUsersVersion() {
-		return await this.usersClient.send(UserTopics.VERSION, {}).toPromise();
+		const payload = RmqRecordBuilderHelper({});
+		return await this.usersClient
+			.send(UserTopics.VERSION, payload)
+			.toPromise();
 	}
 
 	async getAuthVersion() {
-		return await this.authClient.send(AuthTopics.VERSION, {}).toPromise();
+		const payload = RmqRecordBuilderHelper({});
+		return await this.authClient
+			.send(AuthTopics.VERSION, payload)
+			.toPromise();
 	}
 
 	async getGroupsVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.groupClient
-			.send(GroupsTopics.VERSION, {})
+			.send(GroupsTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioCategoryVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioCategoryClient
-			.send(FoodfolioCategoryTopics.VERSION, {})
+			.send(FoodfolioCategoryTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioCompanyVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioCompanyClient
-			.send(FoodfolioCompanyTopics.VERSION, {})
+			.send(FoodfolioCompanyTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioLocationVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioLocationClient
-			.send(FoodfolioLocationTopics.VERSION, {})
+			.send(FoodfolioLocationTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioSizeVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioSizeClient
-			.send(FoodfolioSizeTopics.VERSION, {})
+			.send(FoodfolioSizeTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioTypeVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioTypeClient
-			.send(FoodfolioTypeTopics.VERSION, {})
+			.send(FoodfolioTypeTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioItemVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioItemClient
-			.send(FoodfolioProductTopics.VERSION, {})
+			.send(FoodfolioProductTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioItemDetailVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioItemDetailClient
-			.send(FoodfolioProductDetailTopics.VERSION, {})
+			.send(FoodfolioProductDetailTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioItemVariantVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioItemVariantClient
-			.send(FoodfolioProductVariantTopics.VERSION, {})
+			.send(FoodfolioProductVariantTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioWarehouseVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioWarehouseClient
-			.send(FoodfolioWarehouseTopics.VERSION, {})
+			.send(FoodfolioWarehouseTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getFoodFolioShoppingListVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.foodfolioShoppinglistClient
-			.send(FoodfolioShoppinglistTopics.VERSION, {})
+			.send(FoodfolioShoppinglistTopics.VERSION, payload)
 			.toPromise();
 	}
 
 	async getCronjobVersion() {
+		const payload = RmqRecordBuilderHelper({});
 		return await this.cronjobClient
-			.send(CronjobTopics.VERSION, {})
+			.send(CronjobTopics.VERSION, payload)
 			.toPromise();
 	}
 }
