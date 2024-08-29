@@ -7,6 +7,7 @@ import {
 	AuthErrorCodes,
 	UserErrorCodes,
 } from '@toxictoast/azkaban-base-helpers';
+import { Logger } from '@nestjs/common';
 
 export class AuthService {
 	private readonly factory: AuthFactory = new AuthFactory();
@@ -25,6 +26,7 @@ export class AuthService {
 	async findByEmail(email: string): Promise<Result<AuthAnemic>> {
 		try {
 			const result = await this.repository.findByEmail(email);
+			Logger.debug({ result }, 'findByEmail');
 			return Result.ok<AuthAnemic>(result);
 		} catch (error) {
 			return Result.fail<AuthAnemic>(error);
@@ -34,6 +36,7 @@ export class AuthService {
 	async findByUsername(username: string): Promise<Result<AuthAnemic>> {
 		try {
 			const result = await this.repository.findByUsername(username);
+			Logger.debug({ result }, 'findByUsername');
 			return Result.ok<AuthAnemic>(result);
 		} catch (error) {
 			return Result.fail<AuthAnemic>(error);
@@ -52,11 +55,11 @@ export class AuthService {
 	async createUser(data: AuthData): Promise<Result<AuthAnemic>> {
 		try {
 			const checkEmail = await this.findByEmail(data.email);
-			if (checkEmail.isSuccess) {
+			if (checkEmail.value !== null) {
 				return Result.fail<AuthAnemic>(AuthErrorCodes.EMAIL_FOUND);
 			}
 			const checkUsername = await this.findByUsername(data.username);
-			if (checkUsername.isSuccess) {
+			if (checkUsername.value !== null) {
 				return Result.fail<AuthAnemic>(AuthErrorCodes.USERNAME_FOUND);
 			}
 			const aggregate = this.factory.createDomain(data);
