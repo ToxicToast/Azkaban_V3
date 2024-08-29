@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { CharsetMiddleware } from './middleware/charset.middleware';
 
 async function createApp(): Promise<INestApplication> {
 	return await NestFactory.create(AppModule, {
