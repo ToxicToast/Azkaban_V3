@@ -1,37 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { ClientsModule } from '@nestjs/microservices';
-import {
-	azkaban_auth,
-	clientProvider,
-} from '@toxictoast/azkaban-broker-rabbitmq';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '../../guards';
 import { JwtModule } from '@nestjs/jwt';
-
-const brokerDefaultSettings = {
-	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-	brokerUsername: process.env.BROKER_USERNAME,
-	brokerPassword: process.env.BROKER_PASSWORD,
-	brokerHost: process.env.BROKER_HOST,
-	brokerPort: parseInt(process.env.BROKER_PORT),
-	brokerVHost: process.env.BROKER_VHOST,
-};
+import { AuthServiceModule } from '../core/auth-service.module';
 
 @Module({
-	imports: [
-		JwtModule,
-		ClientsModule.register([
-			{
-				name: 'AUTH_SERVICE',
-				...clientProvider({
-					queueName: azkaban_auth,
-					consumerTag: 'gateway-auth',
-					...brokerDefaultSettings,
-				}),
-			},
-		]),
-	],
+	imports: [JwtModule, AuthServiceModule],
 	controllers: [AuthController],
 	providers: [AuthGuard, AuthService],
 })

@@ -11,8 +11,9 @@ import { CachingService } from '../core/caching.service';
 @Injectable()
 export class MobileService {
 	constructor(
-		@Inject('ITEM_SERVICE') private readonly clientItem: ClientProxy,
-		@Inject('ITEM_VARIANT_SERVICE')
+		@Inject('FOODFOLIO_ITEM_SERVICE')
+		private readonly clientItem: ClientProxy,
+		@Inject('FOODFOLIO_ITEM_VARIANT_SERVICE')
 		private readonly clientItemVariant: ClientProxy,
 		private readonly cachingService: CachingService,
 	) {}

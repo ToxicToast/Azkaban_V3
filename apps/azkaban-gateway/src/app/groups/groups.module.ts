@@ -1,48 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule } from '@nestjs/microservices';
-import {
-	azkaban_group,
-	azkaban_notify,
-	clientProvider,
-} from '@toxictoast/azkaban-broker-rabbitmq';
 import { GroupsService } from './groups.service';
 import { GroupsController } from './groups.controller';
 import { NotifyService } from './notify.service';
 import { AuthGuard } from '../../guards';
 import { JwtModule } from '@nestjs/jwt';
 import { CachingModule } from '../core/caching.module';
-
-const brokerDefaultSettings = {
-	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-	brokerUsername: process.env.BROKER_USERNAME,
-	brokerPassword: process.env.BROKER_PASSWORD,
-	brokerHost: process.env.BROKER_HOST,
-	brokerPort: parseInt(process.env.BROKER_PORT),
-	brokerVHost: process.env.BROKER_VHOST,
-};
+import { NotifyServiceModule } from '../core/notifiy-service.module';
+import { GroupsServiceModule } from '../core/groups-service.module';
 
 @Module({
 	imports: [
 		CachingModule,
 		JwtModule,
-		ClientsModule.register([
-			{
-				name: 'GROUP_SERVICE',
-				...clientProvider({
-					queueName: azkaban_group,
-					consumerTag: 'gateway-group',
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'NOTIFY_SERVICE',
-				...clientProvider({
-					queueName: azkaban_notify,
-					consumerTag: 'gateway-group-notify',
-					...brokerDefaultSettings,
-				}),
-			},
-		]),
+		GroupsServiceModule,
+		NotifyServiceModule,
 	],
 	controllers: [GroupsController],
 	providers: [AuthGuard, GroupsService, NotifyService],

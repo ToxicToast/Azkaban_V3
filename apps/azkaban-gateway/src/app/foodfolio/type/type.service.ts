@@ -12,7 +12,7 @@ import { CachingService } from '../../core/caching.service';
 @Injectable()
 export class TypeService {
 	constructor(
-		@Inject('TYPE_SERVICE') private readonly client: ClientProxy,
+		@Inject('FOODFOLIO_TYPE_SERVICE') private readonly client: ClientProxy,
 		private readonly notifySerivce: NotifyService,
 		private readonly cachingService: CachingService,
 	) {}

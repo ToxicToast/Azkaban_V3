@@ -1,179 +1,58 @@
 import { Module } from '@nestjs/common';
 import { VersionController } from './version.controller';
 import { VersionService } from './version.service';
-import { ClientsModule } from '@nestjs/microservices';
-import {
-	azkaban_auth,
-	azkaban_group,
-	azkaban_notify,
-	azkaban_notify_apialerts,
-	azkaban_notify_notification,
-	azkaban_notify_sse,
-	azkaban_user,
-	clientProvider,
-	foodfolio_category,
-	foodfolio_company,
-	foodfolio_location,
-	foodfolio_product,
-	foodfolio_product_detail,
-	foodfolio_product_variant,
-	foodfolio_shopping_list,
-	foodfolio_size,
-	foodfolio_type,
-	foodfolio_warehouse,
-	azkaban_cronjob,
-} from '@toxictoast/azkaban-broker-rabbitmq';
 import { ConfigService } from '@nestjs/config';
-
-const brokerDefaultSettings = {
-	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
-	brokerUsername: process.env.BROKER_USERNAME,
-	brokerPassword: process.env.BROKER_PASSWORD,
-	brokerHost: process.env.BROKER_HOST,
-	brokerPort: parseInt(process.env.BROKER_PORT),
-	brokerVHost: process.env.BROKER_VHOST,
-};
+import { NotifyServiceModule } from '../core/notifiy-service.module';
+import { UserServiceModule } from '../core/user-service.module';
+import { AuthServiceModule } from '../core/auth-service.module';
+import { GroupsServiceModule } from '../core/groups-service.module';
+import { FoodfolioCategoryServiceModule } from '../core/foodfolio-category-service.module';
+import { FoodfolioCompanyServiceModule } from '../core/foodfolio-company-service.module';
+import { FoodfolioLocationServiceModule } from '../core/foodfolio-location-service.module';
+import { FoodfolioSizeServiceModule } from '../core/foodfolio-size-service.module';
+import { FoodfolioTypeServiceModule } from '../core/foodfolio-type-service.module';
+import { FoodfolioItemServiceModule } from '../core/foodfolio-item-service.module';
+import { FoodfolioItemDetailServiceModule } from '../core/foodfolio-item-detail-service.module';
+import { FoodfolioItemVariantServiceModule } from '../core/foodfolio-item-variant-service.module';
+import { FoodfolioWarehouseServiceModule } from '../core/foodfolio-warehouse-service.module';
+import { FoodfolioShoppingListServiceModule } from '../core/foodfolio-shopping-list-service.module';
+import { WebhookServiceModule } from '../core/webhook-service.module';
+import { SSEServiceModule } from '../core/sse-service.module';
+import { ApiAlertsServiceModule } from '../core/apialerts-service.module';
+import { CronjobServiceModule } from '../core/cronjob-service.module';
+import { NotificationsServiceModule } from '../core/notifications-service.module';
+import { FoodfolioVersionsService } from './foodfolio-versions.service';
+import { NotifyVersionsService } from './notify-versions.service';
+import { AzkabanVersionsService } from './azkaban-versions.service';
 
 @Module({
 	imports: [
-		ClientsModule.register([
-			// NOTIFY
-			{
-				name: 'WEBHOOKS_SERVICE',
-				...clientProvider({
-					queueName: azkaban_notify,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'APIALERTS_SERVICE',
-				...clientProvider({
-					queueName: azkaban_notify_apialerts,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'NOTIFICATIONS_SERVICE',
-				...clientProvider({
-					queueName: azkaban_notify_notification,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'SSE_SERVICE',
-				...clientProvider({
-					queueName: azkaban_notify_sse,
-					...brokerDefaultSettings,
-				}),
-			},
-			// USER
-			{
-				name: 'USERS_SERVICE',
-				...clientProvider({
-					queueName: azkaban_user,
-					...brokerDefaultSettings,
-				}),
-			},
-			// Auth
-			{
-				name: 'AUTH_SERVICE',
-				...clientProvider({
-					queueName: azkaban_auth,
-					...brokerDefaultSettings,
-				}),
-			},
-			// Group
-			{
-				name: 'GROUP_SERVICE',
-				...clientProvider({
-					queueName: azkaban_group,
-					...brokerDefaultSettings,
-				}),
-			},
-			// Foodfolio
-			{
-				name: 'FOODFOLIO_CATEGORY_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_category,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_COMPANY_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_company,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_LOCATION_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_location,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_SIZE_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_size,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_TYPE_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_type,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_ITEM_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_product,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_ITEM_DETAIL_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_product_detail,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_ITEM_VARIANT_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_product_variant,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_WAREHOUSE_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_warehouse,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'FOODFOLIO_SHOPPINGLIST_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_shopping_list,
-					...brokerDefaultSettings,
-				}),
-			},
-			// Cronjob
-			{
-				name: 'CRONJOB_SERVICE',
-				...clientProvider({
-					queueName: azkaban_cronjob,
-					...brokerDefaultSettings,
-				}),
-			},
-		]),
+		UserServiceModule,
+		AuthServiceModule,
+		GroupsServiceModule,
+		FoodfolioCategoryServiceModule,
+		FoodfolioCompanyServiceModule,
+		FoodfolioLocationServiceModule,
+		FoodfolioSizeServiceModule,
+		FoodfolioTypeServiceModule,
+		FoodfolioItemServiceModule,
+		FoodfolioItemDetailServiceModule,
+		FoodfolioItemVariantServiceModule,
+		FoodfolioWarehouseServiceModule,
+		FoodfolioShoppingListServiceModule,
+		WebhookServiceModule,
+		SSEServiceModule,
+		ApiAlertsServiceModule,
+		CronjobServiceModule,
+		NotifyServiceModule,
+		NotificationsServiceModule,
 	],
 	controllers: [VersionController],
 	providers: [
 		VersionService,
+		FoodfolioVersionsService,
+		NotifyVersionsService,
+		AzkabanVersionsService,
 		{
 			provide: 'APP_VERSION',
 			useFactory: (config: ConfigService) => {

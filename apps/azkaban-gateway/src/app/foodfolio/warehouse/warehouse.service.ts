@@ -12,7 +12,8 @@ import { CachingService } from '../../core/caching.service';
 @Injectable()
 export class WarehouseService {
 	constructor(
-		@Inject('WAREHOUSE_SERVICE') private readonly client: ClientProxy,
+		@Inject('FOODFOLIO_WAREHOUSE_SERVICE')
+		private readonly client: ClientProxy,
 		private readonly notifySerivce: NotifyService,
 		private readonly cachingService: CachingService,
 	) {}

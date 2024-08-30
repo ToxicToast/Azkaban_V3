@@ -13,38 +13,15 @@ export class VersionController {
 	async getVersion() {
 		try {
 			const gateway = this.service.getGatewayVersion();
+			const core = await this.service.getAzkabanVersions();
 			//
 			return {
 				...gateway,
 				azkaban: {
-					notify: {
-						notifications:
-							await this.service.getNotificationsVersion(),
-						webhooks: await this.service.getWebhooksVersion(),
-						alerts: await this.service.getApiAlertsVersion(),
-						sse: await this.service.getSSEVersion(),
-					},
-					auth: await this.service.getAuthVersion(),
-					users: await this.service.getUsersVersion(),
-					groups: await this.service.getGroupsVersion(),
-					cronjobs: await this.service.getCronjobVersion(),
+					notify: await this.service.getNotifyVersions(),
+					...core,
 				},
-				foodfolio: {
-					category: await this.service.getFoodFolioCategoryVersion(),
-					company: await this.service.getFoodFolioCompanyVersion(),
-					location: await this.service.getFoodFolioLocationVersion(),
-					type: await this.service.getFoodFolioTypeVersion(),
-					size: await this.service.getFoodFolioSizeVersion(),
-					item: await this.service.getFoodFolioItemVersion(),
-					itemvariant:
-						await this.service.getFoodFolioItemVariantVersion(),
-					itemdetail:
-						await this.service.getFoodFolioItemDetailVersion(),
-					warehouse:
-						await this.service.getFoodFolioWarehouseVersion(),
-					shoppinglist:
-						await this.service.getFoodFolioShoppingListVersion(),
-				},
+				foodfolio: await this.service.getFoodfolioVersions(),
 			};
 		} catch (error) {
 			throw new HttpException(
