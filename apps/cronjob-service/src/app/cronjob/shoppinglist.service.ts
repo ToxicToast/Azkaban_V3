@@ -15,9 +15,9 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 @Injectable()
 export class ShoppingListService {
 	constructor(
-		@Inject('FOODFOLIO_ITEM_SERVICE')
+		@Inject('ITEM_SERVICE')
 		private readonly itemClient: ClientProxy,
-		@Inject('FOODFOLIO_ITEM_VARIANT_SERVICE')
+		@Inject('ITEM_VARIANT_SERVICE')
 		private readonly itemVariantClient: ClientProxy,
 		@Inject('SHOPPINGLIST_SERVICE')
 		private readonly shoppingListClient: ClientProxy,
