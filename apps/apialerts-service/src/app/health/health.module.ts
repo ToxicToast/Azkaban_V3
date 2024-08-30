@@ -32,9 +32,8 @@ import { ConfigService } from '@nestjs/config';
 				const password = config.get('BROKER_PASSWORD', 'guest');
 				const hostname = config.get('BROKER_HOST', 'localhost');
 				const port = config.get('BROKER_PORT', 5672);
-				const vhost = config.get('BROKER_VHOST', '/');
 				//
-				return `amqp://${username}:${password}@${hostname}:${port}${vhost}`;
+				return `amqp://${username}:${password}@${hostname}:${port}/`;
 			},
 			inject: [ConfigService],
 		},
