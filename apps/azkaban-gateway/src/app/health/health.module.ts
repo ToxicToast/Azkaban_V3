@@ -34,7 +34,7 @@ import { azkaban_vhost } from '@toxictoast/azkaban-broker-rabbitmq';
 				const hostname = config.get('BROKER_HOST', 'localhost');
 				const port = config.get('BROKER_PORT', 5672);
 				//
-				return `amqp://${username}:${password}@${hostname}:${port}${azkaban_vhost}`;
+				return `amqp://${username}:${password}@${hostname}:${port}/${azkaban_vhost}`;
 			},
 			inject: [ConfigService],
 		},
