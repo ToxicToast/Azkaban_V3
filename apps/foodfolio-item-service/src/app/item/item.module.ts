@@ -4,10 +4,15 @@ import { ItemService } from './item.service';
 import {
 	itemProvider,
 	datasourceProvider,
+	ItemEntity,
 } from '@azkaban/foodfolio-infrastructure';
 
 @Module({
 	controllers: [ItemController],
-	providers: [...datasourceProvider, ...itemProvider, ItemService],
+	providers: [
+		...datasourceProvider([ItemEntity]),
+		...itemProvider,
+		ItemService,
+	],
 })
 export class ItemModule {}

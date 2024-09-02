@@ -1,6 +1,9 @@
 import { Controller, Inject } from '@nestjs/common';
 import { ClientProxy, EventPattern, Payload } from '@nestjs/microservices';
-import { NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	NotifyTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Controller('webhooks')
 export class WebhooksController {
@@ -12,9 +15,8 @@ export class WebhooksController {
 	) {}
 
 	private async notifyApiAlerts(event: string, data: unknown): Promise<void> {
-		await this.apialerts
-			.emit(NotifyTopics.APIALERTS, { event, data })
-			.toPromise();
+		const payload = RmqRecordBuilderHelper({ event, data });
+		await this.apialerts.emit(NotifyTopics.APIALERTS, payload).toPromise();
 	}
 
 	private async notifyDatabase(
@@ -22,13 +24,15 @@ export class WebhooksController {
 		event: string,
 		data: unknown,
 	): Promise<void> {
+		const payload = RmqRecordBuilderHelper({ service, event, data });
 		await this.notification
-			.emit(NotifyTopics.DATABASE, { service, event, data })
+			.emit(NotifyTopics.DATABASE, payload)
 			.toPromise();
 	}
 
 	private async notifySSE(event: string, data: unknown): Promise<void> {
-		await this.sse.emit(NotifyTopics.SSE, { event, data }).toPromise();
+		const payload = RmqRecordBuilderHelper({ event, data });
+		await this.sse.emit(NotifyTopics.SSE, payload).toPromise();
 	}
 
 	@EventPattern(NotifyTopics.NOTIFY)

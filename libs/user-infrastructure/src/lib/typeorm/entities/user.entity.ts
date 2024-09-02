@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { UserGroupEntity } from './user_group.entity';
 
-@Entity({ name: 'azkaban_users' })
+@Entity({ name: 'users' })
 export class UserEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;

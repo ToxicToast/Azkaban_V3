@@ -44,8 +44,24 @@ export class ItemService {
 		}
 	}
 
+	async getItemByTitle(title: string): Promise<Result<ItemAnemic>> {
+		try {
+			const result = await this.repository.findByTitle(title);
+			if (result !== null) {
+				return Result.ok<ItemAnemic>(result);
+			}
+			return Result.fail<ItemAnemic>(GenericErrorCodes.NOT_FOUND);
+		} catch (error) {
+			return Result.fail<ItemAnemic>(error);
+		}
+	}
+
 	async createItem(data: ItemData): Promise<Result<ItemAnemic>> {
 		try {
+			const check = await this.getItemByTitle(data.title);
+			if (check.isSuccess) {
+				return Result.fail<ItemAnemic>(GenericErrorCodes.UNKNOWN);
+			}
 			const aggregate = this.factory.createDomain(data);
 			return await this.save(aggregate.toAnemic());
 		} catch (error) {

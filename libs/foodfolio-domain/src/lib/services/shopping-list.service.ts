@@ -58,6 +58,12 @@ export class ShoppingListService {
 		data: ShoppingListData,
 	): Promise<Result<ShoppingListAnemic>> {
 		try {
+			const check = await this.getShoppingListByItemId(data.item_id);
+			if (check.isSuccess) {
+				return Result.fail<ShoppingListAnemic>(
+					GenericErrorCodes.UNKNOWN,
+				);
+			}
 			const aggregate = this.factory.createDomain(data);
 			return await this.save(aggregate.toAnemic());
 		} catch (error) {

@@ -3,13 +3,14 @@ import { ShoppingListController } from './shoppinglist.controller';
 import { ShoppingListService } from './shoppinglist.service';
 import {
 	datasourceProvider,
+	ShoppingListEntity,
 	shoppinglistProvider,
 } from '@azkaban/foodfolio-infrastructure';
 
 @Module({
 	controllers: [ShoppingListController],
 	providers: [
-		...datasourceProvider,
+		...datasourceProvider([ShoppingListEntity]),
 		...shoppinglistProvider,
 		ShoppingListService,
 	],

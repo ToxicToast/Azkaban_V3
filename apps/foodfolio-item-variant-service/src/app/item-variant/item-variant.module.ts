@@ -4,12 +4,13 @@ import { ItemVariantService } from './item-variant.service';
 import {
 	itemVariantProvider,
 	datasourceProvider,
+	ItemVariantEntity,
 } from '@azkaban/foodfolio-infrastructure';
 
 @Module({
 	controllers: [ItemVariantController],
 	providers: [
-		...datasourceProvider,
+		...datasourceProvider([ItemVariantEntity]),
 		...itemVariantProvider,
 		ItemVariantService,
 	],

@@ -38,7 +38,7 @@ export class ItemVariantService {
 	async getByItemId(
 		category_id: Nullable<string>,
 	): Promise<Array<ItemVariantDAO>> {
-		return await this.infrastructureService.getItemVariantByCategoryId(
+		return await this.infrastructureService.getItemVariantByItemId(
 			category_id,
 		);
 	}

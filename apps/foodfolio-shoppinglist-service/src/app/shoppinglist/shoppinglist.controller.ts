@@ -1,7 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { FoodfolioShoppinglistTopics } from '@toxictoast/azkaban-broker-rabbitmq';
-import { Optional } from '@toxictoast/azkaban-base-types';
 import { ShoppingListService } from './shoppinglist.service';
 
 @Controller('shoppinglist')

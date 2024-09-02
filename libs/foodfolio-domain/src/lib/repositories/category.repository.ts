@@ -3,10 +3,11 @@ import { CategoryAnemic } from '../anemics';
 import { Chainable, Nullable } from '@toxictoast/azkaban-base-types';
 
 interface CategoryAdditions {
-    findByParentId(parentId: Nullable<string>): Promise<Array<CategoryAnemic>>;
+	findByParentId(parentId: Nullable<string>): Promise<Array<CategoryAnemic>>;
+	findByTitle(title: string): Promise<CategoryAnemic>;
 }
 
 export type CategoryRepository = Chainable<
-    CategoryAdditions,
-    Repository<CategoryAnemic>
+	CategoryAdditions,
+	Repository<CategoryAnemic>
 >;

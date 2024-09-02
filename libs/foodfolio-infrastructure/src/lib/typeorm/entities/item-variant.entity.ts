@@ -7,7 +7,7 @@ import {
 	UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'foodfolio_item_variant' })
+@Entity({ name: 'item_variant' })
 export class ItemVariantEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;

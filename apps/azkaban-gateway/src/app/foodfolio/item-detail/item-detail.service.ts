@@ -1,17 +1,21 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { ClientProxy } from '@nestjs/microservices';
 import { NotifyService } from '../notify.service';
 import { ItemDetailDAO } from '@azkaban/foodfolio-infrastructure';
-import { FoodfolioProductDetailTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	FoodfolioProductDetailTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
+import { CachingService } from '../../core/caching.service';
 
 @Injectable()
 export class ItemDetailService {
 	constructor(
-		@Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
-		@Inject('ITEM_DETAIL_SERVICE') private readonly client: ClientProxy,
+		@Inject('FOODFOLIO_ITEM_DETAIL_SERVICE')
+		private readonly client: ClientProxy,
 		private readonly notifySerivce: NotifyService,
+		private readonly cachingService: CachingService,
 	) {}
 
 	async getItemDetails(
@@ -19,45 +23,53 @@ export class ItemDetailService {
 		offset: number,
 	): Promise<Array<ItemDetailDAO>> {
 		const cacheKey = `${FoodfolioProductDetailTopics.LIST}:${limit}:${offset}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemDetailDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = RmqRecordBuilderHelper({
+				limit,
+				offset,
+			});
+			const data = await this.client
+				.send(FoodfolioProductDetailTopics.LIST, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductDetailTopics.LIST, { limit, offset })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemDetailByItemId(
 		item_id: Nullable<string>,
 	): Promise<Array<ItemDetailDAO>> {
 		const cacheKey = `${FoodfolioProductDetailTopics.ITEMID}:${item_id}`;
-		const cachedData =
-			await this.cacheManager.get<Array<ItemDetailDAO>>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = RmqRecordBuilderHelper({
+				item_id,
+			});
+			const data = await this.client
+				.send(FoodfolioProductDetailTopics.ITEMID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductDetailTopics.ITEMID, { item_id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getItemDetailById(id: string): Promise<ItemDetailDAO> {
 		const cacheKey = `${FoodfolioProductDetailTopics.ID}:${id}`;
-		const cachedData = await this.cacheManager.get<ItemDetailDAO>(cacheKey);
-		if (cachedData) {
-			return cachedData;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
+			const data = await this.client
+				.send(FoodfolioProductDetailTopics.ID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
 		}
-		const data = await this.client
-			.send(FoodfolioProductDetailTopics.ID, { id })
-			.toPromise();
-		await this.cacheManager.set(cacheKey, data);
-		return data;
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async createItemDetail(
@@ -67,21 +79,28 @@ export class ItemDetailService {
 		returnable: boolean,
 		art_no: Nullable<string>,
 	): Promise<ItemDetailDAO> {
+		const payload = RmqRecordBuilderHelper({
+			item_id,
+			purchase_date,
+			expiration_date,
+			returnable,
+			art_no,
+		});
 		return await this.client
-			.send(FoodfolioProductDetailTopics.CREATE, {
-				item_id,
-				purchase_date,
-				expiration_date,
-				returnable,
-				art_no,
-			})
+			.send(FoodfolioProductDetailTopics.CREATE, payload)
 			.toPromise()
 			.then(async (value) => {
 				await this.notifySerivce.onCreateItemDetail(
 					value.id,
 					value.item_id,
 				);
+				await this.cachingService.removeCache(
+					`${FoodfolioProductDetailTopics.LIST}:0:0`,
+				);
 				return value;
+			})
+			.catch(async (error) => {
+				throw error;
 			});
 	}
 
@@ -95,29 +114,36 @@ export class ItemDetailService {
 		activated_at?: Optional<Nullable<Date>>,
 		art_no?: Optional<Nullable<string>>,
 	): Promise<ItemDetailDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+			item_id,
+			purchase_date,
+			expiration_date,
+			opening_date,
+			returnable,
+			activated_at,
+			art_no,
+		});
 		return await this.client
-			.send(FoodfolioProductDetailTopics.UPDATE, {
-				id,
-				item_id,
-				purchase_date,
-				expiration_date,
-				opening_date,
-				returnable,
-				activated_at,
-				art_no,
-			})
+			.send(FoodfolioProductDetailTopics.UPDATE, payload)
 			.toPromise();
 	}
 
 	async deleteItemDetail(id: string): Promise<ItemDetailDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioProductDetailTopics.DELETE, { id })
+			.send(FoodfolioProductDetailTopics.DELETE, payload)
 			.toPromise();
 	}
 
 	async restoreItemDetail(id: string): Promise<ItemDetailDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
 		return await this.client
-			.send(FoodfolioProductDetailTopics.RESTORE, { id })
+			.send(FoodfolioProductDetailTopics.RESTORE, payload)
 			.toPromise();
 	}
 }

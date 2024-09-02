@@ -2,12 +2,17 @@ import { Module } from '@nestjs/common';
 import { CompanyController } from './company.controller';
 import { CompanyService } from './company.service';
 import {
-    companyProvider,
-    datasourceProvider,
+	CompanyEntity,
+	companyProvider,
+	datasourceProvider,
 } from '@azkaban/foodfolio-infrastructure';
 
 @Module({
-    controllers: [CompanyController],
-    providers: [...datasourceProvider, ...companyProvider, CompanyService],
+	controllers: [CompanyController],
+	providers: [
+		...datasourceProvider([CompanyEntity]),
+		...companyProvider,
+		CompanyService,
+	],
 })
 export class CompanyModule {}

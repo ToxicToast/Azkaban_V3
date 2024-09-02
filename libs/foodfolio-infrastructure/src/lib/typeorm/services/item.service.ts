@@ -34,6 +34,16 @@ export class ItemService {
 		}
 	}
 
+	async getItemByTitle(title: string): Promise<ItemDAO> {
+		const result = await this.domainService.getItemByTitle(title);
+		if (result.isSuccess) {
+			return result.value;
+		} else {
+			const errorMessage = result.errorValue;
+			throw new NotFoundException(errorMessage);
+		}
+	}
+
 	async createItem(data: CreateItemDTO): Promise<ItemDAO> {
 		const result = await this.domainService.createItem(data);
 		if (result.isSuccess) {

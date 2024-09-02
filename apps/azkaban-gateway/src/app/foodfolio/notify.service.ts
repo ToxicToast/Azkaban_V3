@@ -12,6 +12,7 @@ import {
 	FoodfolioTypeTopics,
 	FoodfolioWarehouseTopics,
 	NotifyTopics,
+	RmqRecordBuilderHelper,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
@@ -155,6 +156,9 @@ export class NotifyService {
 		event: string;
 		data: unknown;
 	}): Promise<void> {
-		await this.client.emit(NotifyTopics.NOTIFY, payload).toPromise();
+		const notifyPayload = RmqRecordBuilderHelper({
+			payload,
+		});
+		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
 	}
 }

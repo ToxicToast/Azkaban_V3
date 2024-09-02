@@ -129,10 +129,27 @@ export class ItemVariantService {
 		}
 	}
 
+	async getItemVariantByTitle(
+		title: string,
+	): Promise<Result<ItemVariantAnemic>> {
+		try {
+			const result = await this.repository.findByTitle(title);
+			return Result.ok<ItemVariantAnemic>(result);
+		} catch (error) {
+			return Result.fail<ItemVariantAnemic>(error);
+		}
+	}
+
 	async createItemVariant(
 		data: ItemVariantData,
 	): Promise<Result<ItemVariantAnemic>> {
 		try {
+			const check = await this.getItemVariantByTitle(data.title);
+			if (check.isSuccess) {
+				return Result.fail<ItemVariantAnemic>(
+					GenericErrorCodes.UNKNOWN,
+				);
+			}
 			const aggregate = this.factory.createDomain(data);
 			return await this.save(aggregate.toAnemic());
 		} catch (error) {

@@ -1,4 +1,12 @@
 import { Repository } from '@toxictoast/azkaban-base-domain';
 import { WarehouseAnemic } from '../anemics';
+import { Chainable } from '@toxictoast/azkaban-base-types';
 
-export type WarehouseRepository = Repository<WarehouseAnemic>;
+interface WarehouseAdditions {
+	findByTitle(title: string): Promise<WarehouseAnemic>;
+}
+
+export type WarehouseRepository = Chainable<
+	WarehouseAdditions,
+	Repository<WarehouseAnemic>
+>;

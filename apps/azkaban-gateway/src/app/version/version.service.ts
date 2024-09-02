@@ -1,56 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import {
-	AuthTopics,
-	FoodfolioCategoryTopics,
-	FoodfolioCompanyTopics,
-	FoodfolioLocationTopics,
-	FoodfolioProductDetailTopics,
-	FoodfolioProductTopics,
-	FoodfolioProductVariantTopics,
-	FoodfolioShoppinglistTopics,
-	FoodfolioSizeTopics,
-	FoodfolioTypeTopics,
-	FoodfolioWarehouseTopics,
-	GroupsTopics,
-	NotifyTopics,
-	UserTopics,
-} from '@toxictoast/azkaban-broker-rabbitmq';
+import { FoodfolioVersionsService } from './foodfolio-versions.service';
+import { NotifyVersionsService } from './notify-versions.service';
+import { AzkabanVersionsService } from './azkaban-versions.service';
 
 @Injectable()
 export class VersionService {
 	constructor(
-		@Inject('WEBHOOKS_SERVICE') private readonly hooksClient: ClientProxy,
-		@Inject('APIALERTS_SERVICE')
-		private readonly apialertsClient: ClientProxy,
-		@Inject('NOTIFICATIONS_SERVICE')
-		private readonly notificationsClient: ClientProxy,
-		@Inject('SSE_SERVICE') private readonly sseClient: ClientProxy,
-		//
-		@Inject('USERS_SERVICE') private readonly usersClient: ClientProxy,
-		@Inject('AUTH_SERVICE') private readonly authClient: ClientProxy,
-		@Inject('GROUP_SERVICE') private readonly groupClient: ClientProxy,
-		//
-		@Inject('FOODFOLIO_CATEGORY_SERVICE')
-		private readonly foodfolioCategoryClient: ClientProxy,
-		@Inject('FOODFOLIO_COMPANY_SERVICE')
-		private readonly foodfolioCompanyClient: ClientProxy,
-		@Inject('FOODFOLIO_LOCATION_SERVICE')
-		private readonly foodfolioLocationClient: ClientProxy,
-		@Inject('FOODFOLIO_SIZE_SERVICE')
-		private readonly foodfolioSizeClient: ClientProxy,
-		@Inject('FOODFOLIO_TYPE_SERVICE')
-		private readonly foodfolioTypeClient: ClientProxy,
-		@Inject('FOODFOLIO_ITEM_SERVICE')
-		private readonly foodfolioItemClient: ClientProxy,
-		@Inject('FOODFOLIO_ITEM_DETAIL_SERVICE')
-		private readonly foodfolioItemDetailClient: ClientProxy,
-		@Inject('FOODFOLIO_ITEM_VARIANT_SERVICE')
-		private readonly foodfolioItemVariantClient: ClientProxy,
-		@Inject('FOODFOLIO_WAREHOUSE_SERVICE')
-		private readonly foodfolioWarehouseClient: ClientProxy,
-		@Inject('FOODFOLIO_SHOPPINGLIST_SERVICE')
-		private readonly foodfolioShoppinglistClient: ClientProxy,
+		private readonly foodfolio: FoodfolioVersionsService,
+		private readonly notify: NotifyVersionsService,
+		private readonly azkaban: AzkabanVersionsService,
 		//
 		@Inject('APP_VERSION') private readonly appVersion: string,
 	) {}
@@ -61,99 +19,15 @@ export class VersionService {
 		};
 	}
 
-	async getWebhooksVersion() {
-		return await this.hooksClient
-			.send(NotifyTopics.VERSION, {})
-			.toPromise();
+	async getFoodfolioVersions() {
+		return await this.foodfolio.getFoodfolioVersions();
 	}
 
-	async getApiAlertsVersion() {
-		return await this.apialertsClient
-			.send(NotifyTopics.VERSION, {})
-			.toPromise();
+	async getNotifyVersions() {
+		return await this.notify.getNotifyVersions();
 	}
 
-	async getNotificationsVersion() {
-		return await this.notificationsClient
-			.send(NotifyTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getSSEVersion() {
-		return await this.sseClient.send(NotifyTopics.VERSION, {}).toPromise();
-	}
-
-	async getUsersVersion() {
-		return await this.usersClient.send(UserTopics.VERSION, {}).toPromise();
-	}
-
-	async getAuthVersion() {
-		return await this.authClient.send(AuthTopics.VERSION, {}).toPromise();
-	}
-
-	async getGroupsVersion() {
-		return await this.groupClient
-			.send(GroupsTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioCategoryVersion() {
-		return await this.foodfolioCategoryClient
-			.send(FoodfolioCategoryTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioCompanyVersion() {
-		return await this.foodfolioCompanyClient
-			.send(FoodfolioCompanyTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioLocationVersion() {
-		return await this.foodfolioLocationClient
-			.send(FoodfolioLocationTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioSizeVersion() {
-		return await this.foodfolioSizeClient
-			.send(FoodfolioSizeTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioTypeVersion() {
-		return await this.foodfolioTypeClient
-			.send(FoodfolioTypeTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioItemVersion() {
-		return await this.foodfolioItemClient
-			.send(FoodfolioProductTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioItemDetailVersion() {
-		return await this.foodfolioItemDetailClient
-			.send(FoodfolioProductDetailTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioItemVariantVersion() {
-		return await this.foodfolioItemVariantClient
-			.send(FoodfolioProductVariantTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioWarehouseVersion() {
-		return await this.foodfolioWarehouseClient
-			.send(FoodfolioWarehouseTopics.VERSION, {})
-			.toPromise();
-	}
-
-	async getFoodFolioShoppingListVersion() {
-		return await this.foodfolioShoppinglistClient
-			.send(FoodfolioShoppinglistTopics.VERSION, {})
-			.toPromise();
+	async getAzkabanVersions() {
+		return await this.azkaban.getAzkabanVersions();
 	}
 }

@@ -1,6 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { AuthTopics, NotifyTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	AuthTopics,
+	NotifyTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
 export class NotifyService {
@@ -13,7 +17,7 @@ export class NotifyService {
 		username: string,
 		email: string,
 	): Promise<void> {
-		const notifyPayload = {
+		const payload = RmqRecordBuilderHelper({
 			service: 'auth-service',
 			event: AuthTopics.REGISTER,
 			data: {
@@ -21,40 +25,57 @@ export class NotifyService {
 				username,
 				email,
 			},
-		};
-		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+		});
+		await this.client.emit(NotifyTopics.NOTIFY, payload).toPromise();
+	}
+
+	async onRegisterAttempt(
+		email: string,
+		username: string,
+		password: string,
+	): Promise<void> {
+		const payload = RmqRecordBuilderHelper({
+			service: 'auth-service',
+			event: AuthTopics.REGISTER_ATTEMPT,
+			data: {
+				email,
+				username,
+				password,
+			},
+		});
+		await this.client.emit(NotifyTopics.NOTIFY, payload).toPromise();
 	}
 
 	async onLogin(username: string): Promise<void> {
-		const notifyPayload = {
+		const payload = RmqRecordBuilderHelper({
 			service: 'auth-service',
 			event: AuthTopics.LOGIN,
 			data: {
 				username,
 			},
-		};
-		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+		});
+		await this.client.emit(NotifyTopics.NOTIFY, payload).toPromise();
 	}
 
 	async onLoginAttempt(username: string): Promise<void> {
-		const notifyPayload = {
+		const payload = RmqRecordBuilderHelper({
 			service: 'auth-service',
 			event: AuthTopics.LOGIN_ATTEMPT,
 			data: {
 				username,
 			},
-		};
-		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+		});
+		await this.client.emit(NotifyTopics.NOTIFY, payload).toPromise();
 	}
 
 	async onRefesh(username: string): Promise<void> {
-		const notifyPayload = {
+		const payload = RmqRecordBuilderHelper({
 			service: 'auth-service',
 			event: AuthTopics.REFRESH,
 			data: {
 				username,
 			},
-		};
-		await this.client.emit(NotifyTopics.NOTIFY, notifyPayload).toPromise();
+		});
+		await this.client.emit(NotifyTopics.NOTIFY, payload).toPromise();
 	}
 }
