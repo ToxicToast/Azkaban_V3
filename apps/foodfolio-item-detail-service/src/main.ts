@@ -4,6 +4,7 @@ import { AppModule } from './app/app.module';
 import {
 	consumerProvider,
 	foodfolio_product_detail,
+	foodfolio_vhost,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
 async function createApp(): Promise<INestApplication> {
@@ -21,8 +22,7 @@ async function createMicroservice(app: INestApplication): Promise<void> {
 			brokerPassword: process.env.BROKER_PASSWORD,
 			brokerHost: process.env.BROKER_HOST,
 			brokerPort: parseInt(process.env.BROKER_PORT),
-			brokerVHost: process.env.BROKER_VHOST,
-			consumerTag: 'foodfolio-item-detail',
+			brokerVHost: foodfolio_vhost,
 		}),
 	});
 }

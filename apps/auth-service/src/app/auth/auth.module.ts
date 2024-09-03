@@ -8,6 +8,7 @@ import { NotifyService } from './notify.service';
 import { ClientsModule } from '@nestjs/microservices';
 import {
 	azkaban_notify,
+	azkaban_vhost,
 	clientProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -17,7 +18,6 @@ const brokerDefaultSettings = {
 	brokerPassword: process.env.BROKER_PASSWORD,
 	brokerHost: process.env.BROKER_HOST,
 	brokerPort: parseInt(process.env.BROKER_PORT),
-	brokerVHost: process.env.BROKER_VHOST,
 };
 
 @Module({
@@ -37,7 +37,7 @@ const brokerDefaultSettings = {
 				name: 'NOTIFY_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify,
-					consumerTag: 'auth-notify',
+					brokerVHost: azkaban_vhost,
 					...brokerDefaultSettings,
 				}),
 			},
