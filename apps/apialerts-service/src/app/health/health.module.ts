@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { HealthController } from './health.controller';
 import { ConfigService } from '@nestjs/config';
+import { azkaban_vhost } from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Module({
 	imports: [
@@ -33,7 +34,7 @@ import { ConfigService } from '@nestjs/config';
 				const hostname = config.get('BROKER_HOST', 'localhost');
 				const port = config.get('BROKER_PORT', 5672);
 				//
-				return `amqp://${username}:${password}@${hostname}:${port}/`;
+				return `amqp://${username}:${password}@${hostname}:${port}/${azkaban_vhost}`;
 			},
 			inject: [ConfigService],
 		},

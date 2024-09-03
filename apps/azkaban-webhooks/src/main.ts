@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import {
 	azkaban_notify,
+	azkaban_vhost,
 	consumerProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -21,7 +22,7 @@ async function createMicroservice(app: INestApplication): Promise<void> {
 			brokerPassword: process.env.BROKER_PASSWORD,
 			brokerHost: process.env.BROKER_HOST,
 			brokerPort: parseInt(process.env.BROKER_PORT),
-			brokerVHost: process.env.BROKER_VHOST,
+			brokerVHost: azkaban_vhost,
 			consumerTag: 'webhooks',
 		}),
 	});

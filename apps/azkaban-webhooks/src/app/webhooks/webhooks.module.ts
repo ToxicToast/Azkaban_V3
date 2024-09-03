@@ -5,6 +5,7 @@ import {
 	azkaban_notify_apialerts,
 	azkaban_notify_notification,
 	azkaban_notify_sse,
+	azkaban_vhost,
 	clientProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -14,7 +15,6 @@ const brokerDefaultSettings = {
 	brokerPassword: process.env.BROKER_PASSWORD,
 	brokerHost: process.env.BROKER_HOST,
 	brokerPort: parseInt(process.env.BROKER_PORT),
-	brokerVHost: process.env.BROKER_VHOST,
 };
 
 @Module({
@@ -24,7 +24,7 @@ const brokerDefaultSettings = {
 				name: 'APIALERTS_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_apialerts,
-					consumerTag: 'webhooks-apialerts',
+					brokerVHost: azkaban_vhost,
 					...brokerDefaultSettings,
 				}),
 			},
@@ -32,7 +32,7 @@ const brokerDefaultSettings = {
 				name: 'SSE_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_sse,
-					consumerTag: 'webhooks-sse',
+					brokerVHost: azkaban_vhost,
 					...brokerDefaultSettings,
 				}),
 			},
@@ -40,7 +40,7 @@ const brokerDefaultSettings = {
 				name: 'NOTIFICATION_SERVICE',
 				...clientProvider({
 					queueName: azkaban_notify_notification,
-					consumerTag: 'webhooks-notifications',
+					brokerVHost: azkaban_vhost,
 					...brokerDefaultSettings,
 				}),
 			},

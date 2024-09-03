@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import {
 	consumerProvider,
+	foodfolio_vhost,
 	foodfolio_warehouse,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
@@ -21,8 +22,7 @@ async function createMicroservice(app: INestApplication): Promise<void> {
 			brokerPassword: process.env.BROKER_PASSWORD,
 			brokerHost: process.env.BROKER_HOST,
 			brokerPort: parseInt(process.env.BROKER_PORT),
-			brokerVHost: process.env.BROKER_VHOST,
-			consumerTag: 'foodfolio-warehouse',
+			brokerVHost: foodfolio_vhost,
 		}),
 	});
 }
