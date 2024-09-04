@@ -1,6 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Bot } from '@toxictoast/azkaban-twitch-bot';
-import { Events } from '@toxictoast/azkaban-twitch-bot-events';
+import {
+	Events,
+	MessageData,
+	MessageRemoveData,
+} from '@toxictoast/azkaban-twitch-bot-events';
 import {
 	NotifyTopics,
 	RmqRecordBuilderHelper,
@@ -37,19 +41,59 @@ export class BotService {
 		});
 	}
 
-	private async eventNotification(data: RmqRecord<unknown>): Promise<void> {
-		await this.notifyClient.emit(NotifyTopics.NOTIFY, data).toPromise();
+	private async eventNotification(
+		eventName: Events,
+		data: unknown,
+	): Promise<void> {
+		const payload = RmqRecordBuilderHelper({
+			service: 'twitch-bot-service',
+			event: eventName,
+			data,
+		});
+		await this.notifyClient.emit(NotifyTopics.NOTIFY, payload).toPromise();
 	}
 
-	private async eventMessage(eventName: Events, data: RmqRecord<unknown>) {
+	private async eventMessage(eventName: Events, data: unknown) {
 		if (eventName === Events.MESSAGE) {
+			const messageData = data as MessageData;
+			const payload = RmqRecordBuilderHelper({
+				channel: messageData.channel,
+				username: messageData.username,
+				message: messageData.message,
+				args: {
+					messageId: messageData.args.id,
+					channelId: messageData.args.channelId,
+					isFirst: messageData.args.isFirst,
+					isReply: messageData.args.isReply,
+					isRedemption: messageData.args.isRedemption,
+					isCheer: messageData.args.isCheer,
+					isHighlight: messageData.args.isHighlight,
+					isReturningChatter: messageData.args.isReturningChatter,
+				},
+				userInfo: {
+					userId: messageData.args.userInfo.userId,
+					color: messageData.args.userInfo.color,
+					isBroadcaster: messageData.args.userInfo.isBroadcaster,
+					isVip: messageData.args.userInfo.isVip,
+					isMod: messageData.args.userInfo.isMod,
+					isSubscriber: messageData.args.userInfo.isSubscriber,
+					isArtist: messageData.args.userInfo.isArtist,
+					isFounder: messageData.args.userInfo.isFounder,
+					userName: messageData.args.userInfo.userName,
+					userType: messageData.args.userInfo.userType,
+				},
+			});
 			await this.messagesClient
-				.emit(TwitchMessageTopics.CREATE, data)
+				.emit(TwitchMessageTopics.CREATE, payload)
 				.toPromise();
 		}
 		if (eventName === Events.MESSAGEREMOVE) {
+			const messageRemoveData = data as MessageRemoveData;
+			const payload = RmqRecordBuilderHelper({
+				messageId: messageRemoveData.messageId,
+			});
 			await this.messagesClient
-				.emit(TwitchMessageTopics.DELETE, data)
+				.emit(TwitchMessageTopics.DELETE, payload)
 				.toPromise();
 		}
 	}
@@ -59,9 +103,17 @@ export class BotService {
 			name: `Broker-${eventName.charAt(0).toUpperCase() + eventName.slice(1)}`,
 			event: eventName,
 			execute: async (data: unknown) => {
-				const payload = RmqRecordBuilderHelper(data);
-				await this.eventNotification(payload);
-				await this.eventMessage(eventName, payload);
+				await this.eventMessage(eventName, data);
+			},
+		});
+	}
+
+	onEventNotify(eventName: Events): void {
+		this.toasty.addPlugin({
+			name: `Notify-${eventName.charAt(0).toUpperCase() + eventName.slice(1)}`,
+			event: eventName,
+			execute: async (data: unknown) => {
+				await this.eventNotification(eventName, data);
 			},
 		});
 	}

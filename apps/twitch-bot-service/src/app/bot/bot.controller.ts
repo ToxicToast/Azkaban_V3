@@ -7,15 +7,17 @@ export class BotController implements OnModuleInit, OnModuleDestroy {
 	constructor(private readonly service: BotService) {}
 
 	async onModuleInit(): Promise<void> {
-		this.service.onEvent(Events.JOIN);
-		this.service.onEvent(Events.PART);
 		this.service.onEvent(Events.MESSAGE);
-		this.service.onEvent(Events.TIMEOUT);
-		this.service.onEvent(Events.BAN);
-		this.service.onEvent(Events.RAID);
-		this.service.onEvent(Events.SUB);
-		this.service.onEvent(Events.RESUB);
-		this.service.onEvent(Events.SUBGIFT);
+		this.service.onEvent(Events.MESSAGEREMOVE);
+		//
+		this.service.onEventNotify(Events.JOIN);
+		this.service.onEventNotify(Events.PART);
+		this.service.onEventNotify(Events.MESSAGE);
+		this.service.onEventNotify(Events.TIMEOUT);
+		this.service.onEventNotify(Events.BAN);
+		this.service.onEventNotify(Events.RAID);
+		this.service.onEventNotify(Events.SUB);
+		//
 		this.service.startBot();
 	}
 
