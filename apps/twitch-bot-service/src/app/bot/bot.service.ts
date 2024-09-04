@@ -42,7 +42,7 @@ export class BotService {
 	}
 
 	private async eventNotification(
-		eventName: Events,
+		eventName: string,
 		data: unknown,
 	): Promise<void> {
 		const payload = RmqRecordBuilderHelper({
@@ -113,7 +113,7 @@ export class BotService {
 			name: `Notify-${eventName.charAt(0).toUpperCase() + eventName.slice(1)}`,
 			event: eventName,
 			execute: async (data: unknown) => {
-				await this.eventNotification(eventName, data);
+				await this.eventNotification('twitch_bot_' + eventName, data);
 			},
 		});
 	}
