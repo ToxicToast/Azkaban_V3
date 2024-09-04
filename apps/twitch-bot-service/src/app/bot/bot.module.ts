@@ -6,10 +6,10 @@ import {
 	clientProvider,
 	twitch_messages,
 	twitch_vhost,
-	twitch_viewers,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ConfigService } from '@nestjs/config';
 import { BotService } from './bot.service';
+import { BotController } from './bot.controller';
 
 const brokerDefaultSettings = {
 	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
@@ -40,7 +40,7 @@ const brokerDefaultSettings = {
 			},
 		]),
 	],
-	controllers: [],
+	controllers: [BotController],
 	providers: [
 		{
 			provide: 'TWITCH_USER_ID',
