@@ -24,6 +24,8 @@ import { NotificationsServiceModule } from '../core/notifications-service.module
 import { FoodfolioVersionsService } from './foodfolio-versions.service';
 import { NotifyVersionsService } from './notify-versions.service';
 import { AzkabanVersionsService } from './azkaban-versions.service';
+import { TwitchBotServiceModule } from '../core/twitch-bot-service.module';
+import { TwitchVersionsService } from './twitch-versions.service';
 
 @Module({
 	imports: [
@@ -46,6 +48,7 @@ import { AzkabanVersionsService } from './azkaban-versions.service';
 		CronjobServiceModule,
 		NotifyServiceModule,
 		NotificationsServiceModule,
+		TwitchBotServiceModule,
 	],
 	controllers: [VersionController],
 	providers: [
@@ -53,6 +56,7 @@ import { AzkabanVersionsService } from './azkaban-versions.service';
 		FoodfolioVersionsService,
 		NotifyVersionsService,
 		AzkabanVersionsService,
+		TwitchVersionsService,
 		{
 			provide: 'APP_VERSION',
 			useFactory: (config: ConfigService) => {
