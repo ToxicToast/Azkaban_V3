@@ -47,6 +47,5 @@ async function bootstrap() {
 	await startApp(app);
 	Logger.log(`🚀 Foodfolio-Type is running`);
 	Logger.log(`🚀 Version: ${process.env.APP_VERSION}`);
-	Logger.log(`🚀 Environment: ${process.env.NODE_ENV}`);
 }
 bootstrap().catch((err) => Logger.error(err));
