@@ -1,6 +1,6 @@
 export enum UserGroups {
 	ADMIN = 'Admin',
-	FOODFOLIOADMIN = 'Inventory-Admin',
+	FOODFOLIOADMIN = 'Foodfolio-Admin',
 	TWITCHADMIN = 'Twitch-Admin',
 	COWORKINGADMIN = 'Coworking-Admin',
 }
