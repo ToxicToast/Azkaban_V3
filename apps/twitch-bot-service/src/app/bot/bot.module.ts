@@ -10,6 +10,8 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { BotService } from './bot.service';
 import { BotController } from './bot.controller';
+import { NotifyService } from './notify.service';
+import { MessageService } from './message.service';
 
 const brokerDefaultSettings = {
 	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
@@ -92,6 +94,8 @@ const brokerDefaultSettings = {
 			inject: [ConfigService],
 		},
 		BotService,
+		NotifyService,
+		MessageService,
 	],
 })
 export class BotModule {}
