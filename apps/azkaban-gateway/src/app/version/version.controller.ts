@@ -22,6 +22,7 @@ export class VersionController {
 					...core,
 				},
 				foodfolio: await this.service.getFoodfolioVersions(),
+				twitch: await this.service.getTwitchVersions(),
 			};
 		} catch (error) {
 			throw new HttpException(

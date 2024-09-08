@@ -3,8 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import {
 	consumerProvider,
-	foodfolio_product_detail,
-	foodfolio_vhost,
+	twitch_bot,
+	twitch_vhost,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 
 async function createApp(): Promise<INestApplication> {
@@ -16,13 +16,13 @@ async function createMicroservice(app: INestApplication): Promise<void> {
 	//
 	app.connectMicroservice({
 		...consumerProvider({
-			queueName: foodfolio_product_detail,
+			queueName: twitch_bot,
 			noAck: noAck,
 			brokerUsername: process.env.BROKER_USERNAME,
 			brokerPassword: process.env.BROKER_PASSWORD,
 			brokerHost: process.env.BROKER_HOST,
 			brokerPort: parseInt(process.env.BROKER_PORT),
-			brokerVHost: foodfolio_vhost,
+			brokerVHost: twitch_vhost,
 		}),
 	});
 }
@@ -45,7 +45,7 @@ async function bootstrap() {
 	configureApp(app);
 	await createMicroservice(app);
 	await startApp(app);
-	Logger.log(`🚀 Foodfolio-Item-Detail is running`);
+	Logger.log(`🚀 Azkaban-Twitch-Bot is running`);
 	Logger.log(`🚀 Version: ${process.env.APP_VERSION}`);
 }
 bootstrap().catch((err) => Logger.error(err));

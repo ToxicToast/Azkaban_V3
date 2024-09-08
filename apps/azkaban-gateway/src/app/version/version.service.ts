@@ -2,12 +2,14 @@ import { Inject, Injectable } from '@nestjs/common';
 import { FoodfolioVersionsService } from './foodfolio-versions.service';
 import { NotifyVersionsService } from './notify-versions.service';
 import { AzkabanVersionsService } from './azkaban-versions.service';
+import { TwitchVersionsService } from './twitch-versions.service';
 
 @Injectable()
 export class VersionService {
 	constructor(
 		private readonly foodfolio: FoodfolioVersionsService,
 		private readonly notify: NotifyVersionsService,
+		private readonly twitch: TwitchVersionsService,
 		private readonly azkaban: AzkabanVersionsService,
 		//
 		@Inject('APP_VERSION') private readonly appVersion: string,
@@ -25,6 +27,10 @@ export class VersionService {
 
 	async getNotifyVersions() {
 		return await this.notify.getNotifyVersions();
+	}
+
+	async getTwitchVersions() {
+		return await this.twitch.getTwitchVersions();
 	}
 
 	async getAzkabanVersions() {

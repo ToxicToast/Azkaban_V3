@@ -1,0 +1,45 @@
+{
+	"name": "twitch-bot-service",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/twitch-bot-service/src",
+	"projectType": "application",
+	"tags": ["scope:application"],
+	"targets": {
+		"build": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"target": "node",
+				"compiler": "tsc",
+				"outputPath": "dist/apps/twitch-bot-service",
+				"main": "apps/twitch-bot-service/src/main.ts",
+				"tsConfig": "apps/twitch-bot-service/tsconfig.app.json",
+				"assets": ["apps/twitch-bot-service/src/assets"],
+				"webpackConfig": "apps/twitch-bot-service/webpack.config.js",
+				"generatePackageJson": true
+			}
+		},
+		"serve": {
+			"executor": "@nx/js:node",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "twitch-bot-service:build"
+			}
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/twitch-bot-service/jest.config.ts"
+			}
+		},
+		"docker-build": {
+			"dependsOn": ["build"],
+			"command": "docker build -f apps/twitch-bot-service/Dockerfile . -t azkaban2015/twitch-bot:{args.VERSION}"
+		},
+		"docker-push": {
+			"command": "docker push azkaban2015/twitch-bot:{args.VERSION}"
+		}
+	}
+}
