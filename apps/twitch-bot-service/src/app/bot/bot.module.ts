@@ -6,12 +6,14 @@ import {
 	clientProvider,
 	twitch_messages,
 	twitch_vhost,
+	twitch_viewers,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ConfigService } from '@nestjs/config';
 import { BotService } from './bot.service';
 import { BotController } from './bot.controller';
 import { NotifyService } from './notify.service';
 import { MessageService } from './message.service';
+import { ViewerService } from './viewer.service';
 
 const brokerDefaultSettings = {
 	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
@@ -36,6 +38,14 @@ const brokerDefaultSettings = {
 				name: 'MESSAGES_SERVICE',
 				...clientProvider({
 					queueName: twitch_messages,
+					brokerVHost: twitch_vhost,
+					...brokerDefaultSettings,
+				}),
+			},
+			{
+				name: 'VIEWER_SERVICE',
+				...clientProvider({
+					queueName: twitch_viewers,
 					brokerVHost: twitch_vhost,
 					...brokerDefaultSettings,
 				}),
@@ -96,6 +106,7 @@ const brokerDefaultSettings = {
 		BotService,
 		NotifyService,
 		MessageService,
+		ViewerService,
 	],
 })
 export class BotModule {}
