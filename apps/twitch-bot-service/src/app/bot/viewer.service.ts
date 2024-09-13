@@ -4,6 +4,7 @@ import {
 	Events,
 	JoinData,
 	PartData,
+	ResubData,
 	SubData,
 } from '@toxictoast/azkaban-twitch-bot-events';
 import { BotService } from './bot.service';
@@ -60,6 +61,17 @@ export class ViewerService {
 		);
 	}
 
+	private async eventViewerReSub(data: ResubData): Promise<void> {
+		const payload = RmqRecordBuilderHelper({
+			channel: data.channel,
+			username: data.username,
+			subInfo: data.subInfo,
+		});
+		Logger.debug(
+			`ViewerService: eventViewerReSub: ${JSON.stringify(payload)}`,
+		);
+	}
+
 	private onEventViewers(eventName: Events): void {
 		this.toasty.addPlugin({
 			name: `Viewer-${eventName.charAt(0).toUpperCase() + eventName.slice(1)}`,
@@ -73,6 +85,9 @@ export class ViewerService {
 				}
 				if (eventName === Events.SUB) {
 					await this.eventViewerSub(data as SubData);
+				}
+				if (eventName === Events.RESUB) {
+					await this.eventViewerReSub(data as ResubData);
 				}
 			},
 		});
