@@ -1,20 +1,20 @@
 import {
-	GroupRepository as DomainRepository,
-	GroupAnemic,
-} from '@azkaban/group-domain';
-import { GroupMapper } from '../mappers';
+	ViewerRepository as DomainRepository,
+	ViewerAnemic,
+} from '@azkaban/twitch-domain';
 import { Repository } from 'typeorm';
-import { GroupEntity } from '../entities';
+import { ViewerMapper } from '../mappers';
+import { ViewerEntity } from '../entities';
 
-export class GroupRepository implements DomainRepository {
-	private readonly mapper: GroupMapper = new GroupMapper();
+export class ViewerRepository implements DomainRepository {
+	private readonly mapper: ViewerMapper = new ViewerMapper();
 
-	constructor(private readonly repository: Repository<GroupEntity>) {}
+	constructor(private readonly repository: Repository<ViewerEntity>) {}
 
 	async findList(
 		limit?: number,
 		offset?: number,
-	): Promise<Array<GroupAnemic>> {
+	): Promise<Array<ViewerAnemic>> {
 		const entities = await this.repository.find({
 			take: limit,
 			skip: offset,
@@ -26,7 +26,7 @@ export class GroupRepository implements DomainRepository {
 		return entities.map((entity) => this.mapper.toDomain(entity));
 	}
 
-	async findById(id: string): Promise<GroupAnemic> {
+	async findById(id: string): Promise<ViewerAnemic> {
 		const entity = await this.repository.findOne({
 			withDeleted: true,
 			where: { id },
@@ -37,10 +37,10 @@ export class GroupRepository implements DomainRepository {
 		return null;
 	}
 
-	async findByTitle(title: string): Promise<GroupAnemic> {
+	async findByDisplayName(display_name: string): Promise<ViewerAnemic> {
 		const entity = await this.repository.findOne({
 			withDeleted: true,
-			where: { title },
+			where: { display_name },
 		});
 		if (entity) {
 			return this.mapper.toDomain(entity);
@@ -48,12 +48,12 @@ export class GroupRepository implements DomainRepository {
 		return null;
 	}
 
-	async delete(id: string): Promise<GroupAnemic> {
+	async delete(id: string): Promise<ViewerAnemic> {
 		await this.repository.softDelete(id);
 		return await this.findById(id);
 	}
 
-	async save(data: GroupAnemic): Promise<GroupAnemic> {
+	async save(data: ViewerAnemic): Promise<ViewerAnemic> {
 		const entity = this.mapper.toEntity(data);
 		const saved = await this.repository.save(entity);
 		if (saved) {
