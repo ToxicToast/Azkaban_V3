@@ -3,7 +3,7 @@ import { ViewerRepository } from '../repositories';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { ViewerDAO } from '../../dao';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { CreateViewerDTO } from '@azkaban/twitch-infrastructure';
+import { CreateViewerDTO } from '../../dto';
 
 export class ViewerService {
 	private readonly domainService: DomainService;

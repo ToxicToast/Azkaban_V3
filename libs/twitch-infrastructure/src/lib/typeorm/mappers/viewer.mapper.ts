@@ -1,6 +1,7 @@
 import { Mapper } from '@toxictoast/azkaban-base-domain';
-import { ViewerDAO, ViewerEntity } from '@azkaban/twitch-infrastructure';
 import { ViewerFactory } from '@azkaban/twitch-domain';
+import { ViewerDAO } from '../../dao';
+import { ViewerEntity } from '../entities';
 
 export class ViewerMapper implements Mapper<ViewerDAO, ViewerEntity> {
 	private readonly domainFactory: ViewerFactory = new ViewerFactory();
