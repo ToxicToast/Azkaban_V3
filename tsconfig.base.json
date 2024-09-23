@@ -34,6 +34,9 @@
 				"libs/notification-infrastructure/src/index.ts"
 			],
 			"@azkaban/twitch-domain": ["libs/twitch-domain/src/index.ts"],
+			"@azkaban/twitch-infrastructure": [
+				"libs/twitch-infrastructure/src/index.ts"
+			],
 			"@azkaban/user-domain": ["libs/user-domain/src/index.ts"],
 			"@azkaban/user-infrastructure": [
 				"libs/user-infrastructure/src/index.ts"
