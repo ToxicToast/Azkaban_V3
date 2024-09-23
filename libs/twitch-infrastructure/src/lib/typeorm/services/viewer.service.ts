@@ -136,4 +136,24 @@ export class ViewerService {
 			throw new BadRequestException(errorMessage);
 		}
 	}
+
+	async deleteViewer(id: string): Promise<ViewerDAO> {
+		const result = await this.domainService.deleteViewer(id);
+		if (result.isSuccess) {
+			return result.value;
+		} else {
+			const errorMessage = result.errorValue;
+			throw new NotFoundException(errorMessage);
+		}
+	}
+
+	async restoreViewer(id: string): Promise<ViewerDAO> {
+		const result = await this.domainService.restoreViewer(id);
+		if (result.isSuccess) {
+			return result.value;
+		} else {
+			const errorMessage = result.errorValue;
+			throw new NotFoundException(errorMessage);
+		}
+	}
 }
