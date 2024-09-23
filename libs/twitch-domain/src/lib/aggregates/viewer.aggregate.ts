@@ -5,13 +5,14 @@ import { Nullable } from '@toxictoast/azkaban-base-types';
 export class ViewerAggregate implements Domain<ViewerAnemic> {
 	constructor(
 		private readonly id: string,
-		private user_id: string,
-		private login: string,
-		private display_name: string,
-		private type: string,
-		private profile_image_url: string,
-		private offline_image_url: string,
-		private view_count: number,
+		private readonly display_name: string,
+		private joins: number,
+		private parts: number,
+		private messages: number,
+		private timeouts: number,
+		private bans: number,
+		private minutes_watched: number,
+		private lastseen_at: Nullable<Date>,
 		private readonly created_at: Date,
 		private updated_at: Nullable<Date>,
 		private deleted_at: Nullable<Date>,
@@ -36,13 +37,14 @@ export class ViewerAggregate implements Domain<ViewerAnemic> {
 	toAnemic(): ViewerAnemic {
 		return {
 			id: this.id,
-			user_id: this.user_id,
-			login: this.login,
 			display_name: this.display_name,
-			type: this.type,
-			profile_image_url: this.profile_image_url,
-			offline_image_url: this.offline_image_url,
-			view_count: this.view_count,
+			lastseen_at: this.lastseen_at,
+			joins: this.joins,
+			parts: this.parts,
+			messages: this.messages,
+			timeouts: this.timeouts,
+			bans: this.bans,
+			minutes_watched: this.minutes_watched,
 			created_at: this.created_at,
 			updated_at: this.updated_at,
 			deleted_at: this.deleted_at,
@@ -51,52 +53,52 @@ export class ViewerAggregate implements Domain<ViewerAnemic> {
 		};
 	}
 
-	updateUserId(user_id: string): void {
-		if (this.user_id !== user_id) {
+	updateLastSeenAt(lastseen_at: Nullable<Date>): void {
+		if (this.lastseen_at !== lastseen_at) {
 			this.updated_at = new Date();
-			this.user_id = user_id;
+			this.lastseen_at = lastseen_at;
 		}
 	}
 
-	updateLogin(login: string): void {
-		if (this.login !== login) {
+	updateJoins(joins: number): void {
+		if (this.joins !== joins) {
 			this.updated_at = new Date();
-			this.login = login;
+			this.joins = joins;
 		}
 	}
 
-	updateDisplayName(display_name: string): void {
-		if (this.display_name !== display_name) {
+	updateParts(parts: number): void {
+		if (this.parts !== parts) {
 			this.updated_at = new Date();
-			this.display_name = display_name;
+			this.parts = parts;
 		}
 	}
 
-	updateType(type: string): void {
-		if (this.type !== type) {
+	updateMessages(messages: number): void {
+		if (this.messages !== messages) {
 			this.updated_at = new Date();
-			this.type = type;
+			this.messages = messages;
 		}
 	}
 
-	updateProfileImageUrl(profile_image_url: string): void {
-		if (this.profile_image_url !== profile_image_url) {
+	updateTimeouts(timeouts: number): void {
+		if (this.timeouts !== timeouts) {
 			this.updated_at = new Date();
-			this.profile_image_url = profile_image_url;
+			this.timeouts = timeouts;
 		}
 	}
 
-	updateOfflineImageUrl(offline_image_url: string): void {
-		if (this.offline_image_url !== offline_image_url) {
+	updateBans(bans: number): void {
+		if (this.bans !== bans) {
 			this.updated_at = new Date();
-			this.offline_image_url = offline_image_url;
+			this.bans = bans;
 		}
 	}
 
-	updateViewCount(view_count: number): void {
-		if (this.view_count !== view_count) {
+	updateMinutesWatched(minutes_watched: number): void {
+		if (this.minutes_watched !== minutes_watched) {
 			this.updated_at = new Date();
-			this.view_count = view_count;
+			this.minutes_watched = minutes_watched;
 		}
 	}
 }
