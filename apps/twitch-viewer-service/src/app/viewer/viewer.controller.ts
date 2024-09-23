@@ -31,11 +31,11 @@ export class ViewerController {
 	}
 
 	@MessagePattern(TwitchViewerTopics.JOIN)
-	async updateViewerJoin(@Payload('display_name') display_name: string) {
+	async updateViewerJoin(@Payload('username') username: string) {
 		try {
-			const viewer = await this.getViewerByDisplayName(display_name);
+			const viewer = await this.getViewerByDisplayName(username);
 			if (!viewer) {
-				return await this.createViewerByDisplayName(display_name);
+				return await this.createViewerByDisplayName(username);
 			}
 			const newJoins = viewer.joins + 1;
 			return await this.service.updateViewer(viewer.id, newJoins);
@@ -45,11 +45,11 @@ export class ViewerController {
 	}
 
 	@MessagePattern(TwitchViewerTopics.PART)
-	async updateViewerPart(@Payload('display_name') display_name: string) {
+	async updateViewerPart(@Payload('username') username: string) {
 		try {
-			const viewer = await this.getViewerByDisplayName(display_name);
+			const viewer = await this.getViewerByDisplayName(username);
 			if (!viewer) {
-				return await this.createViewerByDisplayName(display_name);
+				return await this.createViewerByDisplayName(username);
 			}
 			const newParts = viewer.parts + 1;
 			return await this.service.updateViewer(
@@ -63,11 +63,11 @@ export class ViewerController {
 	}
 
 	@MessagePattern(TwitchViewerTopics.TIMEOUT)
-	async updateViewerTimeout(@Payload('display_name') display_name: string) {
+	async updateViewerTimeout(@Payload('username') username: string) {
 		try {
-			const viewer = await this.getViewerByDisplayName(display_name);
+			const viewer = await this.getViewerByDisplayName(username);
 			if (!viewer) {
-				return await this.createViewerByDisplayName(display_name);
+				return await this.createViewerByDisplayName(username);
 			}
 			const newTimeouts = viewer.timeouts + 1;
 			return await this.service.updateViewer(
@@ -83,11 +83,11 @@ export class ViewerController {
 	}
 
 	@MessagePattern(TwitchViewerTopics.BAN)
-	async updateViewerBan(@Payload('display_name') display_name: string) {
+	async updateViewerBan(@Payload('username') username: string) {
 		try {
-			const viewer = await this.getViewerByDisplayName(display_name);
+			const viewer = await this.getViewerByDisplayName(username);
 			if (!viewer) {
-				return await this.createViewerByDisplayName(display_name);
+				return await this.createViewerByDisplayName(username);
 			}
 			const newBans = viewer.bans + 1;
 			return await this.service.updateViewer(
