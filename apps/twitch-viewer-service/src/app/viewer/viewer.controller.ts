@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { ViewerService } from './viewer.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { TwitchViewerTopics } from '@toxictoast/azkaban-broker-rabbitmq';
@@ -33,10 +33,7 @@ export class ViewerController {
 	@MessagePattern(TwitchViewerTopics.JOIN)
 	async updateViewerJoin(@Payload('username') username: string) {
 		try {
-			const viewer = await this.getViewerByDisplayName(username);
-			if (!viewer) {
-				return await this.createViewerByDisplayName(username);
-			}
+			const viewer = await this.getViewerOrCreate(username);
 			const newJoins = viewer.joins + 1;
 			return await this.service.updateViewer(viewer.id, newJoins);
 		} catch (error) {
@@ -47,10 +44,7 @@ export class ViewerController {
 	@MessagePattern(TwitchViewerTopics.PART)
 	async updateViewerPart(@Payload('username') username: string) {
 		try {
-			const viewer = await this.getViewerByDisplayName(username);
-			if (!viewer) {
-				return await this.createViewerByDisplayName(username);
-			}
+			const viewer = await this.getViewerOrCreate(username);
 			const newParts = viewer.parts + 1;
 			return await this.service.updateViewer(
 				viewer.id,
@@ -65,10 +59,7 @@ export class ViewerController {
 	@MessagePattern(TwitchViewerTopics.TIMEOUT)
 	async updateViewerTimeout(@Payload('username') username: string) {
 		try {
-			const viewer = await this.getViewerByDisplayName(username);
-			if (!viewer) {
-				return await this.createViewerByDisplayName(username);
-			}
+			const viewer = await this.getViewerOrCreate(username);
 			const newTimeouts = viewer.timeouts + 1;
 			return await this.service.updateViewer(
 				viewer.id,
@@ -85,10 +76,7 @@ export class ViewerController {
 	@MessagePattern(TwitchViewerTopics.BAN)
 	async updateViewerBan(@Payload('username') username: string) {
 		try {
-			const viewer = await this.getViewerByDisplayName(username);
-			if (!viewer) {
-				return await this.createViewerByDisplayName(username);
-			}
+			const viewer = await this.getViewerOrCreate(username);
 			const newBans = viewer.bans + 1;
 			return await this.service.updateViewer(
 				viewer.id,
@@ -121,10 +109,23 @@ export class ViewerController {
 		}
 	}
 
+	private async getViewerOrCreate(display_name: string): Promise<ViewerDAO> {
+		try {
+			const viewer = await this.getViewerByDisplayName(display_name);
+			if (viewer === null) {
+				return await this.createViewerByDisplayName(display_name);
+			}
+			return viewer;
+		} catch (error) {
+			throw new RpcException(error);
+		}
+	}
+
 	private async getViewerByDisplayName(
 		display_name: string,
 	): Promise<Nullable<ViewerDAO>> {
 		try {
+			Logger.debug(`Getting viewer with display_name: ${display_name}`);
 			const viewer = await this.service.getByDisplayName(display_name);
 			return viewer ?? null;
 		} catch (error) {
@@ -136,6 +137,7 @@ export class ViewerController {
 		display_name: string,
 	): Promise<ViewerDAO> {
 		try {
+			Logger.debug(`Creating viewer with display_name: ${display_name}`);
 			return await this.service.createViewer(display_name);
 		} catch (error) {
 			throw new RpcException(error);
