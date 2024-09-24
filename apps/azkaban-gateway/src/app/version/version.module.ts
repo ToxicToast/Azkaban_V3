@@ -26,12 +26,16 @@ import { NotifyVersionsService } from './notify-versions.service';
 import { AzkabanVersionsService } from './azkaban-versions.service';
 import { TwitchBotServiceModule } from '../core/twitch-bot-service.module';
 import { TwitchVersionsService } from './twitch-versions.service';
+import { TwitchViewerServiceModule } from '../core/twitch-viewer-service.module';
 
 @Module({
 	imports: [
+		// Azkaban Services
 		UserServiceModule,
 		AuthServiceModule,
 		GroupsServiceModule,
+		CronjobServiceModule,
+		// Foodfolio Services
 		FoodfolioCategoryServiceModule,
 		FoodfolioCompanyServiceModule,
 		FoodfolioLocationServiceModule,
@@ -42,13 +46,15 @@ import { TwitchVersionsService } from './twitch-versions.service';
 		FoodfolioItemVariantServiceModule,
 		FoodfolioWarehouseServiceModule,
 		FoodfolioShoppingListServiceModule,
+		// Notification Services
 		WebhookServiceModule,
 		SSEServiceModule,
 		ApiAlertsServiceModule,
-		CronjobServiceModule,
 		NotifyServiceModule,
 		NotificationsServiceModule,
+		// Twitch Services
 		TwitchBotServiceModule,
+		TwitchViewerServiceModule,
 	],
 	controllers: [VersionController],
 	providers: [
