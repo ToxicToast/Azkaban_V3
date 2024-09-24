@@ -91,6 +91,15 @@ export class ViewerController {
 		}
 	}
 
+	@MessagePattern(TwitchViewerTopics.CREATE)
+	async createViewer(@Payload('username') username: string) {
+		try {
+			return await this.service.createViewer(username);
+		} catch (error) {
+			throw new RpcException(error);
+		}
+	}
+
 	@MessagePattern(TwitchViewerTopics.DELETE)
 	async deleteViewer(@Payload('id') id: string) {
 		try {

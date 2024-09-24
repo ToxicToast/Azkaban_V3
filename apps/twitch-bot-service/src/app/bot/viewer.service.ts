@@ -4,6 +4,7 @@ import {
 	BanData,
 	Events,
 	JoinData,
+	MessageData,
 	PartData,
 	ResubData,
 	SubData,
@@ -22,10 +23,9 @@ export class ViewerService {
 	private readonly viewerEvents: Array<Events> = [
 		Events.JOIN,
 		Events.PART,
-		Events.SUB,
-		Events.RESUB,
 		Events.TIMEOUT,
 		Events.BAN,
+		Events.MESSAGE,
 	];
 
 	constructor(
@@ -55,28 +55,6 @@ export class ViewerService {
 			.toPromise();
 	}
 
-	private async eventViewerSub(data: SubData): Promise<void> {
-		const payload = RmqRecordBuilderHelper({
-			channel: data.channel,
-			username: data.username,
-			subInfo: data.subInfo,
-		});
-		await this.viewerClient
-			.emit(TwitchViewerTopics.SUB, payload)
-			.toPromise();
-	}
-
-	private async eventViewerReSub(data: ResubData): Promise<void> {
-		const payload = RmqRecordBuilderHelper({
-			channel: data.channel,
-			username: data.username,
-			subInfo: data.subInfo,
-		});
-		await this.viewerClient
-			.emit(TwitchViewerTopics.RESUB, payload)
-			.toPromise();
-	}
-
 	private async eventViewerTimeout(data: TimeoutData): Promise<void> {
 		const payload = RmqRecordBuilderHelper({
 			channel: data.channel,
@@ -98,6 +76,16 @@ export class ViewerService {
 			.toPromise();
 	}
 
+	private async eventViewerMessage(data: MessageData): Promise<void> {
+		const payload = RmqRecordBuilderHelper({
+			channel: data.channel,
+			username: data.username,
+		});
+		await this.viewerClient
+			.emit(TwitchViewerTopics.MESSAGE, payload)
+			.toPromise();
+	}
+
 	private onEventViewers(eventName: Events): void {
 		this.toasty.addPlugin({
 			name: `Viewer-${eventName.charAt(0).toUpperCase() + eventName.slice(1)}`,
@@ -109,17 +97,14 @@ export class ViewerService {
 				if (eventName === Events.PART) {
 					await this.eventViewerPart(data as PartData);
 				}
-				if (eventName === Events.SUB) {
-					await this.eventViewerSub(data as SubData);
-				}
-				if (eventName === Events.RESUB) {
-					await this.eventViewerReSub(data as ResubData);
-				}
 				if (eventName === Events.TIMEOUT) {
 					await this.eventViewerTimeout(data as TimeoutData);
 				}
 				if (eventName === Events.BAN) {
 					await this.eventViewerBan(data as BanData);
+				}
+				if (eventName === Events.MESSAGE) {
+					await this.eventViewerMessage(data as MessageData);
 				}
 			},
 		});

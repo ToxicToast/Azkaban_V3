@@ -160,7 +160,7 @@
 		"@toxictoast/azkaban-base-domain": "^0.0.2",
 		"@toxictoast/azkaban-base-helpers": "^0.0.13",
 		"@toxictoast/azkaban-base-types": "^0.0.1",
-		"@toxictoast/azkaban-broker-rabbitmq": "^0.0.40",
+		"@toxictoast/azkaban-broker-rabbitmq": "^0.0.41",
 		"@toxictoast/azkaban-sdk": "^0.0.16",
 		"@toxictoast/azkaban-twitch-bot": "^0.0.1",
 		"@toxictoast/azkaban-twitch-bot-events": "^0.0.1",
