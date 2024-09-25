@@ -130,7 +130,7 @@ export class ViewerController {
 			Logger.debug({ viewer }, 'Viewer found');
 			return viewer;
 		} catch (error) {
-			throw new RpcException(error);
+			return null;
 		}
 	}
 
@@ -138,11 +138,9 @@ export class ViewerController {
 		display_name: string,
 	): Promise<Nullable<ViewerDAO>> {
 		try {
-			Logger.debug(`Getting viewer with display_name: ${display_name}`);
-			const viewer = await this.service.getByDisplayName(display_name);
-			return viewer ?? null;
+			return await this.service.getByDisplayName(display_name);
 		} catch (error) {
-			throw new RpcException(error);
+			return null;
 		}
 	}
 
@@ -150,10 +148,9 @@ export class ViewerController {
 		display_name: string,
 	): Promise<ViewerDAO> {
 		try {
-			Logger.debug(`Creating viewer with display_name: ${display_name}`);
 			return await this.service.createViewer(display_name);
 		} catch (error) {
-			throw new RpcException(error);
+			return null;
 		}
 	}
 }
