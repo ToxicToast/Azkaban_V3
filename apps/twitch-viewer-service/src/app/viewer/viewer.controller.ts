@@ -122,8 +122,12 @@ export class ViewerController {
 		try {
 			const viewer = await this.getViewerByDisplayName(display_name);
 			if (viewer === null) {
-				return await this.createViewerByDisplayName(display_name);
+				const newViewer =
+					await this.createViewerByDisplayName(display_name);
+				Logger.debug({ newViewer }, 'Viewer created');
+				return newViewer;
 			}
+			Logger.debug({ viewer }, 'Viewer found');
 			return viewer;
 		} catch (error) {
 			throw new RpcException(error);
