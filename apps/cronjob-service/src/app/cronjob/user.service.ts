@@ -1,6 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
-import { UserTopics } from '@toxictoast/azkaban-broker-rabbitmq';
+import { ClientProxy } from '@nestjs/microservices';
+import {
+	UserTopics,
+	RmqRecordBuilderHelper,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { UserDAO } from '@azkaban/user-infrastructure';
 
@@ -11,7 +14,7 @@ export class UsersService {
 	) {}
 
 	private async getAllUsers(): Promise<Array<UserDAO>> {
-		const payload = new RmqRecordBuilder({}).build();
+		const payload = RmqRecordBuilderHelper({});
 		return await this.userClient.send(UserTopics.LIST, payload).toPromise();
 	}
 
@@ -31,7 +34,7 @@ export class UsersService {
 	async checkForInactiveUsers(): Promise<void> {
 		const users = await this.getUserWithLastLoginLonger2Weeks();
 		for (const user of users) {
-			const payload = new RmqRecordBuilder({ id: user.id }).build();
+			const payload = RmqRecordBuilderHelper({ id: user.id });
 			await this.userClient.send(UserTopics.DELETE, payload).toPromise();
 		}
 	}
