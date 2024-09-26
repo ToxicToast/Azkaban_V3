@@ -8,10 +8,13 @@ import {
 	foodfolio_product_variant,
 	foodfolio_shopping_list,
 	foodfolio_vhost,
+	twitch_vhost,
+	twitch_viewers,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ShoppingListService } from './shoppinglist.service';
 import { UsersService } from './user.service';
+import { ViewersService } from './viewer.service';
 
 const brokerDefaultSettings = {
 	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
@@ -57,8 +60,16 @@ const brokerDefaultSettings = {
 					...brokerDefaultSettings,
 				}),
 			},
+			{
+				name: 'VIEWER_SERVICE',
+				...clientProvider({
+					queueName: twitch_viewers,
+					brokerVHost: twitch_vhost,
+					...brokerDefaultSettings,
+				}),
+			},
 		]),
 	],
-	providers: [ShoppingListService, UsersService],
+	providers: [ShoppingListService, UsersService, ViewersService],
 })
 export class CronjobModule {}

@@ -112,6 +112,7 @@ export class ViewerService {
 				const viewerValue = viewer.value;
 				const aggregate = this.factory.reconstitute(viewerValue);
 				aggregate.updateLastSeenAt(lastseen_at);
+				aggregate.restore();
 				return await this.save(aggregate.toAnemic());
 			}
 			return Result.fail<ViewerAnemic>(GenericErrorCodes.NOT_FOUND);
@@ -130,6 +131,7 @@ export class ViewerService {
 				const viewerValue = viewer.value;
 				const aggregate = this.factory.reconstitute(viewerValue);
 				aggregate.updateJoins(joins);
+				aggregate.restore();
 				return await this.save(aggregate.toAnemic());
 			}
 			return Result.fail<ViewerAnemic>(GenericErrorCodes.NOT_FOUND);
@@ -148,6 +150,7 @@ export class ViewerService {
 				const viewerValue = viewer.value;
 				const aggregate = this.factory.reconstitute(viewerValue);
 				aggregate.updateParts(parts);
+				aggregate.restore();
 				return await this.save(aggregate.toAnemic());
 			}
 			return Result.fail<ViewerAnemic>(GenericErrorCodes.NOT_FOUND);
@@ -166,6 +169,7 @@ export class ViewerService {
 				const viewerValue = viewer.value;
 				const aggregate = this.factory.reconstitute(viewerValue);
 				aggregate.updateMessages(messages);
+				aggregate.restore();
 				return await this.save(aggregate.toAnemic());
 			}
 			return Result.fail<ViewerAnemic>(GenericErrorCodes.NOT_FOUND);
@@ -184,6 +188,7 @@ export class ViewerService {
 				const viewerValue = viewer.value;
 				const aggregate = this.factory.reconstitute(viewerValue);
 				aggregate.updateTimeouts(timeouts);
+				aggregate.restore();
 				return await this.save(aggregate.toAnemic());
 			}
 			return Result.fail<ViewerAnemic>(GenericErrorCodes.NOT_FOUND);
@@ -199,6 +204,7 @@ export class ViewerService {
 				const viewerValue = viewer.value;
 				const aggregate = this.factory.reconstitute(viewerValue);
 				aggregate.updateBans(bans);
+				aggregate.restore();
 				return await this.save(aggregate.toAnemic());
 			}
 			return Result.fail<ViewerAnemic>(GenericErrorCodes.NOT_FOUND);
@@ -217,6 +223,7 @@ export class ViewerService {
 				const viewerValue = viewer.value;
 				const aggregate = this.factory.reconstitute(viewerValue);
 				aggregate.updateMinutesWatched(minutes_watched);
+				aggregate.restore();
 				return await this.save(aggregate.toAnemic());
 			}
 			return Result.fail<ViewerAnemic>(GenericErrorCodes.NOT_FOUND);
