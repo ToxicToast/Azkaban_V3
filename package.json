@@ -1,6 +1,6 @@
 {
 	"name": "@azkaban/source",
-	"version": "0.13.44",
+	"version": "0.20.8",
 	"license": "MIT",
 	"scripts": {
 		"nx": "nx",
@@ -45,6 +45,7 @@
 		"docker:foodfolio:itemdetail": "nx docker-build foodfolio-item-detail-service --skip-nx-cache",
 		"docker:foodfolio:shoppinglist": "nx docker-build foodfolio-shoppinglist-service --skip-nx-cache",
 		"docker:twitch:bot": "nx docker-build twitch-bot-service --skip-nx-cache",
+		"docker:twitch:viewer": "nx docker-build twitch-viewer-service --skip-nx-cache",
 		"docker:push:gateway": "nx docker-push azkaban-gateway --skip-nx-cache --VERSION=local",
 		"docker:push:webhooks": "nx docker-push azkaban-webhooks --skip-nx-cache --VERSION=local",
 		"docker:push:webhooks:magpie": "nx docker-push apialerts-service --skip-nx-cache --VERSION=local",
@@ -63,6 +64,7 @@
 		"docker:push:foodfolio:itemdetail": "nx docker-push foodfolio-item-detail-service --skip-nx-cache",
 		"docker:push:foodfolio:shoppinglist": "nx docker-push foodfolio-shoppinglist-service --skip-nx-cache",
 		"docker:push:twitch:bot": "nx docker-push twitch-bot-service --skip-nx-cache",
+		"docker:push:twitch:viewer": "nx docker-push twitch-viewer-service --skip-nx-cache",
 		"affected:docker": "nx affected --target=docker",
 		"affected:docker:push": "nx affected --target=docker-push"
 	},
@@ -158,7 +160,7 @@
 		"@toxictoast/azkaban-base-domain": "^0.0.2",
 		"@toxictoast/azkaban-base-helpers": "^0.0.13",
 		"@toxictoast/azkaban-base-types": "^0.0.1",
-		"@toxictoast/azkaban-broker-rabbitmq": "^0.0.39",
+		"@toxictoast/azkaban-broker-rabbitmq": "^0.0.41",
 		"@toxictoast/azkaban-sdk": "^0.0.16",
 		"@toxictoast/azkaban-twitch-bot": "^0.0.1",
 		"@toxictoast/azkaban-twitch-bot-events": "^0.0.1",

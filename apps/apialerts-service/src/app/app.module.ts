@@ -5,6 +5,7 @@ import { AlertsModule } from './alerts.module';
 import { VersionModule } from './version/version.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthAlertsModule } from './auth-alerts/auth-alerts.module';
+import { TwitchAlertsModule } from './twitch-alerts/twitch-alerts.module';
 
 @Module({
 	imports: [
@@ -14,6 +15,7 @@ import { AuthAlertsModule } from './auth-alerts/auth-alerts.module';
 		VersionModule,
 		AlertsModule,
 		AuthAlertsModule,
+		TwitchAlertsModule,
 	],
 })
 export class AppModule {}

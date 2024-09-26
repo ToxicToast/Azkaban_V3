@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RmqRecordBuilder } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import {
 	ItemDAO,
 	ItemVariantDAO,
@@ -9,6 +9,7 @@ import {
 	FoodfolioProductTopics,
 	FoodfolioProductVariantTopics,
 	FoodfolioShoppinglistTopics,
+	RmqRecordBuilderHelper,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
@@ -24,7 +25,7 @@ export class ShoppingListService {
 	) {}
 
 	private async getAllItems(): Promise<Array<ItemDAO>> {
-		const payload = new RmqRecordBuilder({}).build();
+		const payload = RmqRecordBuilderHelper({});
 		return await this.itemClient
 			.send(FoodfolioProductTopics.LIST, payload)
 			.toPromise();
@@ -38,7 +39,7 @@ export class ShoppingListService {
 	}
 
 	private async getItemVariants(item_id): Promise<Array<ItemVariantDAO>> {
-		const payload = new RmqRecordBuilder({ item_id }).build();
+		const payload = RmqRecordBuilderHelper({ item_id });
 		const variants = await this.itemVariantClient
 			.send(FoodfolioProductVariantTopics.ITEMID, payload)
 			.toPromise();
@@ -52,13 +53,13 @@ export class ShoppingListService {
 		min_sku: number,
 		max_sku: number,
 	): Promise<ShoppingListDAO> {
-		const payload = new RmqRecordBuilder({
+		const payload = RmqRecordBuilderHelper({
 			item_id,
 			variant_id,
 			current_sku,
 			min_sku,
 			max_sku,
-		}).build();
+		});
 		return await this.shoppingListClient
 			.send(FoodfolioShoppinglistTopics.CREATE, payload)
 			.toPromise();

@@ -1,14 +1,21 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Bot } from '@toxictoast/azkaban-twitch-bot';
 import {
+	BanData,
 	Events,
 	JoinData,
+	MessageData,
 	PartData,
+	ResubData,
 	SubData,
+	TimeoutData,
 } from '@toxictoast/azkaban-twitch-bot-events';
 import { BotService } from './bot.service';
 import { ClientProxy } from '@nestjs/microservices';
-import { RmqRecordBuilderHelper } from '@toxictoast/azkaban-broker-rabbitmq';
+import {
+	RmqRecordBuilderHelper,
+	TwitchViewerTopics,
+} from '@toxictoast/azkaban-broker-rabbitmq';
 
 @Injectable()
 export class ViewerService {
@@ -16,10 +23,9 @@ export class ViewerService {
 	private readonly viewerEvents: Array<Events> = [
 		Events.JOIN,
 		Events.PART,
-		Events.SUB,
-		Events.RESUB,
 		Events.TIMEOUT,
 		Events.BAN,
+		Events.MESSAGE,
 	];
 
 	constructor(
@@ -34,9 +40,9 @@ export class ViewerService {
 			channel: data.channel,
 			username: data.username,
 		});
-		Logger.debug(
-			`ViewerService: eventViewerJoin: ${JSON.stringify(payload)}`,
-		);
+		await this.viewerClient
+			.emit(TwitchViewerTopics.JOIN, payload)
+			.toPromise();
 	}
 
 	private async eventViewerPart(data: PartData): Promise<void> {
@@ -44,20 +50,40 @@ export class ViewerService {
 			channel: data.channel,
 			username: data.username,
 		});
-		Logger.debug(
-			`ViewerService: eventViewerPart: ${JSON.stringify(payload)}`,
-		);
+		await this.viewerClient
+			.emit(TwitchViewerTopics.PART, payload)
+			.toPromise();
 	}
 
-	private async eventViewerSub(data: SubData): Promise<void> {
+	private async eventViewerTimeout(data: TimeoutData): Promise<void> {
 		const payload = RmqRecordBuilderHelper({
 			channel: data.channel,
 			username: data.username,
-			subInfo: data.subInfo,
+			duration: data.duration,
 		});
-		Logger.debug(
-			`ViewerService: eventViewerSub: ${JSON.stringify(payload)}`,
-		);
+		await this.viewerClient
+			.emit(TwitchViewerTopics.TIMEOUT, payload)
+			.toPromise();
+	}
+
+	private async eventViewerBan(data: BanData): Promise<void> {
+		const payload = RmqRecordBuilderHelper({
+			channel: data.channel,
+			username: data.username,
+		});
+		await this.viewerClient
+			.emit(TwitchViewerTopics.BAN, payload)
+			.toPromise();
+	}
+
+	private async eventViewerMessage(data: MessageData): Promise<void> {
+		const payload = RmqRecordBuilderHelper({
+			channel: data.channel,
+			username: data.username,
+		});
+		await this.viewerClient
+			.emit(TwitchViewerTopics.MESSAGE, payload)
+			.toPromise();
 	}
 
 	private onEventViewers(eventName: Events): void {
@@ -71,8 +97,14 @@ export class ViewerService {
 				if (eventName === Events.PART) {
 					await this.eventViewerPart(data as PartData);
 				}
-				if (eventName === Events.SUB) {
-					await this.eventViewerSub(data as SubData);
+				if (eventName === Events.TIMEOUT) {
+					await this.eventViewerTimeout(data as TimeoutData);
+				}
+				if (eventName === Events.BAN) {
+					await this.eventViewerBan(data as BanData);
+				}
+				if (eventName === Events.MESSAGE) {
+					await this.eventViewerMessage(data as MessageData);
 				}
 			},
 		});

@@ -11,7 +11,10 @@ export class GroupRepository implements DomainRepository {
 
 	constructor(private readonly repository: Repository<GroupEntity>) {}
 
-	async findList(limit?: number, offset?: number): Promise<GroupAnemic[]> {
+	async findList(
+		limit?: number,
+		offset?: number,
+	): Promise<Array<GroupAnemic>> {
 		const entities = await this.repository.find({
 			take: limit,
 			skip: offset,
