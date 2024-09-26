@@ -8,7 +8,13 @@ export class AuthAlertsController {
 	constructor(private readonly authAlerts: AuthAlertsService) {}
 
 	@EventPattern(NotifyTopics.APIALERTS)
-	onUserCreated(alert: { event: string; data: unknown }): void {
+	onApiAlertsEvent(alert: { event: string; data: unknown }): void {
+		this.onUserCreated(alert);
+		this.onUserLogin(alert);
+		this.onUserLoginAttempt(alert);
+	}
+
+	private onUserCreated(alert: { event: string; data: unknown }): void {
 		const { event, data } = alert;
 		if (event === AuthTopics.REGISTER) {
 			this.authAlerts.onUserCreated(data);
@@ -16,8 +22,7 @@ export class AuthAlertsController {
 		return null;
 	}
 
-	@EventPattern(NotifyTopics.APIALERTS)
-	onUserLogin(alert: { event: string; data: unknown }): void {
+	private onUserLogin(alert: { event: string; data: unknown }): void {
 		const { event, data } = alert;
 		if (event === AuthTopics.LOGIN) {
 			this.authAlerts.onUserLogin(data);
@@ -25,8 +30,7 @@ export class AuthAlertsController {
 		return null;
 	}
 
-	@EventPattern(NotifyTopics.APIALERTS)
-	onUserLoginAttempt(alert: { event: string; data: unknown }): void {
+	private onUserLoginAttempt(alert: { event: string; data: unknown }): void {
 		const { event, data } = alert;
 		if (event === AuthTopics.LOGIN_ATTEMPT) {
 			this.authAlerts.onUserLoginAttempt(data);
