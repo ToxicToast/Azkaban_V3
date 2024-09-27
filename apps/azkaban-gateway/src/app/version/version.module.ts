@@ -27,6 +27,7 @@ import { AzkabanVersionsService } from './azkaban-versions.service';
 import { TwitchBotServiceModule } from '../core/twitch-bot-service.module';
 import { TwitchVersionsService } from './twitch-versions.service';
 import { TwitchViewerServiceModule } from '../core/twitch-viewer-service.module';
+import { TwitchMessageServiceModule } from '../core/twitch-message-service.module';
 
 @Module({
 	imports: [
@@ -55,6 +56,7 @@ import { TwitchViewerServiceModule } from '../core/twitch-viewer-service.module'
 		// Twitch Services
 		TwitchBotServiceModule,
 		TwitchViewerServiceModule,
+		TwitchMessageServiceModule,
 	],
 	controllers: [VersionController],
 	providers: [
