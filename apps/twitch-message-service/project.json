@@ -1,0 +1,26 @@
+{
+	"name": "twitch-message-service",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/twitch-message-service/src",
+	"projectType": "application",
+	"tags": [],
+	"targets": {
+		"serve": {
+			"executor": "@nx/js:node",
+			"defaultConfiguration": "development",
+			"dependsOn": ["build"],
+			"options": {
+				"buildTarget": "twitch-message-service:build",
+				"runBuildTargetDependencies": false
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "twitch-message-service:build:development"
+				},
+				"production": {
+					"buildTarget": "twitch-message-service:build:production"
+				}
+			}
+		}
+	}
+}
