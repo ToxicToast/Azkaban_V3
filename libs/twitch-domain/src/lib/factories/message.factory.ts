@@ -2,7 +2,7 @@ import { Factory } from '@toxictoast/azkaban-base-domain';
 import { MessageAnemic } from '../anemics';
 import { MessageAggregate } from '../aggregates';
 import { MessageData } from '../data';
-import { MessageId } from '@azkaban/twitch-domain';
+import { MessageId } from '../valueObjects';
 
 export class MessageFactory
 	implements Factory<MessageAnemic, MessageAggregate, MessageData>
