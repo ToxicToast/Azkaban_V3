@@ -21,7 +21,7 @@ export class MessageEntity {
 	@Column({ type: 'text' })
 	message: string;
 
-	@Column({ type: 'string', default: '#000000' })
+	@Column({ type: 'varchar', default: '#000000' })
 	color: string;
 
 	@Column({ type: 'boolean', default: true })
