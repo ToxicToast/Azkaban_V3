@@ -72,7 +72,7 @@ export class MessageService {
 
 	async createMessage(data: MessageData): Promise<Result<MessageAnemic>> {
 		try {
-			const check = await this.getMessageById(data.messageId);
+			const check = await this.getMessageById(data.message_id);
 			if (check.isSuccess) {
 				return Result.fail<MessageAnemic>(GenericErrorCodes.UNKNOWN);
 			}

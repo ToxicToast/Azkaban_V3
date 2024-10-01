@@ -9,7 +9,7 @@ export class MessageMapper implements Mapper<MessageDAO, MessageEntity> {
 	toEntity(data: MessageDAO): MessageEntity {
 		const {
 			id,
-			messageId,
+			message_id,
 			display_name,
 			message,
 			color,
@@ -31,7 +31,7 @@ export class MessageMapper implements Mapper<MessageDAO, MessageEntity> {
 		} = data;
 		const entity = new MessageEntity();
 		entity.id = id;
-		entity.message_id = messageId;
+		entity.message_id = message_id;
 		entity.display_name = display_name;
 		entity.message = message;
 		entity.color = color;
@@ -78,7 +78,7 @@ export class MessageMapper implements Mapper<MessageDAO, MessageEntity> {
 		} = data;
 		const aggregate = this.domainFactory.reconstitute({
 			id,
-			messageId: message_id,
+			message_id,
 			display_name,
 			message,
 			color,
@@ -93,7 +93,6 @@ export class MessageMapper implements Mapper<MessageDAO, MessageEntity> {
 			isMod: mod,
 			isSubscriber: subscriber,
 			isArtist: artist,
-			isFirst: founder,
 			isFounder: founder,
 			created_at,
 			updated_at,
