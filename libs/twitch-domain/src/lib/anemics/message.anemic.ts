@@ -1,7 +1,7 @@
 import { Anemic } from '@toxictoast/azkaban-base-domain';
 
 export interface MessageAnemic extends Anemic {
-	readonly messageId: string;
+	readonly message_id: string;
 	readonly display_name: string;
 	readonly message: string;
 	readonly color: string;

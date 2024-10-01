@@ -10,7 +10,7 @@ export class MessageFactory
 	reconstitute(data: MessageAnemic): MessageAggregate {
 		const {
 			id,
-			messageId,
+			message_id,
 			display_name,
 			message,
 			color,
@@ -32,7 +32,7 @@ export class MessageFactory
 		} = data;
 		return new MessageAggregate(
 			id,
-			messageId,
+			message_id,
 			display_name,
 			message,
 			color,
@@ -57,7 +57,7 @@ export class MessageFactory
 	constitute(data: MessageAggregate): MessageAnemic {
 		const {
 			id,
-			messageId,
+			message_id,
 			display_name,
 			message,
 			color,
@@ -81,7 +81,7 @@ export class MessageFactory
 		} = data.toAnemic();
 		return {
 			id,
-			messageId,
+			message_id,
 			display_name,
 			message,
 			color,
@@ -107,7 +107,7 @@ export class MessageFactory
 
 	createDomain(data: MessageData): MessageAggregate {
 		const {
-			messageId,
+			message_id,
 			display_name,
 			message,
 			color,
@@ -127,7 +127,7 @@ export class MessageFactory
 		const msgId = new MessageId();
 		return new MessageAggregate(
 			msgId.value,
-			messageId,
+			message_id,
 			display_name,
 			message,
 			color,

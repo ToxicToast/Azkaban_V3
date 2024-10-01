@@ -34,7 +34,7 @@ export class MessageService {
 			username: data.username,
 			message: data.message,
 			args: {
-				messageId: data.args.id,
+				message_id: data.args.id,
 				channelId: data.args.channelId,
 				isFirst: data.args.isFirst,
 				isReply: data.args.isReply,
@@ -63,7 +63,7 @@ export class MessageService {
 
 	private async eventMessageRemove(data: MessageRemoveData): Promise<void> {
 		const payload = RmqRecordBuilderHelper({
-			messageId: data.messageId,
+			message_id: data.message_id,
 		});
 		await this.messagesClient
 			.emit(TwitchMessageTopics.DELETE, payload)

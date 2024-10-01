@@ -1,7 +1,8 @@
 export interface CreateMessageDTO {
-	messageId: string;
+	message_id: string;
 	display_name: string;
 	color: string;
+	message: string;
 	isFirst: boolean;
 	isReply: boolean;
 	isRedemption: boolean;

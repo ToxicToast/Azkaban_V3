@@ -58,6 +58,18 @@ export class MessageService {
 		}
 	}
 
+	async getMessageByDisplayName(
+		display_name: string,
+	): Promise<Result<Array<MessageAnemic>>> {
+		try {
+			const result =
+				await this.repository.findByDisplayName(display_name);
+			return Result.ok<Array<MessageAnemic>>(result);
+		} catch (error) {
+			return Result.fail<Array<MessageAnemic>>(error);
+		}
+	}
+
 	async createMessage(data: MessageData): Promise<Result<MessageAnemic>> {
 		try {
 			const check = await this.getMessageById(data.messageId);

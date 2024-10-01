@@ -5,7 +5,7 @@ import { Nullable } from '@toxictoast/azkaban-base-types';
 export class MessageAggregate implements Domain<MessageAnemic> {
 	constructor(
 		private readonly id: string,
-		private readonly messageId: string,
+		private readonly message_id: string,
 		private readonly display_name: string,
 		private readonly message: string,
 		private readonly color: string,
@@ -45,7 +45,7 @@ export class MessageAggregate implements Domain<MessageAnemic> {
 	toAnemic(): MessageAnemic {
 		return {
 			id: this.id,
-			messageId: this.messageId,
+			message_id: this.message_id,
 			display_name: this.display_name,
 			message: this.message,
 			color: this.color,

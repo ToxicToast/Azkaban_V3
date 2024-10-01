@@ -1,5 +1,5 @@
 export interface MessageData {
-	readonly messageId: string;
+	readonly message_id: string;
 	readonly display_name: string;
 	readonly message: string;
 	readonly color: string;
