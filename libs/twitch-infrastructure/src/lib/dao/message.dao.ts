@@ -2,7 +2,7 @@ import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export interface MessageDAO {
 	id: string;
-	messageId: string;
+	message_id: string;
 	display_name: string;
 	message: string;
 	color: string;
