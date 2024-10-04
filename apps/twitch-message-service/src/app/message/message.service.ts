@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import {
 	CreateMessageDTO,
 	MessageDAO,
@@ -40,6 +40,7 @@ export class MessageService {
 	}
 
 	async createMessage(data: CreateMessageDTO): Promise<MessageDAO> {
+		Logger.debug({ data }, 'createMessage');
 		return await this.infrastructureService.createMessage(data);
 	}
 
