@@ -30,41 +30,51 @@ export class MessageController {
 
 	@MessagePattern(TwitchMessageTopics.CREATE)
 	async createMessage(
-		@Payload('message_id') message_id: string,
-		@Payload('display_name') display_name: string,
-		@Payload('color') color: string,
+		@Payload('username') username: string,
 		@Payload('message') message: string,
-		@Payload('isFirst') isFirst: boolean,
-		@Payload('isReply') isReply: boolean,
-		@Payload('isRedemption') isRedemption: boolean,
-		@Payload('isCheer') isCheer: boolean,
-		@Payload('isHighlight') isHighlight: boolean,
-		@Payload('isReturningChatter') isReturningChatter: boolean,
-		@Payload('isBroadcaster') isBroadcaster: boolean,
-		@Payload('isVip') isVip: boolean,
-		@Payload('isMod') isMod: boolean,
-		@Payload('isSubscriber') isSubscriber: boolean,
-		@Payload('isArtist') isArtist: boolean,
-		@Payload('isFounder') isFounder: boolean,
+		@Payload('args')
+		args: {
+			message_id: string;
+			channelId: string;
+			isFirst: boolean;
+			isReply: boolean;
+			isRedemption: boolean;
+			isCheer: boolean;
+			isHighlight: boolean;
+			isReturningChatter: boolean;
+		},
+		@Payload('userInfo')
+		userInfo: {
+			userId: string;
+			color: string;
+			isBroadcaster: boolean;
+			isVip: boolean;
+			isMod: boolean;
+			isSubscriber: boolean;
+			isArtist: boolean;
+			isFounder: boolean;
+			userName: string;
+			userType: string;
+		},
 	) {
 		try {
 			const data = {
-				message_id,
-				display_name,
-				color,
+				message_id: args.message_id,
+				display_name: username,
+				color: userInfo.color,
 				message,
-				isFirst,
-				isReply,
-				isRedemption,
-				isCheer,
-				isHighlight,
-				isReturningChatter,
-				isBroadcaster,
-				isVip,
-				isMod,
-				isSubscriber,
-				isArtist,
-				isFounder,
+				isFirst: args.isFirst,
+				isReply: args.isReply,
+				isRedemption: args.isRedemption,
+				isCheer: args.isCheer,
+				isHighlight: args.isHighlight,
+				isReturningChatter: args.isReturningChatter,
+				isBroadcaster: userInfo.isBroadcaster,
+				isVip: userInfo.isVip,
+				isMod: userInfo.isMod,
+				isSubscriber: userInfo.isSubscriber,
+				isArtist: userInfo.isArtist,
+				isFounder: userInfo.isFounder,
 			};
 			return await this.service.createMessage(data);
 		} catch (error) {
