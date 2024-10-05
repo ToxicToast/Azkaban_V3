@@ -47,7 +47,7 @@ jobs:
 
             - name: 🪐 Patch version for each merge
               id: taggerDryRun
-              uses: anothrNick/github-tag-action@1.70.0
+              uses: anothrNick/github-tag-action@1.71.0
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   WITH_V: true
