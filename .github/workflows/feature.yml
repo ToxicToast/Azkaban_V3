@@ -30,7 +30,7 @@ jobs:
             WITH_V: true
             DEFAULT_BUMP: patch
             PRE_RELEASE: true
-            dry_run: true
+            DRY_RUN: true
 
         - uses: nrwl/nx-set-shas@v4
 
@@ -73,6 +73,12 @@ jobs:
             node-version: 21
             cache: 'npm'
 
+        - name: 📦 Install NX-Linux
+          run: npm install @nx/nx-linux-x64-gnu@latest
+
+        - name: 📦 Install dependencies
+          run: npm install
+
         - name: 🚀 Check Format
           run: npx nx format:check
 
@@ -97,6 +103,12 @@ jobs:
                   node-version: 21
                   cache: 'npm'
 
+            - name: 📦 Install NX-Linux
+              run: npm install @nx/nx-linux-x64-gnu@latest
+
+            - name: 📦 Install dependencies
+              run: npm install
+
             - name: 🚀 Test Apps
               run: npx nx affected:test --passWithNoTests --parallel --maxParallel=3 --base=${{ needs.prepare.outputs.branch }}~1 --head=${{ needs.prepare.outputs.branch }}
 
@@ -120,6 +132,12 @@ jobs:
                   node-version: 21
                   cache: 'npm'
 
+            - name: 📦 Install NX-Linux
+              run: npm install @nx/nx-linux-x64-gnu@latest
+
+            - name: 📦 Install dependencies
+              run: npm install
+
             - name: 🚀 Build Apps
               run: npx nx affected:build --parallel --maxParallel=3 --base=${{ needs.prepare.outputs.branch }}~1 --head=${{ needs.prepare.outputs.branch }}
 
@@ -139,6 +157,12 @@ jobs:
               with:
                   node-version: 21
                   cache: 'npm'
+
+            - name: 📦 Install NX-Linux
+              run: npm install @nx/nx-linux-x64-gnu@latest
+
+            - name: 📦 Install dependencies
+              run: npm install
 
             - name: 🏗 Build Docker Images
               run: npx nx affected -t docker-build --base=${{ needs.prepare.outputs.branch }}~1 --head=${{ needs.prepare.outputs.branch }} --parallel --maxParallel=3 --VERSION=${{ needs.prepare.outputs.version }}
