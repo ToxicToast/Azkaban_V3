@@ -12,7 +12,7 @@ export class WarcraftService {
 	constructor(
 		@Inject('CHARACTER_SERVICE')
 		private readonly characterClient: ClientProxy,
-		@Inject('API_SERVICE')
+		@Inject('WARCRAFT_API_SERVICE')
 		private readonly apiClient: ClientProxy,
 	) {}
 
@@ -26,11 +26,11 @@ export class WarcraftService {
 
 	// TODO: Add Warcraft API DAO
 	private async checkWarcraftApi(
-		server: string,
+		realm: string,
 		name: string,
 	): Promise<unknown> {
 		const payload = RmqRecordBuilderHelper({
-			server,
+			realm,
 			name,
 		});
 		return await this.apiClient
