@@ -11,6 +11,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { FoodfolioModule } from './foodfolio/foodfolio.module';
 import { MobileModule } from './mobile/mobile.module';
 import { CachingModule } from './core/caching.module';
+import { TwitchModule } from './twitch/twitch.module';
+import { WarcraftModule } from './warcraft/warcraft.module';
 
 @Module({
 	imports: [
@@ -42,6 +44,8 @@ import { CachingModule } from './core/caching.module';
 		GroupsModule,
 		FoodfolioModule,
 		MobileModule,
+		TwitchModule,
+		WarcraftModule,
 	],
 })
 export class AppModule {}
