@@ -26,10 +26,12 @@ export class WarcraftService {
 
 	// TODO: Add Warcraft API DAO
 	private async checkWarcraftApi(
+		region: string,
 		realm: string,
 		name: string,
 	): Promise<unknown> {
 		const payload = RmqRecordBuilderHelper({
+			region,
 			realm,
 			name,
 		});
