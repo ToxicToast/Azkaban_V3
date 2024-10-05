@@ -37,16 +37,16 @@ jobs:
               run: npm install
 
             - name: 🚀 Lint Apps
-              run: npx nx affected:lint --parallel --maxParallel=3
+              run: npx nx affected:lint --parallel --maxParallel=3 --base=main~1 --head=main
 
             - name: 🚀 Test Apps
-              run: npx nx affected:test --passWithNoTests --parallel --maxParallel=3
+              run: npx nx affected:test --passWithNoTests --parallel --maxParallel=3 --base=main~1 --head=main
 
             - name: 🚀 e2e Apps
-              run: npx nx affected:e2e --parallel --maxParallel=3
+              run: npx nx affected:e2e --parallel --maxParallel=3 --base=main~1 --head=main
 
             - name: 🚀 Build Apps
-              run: npx nx affected:build --parallel --maxParallel=3
+              run: npx nx affected:build --parallel --maxParallel=3 --base=main~1 --head=main
 
             - name: 🪐 Minor version for each merge
               id: taggerDryRun
@@ -62,10 +62,10 @@ jobs:
                   echo "${{ steps.taggerDryRun.outputs.new_tag }}"
 
             - name: 🏗 Build Docker Images
-              run: npx nx affected -t docker-build --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npx nx affected -t docker-build --base=main~1 --head=main --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: 🏗 Push Docker Images
-              run: npx nx affected -t docker-push --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npx nx affected -t docker-push --base=main~1 --head=main --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: API Alerts Notify
               uses: apialerts/notify-action@v1
