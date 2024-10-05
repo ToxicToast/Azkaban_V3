@@ -1,0 +1,53 @@
+{
+	"name": "warcraft-character-service",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/warcraft-character-service/src",
+	"projectType": "application",
+	"tags": ["scope:application"],
+	"targets": {
+		"build": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"target": "node",
+				"compiler": "tsc",
+				"outputPath": "dist/apps/warcraft-character-service",
+				"main": "apps/warcraft-character-service/src/main.ts",
+				"tsConfig": "apps/warcraft-character-service/tsconfig.app.json",
+				"assets": ["apps/warcraft-character-service/src/assets"],
+				"webpackConfig": "apps/warcraft-character-service/webpack.config.js",
+				"generatePackageJson": true
+			}
+		},
+		"serve": {
+			"executor": "@nx/js:node",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "warcraft-character-service:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "warcraft-character-service:build:development"
+				},
+				"production": {
+					"buildTarget": "warcraft-character-service:build:production"
+				}
+			}
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/warcraft-character-service/jest.config.ts"
+			}
+		},
+		"docker-build": {
+			"dependsOn": ["build"],
+			"command": "docker build -f apps/warcraft-character-service/Dockerfile . -t azkaban2015/warcraft-character:{args.VERSION}"
+		},
+		"docker-push": {
+			"command": "docker push azkaban2015/warcraft-character:{args.VERSION}"
+		}
+	}
+}
