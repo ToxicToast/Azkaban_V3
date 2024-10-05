@@ -173,15 +173,14 @@ jobs:
         runs-on: ubuntu-latest
         name: 'Notify'
         steps:
-
             - name: 🪐 Patch version for each merge
               id: taggerDryRun
               uses: anothrNick/github-tag-action@1.70.0
               env:
-                GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-                WITH_V: true
-                DEFAULT_BUMP: patch
-                PRE_RELEASE: true
+                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                  WITH_V: true
+                  DEFAULT_BUMP: patch
+                  PRE_RELEASE: true
 
             - name: API Alerts Notify
               uses: apialerts/notify-action@v1
