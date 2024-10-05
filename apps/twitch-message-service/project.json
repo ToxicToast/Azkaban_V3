@@ -1,0 +1,53 @@
+{
+	"name": "twitch-message-service",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/twitch-message-service/src",
+	"projectType": "application",
+	"tags": ["scope:application"],
+	"targets": {
+		"build": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"target": "node",
+				"compiler": "tsc",
+				"outputPath": "dist/apps/twitch-message-service",
+				"main": "apps/twitch-message-service/src/main.ts",
+				"tsConfig": "apps/twitch-message-service/tsconfig.app.json",
+				"assets": ["apps/twitch-message-service/src/assets"],
+				"webpackConfig": "apps/twitch-message-service/webpack.config.js",
+				"generatePackageJson": true
+			}
+		},
+		"serve": {
+			"executor": "@nx/js:node",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "twitch-message-service:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "twitch-message-service:build:development"
+				},
+				"production": {
+					"buildTarget": "twitch-message-service:build:production"
+				}
+			}
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/twitch-message-service/jest.config.ts"
+			}
+		},
+		"docker-build": {
+			"dependsOn": ["build"],
+			"command": "docker build -f apps/twitch-message-service/Dockerfile . -t azkaban2015/twitch-message:{args.VERSION}"
+		},
+		"docker-push": {
+			"command": "docker push azkaban2015/twitch-message:{args.VERSION}"
+		}
+	}
+}

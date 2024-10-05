@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Bot } from '@toxictoast/azkaban-twitch-bot';
 import {
 	BanData,
@@ -6,8 +6,6 @@ import {
 	JoinData,
 	MessageData,
 	PartData,
-	ResubData,
-	SubData,
 	TimeoutData,
 } from '@toxictoast/azkaban-twitch-bot-events';
 import { BotService } from './bot.service';
