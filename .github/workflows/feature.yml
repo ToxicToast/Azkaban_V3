@@ -4,9 +4,6 @@ on:
     push:
         branches: [feature/**/*, feature/*]
 
-env:
-    NX_BRANCH: ${GITHUB_REF##*/}
-
 jobs:
     Feature:
         runs-on: ubuntu-latest
@@ -17,6 +14,11 @@ jobs:
                   fetch-depth: 0
 
             - uses: nrwl/nx-set-shas@v4
+
+            - name: Extract branch name
+              shell: bash
+              run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+              id: extract_branch
 
             - name: 📦 Setup Node.js
               uses: actions/setup-node@v4
@@ -34,16 +36,16 @@ jobs:
               run: npx nx format:check
 
             - name: 🚀 Lint Apps
-              run: npx nx affected:lint --parallel --maxParallel=3 --base=${{ env.NX_BRANCH }}
+              run: npx nx affected:lint --parallel --maxParallel=3 --base=${{ steps.extract_branch.outputs.branch }}
 
             - name: 🚀 Test Apps
-              run: npx nx affected:test --passWithNoTests --parallel --maxParallel=3 --base=${{ env.NX_BRANCH }}
+              run: npx nx affected:test --passWithNoTests --parallel --maxParallel=3 --base=${{ steps.extract_branch.outputs.branch }}
 
             - name: 🚀 e2e Apps
-              run: npx nx affected:e2e --passWithNoTests --parallel --maxParallel=3 --base=${{ env.NX_BRANCH }}
+              run: npx nx affected:e2e --passWithNoTests --parallel --maxParallel=3 --base=${{ steps.extract_branch.outputs.branch }}
 
             - name: 🚀 Build Apps
-              run: npx nx affected:build --parallel --maxParallel=3 --base=${{ env.NX_BRANCH }}
+              run: npx nx affected:build --parallel --maxParallel=3 --base=${{ steps.extract_branch.outputs.branch }}
 
             - name: 🪐 Patch version for each merge
               id: taggerDryRun
@@ -65,10 +67,10 @@ jobs:
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
 
             - name: 🏗 Build Docker Images
-              run: npx nx affected -t docker-build --base=${{ env.NX_BRANCH }} --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npx nx affected -t docker-build --base=${{ steps.extract_branch.outputs.branch }} --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: 🏗 Push Docker Images
-              run: npx nx affected -t docker-push --base=${{ env.NX_BRANCH }} --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npx nx affected -t docker-push --base=${{ steps.extract_branch.outputs.branch }} --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: API Alerts Notify
               uses: apialerts/notify-action@v1
