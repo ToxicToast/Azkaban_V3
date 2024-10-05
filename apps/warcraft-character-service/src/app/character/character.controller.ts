@@ -31,11 +31,12 @@ export class CharacterController {
 
 	@MessagePattern(WarcraftCharacterTopics.CREATE)
 	async createCharacter(
+		@Payload('region') region: string,
 		@Payload('realm') realm: string,
 		@Payload('name') name: string,
 	) {
 		try {
-			return await this.service.createCharacter(realm, name);
+			return await this.service.createCharacter(region, realm, name);
 		} catch (error) {
 			throw new RpcException(error);
 		}

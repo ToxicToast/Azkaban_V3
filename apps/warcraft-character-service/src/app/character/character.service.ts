@@ -14,7 +14,11 @@ export class CharacterService {
 	}
 
 	// TODO: Add Character DAO & Implementation
-	async createCharacter(realm: string, name: string): Promise<unknown> {
+	async createCharacter(
+		region: string,
+		realm: string,
+		name: string,
+	): Promise<unknown> {
 		return {};
 	}
 
