@@ -34,16 +34,16 @@ jobs:
               run: npx nx format:check
 
             - name: 🚀 Lint Apps
-              run: npx nx affected:lint --parallel --maxParallel=3 --base=${{NX_BRANCH}}
+              run: npx nx affected:lint --parallel --maxParallel=3 --base=${{ env.NX_BRANCH }}
 
             - name: 🚀 Test Apps
-              run: npx nx affected:test --passWithNoTests --parallel --maxParallel=3 --base=${{NX_BRANCH}}
+              run: npx nx affected:test --passWithNoTests --parallel --maxParallel=3 --base=${{ env.NX_BRANCH }}
 
             - name: 🚀 e2e Apps
-              run: npx nx affected:e2e --passWithNoTests --parallel --maxParallel=3 --base=${{NX_BRANCH}}
+              run: npx nx affected:e2e --passWithNoTests --parallel --maxParallel=3 --base=${{ env.NX_BRANCH }}
 
             - name: 🚀 Build Apps
-              run: npx nx affected:build --parallel --maxParallel=3 --base=${{NX_BRANCH}}
+              run: npx nx affected:build --parallel --maxParallel=3 --base=${{ env.NX_BRANCH }}
 
             - name: 🪐 Patch version for each merge
               id: taggerDryRun
@@ -65,10 +65,10 @@ jobs:
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
 
             - name: 🏗 Build Docker Images
-              run: npx nx affected -t docker-build --base=${{NX_BRANCH}} --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npx nx affected -t docker-build --base=${{ env.NX_BRANCH }} --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: 🏗 Push Docker Images
-              run: npx nx affected -t docker-push --base=${{NX_BRANCH}} --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
+              run: npx nx affected -t docker-push --base=${{ env.NX_BRANCH }} --parallel --maxParallel=3 --VERSION=${{ steps.taggerDryRun.outputs.new_tag }}
 
             - name: API Alerts Notify
               uses: apialerts/notify-action@v1
