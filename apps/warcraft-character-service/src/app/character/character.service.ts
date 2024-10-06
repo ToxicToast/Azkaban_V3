@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Optional } from '@toxictoast/azkaban-base-types';
+import {
+	WarcraftClassesHelper,
+	WarcraftRacesHelper,
+	WarcraftSpecsHelper,
+} from '@toxictoast/azkaban-base-helpers';
 
 @Injectable()
 export class CharacterService {
@@ -12,15 +17,15 @@ export class CharacterService {
 	}
 
 	private toRaceString(raceId: number): string {
-		return 'RACE_' + raceId;
+		return WarcraftRacesHelper(raceId);
 	}
 
 	private toClassString(classId: number): string {
-		return 'CLASS_' + classId;
+		return WarcraftClassesHelper(classId);
 	}
 
 	private toSpecString(specId: number): string {
-		return 'SPEC_' + specId;
+		return WarcraftSpecsHelper(specId);
 	}
 
 	// TODO: Add Character DAO & Implementation
