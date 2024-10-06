@@ -3,6 +3,26 @@ import { Optional } from '@toxictoast/azkaban-base-types';
 
 @Injectable()
 export class CharacterService {
+	private toGenderString(gender: string): string {
+		return gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase();
+	}
+
+	private toFactionString(faction: string): string {
+		return faction.charAt(0).toUpperCase() + faction.slice(1).toLowerCase();
+	}
+
+	private toRaceString(raceId: number): string {
+		return 'RACE_' + raceId;
+	}
+
+	private toClassString(classId: number): string {
+		return 'CLASS_' + classId;
+	}
+
+	private toSpecString(specId: number): string {
+		return 'SPEC_' + specId;
+	}
+
 	// TODO: Add Character DAO & Implementation
 	async getList(limit: number, offset: number): Promise<Array<unknown>> {
 		return [];
@@ -33,21 +53,25 @@ export class CharacterService {
 		guild?: Optional<string>,
 		level?: Optional<number>,
 		item_level?: Optional<number>,
-		active_title?: Optional<number>,
 	): Promise<unknown> {
 		if (gender !== undefined) {
+			const realGender = this.toGenderString(gender);
 			// TODO: Update Character Gender
 		}
 		if (faction !== undefined) {
+			const realFaction = this.toFactionString(faction);
 			// TODO: Update Character Faction
 		}
 		if (race !== undefined) {
+			const realRace = this.toRaceString(race);
 			// TODO: Update Character Race
 		}
 		if (character_class !== undefined) {
+			const realClass = this.toClassString(character_class);
 			// TODO: Update Character Class
 		}
 		if (active_spec !== undefined) {
+			const realSpec = this.toSpecString(active_spec);
 			// TODO: Update Character Spec
 		}
 		if (guild !== undefined) {
@@ -58,9 +82,6 @@ export class CharacterService {
 		}
 		if (item_level !== undefined) {
 			// TODO: Update Character Item Level
-		}
-		if (active_title !== undefined) {
-			// TODO: Update Character Title
 		}
 		return {};
 	}
