@@ -53,6 +53,7 @@ export class CharacterController {
 		@Payload('guild') guild?: Optional<string>,
 		@Payload('level') level?: Optional<number>,
 		@Payload('item_level') item_level?: Optional<number>,
+		@Payload('active_title') active_title?: Optional<number>,
 	) {
 		try {
 			return await this.service.updateCharacter(
@@ -65,6 +66,7 @@ export class CharacterController {
 				guild,
 				level,
 				item_level,
+				active_title,
 			);
 		} catch (error) {
 			throw new RpcException(error);
