@@ -13,4 +13,5 @@ export interface CharacterAnemic extends Anemic {
 	readonly level: number;
 	readonly item_level: number;
 	readonly activated_at: Nullable<Date>;
+	readonly isActive: boolean;
 }

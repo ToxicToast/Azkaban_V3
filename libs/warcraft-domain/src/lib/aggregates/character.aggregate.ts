@@ -21,6 +21,10 @@ export class CharacterAggregate implements Domain<CharacterAnemic> {
 		private deleted_at: Nullable<Date>,
 	) {}
 
+	isActive(): boolean {
+		return !!this.activated_at;
+	}
+
 	isUpdated(): boolean {
 		return !!this.updated_at;
 	}
@@ -54,6 +58,7 @@ export class CharacterAggregate implements Domain<CharacterAnemic> {
 			created_at: this.created_at,
 			updated_at: this.updated_at,
 			deleted_at: this.deleted_at,
+			isActive: this.isActive(),
 			isUpdated: this.isUpdated(),
 			isDeleted: this.isDeleted(),
 		};

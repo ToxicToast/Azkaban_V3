@@ -63,6 +63,7 @@ export class CharacterFactory
 			deleted_at,
 			isUpdated,
 			isDeleted,
+			isActive,
 		} = data.toAnemic();
 		return {
 			id,
@@ -80,6 +81,7 @@ export class CharacterFactory
 			created_at,
 			updated_at,
 			deleted_at,
+			isActive,
 			isUpdated,
 			isDeleted,
 		};
