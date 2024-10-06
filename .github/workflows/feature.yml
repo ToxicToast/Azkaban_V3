@@ -173,6 +173,10 @@ jobs:
         runs-on: ubuntu-latest
         name: 'Notify'
         steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
             - name: 🪐 Patch version for each merge
               id: taggerDryRun
               uses: anothrNick/github-tag-action@1.70.0
