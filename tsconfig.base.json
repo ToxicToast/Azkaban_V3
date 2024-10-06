@@ -41,7 +41,10 @@
 			"@azkaban/user-infrastructure": [
 				"libs/user-infrastructure/src/index.ts"
 			],
-			"@azkaban/warcraft-domain": ["libs/warcraft-domain/src/index.ts"]
+			"@azkaban/warcraft-domain": ["libs/warcraft-domain/src/index.ts"],
+			"@azkaban/warcraft-infrastructure": [
+				"libs/warcraft-infrastructure/src/index.ts"
+			]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
