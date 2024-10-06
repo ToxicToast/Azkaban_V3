@@ -31,26 +31,6 @@ jobs:
                   PRE_RELEASE: true
                   DRY_RUN: true
 
-            - uses: nrwl/nx-set-shas@v4
-
-            - name: 📦 Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 21
-                  cache: 'npm'
-
-            - name: 📦 Login into Docker
-              uses: docker/login-action@v3
-              with:
-                  username: ${{ secrets.DOCKERHUB_USERNAME }}
-                  password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-            - name: 📦 Install NX-Linux
-              run: npm install @nx/nx-linux-x64-gnu@latest
-
-            - name: 📦 Install dependencies
-              run: npm install
-
             - name: 🪐 Output Tag
               run: |
                   echo "${{ steps.taggerDryRun.outputs.new_tag }}"
@@ -149,6 +129,12 @@ jobs:
                   fetch-depth: 0
 
             - uses: nrwl/nx-set-shas@v4
+
+            - name: 📦 Login into Docker
+              uses: docker/login-action@v3
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
 
             - name: 📦 Setup Node.js
               uses: actions/setup-node@v4

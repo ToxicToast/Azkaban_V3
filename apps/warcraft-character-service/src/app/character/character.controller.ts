@@ -64,6 +64,7 @@ export class CharacterController {
 				active_spec,
 				guild,
 				level,
+				item_level,
 			);
 		} catch (error) {
 			throw new RpcException(error);

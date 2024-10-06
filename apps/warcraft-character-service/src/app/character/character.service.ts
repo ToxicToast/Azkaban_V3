@@ -32,6 +32,7 @@ export class CharacterService {
 		active_spec?: Optional<number>,
 		guild?: Optional<string>,
 		level?: Optional<number>,
+		item_level?: Optional<number>,
 	): Promise<unknown> {
 		if (gender !== undefined) {
 			// TODO: Update Character Gender
@@ -53,6 +54,9 @@ export class CharacterService {
 		}
 		if (level !== undefined) {
 			// TODO: Update Character Level
+		}
+		if (item_level !== undefined) {
+			// TODO: Update Character Item Level
 		}
 		return {};
 	}
