@@ -1,1 +1,1 @@
-export * from './lib/warcraft-domain';
+export * from './lib';
