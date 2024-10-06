@@ -7,7 +7,7 @@ on:
 jobs:
     prepare:
         runs-on: ubuntu-latest
-        name: 'Prepare PR and install Dependencies'
+        name: 'Prepare Feature'
         outputs:
             branch: ${{ steps.extract_branch.outputs.branch }}
             version: ${{ steps.taggerDryRun.outputs.new_tag }}
