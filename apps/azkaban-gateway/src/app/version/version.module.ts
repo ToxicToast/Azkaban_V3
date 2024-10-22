@@ -28,9 +28,11 @@ import { TwitchBotServiceModule } from '../core/twitch-bot-service.module';
 import { TwitchVersionsService } from './twitch-versions.service';
 import { TwitchViewerServiceModule } from '../core/twitch-viewer-service.module';
 import { TwitchMessageServiceModule } from '../core/twitch-message-service.module';
+import { CachingModule } from '../core/caching.module';
 
 @Module({
 	imports: [
+		CachingModule,
 		// Azkaban Services
 		UserServiceModule,
 		AuthServiceModule,
