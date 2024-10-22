@@ -30,6 +30,7 @@ export class VersionController {
 					},
 					foodfolio: await this.service.getFoodfolioVersions(),
 					twitch: await this.service.getTwitchVersions(),
+					warcraft: await this.service.getWarcraftVersions(),
 				};
 				await this.cachingService.setCache(cacheKey, data);
 				return data;
