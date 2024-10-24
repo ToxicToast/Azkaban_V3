@@ -13,7 +13,7 @@ export class ViewerEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@Column({ unique: false, nullable: true, type: 'varchar' })
+	@Column({ unique: false, nullable: true, type: 'varchar', default: null })
 	user_id: string;
 
 	@Column({ unique: true, nullable: false, type: 'varchar' })
