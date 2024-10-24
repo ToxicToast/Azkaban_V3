@@ -53,6 +53,22 @@ export class CharacterService {
 		return await this.cachingService.getCache(cacheKey);
 	}
 
+	async getCharacterByUserId(id: string): Promise<Array<CharacterDAO>> {
+		const cacheKey = `${WarcraftCharacterTopics.USERID}:${id}`;
+		const inCache = await this.cachingService.hasCache(cacheKey);
+		if (!inCache) {
+			const payload = RmqRecordBuilderHelper({
+				id,
+			});
+			const data = await this.client
+				.send(WarcraftCharacterTopics.USERID, payload)
+				.toPromise();
+			await this.cachingService.setCache(cacheKey, data);
+			return data;
+		}
+		return await this.cachingService.getCache(cacheKey);
+	}
+
 	async createCharacter(
 		region: string,
 		realm: string,
@@ -90,7 +106,6 @@ export class CharacterService {
 		race?: Optional<number>,
 		character_class?: Optional<number>,
 		active_spec?: Optional<number>,
-		guild?: Optional<string>,
 		level?: Optional<number>,
 		item_level?: Optional<number>,
 	): Promise<CharacterDAO> {
@@ -101,7 +116,6 @@ export class CharacterService {
 			race,
 			character_class,
 			active_spec,
-			guild,
 			level,
 			item_level,
 		});

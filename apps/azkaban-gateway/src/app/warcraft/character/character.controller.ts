@@ -55,6 +55,19 @@ export class CharacterController {
 		}
 	}
 
+	@Groups(UserGroups.WARCRAFT, UserGroups.WARCRAFT_ADMIN, UserGroups.ADMIN)
+	@Get('userid/:id')
+	async getCharacterByUserId(@Param('id') id: string) {
+		try {
+			return await this.service.getCharacterByUserId(id);
+		} catch (error) {
+			throw new HttpException(
+				error.message ?? 'Unknown Error',
+				error.status ?? 500,
+			);
+		}
+	}
+
 	@Groups(UserGroups.WARCRAFT_ADMIN, UserGroups.ADMIN)
 	@Post()
 	async createCharacter(
@@ -81,7 +94,6 @@ export class CharacterController {
 		@Body('race') race?: Optional<number>,
 		@Body('character_class') character_class?: Optional<number>,
 		@Body('active_spec') active_spec?: Optional<number>,
-		@Body('guild') guild?: Optional<string>,
 		@Body('level') level?: Optional<number>,
 		@Body('item_level') item_level?: Optional<number>,
 	) {
@@ -93,7 +105,6 @@ export class CharacterController {
 				race,
 				character_class,
 				active_spec,
-				guild,
 				level,
 				item_level,
 			);
