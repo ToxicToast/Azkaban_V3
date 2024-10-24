@@ -31,7 +31,6 @@ export class ShoppingListService {
 				.send(FoodfolioProductTopics.LIST, payload)
 				.toPromise();
 		} catch (e) {
-			Logger.error(e);
 			return [];
 		}
 	}
@@ -43,7 +42,6 @@ export class ShoppingListService {
 				(item: ItemDAO) => item.isStockAlert && item.isActive,
 			);
 		} catch (e) {
-			Logger.error(e);
 			return [];
 		}
 	}
@@ -58,7 +56,6 @@ export class ShoppingListService {
 				(variant: ItemVariantDAO) => variant.isActive,
 			);
 		} catch (e) {
-			Logger.error(e);
 			return [];
 		}
 	}

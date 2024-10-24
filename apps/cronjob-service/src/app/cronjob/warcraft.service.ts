@@ -7,6 +7,7 @@ import {
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Nullable } from '@toxictoast/azkaban-base-types';
+import { CharacterDAO } from '@azkaban/warcraft-infrastructure';
 
 @Injectable()
 export class WarcraftService {
@@ -17,25 +18,22 @@ export class WarcraftService {
 		private readonly apiClient: ClientProxy,
 	) {}
 
-	// TODO: Add Warcraft Character DAO
-	private async getAllCharacters(): Promise<Array<unknown>> {
+	private async getAllCharacters(): Promise<Array<CharacterDAO>> {
 		try {
 			const payload = RmqRecordBuilderHelper({});
 			return await this.characterClient
 				.send(WarcraftCharacterTopics.LIST, payload)
 				.toPromise();
 		} catch (e) {
-			Logger.error(e);
 			return [];
 		}
 	}
 
-	// TODO: Add Warcraft API DAO
 	private async checkWarcraftApi(
 		region: string,
 		realm: string,
 		name: string,
-	): Promise<Nullable<unknown>> {
+	): Promise<Nullable<CharacterDAO>> {
 		try {
 			const payload = RmqRecordBuilderHelper({
 				region,
@@ -46,7 +44,6 @@ export class WarcraftService {
 				.send(WarcraftApiTopics.CHARACTER, payload)
 				.toPromise();
 		} catch (e) {
-			Logger.error(e);
 			return null;
 		}
 	}
@@ -58,7 +55,32 @@ export class WarcraftService {
 		try {
 			const characters = await this.getAllCharacters();
 			for (const character of characters) {
-				Logger.debug({ character }, 'Updating character');
+				const apiCharacter = await this.checkWarcraftApi(
+					character.region,
+					character.realm,
+					character.name,
+				);
+				if (apiCharacter) {
+					const payload = RmqRecordBuilderHelper({
+						id: character.id,
+						gender: apiCharacter.gender,
+						faction: apiCharacter.faction,
+						race: apiCharacter.race,
+						active_spec: apiCharacter.active_spec,
+						level: apiCharacter.level,
+						item_level: apiCharacter.item_level,
+					});
+					await this.characterClient
+						.send(WarcraftCharacterTopics.UPDATE, payload)
+						.toPromise();
+				} else {
+					const payload = RmqRecordBuilderHelper({
+						id: character.id,
+					});
+					await this.characterClient
+						.send(WarcraftCharacterTopics.DELETE, payload)
+						.toPromise();
+				}
 			}
 		} catch (e) {
 			Logger.error(e);

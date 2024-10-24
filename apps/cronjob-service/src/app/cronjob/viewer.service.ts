@@ -20,7 +20,7 @@ export class ViewersService {
 				.send(TwitchViewerTopics.LIST, payload)
 				.toPromise();
 		} catch (e) {
-			Logger.error(e);
+			return [];
 		}
 	}
 
@@ -35,7 +35,6 @@ export class ViewersService {
 					viewer.lastseen_at < new Date(Date.now() - 12096e5),
 			);
 		} catch (e) {
-			Logger.error(e);
 			return [];
 		}
 	}

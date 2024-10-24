@@ -20,7 +20,6 @@ export class UsersService {
 				.send(UserTopics.LIST, payload)
 				.toPromise();
 		} catch (e) {
-			Logger.error(e);
 			return [];
 		}
 	}
@@ -35,7 +34,6 @@ export class UsersService {
 					user.loggedin_at < new Date(Date.now() - 12096e5),
 			);
 		} catch (e) {
-			Logger.error(e);
 			return [];
 		}
 	}
