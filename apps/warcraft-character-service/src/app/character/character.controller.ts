@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { CharacterService } from './character.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { WarcraftCharacterTopics } from '@toxictoast/azkaban-broker-rabbitmq';
-import { Optional } from '@toxictoast/azkaban-base-types';
+import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 
 @Controller('character')
 export class CharacterController {
@@ -29,6 +29,15 @@ export class CharacterController {
 		}
 	}
 
+	@MessagePattern(WarcraftCharacterTopics.USERID)
+	async getCharacterByUserId(@Payload('user_id') user_id: Nullable<string>) {
+		try {
+			return await this.service.getByUserId(user_id);
+		} catch (error) {
+			throw new RpcException(error);
+		}
+	}
+
 	@MessagePattern(WarcraftCharacterTopics.CREATE)
 	async createCharacter(
 		@Payload('region') region: string,
@@ -45,6 +54,7 @@ export class CharacterController {
 	@MessagePattern(WarcraftCharacterTopics.UPDATE)
 	async updateCharacter(
 		@Payload('id') id: string,
+		@Payload('user_id') user_id?: Optional<Nullable<string>>,
 		@Payload('gender') gender?: Optional<string>,
 		@Payload('faction') faction?: Optional<string>,
 		@Payload('race') race?: Optional<number>,
@@ -57,6 +67,7 @@ export class CharacterController {
 		try {
 			return await this.service.updateCharacter(
 				id,
+				user_id,
 				gender,
 				faction,
 				race,

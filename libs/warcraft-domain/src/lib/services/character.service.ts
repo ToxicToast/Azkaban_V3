@@ -46,6 +46,17 @@ export class CharacterService {
 		}
 	}
 
+	async getCharacterByUserId(
+		user_id: Nullable<string>,
+	): Promise<Result<Array<CharacterAnemic>>> {
+		try {
+			const result = await this.repository.findByUserId(user_id);
+			return Result.ok<Array<CharacterAnemic>>(result);
+		} catch (error) {
+			return Result.fail<Array<CharacterAnemic>>(error);
+		}
+	}
+
 	async getCharacterByRegionRealmName(
 		region: string,
 		realm: string,
@@ -107,6 +118,24 @@ export class CharacterService {
 				const characterValue = character.value;
 				const aggregate = this.factory.reconstitute(characterValue);
 				aggregate.restore();
+				return await this.save(aggregate.toAnemic());
+			}
+			return Result.fail<CharacterAnemic>(GenericErrorCodes.NOT_FOUND);
+		} catch (error) {
+			return Result.fail<CharacterAnemic>(error);
+		}
+	}
+
+	async updateUserId(
+		id: string,
+		user_id: Nullable<string>,
+	): Promise<Result<CharacterAnemic>> {
+		try {
+			const character = await this.getCharacterById(id);
+			if (character.isSuccess) {
+				const characterValue = character.value;
+				const aggregate = this.factory.reconstitute(characterValue);
+				aggregate.updateUserId(user_id);
 				return await this.save(aggregate.toAnemic());
 			}
 			return Result.fail<CharacterAnemic>(GenericErrorCodes.NOT_FOUND);

@@ -2,6 +2,7 @@ import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export interface CharacterDAO {
 	id: string;
+	user_id: Nullable<string>;
 	region: string;
 	realm: string;
 	name: string;

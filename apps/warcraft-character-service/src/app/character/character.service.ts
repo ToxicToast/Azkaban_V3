@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Optional } from '@toxictoast/azkaban-base-types';
+import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import {
 	WarcraftClassesHelper,
 	WarcraftRacesHelper,
@@ -38,6 +38,10 @@ export class CharacterService {
 		return {};
 	}
 
+	async getByUserId(user_id: Nullable<string>): Promise<Array<unknown>> {
+		return [];
+	}
+
 	// TODO: Add Character DAO & Implementation
 	async createCharacter(
 		region: string,
@@ -50,6 +54,7 @@ export class CharacterService {
 	// TODO: Add Character DAO & Implementation
 	async updateCharacter(
 		id: string,
+		user_id?: Optional<Nullable<string>>,
 		gender?: Optional<string>,
 		faction?: Optional<string>,
 		race?: Optional<number>,
@@ -59,6 +64,9 @@ export class CharacterService {
 		level?: Optional<number>,
 		item_level?: Optional<number>,
 	): Promise<unknown> {
+		if (user_id !== undefined) {
+			// TODO: Update Character User Id
+		}
 		if (gender !== undefined) {
 			const realGender = this.toGenderString(gender);
 			// TODO: Update Character Gender

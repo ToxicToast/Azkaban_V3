@@ -1,6 +1,6 @@
 import { Repository } from '@toxictoast/azkaban-base-domain';
 import { CharacterAnemic } from '../anemics';
-import { Chainable } from '@toxictoast/azkaban-base-types';
+import { Chainable, Nullable } from '@toxictoast/azkaban-base-types';
 
 interface CharacterAdditions {
 	findByRegionRealmName(
@@ -8,6 +8,7 @@ interface CharacterAdditions {
 		realm: string,
 		name: string,
 	): Promise<CharacterAnemic>;
+	findByUserId(user_id: Nullable<string>): Promise<Array<CharacterAnemic>>;
 }
 
 export type CharacterRepository = Chainable<

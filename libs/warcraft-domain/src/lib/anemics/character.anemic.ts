@@ -2,6 +2,7 @@ import { Anemic } from '@toxictoast/azkaban-base-domain';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export interface CharacterAnemic extends Anemic {
+	readonly user_id: Nullable<string>;
 	readonly region: string;
 	readonly realm: string;
 	readonly name: string;

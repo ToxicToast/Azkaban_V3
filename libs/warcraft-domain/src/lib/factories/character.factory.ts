@@ -10,6 +10,7 @@ export class CharacterFactory
 	reconstitute(data: CharacterAnemic): CharacterAggregate {
 		const {
 			id,
+			user_id,
 			region,
 			realm,
 			name,
@@ -27,6 +28,7 @@ export class CharacterFactory
 		} = data;
 		return new CharacterAggregate(
 			id,
+			user_id,
 			region,
 			realm,
 			name,
@@ -47,6 +49,7 @@ export class CharacterFactory
 	constitute(data: CharacterAggregate): CharacterAnemic {
 		const {
 			id,
+			user_id,
 			region,
 			realm,
 			name,
@@ -67,6 +70,7 @@ export class CharacterFactory
 		} = data.toAnemic();
 		return {
 			id,
+			user_id,
 			region,
 			realm,
 			name,
@@ -92,6 +96,7 @@ export class CharacterFactory
 		const characterId = new CharacterId();
 		return new CharacterAggregate(
 			characterId.value,
+			null,
 			region,
 			realm,
 			name,

@@ -5,6 +5,7 @@ import { Nullable } from '@toxictoast/azkaban-base-types';
 export class CharacterAggregate implements Domain<CharacterAnemic> {
 	constructor(
 		private readonly id: string,
+		private user_id: Nullable<string>,
 		private readonly region: string,
 		private readonly realm: string,
 		private readonly name: string,
@@ -44,6 +45,7 @@ export class CharacterAggregate implements Domain<CharacterAnemic> {
 	toAnemic(): CharacterAnemic {
 		return {
 			id: this.id,
+			user_id: this.user_id,
 			region: this.region,
 			realm: this.realm,
 			name: this.name,
@@ -62,6 +64,13 @@ export class CharacterAggregate implements Domain<CharacterAnemic> {
 			isUpdated: this.isUpdated(),
 			isDeleted: this.isDeleted(),
 		};
+	}
+
+	updateUserId(user_id: Nullable<string>): void {
+		if (user_id !== this.user_id) {
+			this.updated_at = new Date();
+			this.user_id = user_id;
+		}
 	}
 
 	updateActivatedAt(activated_at: Nullable<Date>): void {
