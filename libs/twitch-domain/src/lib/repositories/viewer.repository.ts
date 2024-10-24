@@ -1,8 +1,9 @@
 import { ViewerAnemic } from '../anemics';
 import { Repository } from '@toxictoast/azkaban-base-domain';
-import { Chainable } from '@toxictoast/azkaban-base-types';
+import { Chainable, Nullable } from '@toxictoast/azkaban-base-types';
 
 interface ViewerAdditions {
+	findByUserId(user_id: Nullable<string>): Promise<Array<ViewerAnemic>>;
 	findByDisplayName(display_name: string): Promise<ViewerAnemic>;
 }
 

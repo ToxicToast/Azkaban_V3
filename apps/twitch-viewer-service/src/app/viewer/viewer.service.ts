@@ -39,6 +39,10 @@ export class ViewerService {
 		);
 	}
 
+	async getByUserId(user_id: Nullable<string>): Promise<Array<ViewerDAO>> {
+		return await this.infrastructureService.getViewerByUserId(user_id);
+	}
+
 	async createViewer(display_name: string): Promise<ViewerDAO> {
 		return await this.infrastructureService.createViewer({
 			display_name,

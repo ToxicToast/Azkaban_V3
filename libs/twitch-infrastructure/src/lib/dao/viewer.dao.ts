@@ -2,6 +2,7 @@ import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export interface ViewerDAO {
 	id: string;
+	user_id: Nullable<string>;
 	display_name: string;
 	joins: number;
 	parts: number;

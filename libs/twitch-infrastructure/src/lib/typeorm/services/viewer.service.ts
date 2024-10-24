@@ -45,6 +45,18 @@ export class ViewerService {
 		}
 	}
 
+	async getViewerByUserId(
+		user_id: Nullable<string>,
+	): Promise<Array<ViewerDAO>> {
+		const result = await this.domainService.getViewerByUserId(user_id);
+		if (result.isSuccess) {
+			return result.value;
+		} else {
+			const errorMessage = result.errorValue;
+			throw new NotFoundException(errorMessage);
+		}
+	}
+
 	async createViewer(data: CreateViewerDTO): Promise<ViewerDAO> {
 		const result = await this.domainService.createViewer(data);
 		if (result.isSuccess) {

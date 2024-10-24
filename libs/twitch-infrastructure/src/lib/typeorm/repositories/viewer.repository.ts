@@ -5,6 +5,7 @@ import {
 import { Repository } from 'typeorm';
 import { ViewerMapper } from '../mappers';
 import { ViewerEntity } from '../entities';
+import { Nullable } from '@toxictoast/azkaban-base-types';
 
 export class ViewerRepository implements DomainRepository {
 	private readonly mapper: ViewerMapper = new ViewerMapper();
@@ -46,6 +47,19 @@ export class ViewerRepository implements DomainRepository {
 			return this.mapper.toDomain(entity);
 		}
 		return null;
+	}
+
+	async findByUserId(
+		user_id: Nullable<string>,
+	): Promise<Array<ViewerAnemic>> {
+		const entities = await this.repository.find({
+			withDeleted: true,
+			where: { user_id },
+			order: {
+				created_at: 'ASC',
+			},
+		});
+		return entities.map((entity) => this.mapper.toDomain(entity));
 	}
 
 	async delete(id: string): Promise<ViewerAnemic> {

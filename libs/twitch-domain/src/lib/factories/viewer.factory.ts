@@ -10,6 +10,7 @@ export class ViewerFactory
 	reconstitute(data: ViewerAnemic): ViewerAggregate {
 		const {
 			id,
+			user_id,
 			display_name,
 			lastseen_at,
 			joins,
@@ -25,6 +26,7 @@ export class ViewerFactory
 
 		return new ViewerAggregate(
 			id,
+			user_id,
 			display_name,
 			joins,
 			parts,
@@ -42,6 +44,7 @@ export class ViewerFactory
 	constitute(data: ViewerAggregate): ViewerAnemic {
 		const {
 			id,
+			user_id,
 			display_name,
 			lastseen_at,
 			joins,
@@ -59,6 +62,7 @@ export class ViewerFactory
 
 		return {
 			id,
+			user_id,
 			display_name,
 			lastseen_at,
 			joins,
@@ -80,6 +84,7 @@ export class ViewerFactory
 		const viewerId = new ViewerId();
 		return new ViewerAggregate(
 			viewerId.value,
+			null,
 			display_name,
 			0,
 			0,

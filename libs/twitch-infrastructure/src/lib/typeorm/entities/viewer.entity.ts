@@ -13,6 +13,9 @@ export class ViewerEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
+	@Column({ unique: false, nullable: true, type: 'varchar' })
+	user_id: string;
+
 	@Column({ unique: true, nullable: false, type: 'varchar' })
 	display_name: string;
 
