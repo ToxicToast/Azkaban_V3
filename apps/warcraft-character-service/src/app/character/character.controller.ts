@@ -60,7 +60,6 @@ export class CharacterController {
 		@Payload('race') race?: Optional<number>,
 		@Payload('character_class') character_class?: Optional<number>,
 		@Payload('active_spec') active_spec?: Optional<number>,
-		@Payload('guild') guild?: Optional<string>,
 		@Payload('level') level?: Optional<number>,
 		@Payload('item_level') item_level?: Optional<number>,
 	) {
@@ -73,7 +72,6 @@ export class CharacterController {
 				race,
 				character_class,
 				active_spec,
-				guild,
 				level,
 				item_level,
 			);
