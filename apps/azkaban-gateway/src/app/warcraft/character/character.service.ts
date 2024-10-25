@@ -35,6 +35,7 @@ export class CharacterService {
 			await this.cachingService.setCache(cacheKey, data);
 			return data;
 		}
+		return await this.cachingService.getCache(cacheKey);
 	}
 
 	async getCharacterById(id: string): Promise<CharacterDAO> {
