@@ -66,6 +66,7 @@ export class WarcraftService {
 						gender: apiCharacter.gender,
 						faction: apiCharacter.faction,
 						race: apiCharacter.race,
+						character_class: apiCharacter.character_class,
 						active_spec: apiCharacter.active_spec,
 						level: apiCharacter.level,
 						item_level: apiCharacter.item_level,
