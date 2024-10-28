@@ -89,6 +89,7 @@ export class CharacterController {
 	@Put(':id')
 	async updateCharacter(
 		@Param('id') id: string,
+		@Body('user_id') user_id?: Optional<string>,
 		@Body('gender') gender?: Optional<string>,
 		@Body('faction') faction?: Optional<string>,
 		@Body('race') race?: Optional<number>,
@@ -100,6 +101,7 @@ export class CharacterController {
 		try {
 			return await this.service.updateCharacter(
 				id,
+				user_id,
 				gender,
 				faction,
 				race,

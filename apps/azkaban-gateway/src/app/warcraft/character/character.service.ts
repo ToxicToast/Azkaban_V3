@@ -102,6 +102,7 @@ export class CharacterService {
 
 	async updateCharacter(
 		id: string,
+		user_id?: Optional<string>,
 		gender?: Optional<string>,
 		faction?: Optional<string>,
 		race?: Optional<number>,
@@ -112,6 +113,7 @@ export class CharacterService {
 	): Promise<CharacterDAO> {
 		const payload = RmqRecordBuilderHelper({
 			id,
+			user_id,
 			gender,
 			faction,
 			race,
