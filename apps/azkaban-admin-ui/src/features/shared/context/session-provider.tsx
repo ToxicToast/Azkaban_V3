@@ -4,6 +4,7 @@ import {
 	PropsWithChildren,
 	useCallback,
 	useEffect,
+	useMemo,
 	useState,
 } from 'react';
 import { useAuthState } from '../store/auth/auth.hook';
@@ -47,11 +48,13 @@ export function SessionProvider(
 	const [token, setToken] = useState<Nullable<string>>(null);
 	const [exp, setExp] = useState<number>(0);
 
-	const value = {
-		token,
-		user,
-		exp,
-	};
+	const contextValue = useMemo(() => {
+		return {
+			token,
+			user,
+			exp,
+		};
+	}, [exp, token, user]);
 
 	const isTokenExpired = useCallback(() => {
 		const timeNow = Math.ceil(Date.now() / 1000);
@@ -77,7 +80,7 @@ export function SessionProvider(
 	}, [authenticateUser, exp, isTokenExpired, token, user]);
 
 	return (
-		<SessionProviderContext.Provider value={value}>
+		<SessionProviderContext.Provider value={contextValue}>
 			{props.children}
 		</SessionProviderContext.Provider>
 	);

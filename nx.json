@@ -96,7 +96,8 @@
 			"library": {
 				"style": "tailwind",
 				"linter": "eslint",
-				"projectNameAndRootFormat": "derived"
+				"projectNameAndRootFormat": "derived",
+				"unitTestRunner": "none"
 			},
 			"component": {
 				"style": "tailwind"

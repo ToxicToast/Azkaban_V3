@@ -37,6 +37,7 @@
 			"@azkaban/twitch-infrastructure": [
 				"libs/twitch-infrastructure/src/index.ts"
 			],
+			"@azkaban/ui-components": ["libs/ui-components/src/index.ts"],
 			"@azkaban/user-domain": ["libs/user-domain/src/index.ts"],
 			"@azkaban/user-infrastructure": [
 				"libs/user-infrastructure/src/index.ts"
