@@ -31,6 +31,7 @@ import { TwitchMessageServiceModule } from '../core/twitch-message-service.modul
 import { CachingModule } from '../core/caching.module';
 import { WarcraftCharacterServiceModule } from '../core/warcraft-character-service.module';
 import { WarcraftVersionsService } from './warcraft-versions.service';
+import { WarcraftApiServiceModule } from '../core/warcraft-api-service.module';
 
 @Module({
 	imports: [
@@ -63,6 +64,7 @@ import { WarcraftVersionsService } from './warcraft-versions.service';
 		TwitchMessageServiceModule,
 		// Warcraft Services
 		WarcraftCharacterServiceModule,
+		WarcraftApiServiceModule,
 	],
 	controllers: [VersionController],
 	providers: [
