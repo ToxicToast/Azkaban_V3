@@ -30,6 +30,15 @@ export class ViewerController {
 		}
 	}
 
+	@MessagePattern(TwitchViewerTopics.USERID)
+	async getViewerByUserId(@Payload('id') id: Nullable<string>) {
+		try {
+			return await this.service.getByUserId(id);
+		} catch (error) {
+			throw new RpcException(error);
+		}
+	}
+
 	@MessagePattern(TwitchViewerTopics.JOIN)
 	async updateViewerJoin(@Payload('username') username: string) {
 		try {

@@ -28,9 +28,13 @@ import { TwitchBotServiceModule } from '../core/twitch-bot-service.module';
 import { TwitchVersionsService } from './twitch-versions.service';
 import { TwitchViewerServiceModule } from '../core/twitch-viewer-service.module';
 import { TwitchMessageServiceModule } from '../core/twitch-message-service.module';
+import { CachingModule } from '../core/caching.module';
+import { WarcraftCharacterServiceModule } from '../core/warcraft-character-service.module';
+import { WarcraftVersionsService } from './warcraft-versions.service';
 
 @Module({
 	imports: [
+		CachingModule,
 		// Azkaban Services
 		UserServiceModule,
 		AuthServiceModule,
@@ -57,6 +61,8 @@ import { TwitchMessageServiceModule } from '../core/twitch-message-service.modul
 		TwitchBotServiceModule,
 		TwitchViewerServiceModule,
 		TwitchMessageServiceModule,
+		// Warcraft Services
+		WarcraftCharacterServiceModule,
 	],
 	controllers: [VersionController],
 	providers: [
@@ -65,6 +71,7 @@ import { TwitchMessageServiceModule } from '../core/twitch-message-service.modul
 		NotifyVersionsService,
 		AzkabanVersionsService,
 		TwitchVersionsService,
+		WarcraftVersionsService,
 		{
 			provide: 'APP_VERSION',
 			useFactory: (config: ConfigService) => {

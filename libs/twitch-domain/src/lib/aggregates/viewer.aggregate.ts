@@ -5,6 +5,7 @@ import { Nullable } from '@toxictoast/azkaban-base-types';
 export class ViewerAggregate implements Domain<ViewerAnemic> {
 	constructor(
 		private readonly id: string,
+		private user_id: Nullable<string>,
 		private readonly display_name: string,
 		private joins: number,
 		private parts: number,
@@ -37,6 +38,7 @@ export class ViewerAggregate implements Domain<ViewerAnemic> {
 	toAnemic(): ViewerAnemic {
 		return {
 			id: this.id,
+			user_id: this.user_id,
 			display_name: this.display_name,
 			lastseen_at: this.lastseen_at,
 			joins: this.joins,
@@ -51,6 +53,13 @@ export class ViewerAggregate implements Domain<ViewerAnemic> {
 			isUpdated: this.isUpdated(),
 			isDeleted: this.isDeleted(),
 		};
+	}
+
+	updateUserId(user_id: Nullable<string>): void {
+		if (this.user_id !== user_id) {
+			this.updated_at = new Date();
+			this.user_id = user_id;
+		}
 	}
 
 	updateLastSeenAt(lastseen_at: Nullable<Date>): void {

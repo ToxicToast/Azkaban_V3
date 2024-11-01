@@ -3,6 +3,7 @@ import { FoodfolioVersionsService } from './foodfolio-versions.service';
 import { NotifyVersionsService } from './notify-versions.service';
 import { AzkabanVersionsService } from './azkaban-versions.service';
 import { TwitchVersionsService } from './twitch-versions.service';
+import { WarcraftVersionsService } from './warcraft-versions.service';
 
 @Injectable()
 export class VersionService {
@@ -11,6 +12,7 @@ export class VersionService {
 		private readonly notify: NotifyVersionsService,
 		private readonly twitch: TwitchVersionsService,
 		private readonly azkaban: AzkabanVersionsService,
+		private readonly warcraft: WarcraftVersionsService,
 		//
 		@Inject('APP_VERSION') private readonly appVersion: string,
 	) {}
@@ -35,5 +37,9 @@ export class VersionService {
 
 	async getAzkabanVersions() {
 		return await this.azkaban.getAzkabanVersions();
+	}
+
+	async getWarcraftVersions() {
+		return await this.warcraft.getWarcraftVersions();
 	}
 }

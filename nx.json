@@ -96,7 +96,8 @@
 			"library": {
 				"style": "tailwind",
 				"linter": "eslint",
-				"projectNameAndRootFormat": "derived"
+				"projectNameAndRootFormat": "derived",
+				"unitTestRunner": "none"
 			},
 			"component": {
 				"style": "tailwind"
@@ -136,5 +137,6 @@
 			}
 		}
 	],
-	"nxCloudAccessToken": "MjMwNjZiZGEtOGNlNS00ZWM4LTkzN2YtNmE3ZmMyMTc2MTY2fHJlYWQtd3JpdGU="
+	"nxCloudAccessToken": "MjMwNjZiZGEtOGNlNS00ZWM4LTkzN2YtNmE3ZmMyMTc2MTY2fHJlYWQtd3JpdGU=",
+	"useLegacyCache": true
 }

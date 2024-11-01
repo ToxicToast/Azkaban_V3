@@ -9,6 +9,7 @@ export class ViewerMapper implements Mapper<ViewerDAO, ViewerEntity> {
 	toEntity(data: ViewerDAO): ViewerEntity {
 		const {
 			id,
+			user_id,
 			display_name,
 			joins,
 			parts,
@@ -23,6 +24,7 @@ export class ViewerMapper implements Mapper<ViewerDAO, ViewerEntity> {
 		} = data;
 		const entity = new ViewerEntity();
 		entity.id = id;
+		entity.user_id = user_id;
 		entity.display_name = display_name;
 		entity.joins = joins;
 		entity.parts = parts;
@@ -40,6 +42,7 @@ export class ViewerMapper implements Mapper<ViewerDAO, ViewerEntity> {
 	toDomain(data: ViewerEntity): ViewerDAO {
 		const {
 			id,
+			user_id,
 			display_name,
 			joins,
 			parts,
@@ -54,6 +57,7 @@ export class ViewerMapper implements Mapper<ViewerDAO, ViewerEntity> {
 		} = data;
 		const aggregate = this.domainFactory.reconstitute({
 			id,
+			user_id,
 			display_name,
 			joins,
 			parts,

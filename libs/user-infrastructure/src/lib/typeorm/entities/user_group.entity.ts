@@ -1,4 +1,10 @@
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+	Unique,
+} from 'typeorm';
 import { UserEntity } from './user.entity';
 import { GroupEntity } from '@azkaban/group-infrastructure';
 

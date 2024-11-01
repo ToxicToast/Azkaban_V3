@@ -10,6 +10,9 @@ import {
 	foodfolio_vhost,
 	twitch_vhost,
 	twitch_viewers,
+	warcraft_api,
+	warcraft_character,
+	warcraft_vhost,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ShoppingListService } from './shoppinglist.service';
@@ -65,6 +68,22 @@ const brokerDefaultSettings = {
 				...clientProvider({
 					queueName: twitch_viewers,
 					brokerVHost: twitch_vhost,
+					...brokerDefaultSettings,
+				}),
+			},
+			{
+				name: 'CHARACTER_SERVICE',
+				...clientProvider({
+					queueName: warcraft_character,
+					brokerVHost: warcraft_vhost,
+					...brokerDefaultSettings,
+				}),
+			},
+			{
+				name: 'WARCRAFT_API_SERVICE',
+				...clientProvider({
+					queueName: warcraft_api,
+					brokerVHost: warcraft_vhost,
 					...brokerDefaultSettings,
 				}),
 			},

@@ -59,6 +59,22 @@ export class ViewerService {
 		}
 	}
 
+	async getViewerByUserId(
+		user_id: Nullable<string>,
+	): Promise<Result<Array<ViewerAnemic>>> {
+		try {
+			const result = await this.repository.findByUserId(user_id);
+			if (result !== null) {
+				return Result.ok<Array<ViewerAnemic>>(result);
+			}
+			return Result.fail<Array<ViewerAnemic>>(
+				GenericErrorCodes.NOT_FOUND,
+			);
+		} catch (error) {
+			return Result.fail<Array<ViewerAnemic>>(error);
+		}
+	}
+
 	async createViewer(data: ViewerData): Promise<Result<ViewerAnemic>> {
 		try {
 			const check = await this.getViewerByDisplayName(data.display_name);
@@ -93,6 +109,25 @@ export class ViewerService {
 			if (viewer.isSuccess) {
 				const viewerValue = viewer.value;
 				const aggregate = this.factory.reconstitute(viewerValue);
+				aggregate.restore();
+				return await this.save(aggregate.toAnemic());
+			}
+			return Result.fail<ViewerAnemic>(GenericErrorCodes.NOT_FOUND);
+		} catch (error) {
+			return Result.fail<ViewerAnemic>(error);
+		}
+	}
+
+	async updateUserId(
+		id: string,
+		user_id: Nullable<string>,
+	): Promise<Result<ViewerAnemic>> {
+		try {
+			const viewer = await this.getViewerById(id);
+			if (viewer.isSuccess) {
+				const viewerValue = viewer.value;
+				const aggregate = this.factory.reconstitute(viewerValue);
+				aggregate.updateUserId(user_id);
 				aggregate.restore();
 				return await this.save(aggregate.toAnemic());
 			}
