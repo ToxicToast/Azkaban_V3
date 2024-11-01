@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { VersionModule } from './version/version.module';
+import { ApiModule } from './api/api.module';
 
 @Module({
 	imports: [
@@ -10,6 +11,7 @@ import { VersionModule } from './version/version.module';
 		HealthModule,
 		MetricsModule,
 		VersionModule,
+		ApiModule,
 	],
 })
 export class AppModule {}
