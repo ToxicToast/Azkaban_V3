@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { QueueModule } from '../queue/queue.module';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ClientsModule } from '@nestjs/microservices';
 import {
 	azkaban_user,
@@ -14,10 +16,14 @@ import {
 	warcraft_character,
 	warcraft_vhost,
 } from '@toxictoast/azkaban-broker-rabbitmq';
-import { ScheduleModule } from '@nestjs/schedule';
-import { ShoppingListService } from './shoppinglist.service';
-import { UsersService } from './user.service';
-import { ViewersService } from './viewer.service';
+import { ShoppinglistQueueModule } from '../queue/shoppinglist-queue.module';
+import { UserQueueModule } from '../queue/user-queue.module';
+import { ViewerQueueModule } from '../queue/viewer-queue.module';
+import { WarcraftApiQueueModule } from '../queue/warcraftapi-queue.module';
+import { WarcraftService } from './warcraft/warcraft.service';
+import { WarcraftProcessor } from './warcraft/warcraft.processor';
+import { WarcraftCron } from './warcraft/warcraft.cron';
+import { WarcraftController } from './warcraft/warcraft.controller';
 
 const brokerDefaultSettings = {
 	noAck: process.env.BROKER_ACK === 'yes' ? true : false,
@@ -29,48 +35,9 @@ const brokerDefaultSettings = {
 
 @Module({
 	imports: [
+		QueueModule,
 		ScheduleModule.forRoot(),
 		ClientsModule.register([
-			{
-				name: 'ITEM_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_product,
-					brokerVHost: foodfolio_vhost,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'ITEM_VARIANT_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_product_variant,
-					brokerVHost: foodfolio_vhost,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'SHOPPINGLIST_SERVICE',
-				...clientProvider({
-					queueName: foodfolio_shopping_list,
-					brokerVHost: foodfolio_vhost,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'USER_SERVICE',
-				...clientProvider({
-					queueName: azkaban_user,
-					brokerVHost: azkaban_vhost,
-					...brokerDefaultSettings,
-				}),
-			},
-			{
-				name: 'VIEWER_SERVICE',
-				...clientProvider({
-					queueName: twitch_viewers,
-					brokerVHost: twitch_vhost,
-					...brokerDefaultSettings,
-				}),
-			},
 			{
 				name: 'CHARACTER_SERVICE',
 				...clientProvider({
@@ -88,7 +55,12 @@ const brokerDefaultSettings = {
 				}),
 			},
 		]),
+		ShoppinglistQueueModule,
+		UserQueueModule,
+		ViewerQueueModule,
+		WarcraftApiQueueModule,
 	],
-	providers: [ShoppingListService, UsersService, ViewersService],
+	controllers: [WarcraftController],
+	providers: [WarcraftService, WarcraftProcessor, WarcraftCron],
 })
 export class CronjobModule {}

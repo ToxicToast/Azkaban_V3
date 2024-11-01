@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { CharacterService } from './character.service';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { WarcraftCharacterTopics } from '@toxictoast/azkaban-broker-rabbitmq';
@@ -7,6 +7,15 @@ import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 @Controller('character')
 export class CharacterController {
 	constructor(private readonly service: CharacterService) {}
+
+	@Get()
+	async getHTTPCharacterList() {
+		try {
+			return await this.service.getList(0, 0);
+		} catch (error) {
+			throw new RpcException(error);
+		}
+	}
 
 	@MessagePattern(WarcraftCharacterTopics.LIST)
 	async getCharacterList(
@@ -62,6 +71,7 @@ export class CharacterController {
 		@Payload('active_spec') active_spec?: Optional<number>,
 		@Payload('level') level?: Optional<number>,
 		@Payload('item_level') item_level?: Optional<number>,
+		@Payload('activated_at') activated_at?: Optional<Date>,
 	) {
 		try {
 			return await this.service.updateCharacter(
@@ -74,6 +84,7 @@ export class CharacterController {
 				active_spec,
 				level,
 				item_level,
+				activated_at,
 			);
 		} catch (error) {
 			throw new RpcException(error);

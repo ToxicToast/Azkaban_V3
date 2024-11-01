@@ -4,6 +4,7 @@ import { WoWClient } from 'blizzard.js/dist/wow';
 import { Nullable, Optional } from '@toxictoast/azkaban-base-types';
 import { AccessToken } from 'blizzard.js/dist/core';
 import { Origins } from 'blizzard.js/dist/endpoints';
+import { CharacterDAO } from '@azkaban/warcraft-infrastructure';
 
 @Injectable()
 export class ApiService {
