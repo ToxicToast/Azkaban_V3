@@ -14,6 +14,10 @@ jobs:
         outputs:
             version: ${{ steps.taggerDryRun.outputs.new_tag }}
         steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
             - name: 🪐 Minor version for each merge (Dry Run)
               id: taggerDryRun
               uses: anothrNick/github-tag-action@1.70.0
