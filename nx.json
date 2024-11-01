@@ -69,34 +69,18 @@
 		"libsDir": "libs"
 	},
 	"generators": {
-		"@nx/node": {
-			"application": {
-				"projectNameAndRootFormat": "derived"
-			},
-			"library": {
-				"projectNameAndRootFormat": "derived"
-			}
-		},
-		"@nx/nest": {
-			"application": {
-				"projectNameAndRootFormat": "derived"
-			},
-			"library": {
-				"projectNameAndRootFormat": "derived"
-			}
-		},
+		"@nx/node": {},
+		"@nx/nest": {},
 		"@nx/react": {
 			"application": {
 				"babel": true,
 				"style": "tailwind",
 				"linter": "eslint",
-				"bundler": "vite",
-				"projectNameAndRootFormat": "derived"
+				"bundler": "vite"
 			},
 			"library": {
 				"style": "tailwind",
 				"linter": "eslint",
-				"projectNameAndRootFormat": "derived",
 				"unitTestRunner": "none"
 			},
 			"component": {
