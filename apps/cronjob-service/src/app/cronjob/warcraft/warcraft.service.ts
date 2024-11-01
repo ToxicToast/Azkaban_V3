@@ -1,10 +1,6 @@
-import { Inject, Logger } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import {
-	ApiDAO,
-	CharacterDAO,
-	UpdateCharacterDTO,
-} from '@azkaban/warcraft-infrastructure';
+import { ApiDAO, CharacterDAO } from '@azkaban/warcraft-infrastructure';
 import {
 	RmqRecordBuilderHelper,
 	WarcraftApiTopics,
@@ -16,7 +12,7 @@ export class WarcraftService {
 	constructor(
 		@Inject('CHARACTER_SERVICE')
 		private readonly characterClient: ClientProxy,
-		@Inject('WARCRAFT_API_SERVICE')
+		@Inject('API_SERVICE')
 		private readonly apiClient: ClientProxy,
 	) {}
 
