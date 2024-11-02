@@ -18,6 +18,7 @@ export class WarcraftCron {
 		const characters = await this.service.getAllCharacters();
 		for (const character of characters) {
 			await this.queue.add('warcraft-api', {
+				id: character.id,
 				region: character.region,
 				realm: character.realm,
 				name: character.name,
