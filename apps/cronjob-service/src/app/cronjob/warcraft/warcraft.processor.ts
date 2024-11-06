@@ -33,6 +33,7 @@ export class WarcraftProcessor extends WorkerHost {
 		try {
 			if (data) {
 				await this.service.updateCharacter(id, data);
+				await this.service.restoreCharacter(id);
 			} else {
 				await this.service.deleteCharacter(id);
 			}

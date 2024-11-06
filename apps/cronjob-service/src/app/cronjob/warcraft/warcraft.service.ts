@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiDAO, CharacterDAO } from '@azkaban/warcraft-infrastructure';
 import {
@@ -8,6 +8,7 @@ import {
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { Nullable } from '@toxictoast/azkaban-base-types';
 
+@Injectable()
 export class WarcraftService {
 	constructor(
 		@Inject('CHARACTER_SERVICE')
@@ -75,6 +76,15 @@ export class WarcraftService {
 		});
 		return await this.characterClient
 			.send(WarcraftCharacterTopics.DELETE, payload)
+			.toPromise();
+	}
+
+	async restoreCharacter(id: string): Promise<CharacterDAO> {
+		const payload = RmqRecordBuilderHelper({
+			id,
+		});
+		return await this.characterClient
+			.send(WarcraftCharacterTopics.RESTORE, payload)
 			.toPromise();
 	}
 }
