@@ -11,6 +11,7 @@ import { brokerDefaultSettings } from '../../broker-defaults';
 import { ViewerService } from './viewer.service';
 import { ViewerProcessor } from './viewer.processor';
 import { ViewerCron } from './viewer.cron';
+import { ViewerQueueModule } from '../../queue/viewer-queue.module';
 
 @Module({
 	imports: [
@@ -26,6 +27,7 @@ import { ViewerCron } from './viewer.cron';
 				}),
 			},
 		]),
+		ViewerQueueModule,
 	],
 	providers: [ViewerService, ViewerProcessor, ViewerCron],
 })
