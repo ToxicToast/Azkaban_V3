@@ -17,12 +17,18 @@ export class HealthController {
 		@Inject('MEMORY_RSS_TRESHOLD') private readonly rssTreshold: number,
 		@Inject('BROKER_CONNECTION_STRING')
 		private readonly brokerConnectionString: string,
+		@Inject('KAFKA_CONNECTION_STRING')
+		private readonly kafkaConnectionString: string,
 		@Inject('REDIS_HOST_STRING')
 		private readonly redisHostString: string,
 		@Inject('REDIS_PORT_NUMBER')
 		private readonly redisPortNumber: number,
 		@Inject('REDIS_PASSWORD_STRING')
 		private readonly redisPasswordString: string,
+		@Inject('KAFKA_USER_STRING')
+		private readonly kafkaUserString: string,
+		@Inject('KAFKA_PASSWORD_STRING')
+		private readonly kafkaPasswordString: string,
 		private readonly service: HealthCheckService,
 		private readonly memory: MemoryHealthIndicator,
 		private readonly microservices: MicroserviceHealthIndicator,
@@ -42,6 +48,20 @@ export class HealthController {
 							urls: [this.brokerConnectionString],
 							queue: azkaban,
 							consumerTag: 'gateway-health',
+						},
+					}),
+				() =>
+					this.microservices.pingCheck('kafka', {
+						transport: Transport.KAFKA,
+						options: {
+							client: {
+								brokers: [this.kafkaConnectionString],
+								sasl: {
+									mechanism: 'scram-sha-256',
+									username: this.kafkaUserString,
+									password: this.kafkaPasswordString,
+								},
+							},
 						},
 					}),
 				() =>
