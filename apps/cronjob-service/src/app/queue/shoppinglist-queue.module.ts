@@ -9,5 +9,6 @@ import { BullModule } from '@nestjs/bullmq';
 			name: 'foodfolio-shoppinglist',
 		}),
 	],
+	exports: [BullModule],
 })
 export class ShoppinglistQueueModule {}

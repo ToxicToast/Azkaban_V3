@@ -9,5 +9,6 @@ import { BullModule } from '@nestjs/bullmq';
 			name: 'twitch-viewer',
 		}),
 	],
+	exports: [BullModule],
 })
 export class ViewerQueueModule {}

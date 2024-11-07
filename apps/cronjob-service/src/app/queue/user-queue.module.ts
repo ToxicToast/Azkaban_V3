@@ -9,5 +9,6 @@ import { BullModule } from '@nestjs/bullmq';
 			name: 'azkaban-user',
 		}),
 	],
+	exports: [BullModule],
 })
 export class UserQueueModule {}
