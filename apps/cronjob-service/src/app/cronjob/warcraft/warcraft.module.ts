@@ -13,6 +13,7 @@ import { WarcraftService } from './warcraft.service';
 import { WarcraftProcessor } from './warcraft.processor';
 import { WarcraftCron } from './warcraft.cron';
 import { WarcraftApiQueueModule } from '../../queue/warcraftapi-queue.module';
+import { WarcraftController } from './warcraft.controller';
 
 @Module({
 	imports: [
@@ -39,5 +40,6 @@ import { WarcraftApiQueueModule } from '../../queue/warcraftapi-queue.module';
 		WarcraftApiQueueModule,
 	],
 	providers: [WarcraftService, WarcraftProcessor, WarcraftCron],
+	controllers: [WarcraftController],
 })
 export class WarcraftModule {}

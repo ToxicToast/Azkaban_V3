@@ -12,6 +12,7 @@ import { ViewerService } from './viewer.service';
 import { ViewerProcessor } from './viewer.processor';
 import { ViewerCron } from './viewer.cron';
 import { ViewerQueueModule } from '../../queue/viewer-queue.module';
+import { ViewerController } from './viewer.controller';
 
 @Module({
 	imports: [
@@ -30,5 +31,6 @@ import { ViewerQueueModule } from '../../queue/viewer-queue.module';
 		ViewerQueueModule,
 	],
 	providers: [ViewerService, ViewerProcessor, ViewerCron],
+	controllers: [ViewerController],
 })
 export class ViewerModule {}

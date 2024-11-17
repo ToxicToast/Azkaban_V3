@@ -11,18 +11,24 @@ export class WarcraftCron {
 		@InjectQueue('warcraft-api') private readonly queue: Queue,
 	) {}
 
+	async runQueue(): Promise<void> {
+		const characters = await this.service.getAllCharacters();
+		for (const character of characters) {
+			if (!character.isDeleted) {
+				await this.queue.add('warcraft-api', {
+					id: character.id,
+					region: character.region,
+					realm: character.realm,
+					name: character.name,
+				});
+			}
+		}
+	}
+
 	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
 		name: 'Update All Warcraft Characters',
 	})
 	async charactersCronjob(): Promise<void> {
-		const characters = await this.service.getAllCharacters();
-		for (const character of characters) {
-			await this.queue.add('warcraft-api', {
-				id: character.id,
-				region: character.region,
-				realm: character.realm,
-				name: character.name,
-			});
-		}
+		await this.runQueue();
 	}
 }

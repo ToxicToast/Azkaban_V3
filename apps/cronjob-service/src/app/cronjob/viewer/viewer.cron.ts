@@ -11,13 +11,17 @@ export class ViewerCron {
 		@InjectQueue('twitch-viewer') private readonly queue: Queue,
 	) {}
 
-	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
-		name: 'Delete Inactive Twitch Viewers',
-	})
-	async checkForInactiveViewers(): Promise<void> {
+	async runQueue(): Promise<void> {
 		const viewers = await this.service.getAllViewers();
 		for (const viewer of viewers) {
 			await this.queue.add('twitch-viewer', viewer);
 		}
+	}
+
+	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
+		name: 'Delete Inactive Twitch Viewers',
+	})
+	async checkForInactiveViewers(): Promise<void> {
+		await this.runQueue();
 	}
 }
