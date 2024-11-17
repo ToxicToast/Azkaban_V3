@@ -132,6 +132,6 @@ export class CharacterService {
 	}
 
 	async restoreCharacter(id: string): Promise<CharacterDAO> {
-		return await this.restoreCharacter(id);
+		return await this.infrastructureService.restoreCharacter(id);
 	}
 }
