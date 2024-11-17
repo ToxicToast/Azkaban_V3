@@ -39,16 +39,6 @@ import { azkaban_vhost } from '@toxictoast/azkaban-broker-rabbitmq';
 			inject: [ConfigService],
 		},
 		{
-			provide: 'KAFKA_CONNECTION_STRING',
-			useFactory: (config: ConfigService) => {
-				const hostname = config.get('KAFKA_HOST', 'localhost');
-				const port = config.get('KAFKA_PORT', 9092);
-				//
-				return `${hostname}:${port}`;
-			},
-			inject: [ConfigService],
-		},
-		{
 			provide: 'REDIS_HOST_STRING',
 			useFactory: (config: ConfigService) => {
 				return config.get('REDIS_HOST', 'localhost');
@@ -66,20 +56,6 @@ import { azkaban_vhost } from '@toxictoast/azkaban-broker-rabbitmq';
 			provide: 'REDIS_PASSWORD_STRING',
 			useFactory: (config: ConfigService) => {
 				return config.get('REDIS_PASSWORD', 'supersecret');
-			},
-			inject: [ConfigService],
-		},
-		{
-			provide: 'KAFKA_USER_STRING',
-			useFactory: (config: ConfigService) => {
-				return config.get('KAFKA_USERNAME', 'guest');
-			},
-			inject: [ConfigService],
-		},
-		{
-			provide: 'KAFKA_PASSWORD_STRING',
-			useFactory: (config: ConfigService) => {
-				return config.get('KAFKA_PASSWORD', 'supersecret');
 			},
 			inject: [ConfigService],
 		},
