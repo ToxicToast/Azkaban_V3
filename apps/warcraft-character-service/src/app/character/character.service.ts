@@ -84,6 +84,7 @@ export class CharacterService {
 		active_spec?: Optional<number>,
 		level?: Optional<number>,
 		item_level?: Optional<number>,
+		activated_at?: Optional<Date>,
 	): Promise<CharacterDAO> {
 		if (user_id !== undefined) {
 			await this.infrastructureService.updateUserId(id, user_id);
@@ -117,6 +118,12 @@ export class CharacterService {
 		if (item_level !== undefined) {
 			await this.infrastructureService.updateItemLevel(id, item_level);
 		}
+		if (activated_at !== undefined) {
+			await this.infrastructureService.updateActivatedAt(
+				id,
+				activated_at,
+			);
+		}
 		return await this.infrastructureService.getCharacterById(id);
 	}
 
@@ -125,6 +132,6 @@ export class CharacterService {
 	}
 
 	async restoreCharacter(id: string): Promise<CharacterDAO> {
-		return await this.restoreCharacter(id);
+		return await this.infrastructureService.restoreCharacter(id);
 	}
 }
