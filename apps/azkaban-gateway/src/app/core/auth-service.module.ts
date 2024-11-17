@@ -1,25 +1,21 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule } from '@nestjs/microservices';
 import {
 	azkaban_auth,
 	azkaban_vhost,
-	clientProvider,
 } from '@toxictoast/azkaban-broker-rabbitmq';
 import { brokerDefaultSettings } from './broker-defaults';
+import { RabbitmqModule } from '../../modules';
 
 @Module({
 	imports: [
-		ClientsModule.register([
-			{
-				name: 'AUTH_SERVICE',
-				...clientProvider({
-					queueName: azkaban_auth,
-					brokerVHost: azkaban_vhost,
-					...brokerDefaultSettings,
-				}),
-			},
-		]),
+		RabbitmqModule.forRoot({
+			name: 'AUTH_SERVICE',
+			queueName: azkaban_auth,
+			brokerVHost: azkaban_vhost,
+			...brokerDefaultSettings,
+			global: true,
+		}),
 	],
-	exports: [ClientsModule],
+	exports: [RabbitmqModule],
 })
 export class AuthServiceModule {}

@@ -13,6 +13,10 @@ import { MobileModule } from './mobile/mobile.module';
 import { CachingModule } from './core/caching.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { WarcraftModule } from './warcraft/warcraft.module';
+import { AuthServiceModule } from './core/auth-service.module';
+import { ApiAlertsServiceModule } from './core/apialerts-service.module';
+import { CronjobModule } from './cronjobs/cronjob.module';
+import { CronjobServiceModule } from './core/cronjob-service.module';
 
 @Module({
 	imports: [
@@ -34,7 +38,11 @@ import { WarcraftModule } from './warcraft/warcraft.module';
 				limit: 10,
 			},
 		]),
-		//
+		// RabbitMQ Modules
+		AuthServiceModule,
+		ApiAlertsServiceModule,
+		CronjobServiceModule,
+		// Azkaban Services
 		CachingModule,
 		HealthModule,
 		MetricsModule,
@@ -46,6 +54,7 @@ import { WarcraftModule } from './warcraft/warcraft.module';
 		MobileModule,
 		TwitchModule,
 		WarcraftModule,
+		CronjobModule,
 	],
 })
 export class AppModule {}
