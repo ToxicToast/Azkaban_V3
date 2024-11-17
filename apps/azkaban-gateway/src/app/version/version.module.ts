@@ -18,8 +18,6 @@ import { FoodfolioWarehouseServiceModule } from '../core/foodfolio-warehouse-ser
 import { FoodfolioShoppingListServiceModule } from '../core/foodfolio-shopping-list-service.module';
 import { WebhookServiceModule } from '../core/webhook-service.module';
 import { SSEServiceModule } from '../core/sse-service.module';
-import { ApiAlertsServiceModule } from '../core/apialerts-service.module';
-import { CronjobServiceModule } from '../core/cronjob-service.module';
 import { NotificationsServiceModule } from '../core/notifications-service.module';
 import { FoodfolioVersionsService } from './foodfolio-versions.service';
 import { NotifyVersionsService } from './notify-versions.service';
@@ -32,7 +30,6 @@ import { CachingModule } from '../core/caching.module';
 import { WarcraftCharacterServiceModule } from '../core/warcraft-character-service.module';
 import { WarcraftVersionsService } from './warcraft-versions.service';
 import { WarcraftApiServiceModule } from '../core/warcraft-api-service.module';
-
 @Module({
 	imports: [
 		CachingModule,
@@ -40,7 +37,6 @@ import { WarcraftApiServiceModule } from '../core/warcraft-api-service.module';
 		UserServiceModule,
 		AuthServiceModule,
 		GroupsServiceModule,
-		CronjobServiceModule,
 		// Foodfolio Services
 		FoodfolioCategoryServiceModule,
 		FoodfolioCompanyServiceModule,
@@ -55,7 +51,6 @@ import { WarcraftApiServiceModule } from '../core/warcraft-api-service.module';
 		// Notification Services
 		WebhookServiceModule,
 		SSEServiceModule,
-		ApiAlertsServiceModule,
 		NotifyServiceModule,
 		NotificationsServiceModule,
 		// Twitch Services
