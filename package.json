@@ -126,7 +126,7 @@
 		"classnames": "^2.5.1",
 		"compression": "^1.7.4",
 		"cookie-parser": "^1.4.6",
-		"date-fns": "^3.6.0",
+		"date-fns": "^4.0.0",
 		"helmet": "^7.1.0",
 		"ioredis": "^5.4.1",
 		"lucide-react": "^0.438.0",
