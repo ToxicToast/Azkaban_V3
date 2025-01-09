@@ -72,6 +72,7 @@ export class CharacterController {
 		@Payload('level') level?: Optional<number>,
 		@Payload('item_level') item_level?: Optional<number>,
 		@Payload('activated_at') activated_at?: Optional<Date>,
+		@Payload('guild') guild_name?: Optional<Nullable<string>>,
 	) {
 		try {
 			return await this.service.updateCharacter(
@@ -84,6 +85,7 @@ export class CharacterController {
 				active_spec,
 				level,
 				item_level,
+				guild_name,
 				activated_at,
 			);
 		} catch (error) {

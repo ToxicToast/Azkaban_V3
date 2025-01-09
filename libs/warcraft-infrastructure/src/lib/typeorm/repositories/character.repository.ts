@@ -66,6 +66,17 @@ export class CharacterRepository implements DomainRepository {
 		return entities.map((entity) => this.mapper.toDomain(entity));
 	}
 
+	async findByGuild(guild: string): Promise<Array<CharacterAnemic>> {
+		const entities = await this.repository.find({
+			where: { guild },
+			withDeleted: true,
+			order: {
+				created_at: 'ASC',
+			},
+		});
+		return entities.map((entity) => this.mapper.toDomain(entity));
+	}
+
 	async delete(id: string): Promise<CharacterAnemic> {
 		await this.repository.softDelete(id);
 		return await this.findById(id);

@@ -13,6 +13,7 @@ export interface CharacterDAO {
 	active_spec: Nullable<string>;
 	level: number;
 	item_level: number;
+	guild: Nullable<string>;
 	activated_at: Nullable<Date>;
 	created_at: Date;
 	updated_at: Nullable<Date>;

@@ -84,6 +84,7 @@ export class CharacterService {
 		active_spec?: Optional<number>,
 		level?: Optional<number>,
 		item_level?: Optional<number>,
+		guild?: Optional<Nullable<string>>,
 		activated_at?: Optional<Date>,
 	): Promise<CharacterDAO> {
 		if (user_id !== undefined) {
@@ -117,6 +118,9 @@ export class CharacterService {
 		}
 		if (item_level !== undefined) {
 			await this.infrastructureService.updateItemLevel(id, item_level);
+		}
+		if (guild !== undefined) {
+			await this.infrastructureService.updateGuild(id, guild);
 		}
 		if (activated_at !== undefined) {
 			await this.infrastructureService.updateActivatedAt(

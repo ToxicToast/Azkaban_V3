@@ -7,7 +7,6 @@ import {
 	AuthErrorCodes,
 	UserErrorCodes,
 } from '@toxictoast/azkaban-base-helpers';
-import { Logger } from '@nestjs/common';
 
 export class AuthService {
 	private readonly factory: AuthFactory = new AuthFactory();

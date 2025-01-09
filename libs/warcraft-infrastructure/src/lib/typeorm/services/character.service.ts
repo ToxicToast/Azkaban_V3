@@ -162,6 +162,19 @@ export class CharacterService {
 		}
 	}
 
+	async updateGuild(
+		id: string,
+		guild: Nullable<string>,
+	): Promise<CharacterDAO> {
+		const result = await this.domainService.updateGuild(id, guild);
+		if (result.isSuccess) {
+			return result.value;
+		} else {
+			const errorMessage = result.errorValue;
+			throw new NotFoundException(errorMessage);
+		}
+	}
+
 	async updateActivatedAt(
 		id: string,
 		activated_at: Nullable<Date>,
