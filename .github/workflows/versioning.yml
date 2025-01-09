@@ -9,7 +9,7 @@ env:
 
 jobs:
     prepare:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         name: 'Prepare PR'
         outputs:
             version: ${{ steps.taggerDryRun.outputs.new_tag }}
@@ -34,7 +34,7 @@ jobs:
 
     linting:
         needs: [prepare]
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         name: 'Check Format and Linting'
         steps:
             - uses: actions/checkout@v4
@@ -62,7 +62,7 @@ jobs:
               run: npx nx affected:lint --parallel --maxParallel=3 --base=main~1 --head=main
     testing:
         needs: [prepare]
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         name: 'Test Apps'
         steps:
             - uses: actions/checkout@v4
@@ -90,7 +90,7 @@ jobs:
               run: npx nx affected:e2e --parallel --maxParallel=3 --base=main~1 --head=main
     building:
         needs: [prepare]
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         name: 'Test Apps'
         steps:
             - uses: actions/checkout@v4
@@ -115,7 +115,7 @@ jobs:
               run: npx nx affected:build --parallel --maxParallel=3 --base=main~1 --head=main
     docker:
         needs: [prepare, linting, testing, building]
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         name: 'Publish Docker Image'
         steps:
             - uses: actions/checkout@v4
@@ -149,7 +149,7 @@ jobs:
               run: npx nx affected -t docker-push --base=main~1 --head=main --parallel --maxParallel=3 --VERSION=${{ needs.prepare.outputs.version }}
     notify:
         needs: [docker]
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         name: 'Notify'
         steps:
             - uses: actions/checkout@v4

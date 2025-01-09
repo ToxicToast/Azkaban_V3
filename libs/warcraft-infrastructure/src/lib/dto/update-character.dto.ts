@@ -9,4 +9,5 @@ export interface UpdateCharacterDTO {
 	level?: Optional<number>;
 	item_level?: Optional<number>;
 	activated_at?: Optional<Nullable<Date>>;
+	guild?: Optional<Nullable<string>>;
 }

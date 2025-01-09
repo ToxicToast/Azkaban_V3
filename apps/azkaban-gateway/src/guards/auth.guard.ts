@@ -12,6 +12,12 @@ import { Request } from 'express';
 export class AuthGuard implements CanActivate {
 	constructor(private readonly jwtService: JwtService) {}
 
+	private extractTokenFromHeader(request: Request): Optional<string> {
+		const authorization = request.headers.authorization ?? '';
+		const [type, token] = authorization.split(' ') ?? [];
+		return type === 'Bearer' ? token : undefined;
+	}
+
 	private extractTokenFromCookie(request: Request): Optional<string> {
 		const token = request.cookies['__azkaban'];
 		return token ?? undefined;
@@ -26,7 +32,9 @@ export class AuthGuard implements CanActivate {
 
 	async canActivate(context: ExecutionContext): Promise<boolean> {
 		const request = context.switchToHttp().getRequest();
-		const token = this.extractTokenFromCookie(request);
+		const cookieToken = this.extractTokenFromCookie(request);
+		const headerToken = this.extractTokenFromHeader(request);
+		const token = cookieToken ?? headerToken ?? undefined;
 		if (!token) {
 			throw new UnauthorizedException();
 		}

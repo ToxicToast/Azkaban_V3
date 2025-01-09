@@ -13,6 +13,7 @@ export interface CharacterAnemic extends Anemic {
 	readonly active_spec: Nullable<string>;
 	readonly level: number;
 	readonly item_level: number;
+	readonly guild: Nullable<string>;
 	readonly activated_at: Nullable<Date>;
 	readonly isActive: boolean;
 }

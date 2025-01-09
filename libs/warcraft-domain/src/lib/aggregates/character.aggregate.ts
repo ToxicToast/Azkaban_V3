@@ -16,6 +16,7 @@ export class CharacterAggregate implements Domain<CharacterAnemic> {
 		private active_spec: Nullable<string>,
 		private level: number,
 		private item_level: number,
+		private guild: Nullable<string>,
 		private activated_at: Nullable<Date>,
 		private readonly created_at: Date,
 		private updated_at: Nullable<Date>,
@@ -56,6 +57,7 @@ export class CharacterAggregate implements Domain<CharacterAnemic> {
 			active_spec: this.active_spec,
 			level: this.level,
 			item_level: this.item_level,
+			guild: this.guild,
 			activated_at: this.activated_at,
 			created_at: this.created_at,
 			updated_at: this.updated_at,
@@ -126,6 +128,13 @@ export class CharacterAggregate implements Domain<CharacterAnemic> {
 		if (item_level !== this.item_level) {
 			this.updated_at = new Date();
 			this.item_level = item_level;
+		}
+	}
+
+	updateGuild(guild: Nullable<string>): void {
+		if (guild !== this.guild) {
+			this.updated_at = new Date();
+			this.guild = guild;
 		}
 	}
 }

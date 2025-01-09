@@ -9,6 +9,7 @@ interface CharacterAdditions {
 		name: string,
 	): Promise<CharacterAnemic>;
 	findByUserId(user_id: Nullable<string>): Promise<Array<CharacterAnemic>>;
+	findByGuild(guild: Nullable<string>): Promise<Array<CharacterAnemic>>;
 }
 
 export type CharacterRepository = Chainable<

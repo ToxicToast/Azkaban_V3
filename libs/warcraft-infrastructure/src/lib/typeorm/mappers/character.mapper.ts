@@ -20,6 +20,7 @@ export class CharacterMapper implements Mapper<CharacterDAO, CharacterEntity> {
 			active_spec,
 			level,
 			item_level,
+			guild,
 			activated_at,
 			created_at,
 			updated_at,
@@ -38,6 +39,7 @@ export class CharacterMapper implements Mapper<CharacterDAO, CharacterEntity> {
 		entity.active_spec = active_spec;
 		entity.level = level;
 		entity.item_level = item_level;
+		entity.guild = guild;
 		entity.activated_at = activated_at;
 		entity.created_at = created_at;
 		entity.updated_at = updated_at;
@@ -59,6 +61,7 @@ export class CharacterMapper implements Mapper<CharacterDAO, CharacterEntity> {
 			active_spec,
 			level,
 			item_level,
+			guild,
 			activated_at,
 			created_at,
 			updated_at,
@@ -77,6 +80,7 @@ export class CharacterMapper implements Mapper<CharacterDAO, CharacterEntity> {
 			active_spec,
 			level,
 			item_level,
+			guild,
 			activated_at,
 			created_at,
 			updated_at,

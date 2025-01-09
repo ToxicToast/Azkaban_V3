@@ -45,6 +45,9 @@ export class CharacterEntity {
 	@Column({ unique: false, nullable: false, type: 'float', default: 0 })
 	item_level: number;
 
+	@Column({ unique: false, nullable: true, type: 'varchar', default: null })
+	guild: string | null;
+
 	@Column({ unique: false, nullable: true, default: null, type: 'timestamp' })
 	activated_at: Date | null;
 

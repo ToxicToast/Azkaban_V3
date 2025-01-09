@@ -270,6 +270,24 @@ export class CharacterService {
 		}
 	}
 
+	async updateGuild(
+		id: string,
+		guild: Nullable<string>,
+	): Promise<Result<CharacterAnemic>> {
+		try {
+			const character = await this.getCharacterById(id);
+			if (character.isSuccess) {
+				const characterValue = character.value;
+				const aggregate = this.factory.reconstitute(characterValue);
+				aggregate.updateGuild(guild);
+				return await this.save(aggregate.toAnemic());
+			}
+			return Result.fail<CharacterAnemic>(GenericErrorCodes.NOT_FOUND);
+		} catch (error) {
+			return Result.fail<CharacterAnemic>(error);
+		}
+	}
+
 	async updateActivatedAt(
 		id: string,
 		activated_at: Nullable<Date>,
