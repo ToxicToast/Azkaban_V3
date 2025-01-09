@@ -54,14 +54,14 @@ export class WarcraftService {
 		try {
 			const payload = RmqRecordBuilderHelper({
 				id,
-				gender: character.gender.name,
-				faction: character.faction.name,
-				race: character.race.id,
-				character_class: character.character_class.id,
-				active_spec: character.active_spec.id,
-				level: character.level,
-				item_level: character.equipped_item_level,
-				guild: character.guild?.name ?? null,
+				gender: character?.gender?.name,
+				faction: character?.faction?.name,
+				race: character?.race?.id,
+				character_class: character?.character_class?.id,
+				active_spec: character?.active_spec?.id,
+				level: character?.level,
+				item_level: character?.equipped_item_level,
+				guild: character?.guild?.name ?? null,
 			});
 			return await this.characterClient
 				.send(WarcraftCharacterTopics.UPDATE, payload)
