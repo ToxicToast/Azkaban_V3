@@ -61,6 +61,7 @@ export class WarcraftService {
 				active_spec: character.active_spec.id,
 				level: character.level,
 				item_level: character.equipped_item_level,
+				guild: character.guild?.name ?? null,
 			});
 			return await this.characterClient
 				.send(WarcraftCharacterTopics.UPDATE, payload)
